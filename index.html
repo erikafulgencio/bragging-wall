@@ -139,7 +139,8 @@ body.gated .app { visibility: hidden; }
 #view { view-transition-name: main-view; }
 .banner { display: flex; gap: 10px; align-items: flex-start; border: 1px solid color-mix(in srgb, var(--gold) 35%, transparent); background: var(--gold-soft); padding: 11px 14px; border-radius: 14px; font-size: .9rem; }
 .banner[hidden] { display: none; }
-.banner svg { color: var(--gold); margin-top: 1px; }
+.banner > svg { color: var(--gold); margin-top: 1px; flex: none; }
+.banner .btn svg { color: currentColor; }
 
 /* Common */
 .view-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
@@ -780,6 +781,37 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 @keyframes st-wave { 0% { opacity: 0; transform: translateX(-4px); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateX(4px); } }
 @keyframes st-lift { 50% { transform: translateY(-14px); } }
 @media (max-width: 560px) { .bd-thread:not(.bd-typing-row) { flex-direction: column; gap: 8px; } .bd-bubble { border-radius: 18px; } .braddy-av { width: 40px; height: 40px; } .bd-bubble { padding: 12px; } .bd-chart { width: 150px; } }
+/* Google Drive backup */
+.gd-card { padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 6%, var(--surface-solid)), var(--surface-solid)); display: flex; flex-direction: column; gap: 10px; transition: box-shadow .3s; }
+.gd-card.flash { box-shadow: 0 0 0 3px var(--accent); }
+.gd-head { display: flex; align-items: center; gap: 12px; }
+.gd-head b { display: block; font-size: .92rem; }
+.gd-head small { display: block; font-size: .78rem; color: var(--muted); line-height: 1.4; }
+.gd-logo { width: 38px; height: 38px; flex: none; border-radius: 11px; background: #fff; display: grid; place-items: center; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.gd-logo svg { width: 22px; height: 22px; }
+.gd-status { display: flex; gap: 8px; align-items: flex-start; font-size: .84rem; padding: 9px 11px; border-radius: 11px; background: var(--surface-2); line-height: 1.45; }
+.gd-status .i { flex: none; margin-top: 2px; }
+.gd-status.k-ok { background: color-mix(in srgb, var(--good) 13%, var(--surface-solid)); } .gd-status.k-ok .i { color: var(--good); }
+.gd-status.k-err { background: color-mix(in srgb, var(--danger) 11%, var(--surface-solid)); } .gd-status.k-err .i { color: var(--danger); }
+.gd-status.k-wait { background: color-mix(in srgb, #F4B336 16%, var(--surface-solid)); } .gd-status.k-wait .i { color: #B7860B; }
+.gd-fix { gap: 8px; flex-wrap: wrap; }
+.gd-fix a.btn { text-decoration: none; }
+.gd-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; font-size: .84rem; }
+.gd-tools a.link { text-decoration: none; display: inline-flex; align-items: center; gap: 5px; }
+.gd-auto { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.gd-auto input { accent-color: var(--accent); width: 15px; height: 15px; }
+.gd-auto:has(input:disabled) { opacity: .55; cursor: not-allowed; }
+.gd-steps { margin: 0; padding-left: 20px; display: grid; gap: 8px; font-size: .9rem; line-height: 1.5; }
+.gd-steps a { color: var(--accent); font-weight: 600; }
+.gd-steps code, .gd-origin code { font: .82rem var(--font-mono); background: var(--surface-2); padding: 1px 6px; border-radius: 6px; }
+.gd-origin { display: flex; align-items: center; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
+.gd-list { display: grid; gap: 6px; max-height: 50vh; overflow: auto; }
+.gd-item { display: grid; grid-template-columns: 34px 1fr auto; gap: 12px; align-items: center; text-align: left; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-solid); cursor: pointer; color: var(--ink); font: inherit; }
+.gd-item:hover { border-color: var(--accent); }
+.gd-item b { display: block; font-size: .9rem; } .gd-item small { display: block; font-size: .76rem; color: var(--muted); }
+.banner { align-items: center; flex-wrap: wrap; }
+.banner-msg { flex: 1 1 260px; line-height: 1.45; }
+.banner-acts { display: flex; gap: 6px; flex-wrap: wrap; }
 /* Shelves, filters, locks */
 .shelf-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
 .shelf-tabs { display: flex; gap: 6px; overflow-x: auto; padding: 2px; scrollbar-width: thin; flex: 1; }
@@ -1821,12 +1853,12 @@ function reportWriteError(e) {
   else toast("Couldn't save the last change. Check your connection and try again.", 'warn');
 }
 let lsTimer = null;
-function saveLocal() { clearTimeout(lsTimer); lsTimer = setTimeout(writeLocalNow, 250); return Promise.resolve(); }
+function saveLocal() { clearTimeout(lsTimer); lsTimer = setTimeout(writeLocalNow, 250); if (S.started && typeof gdSchedule === 'function' && gdLinked()) { GD.pending = true; gdSchedule(); } return Promise.resolve(); }
 async function writeLocalNow() {
   lsTimer = null;
   const data = { days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes.map(n => ({ id: n.id, ...noteBody(n) })), profile: S.profile };
   const body = await encodeBody(CRYPTO.key, data);
-  if (!(await kvSet(LS_KEY, JSON.stringify(body)))) toast("This browser isn't letting the page save. Download a backup so you don't lose entries.", 'warn');
+  if (!(await kvSet(LS_KEY, JSON.stringify(body)))) onLocalSaveFailed();
 }
 async function loadLocal() {
   const raw = await kvGet(LS_KEY);
@@ -2084,12 +2116,13 @@ function toast(msg, kind) {
   $('#toasts').append(el);
   setTimeout(() => el.remove(), kind === 'warn' ? 6000 : 3000);
 }
-function setBanner(msg, dismissKey) {
+function setBanner(msg, dismissKey, actions = [], ic = 'info') {
   const b = $('#banner');
   if (!msg || (dismissKey && lsGet(dismissKey))) { b.hidden = true; b.innerHTML = ''; return; }
   b.hidden = false;
-  b.innerHTML = `${icon('info')}<span style="flex:1"></span>${dismissKey ? '<button type="button" class="btn ghost sm" id="banner-ok">Got it</button>' : ''}`;
-  b.children[1].textContent = msg;
+  b.innerHTML = `${icon(ic)}<span class="banner-msg"></span><span class="banner-acts">${actions.map((a, i) => `<button type="button" class="btn ${a.primary ? '' : 'ghost'} sm" data-bact="${i}">${a.icon ? icon(a.icon, 'sm') : ''}${esc(a.label)}</button>`).join('')}${dismissKey ? '<button type="button" class="btn ghost sm" id="banner-ok">Got it</button>' : ''}</span>`;
+  $('.banner-msg', b).innerHTML = msg;
+  $$('[data-bact]', b).forEach(btn => { btn.onclick = () => actions[+btn.dataset.bact].onClick(); });
   if (dismissKey) $('#banner-ok').onclick = () => { lsSet(dismissKey, '1'); setBanner(null); };
 }
 function openModal({ title, body, actions = [], wide = false, onOpen }) {
@@ -3641,6 +3674,312 @@ async function exportNotebookPdf(nbId) {
 
 
 
+
+/* ================= Google Drive backup ================= */
+const GD_FOLDER = 'Bragging Wall', GD_KEEP = 10, GD_SCOPE = 'https://www.googleapis.com/auth/drive.file', GD_API = 'https://www.googleapis.com/drive/v3/', GD_UP = 'https://www.googleapis.com/upload/drive/v3/files';
+const GD_RE = /^[0-9]{6,20}-[a-z0-9]{10,64}\.apps\.googleusercontent\.com$/;
+const GD = { clientId: lsGet('bw-gd-client') || '', token: null, exp: 0, folderId: lsGet('bw-gd-folder') || '', busy: false, pending: false, timer: null, status: null, gis: null, last: Number(lsGet('bw-gd-last')) || 0, auto: lsGet('bw-gd-auto') !== '0' };
+const gdLinked = () => !!GD.clientId && lsGet('bw-gd-linked') === '1';
+const gdConnected = () => !!GD.token && Date.now() < GD.exp - 60000;
+const gdAvailable = () => !window.claude;
+function gdSetStatus(st) { GD.status = st; renderDriveCard(); }
+function loadGIS() {
+  if (window.google && google.accounts && google.accounts.oauth2) return Promise.resolve();
+  if (GD.gis) return GD.gis;
+  GD.gis = new Promise((res, rej) => {
+    const sc = document.createElement('script'); sc.src = 'https://accounts.google.com/gsi/client'; sc.async = true;
+    const t = setTimeout(() => { GD.gis = null; rej({ code: 'gis' }); }, 15000);
+    sc.onload = () => { clearTimeout(t); window.google && google.accounts && google.accounts.oauth2 ? res() : (GD.gis = null, rej({ code: 'gis' })); };
+    sc.onerror = () => { clearTimeout(t); GD.gis = null; sc.remove(); rej({ code: navigator.onLine ? 'gis' : 'offline' }); };
+    document.head.append(sc);
+  });
+  return GD.gis;
+}
+async function gdToken(interactive) {
+  if (gdConnected()) return GD.token;
+  if (!GD.clientId) throw { code: 'setup' };
+  if (!interactive) throw { code: 'auth' };
+  if (!navigator.onLine) throw { code: 'offline' };
+  await loadGIS();
+  return new Promise((res, rej) => {
+    let done = false;
+    const tc = google.accounts.oauth2.initTokenClient({
+      client_id: GD.clientId, scope: GD_SCOPE,
+      callback: r => {
+        done = true;
+        if (r.error) { rej({ code: r.error === 'access_denied' ? 'denied' : 'oauth', detail: r.error }); return; }
+        if (google.accounts.oauth2.hasGrantedAllScopes && !google.accounts.oauth2.hasGrantedAllScopes(r, GD_SCOPE)) { rej({ code: 'scope' }); return; }
+        GD.token = r.access_token; GD.exp = Date.now() + (Number(r.expires_in) || 3600) * 1000; lsSet('bw-gd-linked', '1'); res(GD.token);
+      },
+      error_callback: e => { done = true; rej({ code: e && e.type === 'popup_closed' ? 'closed' : e && e.type === 'popup_failed_to_open' ? 'popup' : 'oauth', detail: e && e.type }); },
+    });
+    try { tc.requestAccessToken({ prompt: lsGet('bw-gd-linked') === '1' ? '' : 'consent' }); } catch (e) { rej({ code: 'oauth', detail: String(e) }); }
+    setTimeout(() => { if (!done) rej({ code: 'closed' }); }, 180000);
+  });
+}
+async function gdFetch(path, opts = {}, tries = 4) {
+  const url = /^https:/.test(path) ? path : GD_API + path;
+  for (let i = 0; ; i++) {
+    let r;
+    if (!navigator.onLine) throw { code: 'offline' };
+    try { r = await fetch(url, { ...opts, headers: { Authorization: 'Bearer ' + GD.token, ...(opts.headers || {}) } }); }
+    catch (e) { throw { code: navigator.onLine ? 'network' : 'offline' }; }
+    if (r.ok) return r;
+    let reason = '', msg = '';
+    try { const j = await r.clone().json(); reason = (j.error && j.error.errors && j.error.errors[0] && j.error.errors[0].reason) || (j.error && j.error.status) || ''; msg = (j.error && j.error.message) || ''; } catch (e) { /* not json */ }
+    if (r.status === 401) { GD.token = null; throw { code: 'auth' }; }
+    if (reason === 'storageQuotaExceeded' || /quota.*exceeded|storage.*full/i.test(msg) && r.status === 403) throw { code: 'full' };
+    if (r.status === 404) throw { code: 'notfound' };
+    const retryable = r.status === 429 || r.status >= 500 || ['userRateLimitExceeded', 'rateLimitExceeded', 'backendError', 'internalError'].includes(reason);
+    if (retryable && i < tries) { await sleep(800 * 2 ** i + Math.random() * 400); continue; }
+    if (r.status === 403 && /insufficient|appNotAuthorized|forbidden|PERMISSION/i.test(reason + msg)) throw { code: 'perm' };
+    throw { code: retryable ? 'server' : 'http', status: r.status, detail: reason || msg };
+  }
+}
+const gdJSON = async (path, opts) => (await gdFetch(path, opts)).json();
+const gdQ = s => s.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+async function gdEnsureFolder() {
+  if (GD.folderId) {
+    try { const f = await gdJSON(`files/${encodeURIComponent(GD.folderId)}?fields=id,trashed`); if (!f.trashed) return { id: GD.folderId, made: false }; }
+    catch (e) { if (e.code !== 'notfound') throw e; }
+  }
+  const had = !!GD.folderId;
+  const found = await gdJSON(`files?q=${encodeURIComponent(`mimeType='application/vnd.google-apps.folder' and name='${gdQ(GD_FOLDER)}' and trashed=false`)}&fields=files(id,name)&spaces=drive&pageSize=5`);
+  let id = found.files && found.files[0] && found.files[0].id, made = false;
+  if (!id) {
+    const f = await gdJSON('files?fields=id', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: GD_FOLDER, mimeType: 'application/vnd.google-apps.folder', description: 'Encrypted backups of your Bragging Wall: wins, notebooks, pages, covers, attachments and settings.' }) });
+    id = f.id; made = true;
+  }
+  GD.folderId = id; lsSet('bw-gd-folder', id);
+  return { id, made, recreated: had && made };
+}
+async function gdUpload(name, text, parent, mime = 'application/json') {
+  const meta = { name, parents: [parent], mimeType: mime };
+  const size = new Blob([text]).size;
+  if (size <= 4 * 1024 * 1024) {
+    const bd = 'bw' + newId();
+    const body = `--${bd}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(meta)}\r\n--${bd}\r\nContent-Type: ${mime}\r\n\r\n${text}\r\n--${bd}--`;
+    return gdJSON(`${GD_UP}?uploadType=multipart&fields=id,name,size,createdTime`, { method: 'POST', headers: { 'Content-Type': `multipart/related; boundary=${bd}` }, body });
+  }
+  const init = await gdFetch(`${GD_UP}?uploadType=resumable&fields=id,name,size,createdTime`, { method: 'POST', headers: { 'Content-Type': 'application/json; charset=UTF-8', 'X-Upload-Content-Type': mime, 'X-Upload-Content-Length': String(size) }, body: JSON.stringify(meta) });
+  const loc = init.headers.get('Location');
+  if (!loc) throw { code: 'server', detail: 'no upload session' };
+  return gdJSON(loc, { method: 'PUT', headers: { 'Content-Type': mime }, body: text });
+}
+async function gdListBackups() {
+  const q = `'${gdQ(GD.folderId)}' in parents and trashed=false and name contains 'Bragging Wall backup'`;
+  const j = await gdJSON(`files?q=${encodeURIComponent(q)}&orderBy=createdTime desc&fields=files(id,name,size,createdTime)&pageSize=100&spaces=drive`);
+  return j.files || [];
+}
+async function gdPrune(keep = GD_KEEP) {
+  const list = await gdListBackups(); let n = 0;
+  for (const f of list.slice(keep)) { try { await gdFetch(`files/${f.id}`, { method: 'DELETE' }); n++; } catch (e) { if (e.code !== 'notfound') console.error('prune', e); } }
+  return n;
+}
+const GD_README = `BRAGGING WALL BACKUPS
+=====================
+
+This folder holds encrypted backups of your Bragging Wall: your wins, notebooks and pages, notebook covers, attachments, custom areas and settings. Each backup is one file. Bragging Wall keeps the newest ${GD_KEEP} and removes older ones.
+
+The files are encrypted before they leave your device. Nobody can read them without your Bragging Wall passcode, your recovery code, or the backup password you chose. Pages in PIN-locked notebooks also need their notebook PIN.
+
+HOW TO RESTORE
+1. Open your Bragging Wall and go to Settings > Backup.
+2. Choose "Restore from Google Drive" and pick a backup.
+   Or download a backup file from this folder and use "Restore a backup".
+3. Enter your passcode, recovery code or backup password when asked.
+
+Please don't rename or edit these files.`;
+async function gdEnsureReadme(folder) {
+  try {
+    const j = await gdJSON(`files?q=${encodeURIComponent(`'${gdQ(folder)}' in parents and trashed=false and name='READ ME - How to restore.txt'`)}&fields=files(id)&pageSize=1`);
+    if (!(j.files && j.files.length)) await gdUpload('READ ME - How to restore.txt', GD_README, folder, 'text/plain');
+  } catch (e) { if (['auth', 'offline', 'network', 'full'].includes(e.code)) throw e; console.error('readme', e); }
+}
+async function gdFreeSpace() {
+  try { const j = await gdJSON('about?fields=storageQuota'); const q = j.storageQuota || {}; return q.limit ? Number(q.limit) - Number(q.usage || 0) : Infinity; } catch (e) { if (e.code === 'auth' || e.code === 'offline') throw e; return Infinity; }
+}
+function gdStamp(d = new Date()) { const p = n => String(n).padStart(2, '0'); return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}-${p(d.getMinutes())}`; }
+async function gdBackup({ interactive = true, keyInfo = null } = {}) {
+  if (!gdAvailable()) return;
+  if (GD.busy) { GD.pending = true; return; }
+  const ki = keyInfo || journalBackupKey();
+  if (!ki) { if (interactive) backupPasswordModal((key, keys, pb) => gdBackup({ interactive: true, keyInfo: { key, keys, protectedBy: pb } }), 'Encrypt and back up'); return; }
+  GD.busy = true; GD.pending = false; clearTimeout(GD.timer);
+  try {
+    gdSetStatus({ kind: 'busy', text: 'Connecting to Google Drive…' });
+    await gdToken(interactive);
+    gdSetStatus({ kind: 'busy', text: 'Finding your “Bragging Wall” folder…' });
+    const folder = await gdEnsureFolder();
+    await gdEnsureReadme(folder.id);
+    gdSetStatus({ kind: 'busy', text: 'Packing and encrypting everything…' });
+    const built = await buildBackupFile(ki.key, ki.keys, ki.protectedBy, true);
+    const size = new Blob([built.text]).size;
+    if ((await gdFreeSpace()) < size + 256 * 1024) throw { code: 'full', size };
+    gdSetStatus({ kind: 'busy', text: `Uploading ${fmtSize(size)}…` });
+    let up;
+    try { up = await gdUpload(`Bragging Wall backup ${gdStamp()}.json`, built.text, folder.id); }
+    catch (e) { if (e.code !== 'notfound') throw e; GD.folderId = ''; const f2 = await gdEnsureFolder(); folder.recreated = true; up = await gdUpload(`Bragging Wall backup ${gdStamp()}.json`, built.text, f2.id); }
+    const removed = await gdPrune().catch(() => 0);
+    GD.last = Date.now(); lsSet('bw-gd-last', String(GD.last)); lsSet('bw-gd-lastsize', String(size));
+    gdSetStatus({ kind: 'ok', text: `Backed up ${fmtSize(size)}: ${plural(built.counts.wins, 'win')}, ${plural(built.counts.notebooks, 'notebook')}, ${plural(built.counts.pages, 'page')} and ${plural(built.counts.files, 'file')}.${built.missing ? ` ${plural(built.missing, 'attachment')} couldn't be read and were skipped.` : ''}${removed ? ` Removed ${plural(removed, 'older backup')}.` : ''}` });
+    if (folder.recreated) toast('Your “Bragging Wall” folder was missing, so I made a new one.', 'warn');
+    else if (interactive) toast('Backed up to Google Drive');
+    storageBanner();
+    return up;
+  } catch (e) { gdHandleError(e, interactive, ki); }
+  finally { GD.busy = false; renderDriveCard(); if (GD.pending && gdConnected() && navigator.onLine) gdSchedule(4000); }
+}
+const GD_ERR = {
+  setup: ['Link Google Drive first.', 'link'],
+  offline: ["You're offline. Your backup will start again when you're back online.", 'wait'],
+  network: ["Couldn't reach Google Drive. Check your connection and try again.", 'retry'],
+  gis: ["Couldn't load Google sign-in. Check your connection, or turn off an ad blocker for this site.", 'retry'],
+  closed: ['The Google window was closed before you finished.', 'connect'],
+  popup: ['Your browser blocked the Google window. Allow pop-ups for this site, then try again.', 'connect'],
+  denied: ["Google Drive access wasn't allowed, so nothing was backed up.", 'connect'],
+  scope: ['Please tick the box that lets Bragging Wall see and add its own files in your Drive.', 'connect'],
+  oauth: ["Google sign-in didn't work. Check that the Client ID is right and that this site's address is an authorized origin.", 'setup'],
+  auth: ['Your Google session ended. Reconnect to keep backing up.', 'connect'],
+  perm: ['Bragging Wall no longer has access to your Drive. Reconnect to fix it.', 'connect'],
+  full: ['Your Google Drive is full, so the backup was not saved.', 'full'],
+  server: ['Google Drive is having trouble right now. Try again in a few minutes.', 'retry'],
+  http: ["Google Drive didn't accept the backup.", 'retry'],
+  notfound: ["Couldn't find that file in your Drive. It may have been deleted.", 'retry'],
+};
+function gdHandleError(e, interactive) {
+  console.error('drive', e);
+  const code = e && GD_ERR[e.code] ? e.code : 'http';
+  if (code === 'offline') GD.pending = true;
+  const [text, act] = GD_ERR[code];
+  gdSetStatus({ kind: code === 'offline' ? 'wait' : 'err', code, act, text: text + (code === 'full' && e.size ? ` This backup needs about ${fmtSize(e.size)}.` : code === 'http' && e.status ? ` (Error ${e.status})` : '') });
+  if (interactive && !$('#gd-card')) toast(text, 'warn');
+  if (!interactive) storageBanner();
+}
+function gdSchedule(ms = 3 * 60 * 1000) {
+  if (!gdAvailable() || !GD.auto || !gdLinked()) return;
+  clearTimeout(GD.timer);
+  GD.timer = setTimeout(() => { if (gdConnected() && navigator.onLine && journalBackupKey()) gdBackup({ interactive: false }); else { GD.pending = true; renderDriveCard(); } }, ms);
+}
+window.addEventListener('online', () => { if (GD.pending && gdConnected()) gdSchedule(3000); else renderDriveCard(); });
+window.addEventListener('offline', () => { if (GD.busy || GD.pending) gdSetStatus({ kind: 'wait', code: 'offline', act: 'wait', text: GD_ERR.offline[0] }); });
+async function gdRestorePicker() {
+  try {
+    gdSetStatus({ kind: 'busy', text: 'Looking for backups in your Drive…' });
+    await gdToken(true);
+    const folder = await gdEnsureFolder();
+    if (folder.made) { gdSetStatus({ kind: 'info', text: folder.recreated ? 'Your “Bragging Wall” folder was missing, so I made a new, empty one. There are no backups to restore yet.' : 'Your “Bragging Wall” folder is empty. There are no backups to restore yet.' }); return; }
+    const list = await gdListBackups();
+    gdSetStatus(null);
+    if (!list.length) { toast('No backups in your “Bragging Wall” folder yet.'); return; }
+    const m = openModal({
+      title: 'Restore from Google Drive', wide: true,
+      body: `<div class="stack"><p class="small muted">Pick a backup. It merges into this wall, so nothing here is deleted.</p><div class="gd-list">${list.map((f, i) => `<button type="button" class="gd-item" data-gdf="${esc(f.id)}"><span class="kpi-ic">${icon('file')}</span><span><b>${esc(new Date(f.createdTime).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }))}</b><small>${fmtSize(Number(f.size) || 0)}${i === 0 ? ' · newest' : ''}</small></span>${icon('right', 'sm')}</button>`).join('')}</div></div>`,
+      actions: [{ label: 'Cancel', kind: 'ghost' }],
+    });
+    m.wrap.addEventListener('click', async e => {
+      const b = e.target.closest('[data-gdf]'); if (!b) return;
+      b.disabled = true; b.querySelector('small').textContent = 'Downloading…';
+      try { const r = await gdFetch(`files/${encodeURIComponent(b.dataset.gdf)}?alt=media`); const text = await r.text(); m.close(); restoreFromText(text); }
+      catch (err) { b.disabled = false; b.querySelector('small').textContent = (GD_ERR[err.code] || GD_ERR.http)[0]; }
+    });
+  } catch (e) { gdHandleError(e, true); }
+}
+async function gdDisconnect() {
+  if (!(await confirmModal('Disconnect Google Drive? Your backups stay in the “Bragging Wall” folder in your Drive.', 'Disconnect', ''))) return;
+  try { if (GD.token && window.google && google.accounts) google.accounts.oauth2.revoke(GD.token, () => {}); } catch (e) { /* ignore */ }
+  GD.token = null; GD.exp = 0; clearTimeout(GD.timer); lsSet('bw-gd-linked', '0'); GD.status = null;
+  renderDriveCard(); storageBanner(); toast('Google Drive disconnected');
+}
+function gdSetupModal() {
+  const origin = location.origin;
+  openModal({
+    title: 'Link Google Drive', wide: true,
+    body: `<div class="stack gd-setup">
+      <p>Your wall will back up to a <b>“Bragging Wall”</b> folder in your Google Drive. Bragging Wall can only see the files it creates there, nothing else in your Drive.</p>
+      <div class="note-box">${icon('info', 'sm')}<span>Because this is your own site, Google asks for a one-time <b>Client ID</b>. It takes about 5 minutes and it's free.</span></div>
+      <ol class="gd-steps">
+        <li>Open <a href="https://console.cloud.google.com/projectcreate" target="_blank" rel="noopener">Google Cloud</a> and create a project named <code>Bragging Wall</code>.</li>
+        <li>Turn on the <a href="https://console.cloud.google.com/apis/library/drive.googleapis.com" target="_blank" rel="noopener">Google Drive API</a> for that project.</li>
+        <li>Set up the <a href="https://console.cloud.google.com/auth/overview" target="_blank" rel="noopener">OAuth consent screen</a>: choose <b>External</b>, then add your own Gmail under <b>Test users</b>.</li>
+        <li>Go to <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener">Credentials</a> → <b>Create credentials</b> → <b>OAuth client ID</b> → <b>Web application</b>. Under <b>Authorized JavaScript origins</b>, add:<div class="gd-origin"><code id="gd-org">${esc(origin)}</code><button type="button" class="btn ghost sm" id="gd-copy">${icon('copy', 'sm')}Copy</button></div></li>
+        <li>Copy the <b>Client ID</b> Google shows you and paste it here.</li>
+      </ol>
+      <div class="field"><label for="gd-cid">Client ID</label><input id="gd-cid" type="text" spellcheck="false" autocomplete="off" placeholder="1234567890-abc123.apps.googleusercontent.com" value="${esc(GD.clientId)}"></div>
+      <p class="err" id="gd-err" role="alert"></p></div>`,
+    onOpen: w => { $('#gd-copy', w).onclick = async () => { try { await navigator.clipboard.writeText(origin); toast('Copied'); } catch (e) { toast(origin); } }; },
+    actions: [{ label: 'Cancel', kind: 'ghost' }, { label: 'Save and connect', onClick: async w => {
+      const v = $('#gd-cid', w).value.trim();
+      if (!GD_RE.test(v)) { $('#gd-err', w).textContent = 'That doesn’t look like a Client ID. It ends with .apps.googleusercontent.com'; return false; }
+      if (v !== GD.clientId) { GD.clientId = v; lsSet('bw-gd-client', v); GD.token = null; lsSet('bw-gd-linked', '0'); }
+      setTimeout(() => gdConnectAndBackup(), 60);
+    } }],
+  });
+}
+async function gdConnectAndBackup() {
+  if (!GD.clientId) { gdSetupModal(); return; }
+  try { gdSetStatus({ kind: 'busy', text: 'Opening Google sign-in…' }); await gdToken(true); gdSetStatus(null); await gdBackup({ interactive: true }); }
+  catch (e) { gdHandleError(e, true); }
+}
+function renderDriveCard() {
+  const el = $('#gd-card'); if (!el) return;
+  if (!gdAvailable()) {
+    el.innerHTML = `<div class="gd-head"><span class="gd-logo">${GD_LOGO}</span><div><b>Google Drive backup</b><small>Here, your wall is already saved in your Claude account. Google Drive backup is on your own site, <a href="https://erikafulgencio.github.io/bragging-wall/" target="_blank" rel="noopener">erikafulgencio.github.io/bragging-wall</a>.</small></div></div>`;
+    return;
+  }
+  const st = GD.status, linked = gdLinked(), conn = gdConnected(), hasKey = !!journalBackupKey();
+  const last = GD.last ? `Last backup ${bdTime(GD.last)}` : 'No backups yet';
+  const sub = !GD.clientId ? 'Keep an encrypted copy in a “Bragging Wall” folder in your Drive.' : !linked ? 'Not connected.' : conn ? `Connected · ${last}` : `${last} · Reconnect to back up`;
+  const folderLink = GD.folderId ? `https://drive.google.com/drive/folders/${encodeURIComponent(GD.folderId)}` : '';
+  const actBtns = st && st.act ? {
+    retry: `<button type="button" class="btn sm" data-gd="backup">${icon('refresh', 'sm')}Try again</button>`,
+    connect: `<button type="button" class="btn sm" data-gd="connect">${icon('refresh', 'sm')}Reconnect</button>`,
+    setup: `<button type="button" class="btn sm" data-gd="setup">${icon('settings', 'sm')}Check setup</button>`,
+    link: `<button type="button" class="btn sm" data-gd="setup">Link Google Drive</button>`,
+    full: `<button type="button" class="btn sm" data-gd="prune">${icon('trash', 'sm')}Keep only the 3 newest backups</button><a class="btn ghost sm" href="https://one.google.com/storage" target="_blank" rel="noopener">Manage Drive storage</a>`,
+    wait: '',
+  }[st.act] || '' : '';
+  el.innerHTML = `
+    <div class="gd-head"><span class="gd-logo">${GD_LOGO}</span><div style="flex:1;min-width:0"><b>Google Drive backup</b><small>${esc(sub)}</small></div>
+      ${!GD.clientId ? `<button type="button" class="btn sm" data-gd="setup">${icon('plus', 'sm')}Link Google Drive</button>` : !conn ? `<button type="button" class="btn sm" data-gd="connect" ${GD.busy ? 'disabled' : ''}>${icon('refresh', 'sm')}${linked ? 'Reconnect' : 'Connect'}</button>` : `<button type="button" class="btn sm" data-gd="backup" ${GD.busy ? 'disabled' : ''}>${icon('upload', 'sm')}Back up now</button>`}</div>
+    ${st ? `<div class="gd-status k-${st.kind}">${st.kind === 'busy' ? '<span class="spinner" style="width:15px;height:15px;border-width:2px;margin:0"></span>' : icon(st.kind === 'ok' ? 'checkCircle' : st.kind === 'info' ? 'info' : st.kind === 'wait' ? 'clock' : 'alert', 'sm')}<span>${esc(st.text)}</span></div>${actBtns ? `<div class="row gd-fix">${actBtns}</div>` : ''}` : (GD.pending && GD.clientId ? `<div class="gd-status k-wait">${icon('clock', 'sm')}<span>Changes are waiting to back up.${conn ? '' : ' Reconnect to send them.'}</span></div>` : '')}
+    ${GD.clientId && linked ? `<div class="gd-tools">
+      ${folderLink ? `<a class="link" href="${folderLink}" target="_blank" rel="noopener">${icon('globe', 'sm')}Open folder</a>` : ''}
+      <button type="button" class="link" data-gd="restore">${icon('download', 'sm')}Restore from Drive</button>
+      <label class="gd-auto" title="${hasKey ? '' : 'Needs the passcode lock'}"><input type="checkbox" data-gd="auto" ${GD.auto && hasKey ? 'checked' : ''} ${hasKey ? '' : 'disabled'}>Back up automatically</label>
+      <button type="button" class="link" data-gd="setup">${icon('settings', 'sm')}Setup</button>
+      <button type="button" class="link danger" data-gd="disconnect">${icon('x', 'sm')}Disconnect</button></div>
+      ${hasKey ? '' : `<p class="small muted">${icon('info', 'sm')} Turn on the passcode lock in Security to back up automatically. Until then, you'll choose a password for each backup.</p>`}` : ''}`;
+  el.onclick = async e => {
+    const b = e.target.closest('[data-gd]'); if (!b || b.tagName === 'INPUT') return;
+    const a = b.dataset.gd;
+    if (a === 'setup') gdSetupModal();
+    else if (a === 'connect') gdConnectAndBackup();
+    else if (a === 'backup') gdBackup({ interactive: true });
+    else if (a === 'restore') gdRestorePicker();
+    else if (a === 'disconnect') gdDisconnect();
+    else if (a === 'prune') { try { gdSetStatus({ kind: 'busy', text: 'Removing older backups…' }); await gdToken(true); await gdEnsureFolder(); const n = await gdPrune(3); gdSetStatus({ kind: 'info', text: `Removed ${plural(n, 'older backup')}. Trying the backup again…` }); await gdBackup({ interactive: true }); } catch (err) { gdHandleError(err, true); } }
+  };
+  const au = $('[data-gd="auto"]', el); if (au) au.onchange = () => { GD.auto = au.checked; lsSet('bw-gd-auto', au.checked ? '1' : '0'); if (au.checked) gdSchedule(5000); else clearTimeout(GD.timer); };
+}
+const GD_LOGO = `<svg viewBox="0 0 87.3 78" aria-hidden="true"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>`;
+function storageBanner() {
+  if (S.mode === 'cloud' || window.claude) return;
+  const goDrive = () => { go('account'); setTimeout(() => { const c = $('#gd-card'); if (c) { c.scrollIntoView({ behavior: 'smooth', block: 'center' }); c.classList.add('flash'); setTimeout(() => c.classList.remove('flash'), 1600); } }, 350); };
+  const days = GD.last ? Math.floor((Date.now() - GD.last) / 864e5) : null;
+  const st = GD.status;
+  if (st && st.kind === 'err' && gdLinked()) { setBanner(`<b>Google Drive backup didn't finish.</b> ${esc(st.text)}`, null, [{ label: 'Fix it', icon: 'refresh', primary: true, onClick: goDrive }], 'alert'); return; }
+  if (gdLinked() && GD.last && days < 7) { setBanner(null); return; }
+  if (gdLinked()) { setBanner(`<b>${days === null ? "You haven't backed up to Google Drive yet." : `It's been ${plural(days, 'day')} since your last backup.`}</b> Back up now so your wins are safe.`, null, [{ label: 'Back up now', icon: 'upload', primary: true, onClick: () => { if (gdConnected()) gdBackup({ interactive: true }); else gdConnectAndBackup(); } }]); return; }
+  setBanner(`<b>Your wall is saved only in this browser.</b> Back it up to Google Drive so you never lose a win.`, LS_BANNER, [{ label: 'Back up to Google Drive', icon: 'upload', primary: true, onClick: goDrive }]);
+}
+function onLocalSaveFailed() {
+  const drive = gdConnected() && journalBackupKey();
+  toast(drive ? "This browser's storage is full, so your latest change may not be saved here. Backing up to Google Drive now." : "This browser's storage is full, so your latest change may not be saved. Back up now, then remove large attachments or old pages.", 'warn');
+  if (drive) gdBackup({ interactive: false });
+  setBanner(`<b>This browser is out of storage space.</b> Your latest changes may not be saved on this device. Back up, then free up space by removing big attachments or cover images.`, null, [{ label: 'Back up', icon: 'upload', primary: true, onClick: () => { go('account'); setTimeout(() => { if (gdLinked()) gdConnected() ? gdBackup({ interactive: true }) : gdConnectAndBackup(); }, 350); } }], 'alert');
+}
+
 /* ================= Notebook covers ================= */
 const COVER_FONTS = { display: { label: 'Classic', css: 'var(--font-display)' }, hand: { label: 'Handwritten', css: 'var(--font-hand)' }, sans: { label: 'Modern', css: 'var(--font-body)' }, mono: { label: 'Typewriter', css: 'var(--font-mono)' } };
 const COVER_SWATCHES = ['#0F6E6A', '#149B92', '#2F6FB0', '#5B8DEF', '#8A4FB5', '#C2477A', '#E0607E', '#C0632A', '#F07A3A', '#F4B336', '#3C8A37', '#1B2422', '#5E6E6A', '#F0EEE9', '#FFFFFF', '#FFE2E9', '#FFE27A', '#B9EAD2'];
@@ -4925,6 +5264,7 @@ function mountAccount() {
       <section class="card" style="--i:2" id="bk-card">
         <div class="sec-head"><span class="icon-badge">${icon('download')}</span><div style="flex:1"><h2>Backup and export</h2><p>Encrypted copies of everything, plus a spreadsheet export</p></div><span class="badge on">${icon('lock', 'sm')}Encrypted</span></div>
         <div class="stack">
+          <div class="gd-card" id="gd-card"></div>
           <div class="bk-row"><span class="kpi-ic">${icon('shield')}</span><div><b>Encrypted backup</b><small id="bk-json-note"></small></div><button type="button" class="btn sm" id="bk-json">${icon('download')}Download</button></div>
           <div class="bk-row"><span class="kpi-ic">${icon('upload')}</span><div><b>Restore a backup</b><small>Merges into this wall. Nothing here is deleted.</small></div><label class="btn ghost sm" for="bk-file" tabindex="0" id="bk-file-btn">${icon('upload')}Choose file</label><input type="file" id="bk-file" accept="application/json,.json" class="sr-only"></div>
           <div class="bk-row"><span class="kpi-ic gold">${icon('file')}</span><div><b>Spreadsheet of wins (.csv)</b><small>For Excel or Google Sheets. Not encrypted, so keep it private.</small></div><button type="button" class="btn ghost sm" id="bk-csv">${icon('download')}Export</button></div>
@@ -4964,8 +5304,14 @@ function mountAccount() {
     const file = e.target.files && e.target.files[0];
     e.target.value = '';
     if (!file) return;
+    restoreFromText(await file.text());
+  });
+  renderDriveCard();
+}
+async function restoreFromText(text) {
+  {
     let outer;
-    try { outer = JSON.parse(await file.text()); } catch (err) { toast("That file isn't a readable backup.", 'warn'); return; }
+    try { outer = JSON.parse(text); } catch (err) { toast("That file isn't a readable backup.", 'warn'); return; }
     if (!outer || (outer.app !== 'bragging-wall' && outer.app !== 'achievement-journal')) { toast("That file isn't a Bragging Wall backup.", 'warn'); return; }
     let data = outer;
     if (outer.encrypted) { data = await decryptBackup(outer); if (!data) return; }
@@ -4991,35 +5337,41 @@ function mountAccount() {
     for (const [t, id] of touched) { if (t === 'd') await persistDay(id); else if (t === 'nb') await persistNotebook(id); else if (t === 'n') await persistNote(id); else await persistProfile(); if (S.mode === 'cloud') await sleep(60); }
     for (const [fid, f] of Object.entries(data.files || {})) { if (!/^[A-Za-z0-9_-]{1,60}$/.test(fid) || !f || !f.b64) continue; try { await storeFileBytes(fid, b64ToBuf(f.b64), { name: String(f.name || 'file'), type: String(f.type || '') }); } catch (e) { console.error(e); } }
     toast('Backup restored');
-  });
+  }
 }
+async function buildBackupFile(key, keys, protectedBy, quiet) {
+  await Promise.all([...SEALING.values()]).catch(() => {});
+  const payload = { profile: S.profile, days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes.map(n => ({ id: n.id, ...noteBody(n) })), files: {} };
+  const refs = allFileRefs(); let missing = 0;
+  if (refs.length && !quiet) toast(`Packing ${plural(refs.length, 'attachment')}…`);
+  for (const f of refs) { try { const { bytes, meta } = await loadFileBytes(f.id); payload.files[f.id] = { name: meta.name, type: meta.type, b64: bufToB64(bytes) }; } catch (e) { console.error(e); missing++; } }
+  const box = await sealBytes(key, enc.encode(JSON.stringify(payload)));
+  const file = { app: 'bragging-wall', version: 3, encrypted: true, cipher: 'AES-256-GCM', kdf: 'PBKDF2-SHA256', protectedBy, exportedAt: new Date().toISOString(), keys, data: box };
+  return { text: JSON.stringify(file), missing, counts: { wins: allWins().length, notebooks: S.notebooks.length, pages: S.notes.length, files: refs.length - missing } };
+}
+function journalBackupKey() { if (!(S.lock && CRYPTO.key)) return null; const k = { pin: S.lock.pin }; if (S.lock.rec) k.rec = S.lock.rec; return { key: CRYPTO.key, keys: k, protectedBy: 'journal-passcode' }; }
 async function downloadBackup(key, keys, protectedBy) {
   try {
-    const payload = { profile: S.profile, days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes.map(n => ({ id: n.id, ...noteBody(n) })), files: {} };
-    const refs = allFileRefs();
-    if (refs.length) toast(`Packing ${plural(refs.length, 'attachment')}…`);
-    for (const f of refs) { try { const { bytes, meta } = await loadFileBytes(f.id); payload.files[f.id] = { name: meta.name, type: meta.type, b64: bufToB64(bytes) }; } catch (e) { console.error(e); } }
-    const box = await sealBytes(key, enc.encode(JSON.stringify(payload)));
-    const file = { app: 'bragging-wall', version: 3, encrypted: true, cipher: 'AES-256-GCM', kdf: 'PBKDF2-SHA256', protectedBy, exportedAt: new Date().toISOString(), keys, data: box };
-    const ok = await saveFile(`bragging-wall-backup-${todayKey()}.json`, JSON.stringify(file));
+    const { text } = await buildBackupFile(key, keys, protectedBy);
+    const ok = await saveFile(`bragging-wall-backup-${todayKey()}.json`, text);
     if (ok) toast(protectedBy === 'journal-passcode' ? 'Encrypted backup saved. It opens with your current passcode.' : 'Encrypted backup saved. Keep the password safe.');
   } catch (e) { console.error(e); toast("Couldn't create the backup.", 'warn'); }
 }
-function backupPasswordModal() {
+function backupPasswordModal(then, actionLabel) {
   openModal({
     title: 'Protect this backup',
     body: `<div class="stack"><p class="small muted">Choose a password for the backup file. You'll need it to restore the file, and it can't be recovered if you forget it.</p>
       ${pwField('bp-1', 'Backup password', 'new-password')}<div class="meter" id="bp-meter"><i></i><i></i><i></i><i></i></div>${pwField('bp-2', 'Confirm password', 'new-password')}<p class="err" id="bp-err"></p>
       <p class="small muted">${icon('info', 'sm')} Tip: turn on the passcode lock in Security and backups will use your passcode automatically.</p></div>`,
     onOpen: w => { bindPw(w); $('#bp-1', w).addEventListener('input', e => { $('#bp-meter', w).dataset.s = e.target.value ? strength(e.target.value) : 0; }); },
-    actions: [{ label: 'Cancel', kind: 'ghost' }, { label: 'Encrypt and download', onClick: async w => {
+    actions: [{ label: 'Cancel', kind: 'ghost' }, { label: actionLabel || 'Encrypt and download', onClick: async w => {
       const a = $('#bp-1', w).value, b = $('#bp-2', w).value, err = $('#bp-err', w);
       if (a.length < 8) { err.textContent = 'Use at least 8 characters.'; return false; }
       if (a !== b) { err.textContent = "The passwords don't match."; return false; }
       err.textContent = 'Encrypting…';
       const key = await crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt']);
       const keys = { pin: await wrapDEK(key, a) };
-      setTimeout(() => downloadBackup(key, keys, 'backup-password'), 0);
+      setTimeout(() => then ? then(key, keys, 'backup-password') : downloadBackup(key, keys, 'backup-password'), 0);
     } }],
   });
 }
@@ -5375,7 +5727,7 @@ async function startApp() {
     await loadLocal();
     Object.keys(S.loaded).forEach(k => { S.loaded[k] = true; });
     if (window.claude) setBanner('Sign in to Claude to keep your wall in your account. For now, entries are saved only in this browser, so download an encrypted backup from Settings.');
-    else setBanner('Your wall lives privately in this browser on this device. Nothing is sent to a server. Download an encrypted backup from Settings now and then; it is also how you move your wall to another device.', LS_BANNER);
+    else storageBanner();
     try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) { /* optional */ }
   }
   S.started = true; S.view = null; lastActivity = Date.now();
