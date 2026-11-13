@@ -576,6 +576,82 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .qb-hint { font-size: .78rem; color: var(--muted); }
 .qb-hint b { color: var(--ink); font-weight: 600; }
 @media (max-width: 560px) { .qb-send .lbl { display: none; } .qb-send.saved .ok { font-size: 0; } .qb-send.saved .ok svg { font-size: 1rem; } .qb-hint { display: none; } }
+/* Brag card: text area, tools, files, feeling */
+.qb-main textarea { flex: 1; font-size: 1.05rem; line-height: 1.45; padding: 13px 15px; border-radius: 14px; resize: none; min-height: 52px; max-height: 200px; overflow-y: auto; }
+.qb-tools { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.qb-mood { position: relative; }
+.mood-chip .emo { font-style: normal; font-size: 1.05rem; line-height: 1; }
+.mood-chip .emo.dim { filter: grayscale(1); opacity: .6; }
+.mood-chip span { color: var(--muted); }
+.mood-chip.set { border-color: color-mix(in srgb, var(--gold-2) 60%, var(--line)); background: var(--gold-soft); }
+.mood-chip.set span { color: var(--ink); }
+.mood-pop { width: min(380px, 86vw); }
+.mood-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.mood-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.mood-opt { position: relative; cursor: pointer; }
+.mood-opt input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.mood-opt span { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 4px 6px; border: 1px solid var(--line); border-radius: 12px; font-size: .7rem; font-weight: 600; color: var(--muted); text-align: center; background: var(--surface-solid); transition: transform .15s var(--ease), border-color .15s, background .15s; }
+.mood-row .mood-opt span { flex-direction: row; padding: 5px 10px; border-radius: 99px; font-size: .8rem; }
+.mood-opt i { font-style: normal; font-size: 1.5rem; line-height: 1.1; }
+.mood-row .mood-opt i { font-size: 1.05rem; }
+.mood-opt:hover span { transform: translateY(-2px); border-color: var(--line-strong); }
+.mood-opt input:checked + span { border-color: var(--gold-2); background: var(--gold-soft); color: var(--ink); box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold-2) 25%, transparent); }
+.mood-opt input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mood-tag { display: inline-flex; align-items: center; gap: 4px; font-size: .72rem; font-weight: 600; color: var(--muted); padding: 1px 8px 1px 4px; border-radius: 99px; background: var(--surface-2); }
+.mood-tag i { font-style: normal; font-size: .95rem; }
+.new-area { display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; border: 1.5px dashed var(--line-strong); border-radius: 99px; background: none; color: var(--accent); font: 600 .82rem var(--font-body); cursor: pointer; }
+.new-area:hover { border-color: var(--accent); background: var(--accent-soft); }
+.qb-files { display: flex; flex-wrap: wrap; gap: 8px; }
+.qb-files[hidden] { display: none; }
+.file-chip { display: inline-flex; align-items: center; gap: 8px; max-width: 260px; padding: 4px 6px 4px 4px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-solid); font-size: .8rem; }
+.file-chip img, .file-chip .fc-ic { width: 34px; height: 34px; border-radius: 8px; object-fit: cover; flex: none; display: grid; place-items: center; background: var(--surface-2); color: var(--muted); }
+.file-chip .fc-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.file-chip small { color: var(--muted); flex: none; }
+.file-chip button { border: 0; background: none; color: var(--muted); cursor: pointer; padding: 4px; border-radius: 8px; display: grid; }
+.file-chip button:hover { color: var(--danger); background: var(--surface-2); }
+.qb { position: relative; }
+.drop-hint { display: none; }
+.qb.drag .drop-hint { display: flex; position: absolute; inset: 6px; z-index: 5; border: 2px dashed var(--accent); border-radius: 16px; background: color-mix(in srgb, var(--accent-soft) 85%, transparent); align-items: center; justify-content: center; gap: 10px; font: 600 1rem var(--font-body); color: var(--accent); pointer-events: none; }
+.win h3, .car-title, .wn-title { white-space: pre-line; }
+.win-thumbs { display: flex; gap: 6px; margin-top: 8px; }
+.win-thumbs img { width: 52px; height: 52px; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); }
+.car-rate { display: inline-flex; align-items: center; gap: 6px; }
+.car-mood { font-style: normal; font-size: 1.2rem; line-height: 1; }
+.car-meta svg { width: 12px; height: 12px; vertical-align: -2px; }
+.car-polaroid { position: absolute; right: 14px; bottom: 34px; width: 54px; height: 54px; object-fit: cover; padding: 4px 4px 10px; background: #fff; box-shadow: 0 4px 10px rgba(0,0,0,.25); transform: rotate(6deg); }
+.wn-mood { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; padding: 4px 12px 4px 6px; border-radius: 99px; background: rgba(255,255,255,.45); font: 600 .9rem var(--font-body); }
+:root[data-theme="dark"] .wn-mood { background: rgba(0,0,0,.2); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .wn-mood { background: rgba(0,0,0,.2); } }
+.wn-mood i { font-style: normal; font-size: 1.4rem; }
+.att-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.att-item { border: 1px solid var(--line); border-radius: 14px; background: var(--surface-solid); overflow: hidden; display: flex; flex-direction: column; }
+.att-img { border: 0; padding: 0; cursor: zoom-in; background: var(--surface-2); aspect-ratio: 4 / 3; }
+.att-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s var(--ease); }
+.att-img:hover img { transform: scale(1.04); }
+.att-cap { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 6px 6px 6px 10px; font-size: .76rem; }
+.att-cap span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.att-file { grid-column: span 2; flex-direction: row; align-items: center; align-self: start; gap: 10px; padding: 10px; }
+.att-fname { flex: 1; min-width: 0; }
+.att-fname b { display: block; font-size: .86rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.att-fname small { color: var(--muted); font-size: .74rem; }
+.att-empty { display: flex; align-items: center; gap: 12px; padding: 18px; border: 1.5px dashed var(--line-strong); border-radius: 14px; color: var(--muted); font-size: .88rem; cursor: pointer; }
+.att-empty:hover { border-color: var(--accent); color: var(--ink); }
+.att-empty svg { width: 26px; height: 26px; color: var(--accent); flex: none; }
+.lightbox { display: grid; place-items: center; min-height: 200px; }
+.lightbox img { max-width: 100%; max-height: 70vh; border-radius: 10px; }
+.icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(42px, 1fr)); gap: 6px; }
+.icon-opt { position: relative; cursor: pointer; }
+.icon-opt input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.icon-opt span { display: grid; place-items: center; height: 42px; border: 1px solid var(--line); border-radius: 11px; color: var(--muted); background: var(--surface-solid); transition: all .15s; }
+.icon-opt:hover span { border-color: var(--line-strong); color: var(--ink); }
+.icon-opt input:checked + span { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
+.icon-opt input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.area-list { display: flex; flex-direction: column; gap: 6px; }
+.area-row { display: grid; grid-template-columns: 38px 1fr auto; gap: 12px; align-items: center; padding: 8px 10px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-solid); }
+.area-row .cat-ic { width: 38px; height: 38px; border-radius: 11px; }
+.area-row b { display: block; font-size: .9rem; }
+.area-row small { color: var(--muted); font-size: .75rem; }
+@media (max-width: 560px) { .mood-grid { grid-template-columns: repeat(2, 1fr); } .att-file { grid-column: 1 / -1; } }
 /* Bragged-wins carousel */
 .hero-car { min-width: 0; width: 100%; display: flex; flex-direction: column; gap: 6px; }
 .car-head { display: flex; justify-content: space-between; align-items: center; padding: 0 8px; }
@@ -874,7 +950,7 @@ canvas.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 96; 
 'use strict';
 
 /* ================= Constants ================= */
-const CATS = [
+const CATS_BUILTIN = [
   { key: 'delivery', label: 'Delivery & Releases', icon: 'rocket', rgb: [47, 111, 176] },
   { key: 'quality', label: 'Quality & Testing', icon: 'bug', rgb: [60, 138, 55] },
   { key: 'leadership', label: 'Leadership & Mentoring', icon: 'users', rgb: [138, 79, 181] },
@@ -884,7 +960,28 @@ const CATS = [
   { key: 'recognition', label: 'Recognition & Praise', icon: 'award', rgb: [214, 150, 30] },
   { key: 'personal', label: 'Personal Win', icon: 'heart', rgb: [95, 111, 128] },
 ];
-const CAT = Object.fromEntries(CATS.map(c => [c.key, c]));
+let CATS = CATS_BUILTIN.slice();
+let CAT = Object.fromEntries(CATS.map(c => [c.key, c]));
+const CAT_OTHER = { key: 'other', label: 'Other', icon: 'star', rgb: [94, 110, 106], color: '#5E6E6A' };
+const catOf = key => CAT[key] || CAT_OTHER;
+const CUSTOM_COLORS = ['#0F6E6A', '#2F6FB0', '#8A4FB5', '#C0632A', '#C2477A', '#B87A0E', '#3C8A37', '#D9480F', '#1C7ED6', '#5E6E6A'];
+const ICON_CHOICES = ['star', 'trophy', 'rocket', 'bug', 'users', 'sliders', 'grad', 'chat', 'award', 'heart', 'target', 'flame', 'book', 'pen', 'briefcase', 'shield', 'key', 'clock', 'chart', 'calendar', 'smile', 'megaphone', 'sparkles', 'phone', 'code', 'coffee', 'globe', 'camera', 'music', 'bulb', 'coin', 'plane', 'wrench', 'puzzle', 'leaf', 'gift', 'zap', 'home'];
+const hexToRgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+function applyCategories() {
+  const custom = (S.profile.customCats || []).map(c => ({ key: c.key, label: c.label, icon: c.icon, color: c.color, rgb: hexToRgb(c.color), custom: true }));
+  CATS = [...CATS_BUILTIN, ...custom];
+  CAT = Object.fromEntries(CATS.map(c => [c.key, c]));
+  let st = document.getElementById('cat-css');
+  if (!st) { st = document.createElement('style'); st.id = 'cat-css'; document.head.append(st); }
+  st.textContent = custom.map(c => `[data-cat="${c.key}"]{--cat:${c.color}}`).join('\n');
+}
+const MOODS = [
+  { key: 'proud', e: '\u{1F973}', label: 'Proud' }, { key: 'happy', e: '\u{1F604}', label: 'Happy' },
+  { key: 'excited', e: '\u{1F929}', label: 'Excited' }, { key: 'confident', e: '\u{1F60E}', label: 'Confident' },
+  { key: 'grateful', e: '\u{1F64F}', label: 'Grateful' }, { key: 'relieved', e: '\u{1F60C}', label: 'Relieved' },
+  { key: 'determined', e: '\u{1F624}', label: 'Determined' }, { key: 'tired', e: '\u{1F605}', label: 'Tired but happy' },
+];
+const MOOD = Object.fromEntries(MOODS.map(m => [m.key, m]));
 const IMPACT = { 1: 'Small win', 2: 'Solid win', 3: 'Big win' };
 const KINDS = {
   journal: { label: 'Journal', page: 'Journal entry', tpl: 'journal', blurb: 'Feelings, gratitude and lessons', icon: 'smile' },
@@ -980,11 +1077,27 @@ const IC = {
   award: '<circle cx="12" cy="8" r="6"/><path d="M15.5 12.9 17 22l-5-3-5 3 1.5-9.1"/>',
   heart: '<path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/>',
   megaphone: '<path d="M2.5 10.2 15 5.5v13l-12.5-4.7z"/><path d="M9.2 16.1a2.6 2.6 0 1 1-5-1.6"/><path d="M18 8.6l2.6-1.6M18.5 12h3M18 15.4l2.6 1.6"/>',
+  clip: '<path d="m21 11-8.6 8.6a5.5 5.5 0 0 1-7.8-7.8L13.2 3.2a3.7 3.7 0 0 1 5.2 5.2l-8.6 8.6a1.8 1.8 0 0 1-2.6-2.6L15 6.6"/>',
+  image: '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>',
+  phone: '<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/>',
+  code: '<path d="m8 17-5-5 5-5M16 7l5 5-5 5M14 4l-4 16"/>',
+  coffee: '<path d="M4 8h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM17 9h1.5a2.5 2.5 0 0 1 0 5H17M7 2v3M11 2v3M15 2v3"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+  camera: '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+  music: '<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',
+  bulb: '<path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V18h6v-1.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/>',
+  coin: '<circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .9-3 2s1.3 1.7 3 2 3 .9 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/>',
+  plane: '<path d="M10.5 13.5 3 11l1.5-1.5 7.5 1 4-4.5a2 2 0 0 1 3 3L14.5 13l1 7.5L14 22l-2.5-7.5L8 18v3l-1.5 1-1-4-4-1L3 15.5h3z"/>',
+  wrench: '<path d="M14.7 6.3a4 4 0 0 0 5 5l-9.4 9.4a2.1 2.1 0 0 1-3-3z"/><path d="M14.7 6.3 17 4l3 3-2.3 2.3"/>',
+  puzzle: '<path d="M10 3h4v2a2 2 0 1 0 4 0V3h3v7h-2a2 2 0 1 0 0 4h2v7h-7v-2a2 2 0 1 0-4 0v2H3v-7h2a2 2 0 1 0 0-4H3V3h7z"/>',
+  leaf: '<path d="M11 20A7 7 0 0 1 4 13c0-6 7-10 16-10 0 9-4 16-10 16-1 0-2-.3-2.8-.8M4 21c3-5 6-8 11-11"/>',
+  gift: '<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v9h14v-9M12 8C10 4 6.5 4 6.5 6.5S12 8 12 8s5.5 0 5.5-1.5S14 4 12 8z"/>',
+  zap: '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
   command: '<path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 0 0 0-6z"/>',
 };
 const LOGO = (cls = '') => `<svg class="logo ${cls}" viewBox="0 0 48 48" role="img" aria-label="Bragging Wall"><rect width="48" height="48" rx="13" fill="#0F6E6A"/><g fill="#F0EEE9"><rect x="8" y="30" width="15" height="8" rx="2.5"/><rect x="25" y="30" width="15" height="8" rx="2.5"/><rect x="8" y="20" width="6.5" height="8" rx="2.5"/><rect x="16.5" y="20" width="15" height="8" rx="2.5"/><rect x="33.5" y="20" width="6.5" height="8" rx="2.5"/><rect x="8" y="10" width="15" height="8" rx="2.5"/></g><path fill="#F4B336" d="M32.5 5.5l1.9 6 6 1.9-6 1.9-1.9 6-1.9-6-6-1.9 6-1.9z"/></svg>`;
 function icon(name, cls = '') { return `<svg class="i ${cls}" viewBox="0 0 24 24" aria-hidden="true">${IC[name] || ''}</svg>`; }
-const catIcon = (key, cls = '') => icon(CAT[key]?.icon || 'star', cls);
+const catIcon = (key, cls = '') => icon(catOf(key).icon, cls);
 const starIcons = n => `<span class="stars" aria-label="${IMPACT[n]}">${[1, 2, 3].map(i => `<svg class="i ${i <= n ? 'on' : ''}" viewBox="0 0 24 24" aria-hidden="true">${IC.star}</svg>`).join('')}</span>`;
 
 /* ================= Illustrations ================= */
@@ -1097,14 +1210,16 @@ const UI = {
   selDate: todayKey(),
   cal: { mode: 'month', anchor: new Date(), sel: null, dir: 0 },
   nb: { notebookId: null, noteId: null, search: '' },
-  report: { purpose: 'review', preset: 'thisYear', from: null, to: null, cats: new Set(CATS.map(c => c.key)), minImpact: 1, includeLog: true, ai: null, edits: null, pending: false },
+  report: { purpose: 'review', preset: 'thisYear', from: null, to: null, exclude: new Set(), minImpact: 1, includeLog: true, ai: null, edits: null, pending: false },
 };
 
 function normItem(it) {
   if (!it || typeof it !== 'object' || !it.title) return null;
   return {
-    id: String(it.id || newId()), title: String(it.title).slice(0, 300),
-    category: CAT[it.category] ? it.category : 'personal',
+    id: String(it.id || newId()), title: String(it.title).slice(0, 600),
+    category: /^[a-z0-9-]{1,40}$/.test(it.category || '') ? it.category : 'personal',
+    mood: MOOD[it.mood] ? it.mood : '',
+    files: Array.isArray(it.files) ? it.files.filter(f => f && typeof f.id === 'string' && /^[A-Za-z0-9_-]{1,60}$/.test(f.id)).slice(0, 10).map(f => ({ id: f.id, name: String(f.name || 'file').slice(0, 200), type: String(f.type || '').slice(0, 100), size: Number(f.size) || 0, thumb: typeof f.thumb === 'string' && f.thumb.startsWith('data:image/') && f.thumb.length < 60000 ? f.thumb : '' })) : [],
     impact: [1, 2, 3].includes(Number(it.impact)) ? Number(it.impact) : 2,
     result: String(it.result || '').slice(0, 400), details: String(it.details || '').slice(0, 4000),
     project: String(it.project || '').slice(0, 120),
@@ -1114,7 +1229,7 @@ function normItem(it) {
 }
 const normNb = (id, v) => ({ id, name: String(v?.name || 'Notebook').slice(0, 80), kind: KINDS[v?.kind] ? v.kind : 'other', color: /^#[0-9a-f]{6}$/i.test(v?.color || '') ? v.color : NB_COLORS[0], createdAt: Number(v?.createdAt) || 0 });
 const normNote = (id, v) => ({ id, notebookId: String(v?.notebookId || ''), title: String(v?.title || '').slice(0, 200), date: isYmd(v?.date) ? v.date : todayKey(), html: String(v?.html || ''), createdAt: Number(v?.createdAt) || 0, updatedAt: Number(v?.updatedAt) || 0 });
-const normProfile = v => ({ name: String(v?.name || '').slice(0, 120), nickname: String(v?.nickname || '').slice(0, 60), role: String(v?.role || '').slice(0, 120), company: String(v?.company || '').slice(0, 120), weekStart: v?.weekStart === 0 ? 0 : 1, weeklyGoal: Math.min(50, Math.max(1, Number(v?.weeklyGoal) || 5)) });
+const normProfile = v => ({ name: String(v?.name || '').slice(0, 120), nickname: String(v?.nickname || '').slice(0, 60), role: String(v?.role || '').slice(0, 120), company: String(v?.company || '').slice(0, 120), weekStart: v?.weekStart === 0 ? 0 : 1, weeklyGoal: Math.min(50, Math.max(1, Number(v?.weeklyGoal) || 5)), customCats: (Array.isArray(v?.customCats) ? v.customCats : []).filter(c => c && /^c-[a-z0-9]{3,30}$/.test(c.key || '') && c.label).slice(0, 30).map(c => ({ key: c.key, label: String(c.label).slice(0, 40), icon: ICON_CHOICES.includes(c.icon) ? c.icon : 'star', color: /^#[0-9a-f]{6}$/i.test(c.color || '') ? c.color : CUSTOM_COLORS[0] })) });
 S.profile = normProfile({});
 
 let _flat = null;
@@ -1134,7 +1249,7 @@ function computeStats(list) {
   const byCat = new Map(), dates = new Set();
   let big = 0;
   for (const w of list) { byCat.set(w.category, (byCat.get(w.category) || 0) + 1); dates.add(w.date); if (w.impact === 3) big++; }
-  const cats = [...byCat].map(([key, count]) => ({ key, label: CAT[key]?.label || key, count })).sort((a, b) => b.count - a.count);
+  const cats = [...byCat].map(([key, count]) => ({ key, label: catOf(key).label, count })).sort((a, b) => b.count - a.count);
   return { total: list.length, big, activeDays: dates.size, cats, topCat: cats[0] || null };
 }
 function highlights(list, n) {
@@ -1299,7 +1414,7 @@ async function loadLocal() {
     S.days = new Map(Object.entries(v.days || {}).filter(([k]) => isYmd(k)).map(([k, items]) => [k, (items || []).map(normItem).filter(Boolean)]).filter(([, items]) => items.length));
     S.notebooks = (v.notebooks || []).map(n => normNb(n.id, n));
     S.notes = (v.notes || []).map(n => normNote(n.id, n));
-    S.profile = normProfile(v.profile || {});
+    S.profile = normProfile(v.profile || {}); applyCategories();
     if (CRYPTO.key && !JSON.parse(raw).enc) saveLocal();
   } catch (e) { console.error(e); }
 }
@@ -1330,6 +1445,7 @@ function persistProfile() {
   return enqueue('profile', async () => S.refs.profile.set(await encodeBody(key, body)));
 }
 async function persistAll(onProgress) {
+  for (const f of allFileRefs()) { try { const { bytes, meta } = await loadFileBytes(f.id); await storeFileBytes(f.id, bytes, meta); } catch (e) { console.error('file re-encrypt', e); } }
   if (S.mode !== 'cloud') { await writeLocalNow(); return; }
   const jobs = [...[...S.days.keys()].map(k => () => persistDay(k)), ...S.notebooks.map(n => () => persistNotebook(n.id)), ...S.notes.map(n => () => persistNote(n.id)), () => persistProfile()];
   for (let i = 0; i < jobs.length; i++) { await jobs[i](); if (onProgress) onProgress(i + 1, jobs.length); await sleep(40); }
@@ -1353,6 +1469,84 @@ async function deleteLock() {
   else await kvDel(LS_LOCK);
   S.lock = null;
 }
+
+/* ================= Attachments (chunked, encrypted when locked) ================= */
+const FILE_CHUNK = 150 * 1024, MAX_FILE = 5 * 1024 * 1024, MAX_IMAGE_IN = 25 * 1024 * 1024, MAX_FILES = 5;
+const fileURLs = new Map();
+const fmtSize = n => n < 1024 ? n + ' B' : n < 1048576 ? Math.round(n / 1024) + ' KB' : (n / 1048576).toFixed(1) + ' MB';
+async function chunkBody(key, bytes) { return key ? { enc: 1, ...(await sealBytes(key, bytes)) } : { b64: bufToB64(bytes) }; }
+async function chunkBytes(body) { return body.enc ? new Uint8Array(await openBytes(CRYPTO.readKey, body)) : b64ToBuf(body.b64); }
+async function storeFileBytes(id, bytes, meta) {
+  const key = CRYPTO.key;
+  const m = { name: meta.name, type: meta.type, size: bytes.length, chunks: Math.max(1, Math.ceil(bytes.length / FILE_CHUNK)) };
+  if (S.mode === 'cloud') {
+    const ref = S.refs.files.doc(id);
+    for (let i = 0; i < m.chunks; i++) await ref.collection('chunks').doc(String(i)).set(await chunkBody(key, bytes.subarray(i * FILE_CHUNK, (i + 1) * FILE_CHUNK)));
+    await ref.set(await encodeBody(key, m));
+  } else if (!(await kvSet('bw-file:' + id, JSON.stringify({ meta: await encodeBody(key, m), data: await chunkBody(key, bytes) })))) throw new Error('storage');
+}
+async function loadFileBytes(id) {
+  if (S.mode === 'cloud') {
+    const ref = S.refs.files.doc(id), snap = await ref.get();
+    if (!snap.exists) throw new Error('missing');
+    const raw = snap.data(), meta = raw.enc ? await openObj(CRYPTO.readKey, raw) : raw;
+    const docs = (await ref.collection('chunks').get()).docs.sort((a, b) => Number(a.id) - Number(b.id));
+    const parts = []; for (const d of docs) parts.push(await chunkBytes(d.data()));
+    const out = new Uint8Array(parts.reduce((t, p) => t + p.length, 0)); let o = 0; for (const p of parts) { out.set(p, o); o += p.length; }
+    return { bytes: out, meta };
+  }
+  const raw = await kvGet('bw-file:' + id);
+  if (!raw) throw new Error('missing');
+  const v = JSON.parse(raw);
+  return { bytes: await chunkBytes(v.data), meta: v.meta.enc ? await openObj(CRYPTO.readKey, v.meta) : v.meta };
+}
+async function removeStoredFile(id) {
+  const u = fileURLs.get(id); if (u) { URL.revokeObjectURL(u); fileURLs.delete(id); }
+  if (S.mode === 'cloud') {
+    const ref = S.refs.files.doc(id);
+    try { for (const d of (await ref.collection('chunks').get()).docs) await ref.collection('chunks').doc(d.id).delete(); } catch (e) { /* best effort */ }
+    await ref.delete();
+  } else await kvDel('bw-file:' + id);
+}
+async function fileURL(f) {
+  if (fileURLs.has(f.id)) return fileURLs.get(f.id);
+  const { bytes } = await loadFileBytes(f.id);
+  const url = URL.createObjectURL(new Blob([bytes], { type: f.type || 'application/octet-stream' }));
+  fileURLs.set(f.id, url);
+  return url;
+}
+async function prepareUpload(file) {
+  let blob = file, type = file.type || 'application/octet-stream', name = file.name || 'file', thumb = '';
+  if (/^image\/(png|jpe?g|webp|bmp|gif|avif)$/i.test(type)) {
+    try {
+      const bmp = await createImageBitmap(file);
+      const draw = (maxSide, q) => { const sc = Math.min(1, maxSide / Math.max(bmp.width, bmp.height)); const c = document.createElement('canvas'); c.width = Math.max(1, Math.round(bmp.width * sc)); c.height = Math.max(1, Math.round(bmp.height * sc)); const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(bmp, 0, 0, c.width, c.height); return c; };
+      thumb = draw(260, .72).toDataURL('image/jpeg', .72);
+      if (!/gif$/i.test(type) && (file.size > 600 * 1024 || bmp.width > 2000 || bmp.height > 2000)) {
+        const out = await new Promise(r => draw(1800).toBlob(r, 'image/jpeg', .86));
+        if (out && out.size < file.size) { blob = out; type = 'image/jpeg'; name = name.replace(/\.[^.]+$/, '') + '.jpg'; }
+      }
+    } catch (e) { thumb = ''; }
+  }
+  if (blob.size > MAX_FILE) throw new Error('too-big');
+  return { bytes: new Uint8Array(await blob.arrayBuffer()), type, name, thumb };
+}
+async function saveAttachments(files, onProgress) {
+  const out = [];
+  for (let i = 0; i < files.length; i++) {
+    if (onProgress) onProgress(i + 1, files.length);
+    try {
+      const p = await prepareUpload(files[i]), id = 'f' + newId();
+      await storeFileBytes(id, p.bytes, { name: p.name, type: p.type });
+      out.push({ id, name: p.name, type: p.type, size: p.bytes.length, thumb: p.thumb });
+    } catch (e) {
+      console.error(e);
+      toast(e && e.message === 'too-big' ? `${files[i].name} is too big after processing (max ${fmtSize(MAX_FILE)}).` : e && e.code === 'quota_exceeded' ? 'Storage is full, so a file was not saved.' : `Couldn't save ${files[i].name}.`, 'warn');
+    }
+  }
+  return out;
+}
+function allFileRefs() { return allWins().flatMap(w => w.files || []); }
 
 /* ================= Cloud subscriptions ================= */
 let decCache = new WeakMap();
@@ -1422,7 +1616,7 @@ function subscribeCloud() {
       const raw = d.exists ? d.data() : null;
       const v = raw ? await decodeDoc(d) : {};
       if (my !== pseq) return;
-      if (v !== undefined) S.profile = normProfile(v || {});
+      if (v !== undefined) { S.profile = normProfile(v || {}); applyCategories(); }
       done('profile', d); onData('profile');
       if (raw && !raw.enc && CRYPTO.key && !d.metadata.hasPendingWrites) migrate('p', 'profile');
     })().catch(e => console.error(e));
@@ -1442,6 +1636,8 @@ function updateWin(oldDate, id, item, newDate) {
   onData('wins');
 }
 function deleteWin(date, id) {
+  const gone = (S.days.get(date) || []).find(x => x.id === id);
+  (gone?.files || []).forEach(f => removeStoredFile(f.id).catch(() => {}));
   const items = (S.days.get(date) || []).filter(x => x.id !== id);
   if (items.length) S.days.set(date, items); else S.days.delete(date);
   persistDay(date); onData('wins');
@@ -1526,7 +1722,8 @@ function winFormHTML(p, it = {}, dateVal) {
   const cat = it.category || 'quality', imp = it.impact || 2;
   return `
   <div class="field"><label for="${p}-title">What did you accomplish?</label>
-    <input id="${p}-title" type="text" maxlength="300" autocomplete="off" value="${esc(it.title)}" placeholder="e.g. Caught a crash in the loan checkout flow on Android 14 before release"></div>
+    <textarea id="${p}-title" rows="2" maxlength="600" placeholder="e.g. Caught a crash in the loan checkout flow on Android 14 before release">${esc(it.title)}</textarea></div>
+  <fieldset class="field"><legend>Feeling</legend><div class="mood-row">${MOODS.map(m => `<label class="mood-opt" title="${m.label}"><input type="radio" name="${p}-mood" value="${m.key}" ${it.mood === m.key ? 'checked' : ''}><span><i>${m.e}</i>${m.label}</span></label>`).join('')}</div></fieldset>
   <fieldset class="field"><legend>Area</legend><div class="chips">${CATS.map(c => `<label class="chip" data-cat="${c.key}"><input type="radio" name="${p}-cat" value="${c.key}" ${c.key === cat ? 'checked' : ''}><span>${catIcon(c.key)}${esc(c.label)}</span></label>`).join('')}</div></fieldset>
   <fieldset class="field"><legend>Size of the win</legend><div class="seg">${[1, 2, 3].map(n => `<label><input type="radio" name="${p}-imp" value="${n}" ${n === imp ? 'checked' : ''}><span>${starIcons(n)}${IMPACT[n]}</span></label>`).join('')}</div></fieldset>
   <div class="field"><label for="${p}-result">Result or proof <span class="opt">numbers make reports stronger</span></label>
@@ -1550,6 +1747,8 @@ function readWinForm(p, root, base = {}) {
     impact: Number(($(`input[name="${p}-imp"]:checked`, root) || {}).value || 2),
     result: q('result').value.trim(), details: q('details').value.trim(), project: q('project').value.trim(),
     tags: q('tags').value.split(',').map(s => s.trim().replace(/^#/, '')).filter(Boolean).slice(0, 12),
+    mood: ($(`input[name="${p}-mood"]:checked`, root) || {}).value || '',
+    files: base.files || [],
     createdAt: base.createdAt || now, updatedAt: now,
   };
 }
@@ -1557,11 +1756,12 @@ function winCardHTML(w, i = 0) {
   return `<article class="win" data-cat="${w.category}" style="--i:${Math.min(i, 12)}">
     <div class="cat-ic">${catIcon(w.category)}</div>
     <div class="win-body">
-      <div class="win-top"><span class="pill">${esc(CAT[w.category]?.label)}</span>${starIcons(w.impact)}${w.impact === 3 ? '<span class="big-tag">Big win</span>' : ''}</div>
+      <div class="win-top"><span class="pill">${esc(catOf(w.category).label)}</span>${starIcons(w.impact)}${w.impact === 3 ? '<span class="big-tag">Big win</span>' : ''}${w.mood ? `<span class="mood-tag" title="Feeling ${MOOD[w.mood].label.toLowerCase()}"><i>${MOOD[w.mood].e}</i>${MOOD[w.mood].label}</span>` : ''}</div>
       <h3>${esc(w.title)}</h3>
       ${w.result ? `<p class="win-result">${icon('arrowRight')}<span>${esc(w.result)}</span></p>` : ''}
       ${w.details ? `<p class="win-details">${esc(w.details)}</p>` : ''}
-      ${(w.project || w.tags.length) ? `<div class="win-meta">${w.project ? `<span>${esc(w.project)}</span>` : ''}${w.tags.map(t => `<span>#${esc(t)}</span>`).join('')}</div>` : ''}
+      ${w.files.some(f => f.thumb) ? `<div class="win-thumbs">${w.files.filter(f => f.thumb).slice(0, 4).map(f => `<img src="${f.thumb}" alt="${esc(f.name)}">`).join('')}</div>` : ''}
+      ${(w.project || w.tags.length || w.files.length) ? `<div class="win-meta">${w.files.length ? `<span>${icon('clip', 'sm')} ${w.files.length}</span>` : ''}${w.project ? `<span>${esc(w.project)}</span>` : ''}${w.tags.map(t => `<span>#${esc(t)}</span>`).join('')}</div>` : ''}
     </div>
     <div class="win-actions">
       <button type="button" class="icon-btn" data-viewwin="${w.id}" aria-label="Open preview">${icon('eye')}</button>
@@ -1638,11 +1838,11 @@ function onData(kind) {
   updateSideCard();
   if (kind === 'wins' || kind === 'all') updateDatalist();
   switch (S.view) {
-    case 'today': updateToday(); break;
+    case 'today': if ((kind === 'profile' || kind === 'all') && QUICK.renderAreas && $('#t-area-chips')) QUICK.renderAreas(); updateToday(); break;
     case 'calendar': updateCalendar(); break;
     case 'notebooks': if (kind !== 'wins' && kind !== 'profile') { updateNotebookSidebar(); syncEditor(); } break;
     case 'report': updateReport(); break;
-    case 'account': if (kind === 'profile' || kind === 'all') fillProfile(); updateStorageInfo(); break;
+    case 'account': if (kind === 'profile' || kind === 'all') fillProfile(); updateStorageInfo(); renderAreasCard(); break;
     case 'win': if (kind === 'wins' || kind === 'all') updateWinView(); break;
   }
 }
@@ -1713,21 +1913,33 @@ function mountToday() {
             </div>
             <div class="qb-main">
               <label class="sr-only" for="t-title">What did you accomplish?</label>
-              <input id="t-title" type="text" maxlength="300" placeholder="What did you accomplish?" enterkeyhint="send">
+              <textarea id="t-title" rows="1" maxlength="600" placeholder="What did you accomplish?" enterkeyhint="send"></textarea>
               <button class="btn qb-send" type="submit" id="t-save" aria-label="Brag it"><span class="ic">${icon('megaphone')}</span><span class="lbl">Brag it</span><span class="ok">${icon('check')} Pinned!</span></button>
             </div>
+            <div class="qb-files" id="t-files" hidden></div>
             <div class="qb-meta">
+              <div class="qb-tools">
               <div class="qb-area">
                 <button type="button" class="chip-btn area-chip" id="t-area-btn" aria-haspopup="true" aria-expanded="false"></button>
                 <div class="area-pop" id="t-area-pop" hidden>
                   <p class="small muted" style="margin-bottom:8px">Pick an area. I'll guess it from your words if you don't.</p>
-                  <div class="chips">${CATS.map(c => `<label class="chip" data-cat="${c.key}"><input type="radio" name="t-cat" value="${c.key}"><span>${catIcon(c.key)}${esc(c.label)}</span></label>`).join('')}</div>
+                  <div class="chips" id="t-area-chips"></div>
                 </div>
+              </div>
+              <div class="qb-mood">
+                <button type="button" class="chip-btn mood-chip" id="t-mood-btn" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="area-pop mood-pop" id="t-mood-pop" hidden>
+                  <p class="small muted" style="margin-bottom:8px">How are you feeling right now?</p>
+                  <div class="mood-grid">${MOODS.map(m => `<label class="mood-opt"><input type="radio" name="t-mood" value="${m.key}"><span><i>${m.e}</i>${m.label}</span></label>`).join('')}</div>
+                </div>
+              </div>
+              <button type="button" class="chip-btn" id="t-attach-btn" title="Attach images or files (or paste a screenshot)">${icon('clip', 'sm')}<span>Attach</span></button>
+              <input type="file" id="t-file" multiple class="sr-only" tabindex="-1" aria-label="Attach images or files">
               </div>
               <div class="qb-stars" role="radiogroup" aria-label="Size of the win" id="t-stars">${[1, 2, 3].map(n => `<label title="${IMPACT[n]}"><input type="radio" name="t-imp" value="${n}" ${n === 2 ? 'checked' : ''} class="sr-only"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">${IC.star}</svg><span class="sr-only">${IMPACT[n]}</span></label>`).join('')}<span class="qb-size" id="t-size-lbl">Solid win</span></div>
             </div>
             <label class="sr-only" for="t-result">Result or proof</label>
-            <input id="t-result" type="text" maxlength="400" class="qb-result" placeholder="Result or proof (optional), e.g. saved 4 hours">
+            <input id="t-result" type="text" maxlength="400" class="qb-result" placeholder="Result or proof (optional)">
             <details class="qb-more" id="t-more">
               <summary>${icon('plus', 'sm')}Add details, project or tags</summary>
               <div class="stack" style="gap:10px;margin-top:10px">
@@ -1738,7 +1950,8 @@ function mountToday() {
                 </div>
               </div>
             </details>
-            <p class="qb-hint">Press <kbd>Enter</kbd> to brag · saving to <b id="t-for">today</b></p>
+            <p class="qb-hint">Press <kbd>Enter</kbd> to brag, <kbd>Shift</kbd>+<kbd>Enter</kbd> for a new line · saving to <b id="t-for">today</b></p>
+            <div class="drop-hint" aria-hidden="true">${icon('clip')}Drop to attach</div>
           </form>
         </section>
         <section class="card">
@@ -1765,49 +1978,107 @@ function mountToday() {
   $('#h-log').onclick = () => { const w = $('#brag-wrap'); w.classList.remove('burst'); void w.offsetWidth; w.classList.add('burst'); setTimeout(() => w.classList.remove('burst'), 900); UI.selDate = todayKey(); updateToday(); $('#log-card').scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' }); setTimeout(() => $('#t-title').focus(), 300); };
   $('#h-report').onclick = () => go('report');
   const form = $('#t-form');
-  const QB = { manual: false };
-  const pickArea = (key, manual) => { const r = $(`input[name="t-cat"][value="${key}"]`, form); if (r) r.checked = true; if (manual) QB.manual = true; paintArea(!manual && !QB.manual); };
+  const QB = { manual: false, files: [] };
+  const title = $('#t-title');
+  const grow = () => { title.style.height = 'auto'; title.style.height = Math.min(title.scrollHeight + 2, 200) + 'px'; };
+  title.addEventListener('input', grow);
+  const pickArea = (key, manual) => { if (!CAT[key]) key = 'quality'; const r = $(`input[name="t-cat"][value="${key}"]`, form); if (r) r.checked = true; if (manual) QB.manual = true; paintArea(!manual && !QB.manual); };
   const paintArea = auto => {
     const key = ($('input[name="t-cat"]:checked', form) || {}).value || 'quality';
     const b = $('#t-area-btn');
     b.dataset.cat = key;
-    b.innerHTML = `${catIcon(key, 'sm')}<span>${esc(CAT[key].label)}</span>${auto && $('#t-title').value.trim() ? '<em>auto</em>' : ''}${icon('right', 'sm')}`;
+    b.innerHTML = `${catIcon(key, 'sm')}<span>${esc(catOf(key).label)}</span>${auto && title.value.trim() ? '<em>auto</em>' : ''}${icon('right', 'sm')}`;
   };
-  const paintStars = (hover) => {
+  QUICK.renderAreas = () => {
+    const cur = ($('input[name="t-cat"]:checked', form) || {}).value;
+    $('#t-area-chips').innerHTML = CATS.map(c => `<label class="chip" data-cat="${c.key}"><input type="radio" name="t-cat" value="${c.key}"><span>${catIcon(c.key)}${esc(c.label)}</span></label>`).join('') + `<button type="button" class="new-area" id="t-new-area">${icon('plus', 'sm')}New area</button>`;
+    pickArea(cur || lsGet('bragging-wall-last-area') || 'quality', false);
+  };
+  const paintMood = () => {
+    const m = MOOD[($('input[name="t-mood"]:checked', form) || {}).value];
+    const b = $('#t-mood-btn');
+    b.classList.toggle('set', !!m);
+    b.innerHTML = m ? `<i class="emo">${m.e}</i><span>${m.label}</span>` : `<i class="emo dim">\u{1F642}</i><span>Feeling?</span>`;
+  };
+  const paintStars = hover => {
     const val = hover || Number(($('input[name="t-imp"]:checked', form) || {}).value || 2);
     $$('#t-stars label', form).forEach((l, i) => l.classList.toggle('on', i < val));
     $('#t-size-lbl').textContent = IMPACT[val];
     $('#t-size-lbl').classList.toggle('big', val === 3);
   };
-  const closePop = () => { $('#t-area-pop').hidden = true; $('#t-area-btn').setAttribute('aria-expanded', 'false'); };
-  pickArea(lsGet('bragging-wall-last-area') || 'quality', false);
-  paintStars();
-  $('#t-area-btn').onclick = () => { const p = $('#t-area-pop'); p.hidden = !p.hidden; $('#t-area-btn').setAttribute('aria-expanded', String(!p.hidden)); if (!p.hidden) $('input[name="t-cat"]:checked', p)?.focus(); };
-  $('#t-area-pop').addEventListener('change', e => { if (e.target.name === 't-cat') { pickArea(e.target.value, true); closePop(); $('#t-title').focus(); } });
-  document.addEventListener('mousedown', e => { const p = $('#t-area-pop'); if (p && !p.hidden && !e.target.closest('.qb-area')) closePop(); });
-  form.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#t-area-pop').hidden) { closePop(); $('#t-area-btn').focus(); } });
-  $('#t-title').addEventListener('input', () => { if (!QB.manual) pickArea(guessArea($('#t-title').value + ' ' + $('#t-result').value) || lsGet('bragging-wall-last-area') || 'quality', false); else paintArea(false); });
+  const pops = [['#t-area-pop', '#t-area-btn'], ['#t-mood-pop', '#t-mood-btn']];
+  const closePops = except => pops.forEach(([p, b]) => { if (p !== except) { $(p).hidden = true; $(b).setAttribute('aria-expanded', 'false'); } });
+  const togglePop = (p, b) => { closePops(p); const el = $(p); el.hidden = !el.hidden; $(b).setAttribute('aria-expanded', String(!el.hidden)); if (!el.hidden) ($('input:checked', el) || $('input', el))?.focus(); };
+  QUICK.renderAreas(); paintMood(); paintStars();
+  $('#t-area-btn').onclick = () => togglePop('#t-area-pop', '#t-area-btn');
+  $('#t-mood-btn').onclick = () => togglePop('#t-mood-pop', '#t-mood-btn');
+  $('#t-area-pop').addEventListener('change', e => { if (e.target.name === 't-cat') { pickArea(e.target.value, true); closePops(); title.focus(); } });
+  $('#t-area-pop').addEventListener('click', e => { if (e.target.closest('#t-new-area')) { closePops(); areaModal(null, key => { QUICK.renderAreas(); pickArea(key, true); title.focus(); }); } });
+  $('#t-mood-pop').addEventListener('change', () => { paintMood(); closePops(); title.focus(); });
+  document.addEventListener('mousedown', e => { if ($('#t-area-pop') && !e.target.closest('.qb-area, .qb-mood')) closePops(); });
+  form.addEventListener('keydown', e => { if (e.key === 'Escape' && pops.some(([p]) => !$(p).hidden)) { closePops(); title.focus(); } });
+  title.addEventListener('input', () => { if (!QB.manual) pickArea(guessArea(title.value + ' ' + $('#t-result').value) || lsGet('bragging-wall-last-area') || 'quality', false); else paintArea(false); });
   $('#t-stars').addEventListener('change', () => paintStars());
   $$('#t-stars label', form).forEach((l, i) => { l.addEventListener('mouseenter', () => paintStars(i + 1)); l.addEventListener('mouseleave', () => paintStars()); });
   $('#t-date-btn').onclick = () => { const inp = $('#t-date'); try { inp.showPicker(); } catch (err) { inp.focus(); inp.click(); } };
-  $('#t-today').onclick = () => { UI.selDate = todayKey(); updateToday(); $('#t-title').focus(); };
+  $('#t-today').onclick = () => { UI.selDate = todayKey(); updateToday(); title.focus(); };
   $('#t-date').onchange = e => { if (isYmd(e.target.value)) { UI.selDate = e.target.value; updateToday(); } };
+  // attachments
+  const renderPending = () => {
+    const box = $('#t-files');
+    box.hidden = !QB.files.length;
+    box.innerHTML = QB.files.map((f, i) => `<span class="file-chip">${f.preview ? `<img src="${f.preview}" alt="">` : `<span class="fc-ic">${icon('file', 'sm')}</span>`}<span class="fc-name">${esc(f.file.name || 'file')}</span><small>${fmtSize(f.file.size)}</small><button type="button" data-rm="${i}" aria-label="Remove ${esc(f.file.name || 'file')}">${icon('x', 'sm')}</button></span>`).join('');
+    $('#t-attach-btn span').textContent = QB.files.length ? `Attach (${QB.files.length}/${MAX_FILES})` : 'Attach';
+  };
+  const addFiles = list => {
+    for (const file of list) {
+      if (QB.files.length >= MAX_FILES) { toast(`You can attach up to ${MAX_FILES} files per win.`, 'warn'); break; }
+      const isImg = /^image\//.test(file.type);
+      if (file.size > (isImg ? MAX_IMAGE_IN : MAX_FILE)) { toast(`${file.name} is too big. Files can be up to ${fmtSize(MAX_FILE)}.`, 'warn'); continue; }
+      QB.files.push({ file, preview: isImg ? URL.createObjectURL(file) : '' });
+    }
+    renderPending();
+  };
+  $('#t-attach-btn').onclick = () => $('#t-file').click();
+  $('#t-file').onchange = e => { addFiles([...e.target.files]); e.target.value = ''; };
+  $('#t-files').addEventListener('click', e => { const b = e.target.closest('[data-rm]'); if (!b) return; const [f] = QB.files.splice(Number(b.dataset.rm), 1); if (f?.preview) URL.revokeObjectURL(f.preview); renderPending(); });
+  title.addEventListener('paste', e => { const files = [...(e.clipboardData?.files || [])]; if (files.length) { e.preventDefault(); addFiles(files); toast(plural(files.length, 'file') + ' attached'); } });
+  const card = $('#log-card');
+  let dragDepth = 0;
+  card.addEventListener('dragenter', e => { if ([...(e.dataTransfer?.types || [])].includes('Files')) { e.preventDefault(); dragDepth++; card.classList.add('drag'); } });
+  card.addEventListener('dragover', e => { if (card.classList.contains('drag')) e.preventDefault(); });
+  card.addEventListener('dragleave', () => { if (--dragDepth <= 0) { dragDepth = 0; card.classList.remove('drag'); } });
+  card.addEventListener('drop', e => { if (!card.classList.contains('drag')) return; e.preventDefault(); dragDepth = 0; card.classList.remove('drag'); addFiles([...e.dataTransfer.files]); });
   form.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); form.requestSubmit(); }
-    else if (e.key === 'Enter' && e.target.tagName === 'INPUT' && e.target.type === 'text' && e.target.list == null) { e.preventDefault(); form.requestSubmit(); }
+    if (e.key !== 'Enter' || e.isComposing) return;
+    if (e.ctrlKey || e.metaKey) { e.preventDefault(); form.requestSubmit(); return; }
+    if (e.shiftKey) return;
+    if (e.target === title || (e.target.tagName === 'INPUT' && e.target.type === 'text' && e.target.list == null)) { e.preventDefault(); form.requestSubmit(); }
   });
-  form.addEventListener('submit', e => {
+  let busy = false;
+  form.addEventListener('submit', async e => {
     e.preventDefault();
+    if (busy) return;
     const item = readWinForm('t', form);
     if (!item) return;
-    addWin(UI.selDate, item);
+    const btn = $('#t-save');
+    const date = UI.selDate;
+    if (QB.files.length) {
+      busy = true; btn.disabled = true; btn.querySelector('.lbl').textContent = 'Uploading…';
+      item.files = await saveAttachments(QB.files.map(f => f.file), (i, n) => { btn.querySelector('.lbl').textContent = `Uploading ${i}/${n}…`; });
+      busy = false; btn.disabled = false; btn.querySelector('.lbl').textContent = 'Brag it';
+      QB.files.forEach(f => f.preview && URL.revokeObjectURL(f.preview)); QB.files = []; renderPending();
+    }
+    addWin(date, item);
     lsSet('bragging-wall-last-area', item.category);
     ['title', 'result', 'details', 'tags'].forEach(f => { $('#t-' + f, form).value = ''; });
+    grow();
     QB.manual = false; pickArea(item.category, false);
     const imp = $('input[name="t-imp"][value="2"]', form); if (imp) imp.checked = true; paintStars();
+    $$('input[name="t-mood"]', form).forEach(r => { r.checked = false; }); paintMood();
     $('#t-more').open = false;
-    $('#t-title', form).focus();
-    const btn = $('#t-save'); btn.classList.add('saved'); setTimeout(() => btn.classList.remove('saved'), 1400);
+    title.focus();
+    btn.classList.add('saved'); setTimeout(() => btn.classList.remove('saved'), 1400);
     toast(item.impact === 3 ? 'Big win pinned. Well done!' : 'Win pinned to your wall');
     if (item.impact === 3) confetti();
   });
@@ -1865,16 +2136,18 @@ function updateToday() {
   const notes = S.notes.filter(n => n.date === k);
   $('#t-notes').innerHTML = notes.length ? `<div class="note-links">${notes.map(n => { const nb = S.notebooks.find(b => b.id === n.notebookId); return `<button type="button" class="note-link" style="--nb:${nb ? nb.color : 'var(--accent)'}" data-open-note="${n.id}"><span class="dot"></span><span><b>${esc(n.title || 'Untitled page')}</b><span>${esc(nb ? nb.name : 'Notebook')}</span></span></button>`; }).join('')}</div>` : '<p class="small muted" style="margin-bottom:12px">No pages written on this day.</p>';
 }
+const QUICK = { renderAreas: null };
 const CAR = { sig: null, idx: 0, timer: null, paused: false };
 const NOTE_ROT = ['-1.8deg', '1.4deg', '-0.8deg', '1.9deg', '-1.2deg'];
 const NOTE_PINS = ['var(--accent)', '#E0607E', 'var(--gold-2)', '#5B8DEF'];
 function carSlideHTML(w, i, n) {
   return `<div class="car-slide" role="group" aria-roledescription="slide" aria-label="${i + 1} of ${n}">
     <button type="button" class="car-card" data-win="${w.id}" style="--nc:var(--n${1 + i % 6});--rot:${NOTE_ROT[i % 5]};--pin:${NOTE_PINS[i % 4]}" aria-label="Open preview: ${esc(w.title)}">
-      <span class="car-top"><span class="car-cat" data-cat="${w.category}">${catIcon(w.category)}${esc(CAT[w.category].label)}</span>${starIcons(w.impact)}</span>
+      <span class="car-top"><span class="car-cat" data-cat="${w.category}">${catIcon(w.category)}${esc(catOf(w.category).label)}</span><span class="car-rate">${w.mood ? `<i class="car-mood" title="Feeling ${MOOD[w.mood].label.toLowerCase()}">${MOOD[w.mood].e}</i>` : ''}${starIcons(w.impact)}</span></span>
       <span class="car-title">${esc(w.title)}</span>
       ${w.result ? `<span class="car-result">→ ${esc(w.result)}</span>` : ''}
-      <span class="car-meta"><span>${fmtDateK(w.date)}${w.impact === 3 ? ' · Big win' : ''}</span><span class="car-open">View ${icon('arrowRight', 'sm')}</span></span>
+      ${w.files.find(f => f.thumb) ? `<img class="car-polaroid" src="${w.files.find(f => f.thumb).thumb}" alt="">` : ''}
+      <span class="car-meta"><span>${fmtDateK(w.date)}${w.impact === 3 ? ' · Big win' : ''}${w.files.length ? ` · ${icon('clip', 'sm')}${w.files.length}` : ''}</span><span class="car-open">View ${icon('arrowRight', 'sm')}</span></span>
     </button></div>`;
 }
 function carPlaceholderHTML(i, n, title, sub) {
@@ -1950,7 +2223,41 @@ function openWinPreview(id) { UI.win = { id, from: S.view && S.view !== 'win' ? 
 function mountWin() {
   $('#view').innerHTML = '<div class="stack" style="gap:18px" id="win-page"></div>';
   const el = $('#win-page');
+  const winItem = () => { const w = allWins()[UI.win.idx]; return w ? { date: w.date, item: (S.days.get(w.date) || []).find(x => x.id === w.id) } : null; };
+  const attach = async files => {
+    const ref = winItem(); if (!ref || !ref.item) return;
+    const room = MAX_FILES - ref.item.files.length;
+    if (room <= 0) { toast(`A win can have up to ${MAX_FILES} attachments.`, 'warn'); return; }
+    if (files.length > room) toast(`Only the first ${room} file${room === 1 ? '' : 's'} were added (max ${MAX_FILES}).`, 'warn');
+    toast('Uploading…');
+    const metas = await saveAttachments(files.slice(0, room));
+    if (!metas.length) return;
+    const cur = (S.days.get(ref.date) || []).find(x => x.id === ref.item.id);
+    if (cur) { updateWin(ref.date, cur.id, { ...cur, files: [...cur.files, ...metas], updatedAt: Date.now() }, ref.date); toast(plural(metas.length, 'file') + ' attached'); }
+  };
+  el.addEventListener('change', e => { if (e.target.id === 'wn-file') { attach([...e.target.files]); e.target.value = ''; } });
+  el.addEventListener('dragover', e => { if (e.target.closest('.att-empty, .att-grid')) e.preventDefault(); });
+  el.addEventListener('drop', e => { if (e.target.closest('.att-empty, .att-grid') && e.dataTransfer.files.length) { e.preventDefault(); attach([...e.dataTransfer.files]); } });
+  el.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.matches('.att-empty')) $('#wn-file').click(); });
   el.addEventListener('click', async e => {
+    const fb = e.target.closest('[data-open-file], [data-dl-file], [data-rm-file]');
+    if (fb) {
+      const ref = winItem(); if (!ref || !ref.item) return;
+      const fid = fb.dataset.openFile || fb.dataset.dlFile || fb.dataset.rmFile, f = ref.item.files.find(x => x.id === fid);
+      if (!f) return;
+      if (fb.dataset.rmFile) {
+        if (!(await confirmModal(`Remove “${f.name}” from this win?`, 'Remove'))) return;
+        const cur = (S.days.get(ref.date) || []).find(x => x.id === ref.item.id);
+        updateWin(ref.date, cur.id, { ...cur, files: cur.files.filter(x => x.id !== fid), updatedAt: Date.now() }, ref.date);
+        removeStoredFile(fid).catch(() => {}); toast('Attachment removed');
+      } else if (fb.dataset.dlFile) {
+        try { const { bytes } = await loadFileBytes(fid); saveFile(f.name, new Blob([bytes], { type: f.type || 'application/octet-stream' })); } catch (err) { toast("Couldn't open that file.", 'warn'); }
+      } else {
+        const m = openModal({ title: f.name, wide: true, body: `<div class="lightbox"><div class="spinner"></div></div>`, actions: [{ label: 'Download', kind: 'ghost', onClick: async () => { const { bytes } = await loadFileBytes(fid); saveFile(f.name, new Blob([bytes], { type: f.type })); return false; } }, { label: 'Close' }] });
+        try { const url = await fileURL(f); $('.lightbox', m.wrap).innerHTML = `<img src="${url}" alt="${esc(f.name)}">`; } catch (err) { $('.lightbox', m.wrap).innerHTML = '<p class="muted">This image could not be opened.</p>'; }
+      }
+      return;
+    }
     const b = e.target.closest('[data-act], [data-win]');
     if (!b) return;
     if (b.dataset.win) { UI.win = { ...UI.win, id: b.dataset.win, celebrate: true }; updateWinView(); $('#main').scrollTop = 0; return; }
@@ -1963,6 +2270,7 @@ function mountWin() {
       case 'delete': deleteWinFlow(w.date, w.id); break;
       case 'day': UI.selDate = w.date; go('today'); break;
       case 'brag': go('today'); setTimeout(() => $('#h-log')?.click(), 350); break;
+      case 'attach': $('#wn-file').click(); break;
       case 'copy': {
         const t = bulletText(w);
         try { await navigator.clipboard.writeText(t); toast('Copied as a resume bullet'); }
@@ -2002,16 +2310,18 @@ function updateWinView() {
         ${w.impact === 3 ? '<span class="big-stamp">Brag-worthy!</span>' : ''}
         <p class="wn-date">${esc(fmtLong(parseYmd(w.date)))}</p>
         <h1 class="wn-title" id="wn-title">${esc(w.title)}</h1>
+        ${w.mood ? `<p class="wn-mood"><i>${MOOD[w.mood].e}</i>Feeling ${MOOD[w.mood].label.toLowerCase()}</p>` : ''}
         ${w.result ? `<p class="wn-result">${icon('arrowRight')}<span>${esc(w.result)}</span></p>` : ''}
         ${w.details ? `<p class="wn-details">${esc(w.details)}</p>` : ''}
-        <div class="wn-foot"><span class="car-cat">${catIcon(w.category)}${esc(CAT[w.category].label)}</span>${starIcons(w.impact)}</div>
+        <div class="wn-foot"><span class="car-cat">${catIcon(w.category)}${esc(catOf(w.category).label)}</span>${starIcons(w.impact)}</div>
       </article>
       <aside class="card">
         <h2 class="card-title" style="margin-bottom:14px">${icon('info')}Details</h2>
         <dl class="wn-meta">
           <dt>Date</dt><dd>${esc(fmtMed(parseYmd(w.date)))}</dd>
-          <dt>Area</dt><dd data-cat="${w.category}"><span class="pill">${esc(CAT[w.category].label)}</span></dd>
+          <dt>Area</dt><dd data-cat="${w.category}"><span class="pill">${esc(catOf(w.category).label)}</span></dd>
           <dt>Size</dt><dd>${starIcons(w.impact)} ${IMPACT[w.impact]}</dd>
+          ${w.mood ? `<dt>Feeling</dt><dd>${MOOD[w.mood].e} ${MOOD[w.mood].label}</dd>` : ''}
           ${w.project ? `<dt>Project</dt><dd>${esc(w.project)}</dd>` : ''}
           ${w.tags.length ? `<dt>Tags</dt><dd class="win-meta" style="margin:0">${w.tags.map(t => `<span>#${esc(t)}</span>`).join('')}</dd>` : ''}
         </dl>
@@ -2021,8 +2331,16 @@ function updateWinView() {
         </div>
       </aside>
     </div>
+    <section class="card">
+      <div class="card-head" style="margin-bottom:12px"><h2 class="card-title">${icon('clip')}Attachments${w.files.length ? ` <span class="mono small muted">${w.files.length}/${MAX_FILES}</span>` : ''}</h2>
+        ${w.files.length < MAX_FILES ? `<button type="button" class="btn ghost sm" data-act="attach">${icon('plus')}Add image or file</button>` : ''}<input type="file" id="wn-file" multiple class="sr-only" tabindex="-1" aria-label="Add images or files"></div>
+      ${w.files.length ? `<div class="att-grid">${w.files.map(f => f.thumb
+        ? `<div class="att-item"><button type="button" class="att-img" data-open-file="${f.id}" aria-label="Open ${esc(f.name)}"><img src="${f.thumb}" alt="${esc(f.name)}"></button><div class="att-cap"><span>${esc(f.name)}</span><button type="button" class="chip-x" data-rm-file="${f.id}" aria-label="Remove ${esc(f.name)}">${icon('trash', 'sm')}</button></div></div>`
+        : `<div class="att-item att-file"><span class="kpi-ic">${icon('file')}</span><span class="att-fname"><b>${esc(f.name)}</b><small>${fmtSize(f.size)}</small></span><button type="button" class="btn ghost sm" data-dl-file="${f.id}">${icon('download', 'sm')}Download</button><button type="button" class="chip-x" data-rm-file="${f.id}" aria-label="Remove ${esc(f.name)}">${icon('trash', 'sm')}</button></div>`).join('')}</div>`
+        : `<div class="att-empty" data-act="attach" role="button" tabindex="0">${icon('image')}<span>Add a screenshot of a kind message, a certificate or a report. Drop files here or click to choose.</span></div>`}
+    </section>
     ${related('More from this day', sameDay)}
-    ${related(`More ${CAT[w.category].label} wins`, sameArea)}`;
+    ${related(`More ${catOf(w.category).label} wins`, sameArea)}`;
   if (celebrate) setTimeout(confetti, 250);
 }
 document.addEventListener('keydown', e => {
@@ -2046,6 +2364,11 @@ function guessArea(text) {
   const words = String(text).toLowerCase().match(/[a-z0-9-]+/g) || [];
   let best = null, score = 0;
   for (const k of Object.keys(AREA_SETS)) { const n = words.reduce((t, w, i) => t + (AREA_SETS[k].has(w) ? (i === 0 ? 3 : 1) : 0), 0); if (n > score) { best = k; score = n; } }
+  for (const c of CATS.filter(x => x.custom)) {
+    const kw = new Set((c.label.toLowerCase().match(/[a-z0-9-]+/g) || []).filter(x => x.length > 2 && !['and', 'the', 'for', 'with'].includes(x)));
+    const n = words.reduce((t, w) => t + (kw.has(w) ? 2 : 0), 0);
+    if (n > score) { best = c.key; score = n; }
+  }
   return best;
 }
 function heroNotesHTML() {
@@ -2599,7 +2922,7 @@ function pdfWriter() {
         ensure(18);
         doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.setTextColor(...PC.ink); doc.text(pdfSafe(c.label), M, y + 10);
         doc.setFillColor(...PC.soft); doc.roundedRect(M + labelW, y + 3, barW, 8, 4, 4, 'F');
-        doc.setFillColor(...(CAT[c.key]?.rgb || PC.accent)); doc.roundedRect(M + labelW, y + 3, Math.max(8, barW * c.count / max), 8, 4, 4, 'F');
+        doc.setFillColor(...(catOf(c.key).rgb || PC.accent)); doc.roundedRect(M + labelW, y + 3, Math.max(8, barW * c.count / max), 8, 4, 4, 'F');
         doc.setFont('helvetica', 'bold'); doc.text(String(c.count), M + labelW + barW + 8, y + 10);
         y += 17;
       });
@@ -2783,7 +3106,7 @@ function reportFilters() {
   const r = UI.report;
   if (r.preset !== 'custom' || !isYmd(r.from) || !isYmd(r.to)) { const pr = presetRange(r.preset === 'custom' ? 'thisMonth' : r.preset); r.from = pr.from; r.to = pr.to; }
   if (r.from > r.to) [r.from, r.to] = [r.to, r.from];
-  return { from: r.from, to: r.to, cats: [...r.cats].sort(), min: r.minImpact };
+  return { from: r.from, to: r.to, cats: CATS.map(c => c.key).filter(k => !r.exclude.has(k)).sort(), min: r.minImpact };
 }
 const filterSig = f => JSON.stringify(f);
 const filteredWins = f => winsIn(f.from, f.to).filter(w => f.cats.includes(w.category) && w.impact >= f.min);
@@ -2826,7 +3149,7 @@ function mountReport() {
         <fieldset class="field"><legend>What is this report for?</legend><div class="pcards" id="r-purpose">${Object.entries(PURPOSES).map(([k, v]) => `<label class="pcard"><input type="radio" name="r-purpose" value="${k}" ${k === r.purpose ? 'checked' : ''}><span class="pcard-in"><span class="kpi-ic ${k === 'cheer' ? 'gold' : ''}">${icon(v.icon)}</span><b>${v.label}</b><small>${v.desc}</small></span></label>`).join('')}</div></fieldset>
         <div class="field"><label for="r-preset">Period</label><select id="r-preset">${PRESETS.map(([k, l]) => `<option value="${k}" ${k === r.preset ? 'selected' : ''}>${l}</option>`).join('')}</select></div>
         <div class="field-row"><div class="field"><label for="r-from">From</label><input type="date" id="r-from" value="${r.from}"></div><div class="field"><label for="r-to">To</label><input type="date" id="r-to" value="${r.to}"></div></div>
-        <fieldset class="field"><legend>Areas</legend><div class="checks" id="r-cats">${CATS.map(c => `<label data-cat="${c.key}"><input type="checkbox" value="${c.key}" ${r.cats.has(c.key) ? 'checked' : ''}>${catIcon(c.key)}${esc(c.label)}</label>`).join('')}</div></fieldset>
+        <fieldset class="field"><legend>Areas</legend><div class="checks" id="r-cats">${CATS.map(c => `<label data-cat="${c.key}"><input type="checkbox" value="${c.key}" ${r.exclude.has(c.key) ? '' : 'checked'}>${catIcon(c.key)}${esc(c.label)}</label>`).join('')}</div></fieldset>
         <div class="field"><label for="r-min">Include</label><select id="r-min"><option value="1">All wins</option><option value="2">Solid and big wins</option><option value="3">Big wins only</option></select></div>
         <label class="check-line" style="font-size:.85rem"><input type="checkbox" id="r-log" ${r.includeLog ? 'checked' : ''}>Include the complete log</label>
         <div class="ai-box" id="r-ai" hidden>
@@ -2844,7 +3167,7 @@ function mountReport() {
   $('#r-purpose').addEventListener('change', e => { r.purpose = e.target.value; updateReport(); });
   $('#r-preset').addEventListener('change', e => { r.preset = e.target.value; if (r.preset !== 'custom') { const pr = presetRange(r.preset); r.from = pr.from; r.to = pr.to; $('#r-from').value = r.from; $('#r-to').value = r.to; } changed(); });
   ['r-from', 'r-to'].forEach(id => $('#' + id).addEventListener('change', e => { if (!isYmd(e.target.value)) return; r[id === 'r-from' ? 'from' : 'to'] = e.target.value; r.preset = 'custom'; $('#r-preset').value = 'custom'; changed(); }));
-  $('#r-cats').addEventListener('change', e => { if (e.target.checked) r.cats.add(e.target.value); else r.cats.delete(e.target.value); changed(); });
+  $('#r-cats').addEventListener('change', e => { if (e.target.checked) r.exclude.delete(e.target.value); else r.exclude.add(e.target.value); changed(); });
   $('#r-min').addEventListener('change', e => { r.minImpact = Number(e.target.value); changed(); });
   $('#r-log').addEventListener('change', e => { r.includeLog = e.target.checked; updateReport(); });
   $('#r-pdf').onclick = exportReportPdf;
@@ -2880,10 +3203,10 @@ function updateReport() {
   const summary = sec(m.purpose === 'cheer' ? 'heart' : 'file', m.purpose === 'resume' ? 'Professional summary' : m.purpose === 'cheer' ? 'A note to you' : 'Summary', `<div class="editable" contenteditable="true" id="r-summary">${esc(m.summary)}</div><p class="hint">${srcNote} Click the text to edit before exporting.</p>`);
   const bullets = sec('trophy', m.purpose === 'resume' ? 'Resume bullets' : m.purpose === 'cheer' ? 'Moments to be proud of' : 'Key achievements', `<ul class="bul editable" contenteditable="true" id="r-bullets">${m.bullets.map(b => `<li>${esc(b)}</li>`).join('') || '<li>Nothing logged yet for this period.</li>'}</ul>`);
   const strengths = m.strengths.length ? sec('star', 'Strengths shown', `<div class="row">${m.strengths.map(x => `<span class="badge">${esc(x)}</span>`).join('')}</div>`) : '';
-  const hls = m.highlights.length ? sec('sparkles', 'Highlights', m.highlights.map(h => `<div class="hl-card" data-cat="${h.category}"><span class="cat-ic">${catIcon(h.category)}</span><div><div class="win-top"><span class="win-date">${fmtDateK(h.date)}</span><span class="pill">${esc(CAT[h.category].label)}</span>${starIcons(h.impact)}</div><b>${esc(h.title)}</b>${h.result ? `<p class="win-result">${icon('arrowRight')}<span>${esc(h.result)}</span></p>` : ''}</div></div>`).join('')) : '';
+  const hls = m.highlights.length ? sec('sparkles', 'Highlights', m.highlights.map(h => `<div class="hl-card" data-cat="${h.category}"><span class="cat-ic">${catIcon(h.category)}</span><div><div class="win-top"><span class="win-date">${fmtDateK(h.date)}</span><span class="pill">${esc(catOf(h.category).label)}</span>${starIcons(h.impact)}</div><b>${esc(h.title)}</b>${h.result ? `<p class="win-result">${icon('arrowRight')}<span>${esc(h.result)}</span></p>` : ''}</div></div>`).join('')) : '';
   const areas = s.cats.length ? sec('target', 'Impact by area', catBarsHTML(s.cats)) : '';
   const chart = m.list.length ? sec('chart', 'Activity over time', barChartSVG(m.series)) : '';
-  const log = m.includeLog && m.groups.length ? sec('list', 'Complete log', m.groups.map(g => `<div class="log-group"><h4>${g.label} · ${g.items.length}</h4>${g.items.map(w => `<div class="log-item"><span class="win-date">${fmtShortK(w.date)}</span><div><b>${esc(w.title)}</b>${w.result ? ` <span class="win-result" style="display:inline">→ ${esc(w.result)}</span>` : ''}<div class="small muted">${esc(CAT[w.category].label)} · ${IMPACT[w.impact]}${w.project ? ' · ' + esc(w.project) : ''}</div></div></div>`).join('')}</div>`).join('')) : '';
+  const log = m.includeLog && m.groups.length ? sec('list', 'Complete log', m.groups.map(g => `<div class="log-group"><h4>${g.label} · ${g.items.length}</h4>${g.items.map(w => `<div class="log-item"><span class="win-date">${fmtShortK(w.date)}</span><div><b>${esc(w.title)}</b>${w.mood ? ` <span title="Feeling ${MOOD[w.mood].label.toLowerCase()}">${MOOD[w.mood].e}</span>` : ''}${w.result ? ` <span class="win-result" style="display:inline">→ ${esc(w.result)}</span>` : ''}<div class="small muted">${esc(catOf(w.category).label)} · ${IMPACT[w.impact]}${w.mood ? ' · felt ' + MOOD[w.mood].label.toLowerCase() : ''}${w.project ? ' · ' + esc(w.project) : ''}</div></div></div>`).join('')}</div>`).join('')) : '';
   const empty = !m.list.length ? `<div class="empty">${ART.chart()}<div><b>No wins in this report yet</b>Widen the period, include more areas, or log a win first.</div></div>` : '';
   const order = m.purpose === 'resume' ? [summary, bullets, strengths, statRow, hls, areas, log]
     : m.purpose === 'cheer' ? [summary, statRow, bullets, chart, areas, log]
@@ -2903,7 +3226,7 @@ let aiCtl = null;
 async function draftWithClaude(sample) {
   const m = buildReport(), st = $('#r-ai-status'), go2 = $('#r-ai-go'), stop = $('#r-ai-stop'), box = $('#r-ai');
   if (!m.list.length) { st.textContent = 'There are no wins in this report yet.'; return; }
-  const rows = highlights(m.list, 180).map(w => `${w.date} | ${CAT[w.category].label} | ${IMPACT[w.impact]} | ${w.title}${w.result ? ' | Result: ' + w.result : ''}${w.project ? ' | Project: ' + w.project : ''}${w.details ? ' | Notes: ' + w.details.slice(0, 200) : ''}`).join('\n');
+  const rows = highlights(m.list, 180).map(w => `${w.date} | ${catOf(w.category).label} | ${IMPACT[w.impact]} | ${w.title}${w.result ? ' | Result: ' + w.result : ''}${w.project ? ' | Project: ' + w.project : ''}${w.details ? ' | Notes: ' + w.details.slice(0, 200) : ''}`).join('\n');
   const who = [S.profile.role, S.profile.company].filter(Boolean).join(' at ') || 'a professional';
   const ask = {
     review: 'Write "summary": a first-person paragraph of 110 to 170 words she can read or send in a salary or promotion conversation. Emphasize impact, scope, reliability and growth. Then "bullets": 6 to 10 bullets, each "achievement → result", starting with a strong past-tense verb, written in first person without the word "I". Then "strengths": 3 to 5 short strength labels evidenced by the entries.',
@@ -2935,7 +3258,7 @@ function reportMarkdown(m) {
   m.bullets.forEach(b => L.push(`- ${b}`));
   if (m.strengths.length) L.push('', '## Strengths shown', m.strengths.join(' · '));
   if (m.stats.cats.length) { L.push('', '## By area'); m.stats.cats.forEach(c => L.push(`- ${c.label}: ${c.count}`)); }
-  if (m.includeLog && m.groups.length) { L.push('', '## Complete log'); m.groups.forEach(g => { L.push('', `### ${g.label}`); g.items.forEach(w => L.push(`- ${fmtShortK(w.date)} · ${w.title}${w.result ? ' → ' + w.result : ''} (${CAT[w.category].label}, ${IMPACT[w.impact]})`)); }); }
+  if (m.includeLog && m.groups.length) { L.push('', '## Complete log'); m.groups.forEach(g => { L.push('', `### ${g.label}`); g.items.forEach(w => L.push(`- ${fmtShortK(w.date)} · ${w.title}${w.result ? ' → ' + w.result : ''} (${catOf(w.category).label}, ${IMPACT[w.impact]})`)); }); }
   return L.join('\n');
 }
 async function exportReportPdf() {
@@ -2952,10 +3275,10 @@ async function exportReportPdf() {
     const summary = () => { w.heading(m.purpose === 'resume' ? 'Professional summary' : m.purpose === 'cheer' ? 'A note to you' : 'Summary', 2); w.text(m.summary, { size: 10.5, lh: 16 }); w.space(4); };
     const bullets = () => { w.heading(m.purpose === 'resume' ? 'Resume bullets' : m.purpose === 'cheer' ? 'Moments to be proud of' : 'Key achievements', 2); m.bullets.forEach(b => w.bullet([{ text: b }])); };
     const strengths = () => { if (m.strengths.length) { w.heading('Strengths shown', 2); w.text(m.strengths.join(' · ')); } };
-    const hls = () => { if (!m.highlights.length) return; w.heading('Highlights', 2); m.highlights.forEach(h => { w.ensure(40); w.runs([{ text: h.title, bold: true }]); if (h.result) w.text('-> ' + h.result, { color: PC.good, size: 10 }); w.text(`${fmtDateK(h.date)} · ${CAT[h.category].label} · ${IMPACT[h.impact]}${h.project ? ' · ' + h.project : ''}`, { size: 8.5, color: PC.muted }); w.space(6); }); };
+    const hls = () => { if (!m.highlights.length) return; w.heading('Highlights', 2); m.highlights.forEach(h => { w.ensure(40); w.runs([{ text: h.title, bold: true }]); if (h.result) w.text('-> ' + h.result, { color: PC.good, size: 10 }); w.text(`${fmtDateK(h.date)} · ${catOf(h.category).label} · ${IMPACT[h.impact]}${h.project ? ' · ' + h.project : ''}`, { size: 8.5, color: PC.muted }); w.space(6); }); };
     const areas = () => { if (m.stats.cats.length) { w.heading('Impact by area', 2); w.catBars(m.stats.cats); } };
     const chart = () => { if (m.list.length) { w.heading('Activity over time', 2); w.chart(m.series); } };
-    const log = () => { if (!m.includeLog || !m.groups.length) return; w.heading('Complete log', 2); m.groups.forEach(g => { w.heading(`${g.label} (${g.items.length})`, 3); g.items.forEach(it => w.bullet([{ text: fmtShortK(it.date) + '  ', bold: true }, { text: it.title }, ...(it.result ? [{ text: ' -> ' + it.result, italic: true }] : [])], { size: 9.5 })); }); };
+    const log = () => { if (!m.includeLog || !m.groups.length) return; w.heading('Complete log', 2); m.groups.forEach(g => { w.heading(`${g.label} (${g.items.length})`, 3); g.items.forEach(it => w.bullet([{ text: fmtShortK(it.date) + '  ', bold: true }, { text: it.title }, ...(it.result ? [{ text: ' -> ' + it.result, italic: true }] : []), ...(it.mood ? [{ text: ' (felt ' + MOOD[it.mood].label.toLowerCase() + ')', italic: true }] : [])], { size: 9.5 })); }); };
     const order = m.purpose === 'resume' ? [summary, bullets, strengths, stats, hls, areas, log] : m.purpose === 'cheer' ? [summary, stats, bullets, chart, areas, log] : [summary, stats, bullets, strengths, hls, areas, chart, log];
     order.forEach(fn => fn());
     return w.finish(`${m.title}${S.profile.name ? ' · ' + S.profile.name : ''}`);
@@ -2986,6 +3309,7 @@ function mountAccount() {
         </form>
       </section>
       <section class="card" style="--i:1" id="sec-card"></section>
+      <section class="card" style="--i:2" id="areas-card"></section>
       <section class="card" style="--i:2" id="bk-card">
         <div class="sec-head"><span class="icon-badge">${icon('download')}</span><div style="flex:1"><h2>Backup and export</h2><p>Encrypted copies of everything, plus a spreadsheet export</p></div><span class="badge on">${icon('lock', 'sm')}Encrypted</span></div>
         <div class="stack">
@@ -3000,10 +3324,15 @@ function mountAccount() {
       </section>
     </div>
   </div>`;
-  fillProfile(); updateStorageInfo(); renderSecurity();
+  fillProfile(); updateStorageInfo(); renderSecurity(); renderAreasCard();
+  $('#areas-card').addEventListener('click', e => {
+    if (e.target.closest('[data-area-new]')) return areaModal(null, () => renderAreasCard());
+    const ed = e.target.closest('[data-area-edit]'); if (ed) return areaModal(ed.dataset.areaEdit, () => renderAreasCard());
+    const del = e.target.closest('[data-area-del]'); if (del) deleteArea(del.dataset.areaDel).then(renderAreasCard);
+  });
   $('#pf-form').addEventListener('submit', e => {
     e.preventDefault();
-    S.profile = normProfile({ name: $('#pf-name').value.trim(), nickname: $('#pf-nick').value.trim(), role: $('#pf-role').value.trim(), company: $('#pf-company').value.trim(), weekStart: Number($('#pf-week').value), weeklyGoal: Number($('#pf-goal').value) });
+    S.profile = normProfile({ ...S.profile, name: $('#pf-name').value.trim(), nickname: $('#pf-nick').value.trim(), role: $('#pf-role').value.trim(), company: $('#pf-company').value.trim(), weekStart: Number($('#pf-week').value), weeklyGoal: Number($('#pf-goal').value) });
     persistProfile(); updateSideCard(); fillProfile(true); toast('Details saved');
   });
   $('#bk-json-note').textContent = S.lock ? 'Locked with your wall passcode (or your recovery code).' : "You'll choose a password for the file.";
@@ -3014,7 +3343,7 @@ function mountAccount() {
   };
   $('#bk-csv').onclick = async () => {
     const q = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
-    const rows = [['Date', 'Area', 'Size', 'Achievement', 'Result', 'Details', 'Project', 'Tags'].join(',')].concat(allWins().map(w => [w.date, CAT[w.category].label, IMPACT[w.impact], w.title, w.result, w.details, w.project, w.tags.join('; ')].map(q).join(',')));
+    const rows = [['Date', 'Area', 'Size', 'Feeling', 'Achievement', 'Result', 'Details', 'Project', 'Tags', 'Attachments'].join(',')].concat(allWins().map(w => [w.date, catOf(w.category).label, IMPACT[w.impact], w.mood ? MOOD[w.mood].label : '', w.title, w.result, w.details, w.project, w.tags.join('; '), w.files.map(f => f.name).join('; ')].map(q).join(',')));
     if (rows.length === 1) { toast('There are no wins to export yet.'); return; }
     if (!(await confirmModal("Spreadsheet files can't be encrypted. Anyone who gets this file can read your wins. Export anyway?", 'Export', ''))) return;
     saveFile(`achievements-${todayKey()}.csv`, '﻿' + rows.join('\r\n'));
@@ -3039,15 +3368,25 @@ function mountAccount() {
     for (const [k, items] of days) { const cur = new Map((S.days.get(k) || []).map(x => [x.id, x])); items.map(normItem).filter(Boolean).forEach(it => cur.set(it.id, it)); S.days.set(k, [...cur.values()]); touched.push(['d', k]); }
     for (const n of nbs) { const v = normNb(n.id, n); S.notebooks = S.notebooks.filter(x => x.id !== v.id).concat(v); touched.push(['nb', v.id]); }
     for (const n of notes) { const v = normNote(n.id, n); v.html = sanitize(v.html); S.notes = S.notes.filter(x => x.id !== v.id).concat(v); touched.push(['n', v.id]); }
-    if (data.profile && !S.profile.name) { S.profile = normProfile(data.profile); touched.push(['p']); }
+    if (data.profile) {
+      const inc = normProfile(data.profile);
+      const have = new Set(S.profile.customCats.map(c => c.key));
+      const merged = [...S.profile.customCats, ...inc.customCats.filter(c => !have.has(c.key))];
+      S.profile = S.profile.name ? { ...S.profile, customCats: merged } : { ...inc, customCats: merged };
+      applyCategories(); touched.push(['p']);
+    }
     invalidate(); onData('all');
     for (const [t, id] of touched) { if (t === 'd') await persistDay(id); else if (t === 'nb') await persistNotebook(id); else if (t === 'n') await persistNote(id); else await persistProfile(); if (S.mode === 'cloud') await sleep(60); }
+    for (const [fid, f] of Object.entries(data.files || {})) { if (!/^[A-Za-z0-9_-]{1,60}$/.test(fid) || !f || !f.b64) continue; try { await storeFileBytes(fid, b64ToBuf(f.b64), { name: String(f.name || 'file'), type: String(f.type || '') }); } catch (e) { console.error(e); } }
     toast('Backup restored');
   });
 }
 async function downloadBackup(key, keys, protectedBy) {
   try {
-    const payload = { profile: S.profile, days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes };
+    const payload = { profile: S.profile, days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes, files: {} };
+    const refs = allFileRefs();
+    if (refs.length) toast(`Packing ${plural(refs.length, 'attachment')}…`);
+    for (const f of refs) { try { const { bytes, meta } = await loadFileBytes(f.id); payload.files[f.id] = { name: meta.name, type: meta.type, b64: bufToB64(bytes) }; } catch (e) { console.error(e); } }
     const box = await sealBytes(key, enc.encode(JSON.stringify(payload)));
     const file = { app: 'bragging-wall', version: 3, encrypted: true, cipher: 'AES-256-GCM', kdf: 'PBKDF2-SHA256', protectedBy, exportedAt: new Date().toISOString(), keys, data: box };
     const ok = await saveFile(`bragging-wall-backup-${todayKey()}.json`, JSON.stringify(file));
@@ -3169,7 +3508,7 @@ function renderSecurity() {
       err.textContent = 'Decrypting your entries… keep this page open.';
       CRYPTO.key = null;
       await persistAll((i, n) => { err.textContent = `Decrypting your entries… ${Math.round(i / n * 100)}%`; });
-      await deleteLock();
+      await deleteLock(); lsSet(LS_SKIP, '1');
       renderSecurity(); updateStorageInfo(); toast('Passcode turned off');
     } }],
   });
@@ -3180,6 +3519,57 @@ function showRecoveryModal(code) {
     onOpen: w => bindRecoveryButtons(w, code),
     actions: [{ label: "I've saved it" }],
   });
+}
+
+/* ================= Custom areas ================= */
+function areaModal(editKey, onSaved) {
+  const c = editKey ? S.profile.customCats.find(x => x.key === editKey) : null;
+  const curIcon = c ? c.icon : 'star', curColor = c ? c.color : CUSTOM_COLORS[(S.profile.customCats.length + 1) % CUSTOM_COLORS.length];
+  openModal({
+    title: c ? 'Edit area' : 'New area', wide: true,
+    body: `<div class="stack">
+      <div class="field"><label for="na-name">Name</label><input id="na-name" type="text" maxlength="40" value="${esc(c ? c.label : '')}" placeholder="e.g. Android Testing, Side Project, Health"></div>
+      <fieldset class="field"><legend>Icon</legend><div class="icon-grid">${ICON_CHOICES.map(n => `<label class="icon-opt" title="${n}"><input type="radio" name="na-icon" value="${n}" ${n === curIcon ? 'checked' : ''} aria-label="${n}"><span>${icon(n)}</span></label>`).join('')}</div></fieldset>
+      <fieldset class="field"><legend>Color</legend><div class="swatches">${CUSTOM_COLORS.map(col => `<label class="swatch"><input type="radio" name="na-color" value="${col}" ${col === curColor ? 'checked' : ''} aria-label="Color ${col}"><span style="--sw:${col}"></span></label>`).join('')}</div></fieldset>
+      <div class="field"><span class="lbl">Preview</span><div><span class="chip-btn area-chip" id="na-prev"></span></div></div>
+    </div>`,
+    onOpen: w => {
+      const paint = () => { const ic = $('input[name="na-icon"]:checked', w).value, col = $('input[name="na-color"]:checked', w).value, nm = $('#na-name', w).value.trim(); const p = $('#na-prev', w); p.style.setProperty('--cat', col); p.innerHTML = `${icon(ic, 'sm')}<span>${esc(nm || 'New area')}</span>`; };
+      w.addEventListener('input', paint); w.addEventListener('change', paint); paint();
+    },
+    actions: [{ label: 'Cancel', kind: 'ghost' }, { label: c ? 'Save area' : 'Add area', onClick: w => {
+      const label = $('#na-name', w).value.trim();
+      if (!label) { toast('Give the area a name.', 'warn'); $('#na-name', w).focus(); return false; }
+      if (CATS.some(x => x.label.toLowerCase() === label.toLowerCase() && x.key !== editKey)) { toast('You already have an area with that name.', 'warn'); return false; }
+      const ic = $('input[name="na-icon"]:checked', w).value, col = $('input[name="na-color"]:checked', w).value;
+      let key = editKey;
+      const list = [...S.profile.customCats];
+      if (c) list.splice(list.findIndex(x => x.key === editKey), 1, { key, label, icon: ic, color: col });
+      else { if (list.length >= 30) { toast('You can have up to 30 custom areas.', 'warn'); return false; } key = 'c-' + newId().replace(/[^a-z0-9]/g, '').slice(0, 14); list.push({ key, label, icon: ic, color: col }); }
+      S.profile = { ...S.profile, customCats: list };
+      applyCategories(); persistProfile(); onData('profile');
+      toast(c ? 'Area updated' : `Area “${label}” added`);
+      if (onSaved) onSaved(key);
+    } }],
+  });
+}
+async function deleteArea(key) {
+  const c = S.profile.customCats.find(x => x.key === key);
+  if (!c) return;
+  const n = allWins().filter(w => w.category === key).length;
+  if (!(await confirmModal(`Delete the area “${c.label}”?${n ? ` Its ${plural(n, 'win')} will move to Personal Win.` : ''}`))) return;
+  for (const [d, items] of S.days) if (items.some(x => x.category === key)) { S.days.set(d, items.map(x => x.category === key ? { ...x, category: 'personal', updatedAt: Date.now() } : x)); persistDay(d); }
+  S.profile = { ...S.profile, customCats: S.profile.customCats.filter(x => x.key !== key) };
+  UI.report.exclude.delete(key);
+  applyCategories(); persistProfile(); onData('all');
+  toast('Area deleted');
+}
+function renderAreasCard() {
+  const el = $('#areas-card');
+  if (!el) return;
+  const counts = new Map(); allWins().forEach(w => counts.set(w.category, (counts.get(w.category) || 0) + 1));
+  el.innerHTML = `<div class="sec-head"><span class="icon-badge">${icon('sliders')}</span><div style="flex:1"><h2>Your areas</h2><p>Categories for your wins. Add your own with an icon and color.</p></div><button type="button" class="btn sm" data-area-new>${icon('plus')}New area</button></div>
+    <div class="area-list">${CATS.map(c => `<div class="area-row" data-cat="${c.key}"><span class="cat-ic">${catIcon(c.key)}</span><span><b>${esc(c.label)}</b><small>${plural(counts.get(c.key) || 0, 'win')}${c.custom ? '' : ' · built-in'}</small></span>${c.custom ? `<span class="row"><button type="button" class="icon-btn" data-area-edit="${c.key}" aria-label="Edit ${esc(c.label)}">${icon('edit')}</button><button type="button" class="icon-btn danger" data-area-del="${c.key}" aria-label="Delete ${esc(c.label)}">${icon('trash')}</button></span>` : ''}</div>`).join('')}</div>`;
 }
 
 /* ================= Gate: lock, setup, recovery ================= */
@@ -3361,8 +3751,8 @@ async function lockNow(auto) {
   await drainQueues();
   S.unsubs.forEach(u => { try { u(); } catch (e) { /* ignore */ } });
   S.unsubs = [];
-  S.days = new Map(); S.notebooks = []; S.notes = []; S.profile = normProfile({}); invalidate();
-  CRYPTO.key = CRYPTO.readKey = null; decCache = new WeakMap(); shownCounts.clear();
+  S.days = new Map(); S.notebooks = []; S.notes = []; S.profile = normProfile({}); applyCategories(); invalidate();
+  CRYPTO.key = CRYPTO.readKey = null; decCache = new WeakMap(); shownCounts.clear(); fileURLs.forEach(u => URL.revokeObjectURL(u)); fileURLs.clear();
   UI.report.ai = null; UI.report.edits = null;
   S.view = null; $('#view').innerHTML = ''; setBanner(null);
   showGate('unlock', { auto: !!auto });
@@ -3375,7 +3765,7 @@ async function boot() {
   if (db && uid) {
     S.mode = 'cloud'; S.db = db;
     const profile = db.doc(`data/users/${uid}/profile`);
-    S.refs = { profile, wins: profile.collection('wins'), notebooks: profile.collection('notebooks'), notes: profile.collection('notes'), lock: profile.collection('meta').doc('lock') };
+    S.refs = { profile, wins: profile.collection('wins'), notebooks: profile.collection('notebooks'), notes: profile.collection('notes'), files: profile.collection('files'), lock: profile.collection('meta').doc('lock') };
   } else S.mode = 'local';
   if (!window.crypto || !crypto.subtle) { S.lock = null; startApp(); return; }
   try { S.lock = await readLock(); } catch (e) { console.error(e); showGate('error'); return; }
@@ -3410,7 +3800,7 @@ function openPalette() {
     items = cmds.filter(c => !q || c.label.toLowerCase().includes(q));
     if (q.length >= 2) {
       allWins().filter(w => (w.title + ' ' + w.result + ' ' + w.tags.join(' ') + ' ' + w.project).toLowerCase().includes(q)).slice(-8).reverse()
-        .forEach(w => items.push({ g: 'Wins', label: w.title, sub: `${fmtDateK(w.date)} · ${CAT[w.category].label}`, cat: w.category, run: () => openWinPreview(w.id) }));
+        .forEach(w => items.push({ g: 'Wins', label: w.title, sub: `${fmtDateK(w.date)} · ${catOf(w.category).label}`, cat: w.category, run: () => openWinPreview(w.id) }));
       S.notes.filter(n => (n.title + ' ' + n.html.replace(/<[^>]+>/g, ' ')).toLowerCase().includes(q)).slice(0, 6)
         .forEach(n => items.push({ g: 'Pages', label: n.title || 'Untitled page', sub: `${fmtDateK(n.date)} · ${S.notebooks.find(b => b.id === n.notebookId)?.name || ''}`, icon: 'file', run: () => openNote(n.id) }));
     }
@@ -3449,7 +3839,7 @@ function cheer() {
       <p class="cheer-title">${esc(w.title)}</p>
       ${w.result ? `<p class="cheer-result">→ ${esc(w.result)}</p>` : ''}
       ${w.details ? `<p class="muted">${esc(w.details)}</p>` : ''}
-      <div class="win-top" style="justify-content:center"><span class="pill">${catIcon(w.category, 'sm')} ${esc(CAT[w.category].label)}</span>${starIcons(w.impact)}</div>
+      <div class="win-top" style="justify-content:center"><span class="pill">${catIcon(w.category, 'sm')} ${esc(catOf(w.category).label)}</span>${starIcons(w.impact)}</div>
       <p class="small muted" style="margin-top:6px">That was you. Since ${fmtDateK(all[0].date)} you've logged ${plural(all.length, 'win')} across ${plural(new Set(all.map(x => x.date)).size, 'day')}.</p></div>`;
   };
   openModal({ title: 'Remember this?', body: '', onOpen: w => { render(w); confetti(); }, actions: [{ label: 'Show me another', kind: 'ghost', onClick: w => { render(w); confetti(); return false; } }, { label: 'Thanks, I needed that' }] });
@@ -3542,6 +3932,8 @@ function drawFreedomWall() {
 function scheduleWall() { clearTimeout(FW.timer); FW.timer = setTimeout(drawFreedomWall, 120); }
 
 /* ================= Boot ================= */
+document.addEventListener('pointerdown', e => { const inp = e.target.closest('.mood-opt')?.querySelector('input'); if (inp) inp.dataset.was = inp.checked ? '1' : ''; }, true);
+document.addEventListener('click', e => { const lab = e.target.closest('.mood-opt'); if (!lab || e.target.tagName === 'INPUT') return; const inp = lab.querySelector('input'); if (inp.dataset.was === '1') { e.preventDefault(); inp.checked = false; inp.dataset.was = ''; inp.dispatchEvent(new Event('change', { bubbles: true })); } }, true);
 applyTheme();
 renderShell();
 drawFreedomWall();
