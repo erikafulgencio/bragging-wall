@@ -781,6 +781,12 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 @keyframes st-wave { 0% { opacity: 0; transform: translateX(-4px); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateX(4px); } }
 @keyframes st-lift { 50% { transform: translateY(-14px); } }
 @media (max-width: 560px) { .bd-thread:not(.bd-typing-row) { flex-direction: column; gap: 8px; } .bd-bubble { border-radius: 18px; } .braddy-av { width: 40px; height: 40px; } .bd-bubble { padding: 12px; } .bd-chart { width: 150px; } }
+/* Backup password */
+.bp-hero { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 14px; background: color-mix(in srgb, var(--accent) 9%, var(--surface-solid)); font-size: .88rem; line-height: 1.5; }
+.bp-ic { width: 36px; height: 36px; flex: none; border-radius: 11px; display: grid; place-items: center; background: var(--grad); color: #fff; }
+.bp-ic .i { width: 18px; height: 18px; }
+.bp-hint { display: flex; gap: 8px; align-items: center; font-size: .86rem; padding: 8px 12px; border-radius: 10px; background: color-mix(in srgb, #F4B336 16%, var(--surface-solid)); }
+.bp-hint .i { color: #B7860B; flex: none; }
 /* Backup card */
 .bk-main { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .bk-big { display: flex; align-items: center; min-height: 92px; gap: 12px; text-align: left; padding: 14px; border-radius: 16px; border: 0; cursor: pointer; font: inherit; color: #fff; background: var(--grad); box-shadow: 0 10px 22px -12px color-mix(in srgb, var(--accent) 70%, transparent); transition: transform .18s var(--ease), box-shadow .18s; }
@@ -5297,10 +5303,10 @@ function mountAccount() {
               <li>${icon('sparkles', 'sm')}Notebook covers, including your uploaded pictures, stickers and GIFs</li>
               <li>${icon('list', 'sm')}Shelves, categories, tags and your custom areas</li>
               <li>${icon('key', 'sm')}Notebook PIN locks: locked notebooks stay locked and open with the same PIN</li>
-              <li>${icon('lock', 'sm')}Your passcode lock: the file opens with your passcode or your recovery code</li>
+              <li>${icon('lock', 'sm')}Locked with your own backup password: without it, nobody can open the file</li>
               <li>${icon('user', 'sm')}Profile and settings</li>
             </ul>
-            <p class="small muted">${icon('shield', 'sm')} For your safety, your passcode, recovery code and PINs are never written into the file in readable form. Keep your recovery code somewhere separate, like a password manager.</p>
+            <p class="small muted">${icon('shield', 'sm')} Your backup password, passcode, recovery code and PINs are never written into the file. If you forget the backup password, the file can't be opened, so keep it in a password manager.</p>
           </details>
           <div class="bk-row"><span class="kpi-ic gold">${icon('file')}</span><div><b>Spreadsheet of wins (.csv)</b><small>For Excel or Google Sheets. Not encrypted, so keep it private.</small></div><button type="button" class="btn ghost sm" id="bk-csv">${icon('download')}Export</button></div>
         </div>
@@ -5322,13 +5328,10 @@ function mountAccount() {
     S.profile = normProfile({ ...S.profile, name: $('#pf-name').value.trim(), nickname: $('#pf-nick').value.trim(), role: $('#pf-role').value.trim(), company: $('#pf-company').value.trim(), email: $('#pf-email').value.trim(), weekStart: Number($('#pf-week').value), weeklyGoal: Number($('#pf-goal').value) });
     persistProfile(); updateSideCard(); fillProfile(true); toast('Details saved');
   });
-  $('#bk-json-note').textContent = S.lock ? 'Downloads a .json file that opens with your passcode or recovery code.' : "Downloads a .json file. You'll choose a password for it.";
+  $('#bk-json-note').textContent = 'Downloads a .json file locked with a password you set.';
   bkLastNote();
   $('#bk-file-btn').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $('#bk-file').click(); } });
-  $('#bk-json').onclick = () => {
-    if (S.lock && CRYPTO.key) { const k = { pin: S.lock.pin }; if (S.lock.rec) k.rec = S.lock.rec; downloadBackup(CRYPTO.key, k, 'journal-passcode'); }
-    else backupPasswordModal();
-  };
+  $('#bk-json').onclick = () => backupPasswordModal();
   $('#bk-csv').onclick = async () => {
     const q = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
     const rows = [['Date', 'Area', 'Size', 'Feeling', 'Achievement', 'Result', 'Details', 'Project', 'Tags', 'Attachments'].join(',')].concat(allWins().map(w => [w.date, catOf(w.category).label, IMPACT[w.impact], w.mood ? MOOD[w.mood].label : '', w.title, w.result, w.details, w.project, w.tags.join('; '), w.files.map(f => f.name).join('; ')].map(q).join(',')));
@@ -5376,42 +5379,55 @@ async function restoreFromText(text) {
     toast(`Backup imported: ${plural(nWins, 'win')}, ${plural(nbs.length, 'notebook')}, ${plural(notes.length, 'page')} and ${plural(Object.keys(data.files || {}).length, 'file')}.`);
   }
 }
-async function buildBackupFile(key, keys, protectedBy, quiet) {
+async function buildBackupFile(key, keys, protectedBy, quiet, hint) {
   await Promise.all([...SEALING.values()]).catch(() => {});
   const payload = { profile: S.profile, days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes.map(n => ({ id: n.id, ...noteBody(n) })), files: {} };
   const refs = allFileRefs(); let missing = 0;
   if (refs.length && !quiet) toast(`Packing ${plural(refs.length, 'attachment')}…`);
   for (const f of refs) { try { const { bytes, meta } = await loadFileBytes(f.id); payload.files[f.id] = { name: meta.name, type: meta.type, b64: bufToB64(bytes) }; } catch (e) { console.error(e); missing++; } }
   const box = await sealBytes(key, enc.encode(JSON.stringify(payload)));
-  const file = { app: 'bragging-wall', version: 3, encrypted: true, cipher: 'AES-256-GCM', kdf: 'PBKDF2-SHA256', protectedBy, exportedAt: new Date().toISOString(), keys, data: box };
+  const file = { app: 'bragging-wall', version: 3, encrypted: true, cipher: 'AES-256-GCM', kdf: 'PBKDF2-SHA256', protectedBy, exportedAt: new Date().toISOString(), ...(hint ? { hint: String(hint).slice(0, 80) } : {}), keys, data: box };
   return { text: JSON.stringify(file), missing, counts: { wins: allWins().length, notebooks: S.notebooks.length, pages: S.notes.length, files: refs.length - missing } };
 }
 function journalBackupKey() { if (!(S.lock && CRYPTO.key)) return null; const k = { pin: S.lock.pin }; if (S.lock.rec) k.rec = S.lock.rec; return { key: CRYPTO.key, keys: k, protectedBy: 'journal-passcode' }; }
-async function downloadBackup(key, keys, protectedBy) {
+async function downloadBackup(key, keys, protectedBy, hint) {
   try {
-    const { text } = await buildBackupFile(key, keys, protectedBy);
+    const { text } = await buildBackupFile(key, keys, protectedBy, false, hint);
     const ok = await saveFile(`bragging-wall-backup-${todayKey()}.json`, text);
-    if (ok) { lsSet('bw-last-backup', String(Date.now())); bkLastNote(); storageBanner(); toast(protectedBy === 'journal-passcode' ? 'Backup file created. It opens with your passcode or recovery code.' : 'Backup file created. Keep the password safe.'); }
+    if (ok) { lsSet('bw-last-backup', String(Date.now())); bkLastNote(); storageBanner(); toast(protectedBy === 'journal-passcode' ? 'Backup file created. It opens with your passcode or recovery code.' : 'Backup file created. It opens only with the password you set.'); }
   } catch (e) { console.error(e); toast("Couldn't create the backup.", 'warn'); }
 }
 function backupPasswordModal(then, actionLabel) {
   openModal({
-    title: 'Protect this backup',
-    body: `<div class="stack"><p class="small muted">Choose a password for the backup file. You'll need it to restore the file, and it can't be recovered if you forget it.</p>
-      ${pwField('bp-1', 'Backup password', 'new-password')}<div class="meter" id="bp-meter"><i></i><i></i><i></i><i></i></div>${pwField('bp-2', 'Confirm password', 'new-password')}<p class="err" id="bp-err"></p>
-      <p class="small muted">${icon('info', 'sm')} Tip: turn on the passcode lock in Security and backups will use your passcode automatically.</p></div>`,
-    onOpen: w => { bindPw(w); $('#bp-1', w).addEventListener('input', e => { $('#bp-meter', w).dataset.s = e.target.value ? strength(e.target.value) : 0; }); },
-    actions: [{ label: 'Cancel', kind: 'ghost' }, { label: actionLabel || 'Encrypt and download', onClick: async w => {
-      const a = $('#bp-1', w).value, b = $('#bp-2', w).value, err = $('#bp-err', w);
-      if (a.length < 8) { err.textContent = 'Use at least 8 characters.'; return false; }
-      if (a !== b) { err.textContent = "The passwords don't match."; return false; }
+    title: 'Set a password for this backup',
+    body: `<div class="stack bp-modal">
+      <div class="bp-hero"><span class="bp-ic">${icon('lock')}</span><p>Only someone with this password can open the backup file. It's needed when you import the file, on this device or a new one.</p></div>
+      ${pwField('bp-1', 'Backup password', 'new-password')}
+      <div><div class="meter" id="bp-meter"><i></i><i></i><i></i><i></i></div><span class="meter-l" id="bp-meter-l">At least 8 characters. A short phrase like “three green mangoes” works well.</span></div>
+      ${pwField('bp-2', 'Confirm password', 'new-password')}
+      <div class="field"><label for="bp-hint">Password hint <span class="opt">optional, shown when importing</span></label><input id="bp-hint" type="text" maxlength="80" autocomplete="off" placeholder="Something only you would understand"></div>
+      <label class="check-line"><input type="checkbox" id="bp-ok">I understand that if I forget this password, the backup can't be opened.</label>
+      <p class="err" id="bp-err" role="alert"></p></div>`,
+    onOpen: w => {
+      bindPw(w);
+      $('#bp-1', w).addEventListener('input', e => { const v = e.target.value, st = strength(v); $('#bp-meter', w).dataset.s = v ? st : 0; $('#bp-meter-l', w).textContent = !v ? 'At least 8 characters. A short phrase like “three green mangoes” works well.' : v.length < 8 ? 'Too short' : ['', 'Weak: add more words or characters', 'Fair', 'Good', 'Strong'][st]; });
+      setTimeout(() => $('#bp-1', w)?.focus(), 50);
+    },
+    actions: [{ label: 'Cancel', kind: 'ghost' }, { label: actionLabel || 'Create backup file', onClick: async w => {
+      const a = $('#bp-1', w).value, b = $('#bp-2', w).value, hint = $('#bp-hint', w).value.trim(), err = $('#bp-err', w);
+      if (a.length < 8) { err.textContent = 'Use at least 8 characters.'; $('#bp-1', w).focus(); return false; }
+      if (strength(a) < 2) { err.textContent = 'That password is too easy to guess. Add more words or characters.'; $('#bp-1', w).focus(); return false; }
+      if (a !== b) { err.textContent = "The passwords don't match."; $('#bp-2', w).focus(); return false; }
+      if (hint && hint.toLowerCase().includes(a.toLowerCase())) { err.textContent = "Your hint can't contain the password."; $('#bp-hint', w).focus(); return false; }
+      if (!$('#bp-ok', w).checked) { err.textContent = 'Please tick the box to confirm.'; return false; }
       err.textContent = 'Encrypting…';
       const key = await crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt']);
       const keys = { pin: await wrapDEK(key, a) };
-      setTimeout(() => then ? then(key, keys, 'backup-password') : downloadBackup(key, keys, 'backup-password'), 0);
+      setTimeout(() => then ? then(key, keys, 'backup-password', hint) : downloadBackup(key, keys, 'backup-password', hint), 0);
     } }],
   });
 }
+const BK_TRY = { n: 0, until: 0 };
 async function decryptBackup(f) {
   if (!f.data || !f.keys || !f.keys.pin) { toast('This backup file is damaged.', 'warn'); return null; }
   if (CRYPTO.readKey) { try { return await openObj(CRYPTO.readKey, f.data); } catch (e) { /* different key: ask */ } }
@@ -5420,17 +5436,19 @@ async function decryptBackup(f) {
   return new Promise(res => {
     openModal({
       title: 'Unlock this backup',
-      body: `<div class="stack"><p class="small">${isPw ? `Enter the password you chose when you downloaded this backup on ${esc(when)}.` : `Enter the wall passcode you were using on ${esc(when)}${f.keys.rec ? ', or your recovery code from that time' : ''}.`}</p>
-        ${pwField('rb-pass', isPw ? 'Backup password' : 'Passcode or recovery code', 'off')}<p class="err" id="rb-err"></p></div>`,
+      body: `<div class="stack"><div class="bp-hero"><span class="bp-ic">${icon('lock')}</span><p>${isPw ? `This backup is password protected. Enter the password you set when you created it on ${esc(when)}.` : `Enter the wall passcode you were using on ${esc(when)}${f.keys.rec ? ', or your recovery code from that time' : ''}.`}</p></div>
+        ${pwField('rb-pass', isPw ? 'Backup password' : 'Passcode or recovery code', 'off')}${isPw && typeof f.hint === 'string' && f.hint ? `<p class="bp-hint">${icon('bulb', 'sm')}<span>Your hint: <b>${esc(f.hint.slice(0, 80))}</b></span></p>` : ''}<p class="err" id="rb-err"></p></div>`,
       onOpen: bindPw,
       actions: [{ label: 'Cancel', kind: 'ghost', onClick: () => res(null) }, { label: 'Unlock backup', onClick: async w => {
         const v = $('#rb-pass', w).value, err = $('#rb-err', w);
         if (!v) { err.textContent = 'Enter it first.'; return false; }
+        if (Date.now() < BK_TRY.until) { err.textContent = `Too many tries. Wait ${Math.ceil((BK_TRY.until - Date.now()) / 1000)} seconds.`; return false; }
         err.textContent = 'Checking…';
         let key = null;
         try { key = await unwrapDEK(f.keys.pin, v); } catch (e) { key = null; }
         if (!key && f.keys.rec && normRec(v).length === 20) { try { key = await unwrapDEK(f.keys.rec, normRec(v)); } catch (e) { key = null; } }
-        if (!key) { err.textContent = "That doesn't unlock this backup."; return false; }
+        if (!key) { BK_TRY.n++; if (BK_TRY.n >= 5) BK_TRY.until = Date.now() + Math.min(300, 30 * 2 ** (BK_TRY.n - 5)) * 1000; err.textContent = isPw ? "That password doesn't open this backup." : "That doesn't unlock this backup."; $('#rb-pass', w).select(); return false; }
+        BK_TRY.n = 0;
         try { res(await openObj(key, f.data)); } catch (e) { err.textContent = 'This backup file is damaged.'; return false; }
       } }],
     });
