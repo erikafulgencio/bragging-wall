@@ -841,6 +841,98 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .banner { align-items: center; flex-wrap: wrap; }
 .banner-msg { flex: 1 1 260px; line-height: 1.45; }
 .banner-acts { display: flex; gap: 6px; flex-wrap: wrap; }
+/* Freedom walls */
+.nav .nav-s { display: none; }
+.fw-frame { container-type: inline-size; width: 100%; position: relative; }
+.fw-board { position: relative; width: 100%; overflow: hidden; border-radius: 18px; isolation: isolate; box-shadow: inset 0 0 0 1px rgba(0,0,0,.06), inset 0 2px 30px rgba(120, 100, 60, .12); user-select: none; -webkit-user-select: none; }
+.fw-board .cv-bgimg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.fw-board .cv-dim { position: absolute; inset: 0; background: #000; pointer-events: none; }
+.fw-board .cv-item { z-index: 4; }
+.fw-paint { position: absolute; left: 0; top: 0; width: 100%; z-index: 5; pointer-events: none; overflow: visible; }
+.cv-item.cv-note { padding: 1.4em .9em 1em; color: #2B2A24; font-family: var(--font-hand); font-weight: 700; line-height: 1.12; text-align: center; box-shadow: 0 .5cqw 1.2cqw -.5cqw rgba(0,0,0,.4); border-radius: 2px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.cv-item.cv-note .cv-tape { position: absolute; top: -.5em; left: 50%; width: 38%; height: 1.1em; margin-left: -19%; background: rgba(255,255,255,.6); transform: rotate(-3deg); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+.fw-win { position: absolute; z-index: 3; width: 13.5cqw; min-height: 14cqw; transform: translate(-50%, 0) rotate(var(--r)); background: var(--nc); color: #2B2A24; border: 0; border-radius: .25cqw; padding: 1.5cqw 1.1cqw 1cqw; text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: .5cqw; font: inherit; box-shadow: 0 .6cqw 1.2cqw -.6cqw rgba(40, 30, 10, .45), 0 .1cqw 0 rgba(0,0,0,.05); transition: transform .25s var(--ease), box-shadow .25s; }
+.fw-win::before { content: ""; position: absolute; top: -.55cqw; left: 50%; width: 1.3cqw; height: 1.3cqw; margin-left: -.65cqw; border-radius: 50%; background: var(--pin); box-shadow: 0 0 0 .25cqw rgba(255,255,255,.7), 0 .25cqw .5cqw rgba(0,0,0,.3); }
+.fw-win:hover, .fw-win:focus-visible { transform: translate(-50%, -.5cqw) rotate(0deg) scale(1.04); box-shadow: 0 1.4cqw 2.4cqw -1cqw rgba(40, 30, 10, .5); z-index: 6; outline: none; }
+.fw-win.sel { outline: .25cqw dashed #0F6E6A; outline-offset: .4cqw; }
+.fw-top { display: flex; justify-content: space-between; align-items: center; gap: .4cqw; }
+.fw-date { font: 600 .82cqw var(--font-mono); letter-spacing: .02em; text-transform: uppercase; opacity: .7; }
+.fw-mood { font-style: normal; font-size: 1.3cqw; line-height: 1; }
+.fw-title { font: 700 1.45cqw/1.12 var(--font-hand); display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.fw-thumb { width: 100%; height: 5.2cqw; object-fit: cover; border: .35cqw solid #fff; box-shadow: 0 .2cqw .5cqw rgba(0,0,0,.2); transform: rotate(-2deg); pointer-events: none; }
+.fw-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: .4cqw; font-size: .8cqw; font-weight: 600; opacity: .8; }
+.fw-area { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fw-stars { color: #C98A10; letter-spacing: .05em; }
+.fw-stamp { position: absolute; right: -1cqw; top: 1.2cqw; transform: rotate(12deg); font: 800 .8cqw var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: #C2477A; border: .2cqw solid #C2477A; border-radius: .4cqw; padding: .2cqw .5cqw; background: rgba(255,255,255,.55); }
+.fw-empty { position: absolute; left: 50%; transform: translateX(-50%); width: min(60cqw, 90%); z-index: 3; display: flex; flex-direction: column; align-items: center; gap: .8cqw; text-align: center; padding: 3cqw; border: .3cqw dashed rgba(15, 110, 106, .4); border-radius: 2cqw; background: rgba(255,255,255,.6); color: #36504D; font-size: 1.4cqw; }
+.fw-empty .i { width: 3cqw; height: 3cqw; color: #0F6E6A; }
+.fw-empty b { font: 700 2.2cqw var(--font-hand); color: #0F6E6A; }
+.fw-home { padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+.fw-home-head { display: flex; align-items: center; gap: 10px 14px; flex-wrap: wrap; }
+.fw-home-head .card-title { margin: 0; }
+.fw-name { font: 600 .95rem var(--font-display); }
+.fw-count { margin-right: auto; }
+.fw-pick select { padding: 6px 30px 6px 12px; border-radius: 99px; font-weight: 600; width: auto; }
+.fw-home-board { position: relative; display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; max-height: 380px; overflow: hidden; border-radius: 18px; text-align: left; }
+.fw-home-board .fw-frame.home { min-width: 0; }
+.fw-home-board .fw-win { pointer-events: none; }
+.fw-home-fade { position: absolute; left: 0; right: 0; bottom: 0; height: 110px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 14px; background: linear-gradient(transparent, color-mix(in srgb, var(--card) 92%, transparent)); z-index: 8; }
+.fw-home-fade span { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 99px; background: var(--grad); color: #fff; font: 600 .86rem var(--font-body); box-shadow: 0 8px 18px -8px rgba(0,0,0,.4); transition: transform .2s var(--ease); }
+.fw-home-board:hover .fw-home-fade span { transform: translateY(-3px); }
+.fw-home-board:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.fw-home-empty { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 6px; }
+.fw-home-empty > .i { width: 40px; height: 40px; color: var(--accent); }
+.fw-home-empty div { flex: 1; min-width: 220px; display: flex; flex-direction: column; gap: 2px; }
+.fw-home-empty span { color: var(--muted); font-size: .9rem; }
+.fw-bar { display: flex; flex-direction: column; gap: 10px; }
+.fw-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.fw-tabs [role="tab"], .fw-new { display: inline-flex; align-items: center; gap: 6px; padding: 7px 13px; border-radius: 99px; border: 1px solid var(--line); background: var(--surface-solid); color: var(--ink); font: 600 .84rem var(--font-body); cursor: pointer; }
+.fw-tabs [role="tab"][aria-selected="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.fw-new { border-style: dashed; color: var(--accent); background: none; }
+.fw-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+.fw-filter { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); }
+.fw-filter select { width: auto; padding: 6px 30px 6px 10px; border-radius: 10px; }
+.fw-featbadge { display: inline-flex; align-items: center; gap: 5px; }
+.fw-scroll { overflow-x: auto; border-radius: 18px; box-shadow: var(--shadow); }
+.fw-scroll .fw-frame.page { min-width: 880px; }
+.fw-hint { display: flex; gap: 6px; align-items: flex-start; }
+.wq { position: relative; background: var(--nc); color: #2B2A24; padding: 26px 22px 18px; border-radius: 4px; box-shadow: 0 10px 22px -12px rgba(0,0,0,.4); display: flex; flex-direction: column; gap: 8px; transform: rotate(-.6deg); }
+.wq .big-stamp { top: 12px; right: 12px; }
+.wq-date { font: 600 .74rem var(--font-mono); text-transform: uppercase; opacity: .7; }
+.wq-title { font: 700 1.9rem/1.05 var(--font-hand); overflow-wrap: anywhere; }
+.wq-mood { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: .9rem; }
+.wq-mood i { font-style: normal; font-size: 1.2rem; }
+.wq-result { display: flex; gap: 6px; font-weight: 600; color: #1F6B45; }
+.wq-story { font-size: .92rem; line-height: 1.55; white-space: pre-line; max-height: 9.5em; overflow: auto; }
+.wq-thumbs { display: flex; gap: 8px; flex-wrap: wrap; }
+.wq-thumbs img { width: 72px; height: 72px; object-fit: cover; border: 4px solid #fff; box-shadow: 0 3px 8px rgba(0,0,0,.2); }
+.wq-thumbs img:nth-child(odd) { transform: rotate(-3deg); } .wq-thumbs img:nth-child(even) { transform: rotate(2deg); }
+.wq-foot { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; border-top: 1px dashed rgba(0,0,0,.18); padding-top: 10px; }
+.wq-braddy { display: flex; gap: 10px; align-items: center; background: rgba(255,255,255,.6); border-radius: 12px; padding: 8px 10px; font-size: .86rem; }
+.wq-braddy .braddy-av { width: 34px; height: 34px; flex: none; box-shadow: none; }
+.modal.wide.xl, .modal.xl { width: min(1440px, calc(100vw - 24px)); max-width: none; height: calc(100dvh - 24px); }
+.fwd { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 18px; height: 100%; min-height: 0; }
+.fwd-stage { min-height: 0; display: flex; }
+.fwd-scroll { flex: 1; overflow: auto; border-radius: 18px; background: var(--surface-2); padding: 10px; max-height: calc(100dvh - 190px); }
+.fw-frame.design { min-width: 760px; }
+.fw-board[tabindex] { outline: none; }
+.fw-board.painting { cursor: crosshair; touch-action: none; }
+.fw-board.painting .fw-win, .fw-board.painting .cv-item { pointer-events: none; }
+.fwd .fw-board:not(.painting) { touch-action: none; }
+.fwd .fw-board .fw-win { cursor: grab; }
+.fwd .fw-board .fw-win:hover { transform: translate(-50%, 0) rotate(var(--r)); }
+.fwd .cv-item { cursor: grab; }
+.fwd .cv-item.sel { outline: 1.5px dashed #0F6E6A; outline-offset: 4px; z-index: 40; }
+.fwd-panel { display: flex; flex-direction: column; gap: 12px; min-width: 0; overflow-y: auto; max-height: calc(100dvh - 190px); padding-right: 2px; }
+.fwd-panel .cvd-tabs button { flex: 1 1 28%; }
+@media (max-width: 900px) {
+  .fwd { grid-template-columns: 1fr; height: auto; }
+  .fwd-scroll { max-height: 55vh; }
+  .fwd-panel { max-height: none; overflow: visible; }
+  .modal.xl { height: auto; max-height: calc(100dvh - 24px); }
+}
+@media (max-width: 860px) { .nav .nav-l { display: none; } .nav a:not([data-view="walls"]) .nav-l { display: inline; } .nav a[data-view="walls"] .nav-s { display: inline; } }
+@media (max-width: 600px) { .fw-home-board { max-height: 300px; } .fw-home-board .fw-frame.home { width: 640px; } }
 /* Shelves, filters, locks */
 .shelf-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
 .shelf-tabs { display: flex; gap: 6px; overflow-x: auto; padding: 2px; scrollbar-width: thin; flex: 1; }
@@ -1472,7 +1564,7 @@ const PROMPTS = [
   'What are you curious about lately?', 'What boundary would make your week better?', 'What would you tell a new teammate starting your job?', 'What did you do today that no one saw but mattered?',
 ];
 const NAV = [
-  { view: 'today', label: 'My wall', icon: 'home' }, { view: 'calendar', label: 'Calendar', icon: 'calendar' },
+  { view: 'today', label: 'My wall', icon: 'home' }, { view: 'walls', label: 'Freedom Wall', short: 'Freedom', icon: 'wall' }, { view: 'calendar', label: 'Calendar', icon: 'calendar' },
   { view: 'notebooks', label: 'Notebooks', icon: 'book' }, { view: 'report', label: 'Report', icon: 'chart' },
   { view: 'account', label: 'Settings', icon: 'settings' },
 ];
@@ -1513,6 +1605,10 @@ const IC = {
   download: '<path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>',
   layerUp: '<path d="m12 3 9 5-9 5-9-5z"/><path d="M12 21v-5M9.5 18.5 12 16l2.5 2.5"/>',
   layerDown: '<path d="m12 11 9 5-9 5-9-5z"/><path d="M12 3v5M9.5 5.5 12 8l2.5-2.5"/>',
+  wall: '<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9.3h18M3 14.7h18M9.5 4v5.3M15 9.3v5.4M9.5 14.7V20"/>',
+  eraser: '<path d="m7 20-4-4L14 5l6 6-9 9z"/><path d="M10 9l5 5M7 20h13"/>',
+  undo: '<path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>',
+  brush: '<path d="M18.4 2.6a2 2 0 0 1 2.8 2.8L12 14.6 9.4 12z"/><path d="M9 13c-2.5 0-4 1.6-4 4 0 1.5-1 2.5-2.5 3 4 1.5 9 .5 9-4.4z"/>',
   upload: '<path d="M12 17V5M7 10l5-5 5 5M5 21h14"/>',
   sparkles: '<path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 3v4M21 5h-4M5 17v4M7 19H3"/>',
   flame: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3.4.4 1.6 1.4 2.9 2.5 2.9z"/>',
@@ -1683,13 +1779,14 @@ const stagger = (html, i) => html.replace(/^<(\w+)/, `<$1 style="--i:${Math.min(
 /* ================= State ================= */
 const S = {
   mode: 'loading', db: null, refs: null, view: null, started: false, lock: null, unsubs: [],
-  days: new Map(), notebooks: [], notes: [], profile: {},
-  loaded: { wins: false, notebooks: false, notes: false, profile: false },
+  days: new Map(), notebooks: [], notes: [], walls: [], profile: {},
+  loaded: { wins: false, notebooks: false, notes: false, profile: false, walls: false },
 };
 const UI = {
   selDate: todayKey(),
   cal: { mode: 'month', anchor: new Date(), sel: null, dir: 0 },
   nb: { notebookId: null, noteId: null, search: '', shelf: 'all', cat: '', tag: '' },
+  fw: { id: null },
   report: { purpose: 'review', preset: 'thisYear', from: null, to: null, exclude: new Set(), minImpact: 1, includeLog: true, ai: null, edits: null, pending: false },
 };
 
@@ -1715,7 +1812,7 @@ const normNote = (id, v) => {
   if (sl && typeof sl.iv === 'string' && typeof sl.ct === 'string') { n.sealed = { enc: 1, iv: sl.iv, ct: sl.ct }; const p = PLAIN.get(id); if (p && p.ct === sl.ct) { n.title = p.title; n.html = p.html; } else { n.title = ''; n.html = ''; queueUnseal(); } }
   return n;
 };
-const normProfile = v => ({ name: String(v?.name || '').slice(0, 120), nickname: String(v?.nickname || '').slice(0, 60), role: String(v?.role || '').slice(0, 120), company: String(v?.company || '').slice(0, 120), weekStart: v?.weekStart === 0 ? 0 : 1, weeklyGoal: Math.min(50, Math.max(1, Number(v?.weeklyGoal) || 5)), email: /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/.test(v?.email || '') ? String(v.email).slice(0, 254) : '', shelves: (Array.isArray(v?.shelves) ? v.shelves : []).filter(x => x && /^[A-Za-z0-9_-]{1,30}$/.test(x.id || '') && x.name).slice(0, 30).map(x => ({ id: x.id, name: String(x.name).slice(0, 40), color: /^#[0-9a-f]{6}$/i.test(x.color || '') ? x.color : '#0F6E6A' })), customCats: (Array.isArray(v?.customCats) ? v.customCats : []).filter(c => c && /^c-[a-z0-9]{3,30}$/.test(c.key || '') && c.label).slice(0, 30).map(c => ({ key: c.key, label: String(c.label).slice(0, 40), icon: ICON_CHOICES.includes(c.icon) ? c.icon : 'star', color: /^#[0-9a-f]{6}$/i.test(c.color || '') ? c.color : CUSTOM_COLORS[0] })) });
+const normProfile = v => ({ name: String(v?.name || '').slice(0, 120), nickname: String(v?.nickname || '').slice(0, 60), role: String(v?.role || '').slice(0, 120), company: String(v?.company || '').slice(0, 120), weekStart: v?.weekStart === 0 ? 0 : 1, weeklyGoal: Math.min(50, Math.max(1, Number(v?.weeklyGoal) || 5)), featuredWall: /^[A-Za-z0-9_-]{1,40}$/.test(v?.featuredWall || '') ? v.featuredWall : '', email: /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/.test(v?.email || '') ? String(v.email).slice(0, 254) : '', shelves: (Array.isArray(v?.shelves) ? v.shelves : []).filter(x => x && /^[A-Za-z0-9_-]{1,30}$/.test(x.id || '') && x.name).slice(0, 30).map(x => ({ id: x.id, name: String(x.name).slice(0, 40), color: /^#[0-9a-f]{6}$/i.test(x.color || '') ? x.color : '#0F6E6A' })), customCats: (Array.isArray(v?.customCats) ? v.customCats : []).filter(c => c && /^c-[a-z0-9]{3,30}$/.test(c.key || '') && c.label).slice(0, 30).map(c => ({ key: c.key, label: String(c.label).slice(0, 40), icon: ICON_CHOICES.includes(c.icon) ? c.icon : 'star', color: /^#[0-9a-f]{6}$/i.test(c.color || '') ? c.color : CUSTOM_COLORS[0] })) });
 S.profile = normProfile({});
 
 let _flat = null;
@@ -1887,7 +1984,7 @@ let lsTimer = null;
 function saveLocal() { clearTimeout(lsTimer); lsTimer = setTimeout(writeLocalNow, 250); if (S.started && typeof gdSchedule === 'function' && gdLinked()) { GD.pending = true; gdSchedule(); } return Promise.resolve(); }
 async function writeLocalNow() {
   lsTimer = null;
-  const data = { days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes.map(n => ({ id: n.id, ...noteBody(n) })), profile: S.profile };
+  const data = { days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes.map(n => ({ id: n.id, ...noteBody(n) })), walls: S.walls, profile: S.profile };
   const body = await encodeBody(CRYPTO.key, data);
   if (!(await kvSet(LS_KEY, JSON.stringify(body)))) onLocalSaveFailed();
 }
@@ -1900,6 +1997,7 @@ async function loadLocal() {
     S.days = new Map(Object.entries(v.days || {}).filter(([k]) => isYmd(k)).map(([k, items]) => [k, (items || []).map(normItem).filter(Boolean)]).filter(([, items]) => items.length));
     S.notebooks = (v.notebooks || []).map(n => normNb(n.id, n));
     S.notes = (v.notes || []).map(n => normNote(n.id, n));
+    S.walls = (v.walls || []).filter(w => w && w.id).map(w => normWall(w.id, w));
     S.profile = normProfile(v.profile || {}); applyCategories();
     if (CRYPTO.key && !JSON.parse(raw).enc) saveLocal();
   } catch (e) { console.error(e); }
@@ -1917,6 +2015,13 @@ function persistNotebook(id) {
   const body = nb ? (({ id: _, ...b }) => b)(nb) : null;
   const key = CRYPTO.key, ref = S.refs.notebooks.doc(id);
   return enqueue('nb/' + id, async () => { if (body) await ref.set(await encodeBody(key, body)); else await ref.delete(); });
+}
+function persistWall(id) {
+  if (S.mode !== 'cloud') return saveLocal();
+  const w = S.walls.find(n => n.id === id);
+  const body = w ? (({ id: _, ...b }) => b)(w) : null;
+  const key = CRYPTO.key, ref = S.refs.walls.doc(id);
+  return enqueue('wl/' + id, async () => { if (body) await ref.set(await encodeBody(key, body)); else await ref.delete(); });
 }
 function persistNote(id) {
   const n = S.notes.find(x => x.id === id), nb = n && S.notebooks.find(b => b.id === n.notebookId);
@@ -1942,7 +2047,7 @@ function persistProfile() {
 async function persistAll(onProgress) {
   for (const f of allFileRefs()) { try { const { bytes, meta } = await loadFileBytes(f.id); await storeFileBytes(f.id, bytes, meta); } catch (e) { console.error('file re-encrypt', e); } }
   if (S.mode !== 'cloud') { await writeLocalNow(); return; }
-  const jobs = [...[...S.days.keys()].map(k => () => persistDay(k)), ...S.notebooks.map(n => () => persistNotebook(n.id)), ...S.notes.map(n => () => persistNote(n.id)), () => persistProfile()];
+  const jobs = [...[...S.days.keys()].map(k => () => persistDay(k)), ...S.notebooks.map(n => () => persistNotebook(n.id)), ...S.notes.map(n => () => persistNote(n.id)), ...S.walls.map(w => () => persistWall(w.id)), () => persistProfile()];
   for (let i = 0; i < jobs.length; i++) { await jobs[i](); if (onProgress) onProgress(i + 1, jobs.length); await sleep(40); }
   await drainQueues();
 }
@@ -2041,7 +2146,7 @@ async function saveAttachments(files, onProgress) {
   }
   return out;
 }
-function allFileRefs() { return [...allWins().flatMap(w => w.files || []), ...S.notebooks.flatMap(nb => coverFiles(nb.cover))]; }
+function allFileRefs() { return [...allWins().flatMap(w => w.files || []), ...S.notebooks.flatMap(nb => coverFiles(nb.cover)), ...S.walls.flatMap(w => coverFiles(w))]; }
 
 /* ================= Cloud subscriptions ================= */
 let decCache = new WeakMap();
@@ -2062,11 +2167,11 @@ function migrate(kind, id) {
   const key = kind + '/' + id;
   if (migrating.has(key)) return;
   migrating.add(key);
-  const p = kind === 'w' ? persistDay(id) : kind === 'nb' ? persistNotebook(id) : kind === 'n' ? persistNote(id) : persistProfile();
+  const p = kind === 'w' ? persistDay(id) : kind === 'nb' ? persistNotebook(id) : kind === 'n' ? persistNote(id) : kind === 'wl' ? persistWall(id) : persistProfile();
   Promise.resolve(p).finally(() => migrating.delete(key));
 }
 function subscribeCloud() {
-  const pending = new Set(['wins', 'notebooks', 'notes', 'profile']);
+  const pending = new Set(['wins', 'notebooks', 'notes', 'profile', 'walls']);
   const timer = setTimeout(() => { if (pending.size) setBanner("Your saved entries are taking longer than usual to load. What you see may be incomplete; new changes will still be saved."); }, 10000);
   const done = (k, snap) => { S.loaded[k] = true; if (!snap.metadata.fromCache && pending.has(k)) { pending.delete(k); if (!pending.size) { clearTimeout(timer); setBanner(null); } } };
   const fail = k => () => { S.loaded[k] = true; clearTimeout(timer); pending.delete(k); setBanner("Couldn't load your saved entries right now. Reload the page to try again."); onData(k); };
@@ -2104,6 +2209,12 @@ function subscribeCloud() {
     rows.forEach(r => { if (r.plain) mig.push(['n', r.id]); });
     return mig;
   }), fail('notes')));
+  S.unsubs.push(S.refs.walls.onSnapshot(handle('walls', rows => {
+    const prev = new Map(S.walls.map(n => [n.id, n])), mig = [];
+    S.walls = rows.map(r => r.v === undefined ? prev.get(r.id) : normWall(r.id, r.v)).filter(Boolean);
+    rows.forEach(r => { if (r.plain) mig.push(['wl', r.id]); });
+    return mig;
+  }), fail('walls')));
   let pseq = 0;
   S.unsubs.push(S.refs.profile.onSnapshot(d => {
     const my = ++pseq;
@@ -2330,7 +2441,7 @@ function bindWinActions(root) {
 function renderShell() {
   $('#brand-mark').innerHTML = LOGO();
   $('#search-btn').innerHTML = `${icon('search')}<span class="lbl">Search</span><kbd>${/Mac|iPhone|iPad/.test(navigator.platform) ? '⌘' : 'Ctrl'} K</kbd>`;
-  $('#nav').innerHTML = NAV.map(n => `<a href="#${n.view}" data-view="${n.view}">${icon(n.icon)}<span>${n.label}</span></a>`).join('');
+  $('#nav').innerHTML = NAV.map(n => `<a href="#${n.view}" data-view="${n.view}">${icon(n.icon)}<span class="nav-l">${n.label}</span>${n.short ? `<span class="nav-s">${n.short}</span>` : ''}</a>`).join('');
   $('#lock-btn').innerHTML = icon('lock');
   $('#cheer-btn').innerHTML = `${icon('sparkles')}<span class="lbl">Cheer me up</span>`;
   updateThemeBtn();
@@ -2347,7 +2458,7 @@ function route() {
   const mount = () => {
     S.view = v;
     $$('.nav a').forEach(a => { if (a.dataset.view === v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
-    ({ today: mountToday, calendar: mountCalendar, notebooks: mountNotebooks, report: mountReport, account: mountAccount, win: mountWin })[v]();
+    ({ today: mountToday, walls: mountWalls, calendar: mountCalendar, notebooks: mountNotebooks, report: mountReport, account: mountAccount, win: mountWin })[v]();
     $('#main').scrollTop = 0;
   };
   if (first) { mount(); const el = $('#view'); el.classList.remove('view-enter'); void el.offsetWidth; el.classList.add('view-enter'); }
@@ -2364,6 +2475,7 @@ function onData(kind) {
     case 'report': updateReport(); break;
     case 'account': if (kind === 'profile' || kind === 'all') fillProfile(); updateStorageInfo(); renderAreasCard(); break;
     case 'win': if (kind === 'wins' || kind === 'all') updateWinView(); break;
+    case 'walls': if (kind !== 'notes' && kind !== 'notebooks') updateWallsView(); break;
   }
 }
 function weekCount() { const s = startOfWeek(new Date()); return winsIn(ymd(s), ymd(addDays(s, 6))).length; }
@@ -2414,6 +2526,7 @@ function mountToday() {
       </div>
       <div class="hero-car" id="brag-car" role="region" aria-roledescription="carousel" aria-label="Your bragged wins"></div>
     </section>
+    <section class="card fw-home" id="fw-home" style="--i:1"></section>
     <div class="kpi-grid" style="--i:1">
       ${[['today', 'Today', 'checkCircle', ''], ['week', 'This week', 'target', ''], ['month', 'This month', 'calendar', ''], ['streak', 'Day streak', 'flame', 'gold']].map(([k, l, ic, cls]) => `
       <div class="card kpi"><div class="kpi-top"><span>${l}</span><span class="kpi-ic ${cls}">${icon(ic)}</span></div>
@@ -2621,6 +2734,7 @@ function mountToday() {
   startCarouselAutoplay();
 }
 function updateToday() {
+  renderHomeWall();
   if (!$('#t-list')) return;
   const k = UI.selDate, d = parseYmd(k), isToday = k === todayKey(), now = new Date();
   const name = firstName();
@@ -4034,23 +4148,25 @@ const COVER_SHAPES = {
   frame: { label: 'Frame', svg: c => `<rect x="6" y="6" width="88" height="88" rx="6" fill="none" stroke="${c}" stroke-width="5"/><rect x="14" y="14" width="72" height="72" rx="3" fill="none" stroke="${c}" stroke-width="1.5"/>` },
   logo: { label: 'Bragging Wall', svg: () => `<rect x="2" y="2" width="96" height="96" rx="26" fill="#0F6E6A"/>${[[17, 62, 31, 17], [52, 62, 31, 17], [17, 41, 13, 17], [34, 41, 31, 17], [69, 41, 13, 17], [17, 20, 31, 17]].map(([x, y, w, h]) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="5" fill="#F0EEE9"/>`).join('')}<path d="M68 11l4.6 10.6L83 26l-10.4 4.4L68 41l-4.6-10.6L53 26l10.4-4.4z" fill="#F4B336"/>` },
 };
-function normCover(c) {
+function normCover(c, opt = {}) {
   if (!c || typeof c !== 'object') return undefined;
+  const MAXI = opt.max || 40, YMAX = opt.yMax || 120;
   const hex = v => /^#[0-9a-f]{6}$/i.test(v || '') ? v : null;
   const num = (v, a, b, d) => { v = Number(v); return Number.isFinite(v) ? Math.min(b, Math.max(a, v)) : d; };
   const fileOk = f => f && /^[A-Za-z0-9_-]{1,60}$/.test(f.id || '') ? { id: f.id, type: String(f.type || '').slice(0, 60), thumb: typeof f.thumb === 'string' && f.thumb.startsWith('data:image/') && f.thumb.length < 110000 ? f.thumb : '' } : null;
   const b = c.bg || {};
   const bg = { type: ['color', 'gradient', 'pattern', 'image'].includes(b.type) ? b.type : 'color', c1: hex(b.c1) || '#0F6E6A', c2: hex(b.c2) || '#FFFFFF', pattern: COVER_PATTERNS.includes(b.pattern) ? b.pattern : 'dots', file: fileOk(b.file), dim: num(b.dim, 0, 70, 0) };
   if (bg.type === 'image' && !bg.file) bg.type = 'color';
-  const items = (Array.isArray(c.items) ? c.items : []).slice(0, 40).map(it => {
-    if (!it || !['text', 'icon', 'sticker', 'emoji', 'shape', 'image'].includes(it.type)) return null;
-    const o = { id: String(it.id || newId()).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 30) || newId(), type: it.type, x: num(it.x, -20, 120, 50), y: num(it.y, -20, 120, 50), s: num(it.s, 2, 160, 20), r: num(it.r, -180, 180, 0), o: num(it.o, 10, 100, 100), color: hex(it.color) || '#FFFFFF' };
+  const items = (Array.isArray(c.items) ? c.items : []).slice(0, MAXI).map(it => {
+    if (!it || !['text', 'icon', 'sticker', 'emoji', 'shape', 'image', 'note'].includes(it.type)) return null;
+    const o = { id: String(it.id || newId()).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 30) || newId(), type: it.type, x: num(it.x, -20, 120, 50), y: num(it.y, -20, YMAX, 50), s: num(it.s, 2, 160, 20), r: num(it.r, -180, 180, 0), o: num(it.o, 10, 100, 100), color: hex(it.color) || '#FFFFFF' };
     if (it.type === 'text') { o.text = String(it.text || '').slice(0, 160); o.font = COVER_FONTS[it.font] ? it.font : 'display'; o.bold = !!it.bold; o.shadow = !!it.shadow; if (!o.text.trim()) return null; }
     if (it.type === 'icon') o.icon = COVER_ICONS.includes(it.icon) || IC[it.icon] ? it.icon : 'star';
     if (it.type === 'sticker') o.sticker = STICKERS[it.sticker] ? it.sticker : 'sparkle';
     if (it.type === 'emoji') o.text = String(it.text || '⭐').slice(0, 12);
     if (it.type === 'shape') o.shape = COVER_SHAPES[it.shape] ? it.shape : 'star4';
     if (it.type === 'image') { o.file = fileOk(it.file); if (!o.file) return null; }
+    if (it.type === 'note') { o.text = String(it.text || '').slice(0, 240); o.color = hex(it.color) || '#FFE27A'; if (!o.text.trim()) return null; }
     return o;
   }).filter(Boolean);
   return { bg, items };
@@ -4061,7 +4177,7 @@ const defaultCover = nb => ({ bg: { type: 'color', c1: nb.color, c2: '#FFFFFF', 
   { id: 'dname', type: 'text', text: nb.name, font: 'display', bold: true, shadow: false, x: 50, y: 64, s: 11, r: 0, o: 100, color: '#FFFFFF' },
 ] });
 function cvPatternCSS(p, c) {
-  const t = `color-mix(in srgb, ${c} 38%, transparent)`, svg = (w, h, body) => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'>${body}</svg>`)}")`;
+  const t = `color-mix(in srgb, ${c} 38%, transparent)`, svg = (w, h, body) => `url(data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'>${body}</svg>`).replace(/'/g, '%27').replace(/\(/g, '%28').replace(/\)/g, '%29')})`;
   switch (p) {
     case 'dots': return `background-image:radial-gradient(circle, ${t} 1.3cqw, transparent 1.5cqw);background-size:8cqw 8cqw`;
     case 'grid': return `background-image:linear-gradient(${t} .45cqw, transparent .45cqw),linear-gradient(90deg, ${t} .45cqw, transparent .45cqw);background-size:10cqw 10cqw`;
@@ -4079,14 +4195,15 @@ function coverBgStyle(bg) {
   if (bg.type === 'pattern') return `background-color:${bg.c1};${cvPatternCSS(bg.pattern, bg.c2)}`;
   return `background:${bg.c1}`;
 }
-function cvItemStyle(it) {
-  let st = `left:${it.x}%;top:${it.y}%;transform:translate(-50%,-50%) rotate(${it.r}deg);opacity:${it.o / 100};`;
+function cvItemStyle(it, yu = '%') {
+  let st = `left:${it.x}%;top:${it.y}${yu};transform:translate(-50%,-50%) rotate(${it.r}deg);opacity:${it.o / 100};`;
   if (it.type === 'text') st += `font-size:${it.s}cqw;color:${it.color};font-family:${COVER_FONTS[it.font].css};font-weight:${it.bold ? 750 : 500};${it.shadow ? 'text-shadow:0 .5cqw 1.6cqw rgba(0,0,0,.4);' : ''}`;
   else if (it.type === 'emoji') st += `font-size:${it.s}cqw;`;
+  else if (it.type === 'note') st += `width:${it.s}cqw;background:${it.color};font-size:${(it.s * .085).toFixed(2)}cqw;`;
   else st += `width:${it.s}cqw;`;
   return st;
 }
-function cvItemHTML(it, sel) {
+function cvItemHTML(it, sel, yu) {
   let inner = '';
   switch (it.type) {
     case 'text': inner = esc(it.text); break;
@@ -4095,8 +4212,9 @@ function cvItemHTML(it, sel) {
     case 'sticker': inner = stickerSVG(it.sticker); break;
     case 'shape': inner = `<svg viewBox="0 0 100 100">${COVER_SHAPES[it.shape].svg(it.color)}</svg>`; break;
     case 'image': inner = `<img src="${it.file.thumb}" data-cv-file="${it.file.id}" data-cv-type="${esc(it.file.type)}" alt="" draggable="false">`; break;
+    case 'note': inner = `<i class="cv-tape"></i><span>${esc(it.text)}</span>`; break;
   }
-  return `<div class="cv-item cv-${it.type}${sel ? ' sel' : ''}" data-id="${it.id}" style="${cvItemStyle(it)}">${inner}${sel ? '<i class="cv-h" data-h="size" title="Drag to resize"></i><i class="cv-rot" data-h="rot" title="Drag to rotate"></i>' : ''}</div>`;
+  return `<div class="cv-item cv-${it.type}${sel ? ' sel' : ''}" data-id="${it.id}" style="${cvItemStyle(it, yu)}">${inner}${sel ? '<i class="cv-h" data-h="size" title="Drag to resize"></i><i class="cv-rot" data-h="rot" title="Drag to rotate"></i>' : ''}</div>`;
 }
 function coverInner(c, sel) {
   return `${c.bg.type === 'image' ? `<img class="cv-bgimg" src="${c.bg.file.thumb}" data-cv-file="${c.bg.file.id}" data-cv-type="${esc(c.bg.file.type)}" alt="" draggable="false">${c.bg.dim ? `<span class="cv-dim" style="opacity:${c.bg.dim / 100}"></span>` : ''}` : ''}${c.items.map(it => cvItemHTML(it, it.id === sel)).join('')}<span class="cv-spine"></span><span class="cv-shine"></span>`;
@@ -4518,6 +4636,432 @@ function forgotPinModal(nbId) {
       PIN_FAILS.delete(nb.id); UI.nb.noteId = pagesOf(nb.id)[0]?.id || null; updateNotebookSidebar(); mountEditor(); toast('PIN reset and notebook unlocked');
     } }],
   });
+}
+
+
+/* ================= Freedom walls ================= */
+const WALL_NOTE_COLORS = ['#FFE27A', '#FFC4D2', '#B9EAD2', '#BFDDF7', '#FFD2A3', '#D9CBF6'];
+const WALL_DEFAULT_BG = { type: 'pattern', c1: '#F3EFE6', c2: '#B9AE96', pattern: 'bricks', file: null, dim: 0 };
+const FW_COLS = 6, FW_NW = 13.5, FW_ROW = 18, FW_TOP = 15;
+function normPaint(p) {
+  if (!Array.isArray(p)) return [];
+  let total = 0; const out = [];
+  for (const st of p.slice(0, 800)) {
+    if (!st || !Array.isArray(st.p)) continue;
+    let pts = st.p.slice(0, 4000).map(Number).filter(Number.isFinite).map(v => Math.round(v * 10) / 10);
+    if (pts.length % 2) pts = pts.slice(0, -1);
+    if (pts.length < 2) continue;
+    total += pts.length; if (total > 80000) break;
+    out.push({ c: /^#[0-9a-f]{6}$/i.test(st.c || '') ? st.c : '#1B2422', w: Math.min(14, Math.max(.15, Number(st.w) || .6)), o: Math.min(1, Math.max(.1, Number(st.o) || 1)), p: pts });
+  }
+  return out;
+}
+function normWall(id, v) {
+  const c = normCover({ bg: v?.bg || WALL_DEFAULT_BG, items: v?.items || [] }, { max: 120, yMax: 3000 });
+  const pos = {};
+  if (v?.winPos && typeof v.winPos === 'object') for (const [k, o] of Object.entries(v.winPos).slice(0, 3000)) if (/^[A-Za-z0-9_-]{1,60}$/.test(k) && o && Number.isFinite(+o.x) && Number.isFinite(+o.y)) pos[k] = { x: Math.min(110, Math.max(-10, +o.x)), y: Math.min(6000, Math.max(-10, +o.y)), r: Math.min(30, Math.max(-30, +o.r || 0)) };
+  return { id, name: String(v?.name || 'My Freedom Wall').slice(0, 60), createdAt: Number(v?.createdAt) || 0, bg: c.bg, items: c.items, paint: normPaint(v?.paint), showWins: v?.showWins !== false, winFilter: ['all', 'month', 'year', 'big'].includes(v?.winFilter) ? v.winFilter : 'all', winPos: pos };
+}
+const WIN_FILTERS = { all: 'All wins', month: 'This month', year: 'This year', big: 'Big wins only' };
+function wallWins(w) {
+  if (!w.showWins) return [];
+  let l = allWins().slice().reverse();
+  const t = todayKey();
+  if (w.winFilter === 'month') l = l.filter(x => x.date.slice(0, 7) === t.slice(0, 7));
+  else if (w.winFilter === 'year') l = l.filter(x => x.date.slice(0, 4) === t.slice(0, 4));
+  else if (w.winFilter === 'big') l = l.filter(x => x.impact === 3);
+  return l;
+}
+function wallLayout(w, limit) {
+  const all = wallWins(w), wins = limit ? all.slice(0, limit) : all, gap = (100 - FW_COLS * FW_NW) / (FW_COLS + 1);
+  let k = 0;
+  const pos = wins.map(x => {
+    const p = w.winPos[x.id]; if (p) return { ...p };
+    const i = k++, h = bdHash(x.id), col = i % FW_COLS, row = Math.floor(i / FW_COLS);
+    return { x: gap + col * (FW_NW + gap) + FW_NW / 2 + ((h % 17) / 17 - .5) * 1.4, y: FW_TOP + row * FW_ROW + (((h >> 5) % 13) / 13 - .5) * 1.4, r: (((h >> 9) % 9) - 4) * 1.1 };
+  });
+  let H = 62.5;
+  pos.forEach(p => { H = Math.max(H, p.y + 20); });
+  w.items.forEach(it => { H = Math.max(H, it.y + (it.type === 'text' || it.type === 'emoji' ? it.s : it.s * .7) + 4); });
+  w.paint.forEach(st => { for (let i = 1; i < st.p.length; i += 2) H = Math.max(H, st.p[i] + 4); });
+  return { wins, pos, H: Math.ceil(H), total: all.length };
+}
+function wallWinHTML(x, p, i) {
+  const thumb = (x.files || []).find(f => f.thumb);
+  return `<button type="button" class="fw-win ${x.impact === 3 ? 'big' : ''}" data-win="${x.id}" style="left:${p.x}cqw;top:${p.y}cqw;--r:${p.r}deg;--nc:${WALL_NOTE_COLORS[bdHash(x.id) % 6]};--pin:${NOTE_PINS[i % 4]}" aria-label="Open preview: ${esc(x.title)}">
+    <span class="fw-top"><span class="fw-date">${esc(fmtShortK(x.date))}</span>${x.mood ? `<i class="fw-mood">${MOOD[x.mood].e}</i>` : ''}</span>
+    <span class="fw-title">${esc(x.title)}</span>
+    ${thumb ? `<img class="fw-thumb" src="${thumb.thumb}" alt="" draggable="false">` : ''}
+    <span class="fw-foot"><span class="fw-area">${esc(catOf(x.category).label)}</span><span class="fw-stars">${'★'.repeat(x.impact)}</span></span>
+    ${x.impact === 3 ? '<span class="fw-stamp">Big win!</span>' : ''}</button>`;
+}
+const ptsPath = p => { let d = `M${p[0]} ${p[1]}`; if (p.length === 2) return d + 'l.01 0'; for (let i = 2; i < p.length; i += 2) d += `L${p[i]} ${p[i + 1]}`; return d; };
+const strokeHTML = (st, i) => `<path data-st="${i}" d="${ptsPath(st.p)}" stroke="${st.c}" stroke-width="${st.w}" stroke-opacity="${st.o}" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+function wallInner(w, opt = {}) {
+  const L = wallLayout(w, opt.limit);
+  const bgImg = w.bg.type === 'image' ? `<img class="cv-bgimg" src="${w.bg.file.thumb}" data-cv-file="${w.bg.file.id}" data-cv-type="${esc(w.bg.file.type)}" alt="" draggable="false">${w.bg.dim ? `<span class="cv-dim" style="opacity:${w.bg.dim / 100}"></span>` : ''}` : '';
+  const empty = !L.wins.length && w.showWins ? `<div class="fw-empty" style="top:${FW_TOP + 2}cqw">${icon('megaphone')}<b>Your bragged wins pin themselves here.</b><span>Brag your first win on My wall.</span></div>` : '';
+  return { L, html: `${bgImg}${w.items.map(it => cvItemHTML(it, it.id === opt.sel, 'cqw')).join('')}${empty}${L.wins.map((x, i) => wallWinHTML(x, L.pos[i], i)).join('')}<svg class="fw-paint" viewBox="0 0 100 ${L.H}" preserveAspectRatio="none" style="height:${L.H}cqw">${w.paint.map(strokeHTML).join('')}</svg>` };
+}
+const wallBoardHTML = (w, opt = {}) => { const r = wallInner(w, opt); return `<div class="fw-frame ${opt.cls || ''}"><div class="fw-board" style="${coverBgStyle(w.bg)};height:${r.L.H}cqw">${r.html}</div></div>`; };
+function featuredWall() { const ws = S.walls; if (!ws.length) return null; return ws.find(w => w.id === S.profile.featuredWall) || [...ws].sort((a, b) => a.createdAt - b.createdAt)[0]; }
+function starterWall(name) {
+  return normWall(newId(), { name, createdAt: Date.now(), bg: WALL_DEFAULT_BG, items: [
+    { id: newId(), type: 'text', text: name, font: 'hand', bold: true, x: 50, y: 6.5, s: 5.2, r: -1.5, o: 100, color: '#0F6E6A' },
+    { id: newId(), type: 'shape', shape: 'tape', x: 50, y: 2.4, s: 16, r: 2, o: 90, color: '#F4B336' },
+    { id: newId(), type: 'sticker', sticker: 'sparkle', x: 90, y: 6.5, s: 8, r: 8, o: 100, color: '#FFFFFF' },
+    { id: newId(), type: 'sticker', sticker: 'megaphone', x: 10, y: 7, s: 8, r: -8, o: 100, color: '#FFFFFF' },
+  ] });
+}
+function createWall(name, open = true) {
+  const w = starterWall(name || (S.walls.length ? 'New Freedom Wall' : 'My Freedom Wall'));
+  S.walls.push(w); persistWall(w.id);
+  if (S.walls.length === 1) { S.profile = { ...S.profile, featuredWall: w.id }; persistProfile(); }
+  lsSet('bw-fw-made', '1');
+  UI.fw.id = w.id;
+  if (open) { if (S.view === 'walls') updateWallsView(); else go('walls'); }
+  return w;
+}
+function renderHomeWall() {
+  const el = $('#fw-home'); if (!el) return;
+  if (!S.loaded.walls || !S.loaded.wins) { el.innerHTML = '<div class="skel" style="height:260px"></div>'; return; }
+  if (!S.walls.length && !lsGet('bw-fw-made')) { createWall('My Freedom Wall', false); }
+  const w = featuredWall();
+  if (!w) {
+    el.innerHTML = `<div class="fw-home-empty">${icon('wall', 'lg')}<div><b>Make your Freedom Wall</b><span>Every win you brag gets pinned there as a sticky note. Decorate it any way you like.</span></div><button type="button" class="btn" data-fwh="new">${icon('plus')}Create my Freedom Wall</button></div>`;
+    el.onclick = e => { if (e.target.closest('[data-fwh="new"]')) createWall(); };
+    return;
+  }
+  const L = wallLayout(w);
+  el.innerHTML = `<div class="fw-home-head">
+      <h2 class="card-title">${icon('wall')}My Freedom Wall</h2>
+      ${S.walls.length > 1 ? `<label class="fw-pick"><span class="sr-only">Wall shown on your home page</span><select id="fw-feature">${S.walls.map(x => `<option value="${x.id}" ${x.id === w.id ? 'selected' : ''}>${esc(x.name)}</option>`).join('')}</select></label>` : w.name !== 'My Freedom Wall' ? `<span class="fw-name">${esc(w.name)}</span>` : ''}
+      <span class="small muted fw-count">${plural(L.total, 'win')} pinned</span>
+      <button type="button" class="btn ghost sm" data-fwh="open">Open wall${icon('arrowRight', 'sm')}</button></div>
+    <div class="fw-home-board" data-fwh="open" role="link" tabindex="0" aria-label="Open ${esc(w.name)}">${wallBoardHTML(w, { limit: 18, cls: 'home' })}<span class="fw-home-fade"><span>${icon('wall', 'sm')}Open my Freedom Wall</span></span></div>`;
+  hydrateCovers(el);
+  const sel = $('#fw-feature', el);
+  if (sel) sel.onchange = () => { S.profile = { ...S.profile, featuredWall: sel.value }; persistProfile(); renderHomeWall(); toast('Shown on your home page'); };
+  el.onclick = e => { if (e.target.closest('select, label')) return; if (e.target.closest('[data-fwh="open"]')) { UI.fw.id = w.id; go('walls'); } };
+  const hb = $('.fw-home-board', el); if (hb) hb.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); UI.fw.id = w.id; go('walls'); } };
+}
+function mountWalls() {
+  $('#view').innerHTML = '<div class="stack" style="gap:16px" id="fw-page"></div>';
+  const el = $('#fw-page');
+  el.addEventListener('click', async e => {
+    const b = e.target.closest('[data-fw], [data-win], [data-fwtab]'); if (!b) return;
+    const w = S.walls.find(x => x.id === UI.fw.id);
+    if (b.dataset.win) { winQuickView(b.dataset.win); return; }
+    if (b.dataset.fwtab) { UI.fw.id = b.dataset.fwtab; updateWallsView(); return; }
+    switch (b.dataset.fw) {
+      case 'new': wallNameModal(null, name => createWall(name)); break;
+      case 'design': if (w) wallDesigner(w.id); break;
+      case 'feature': if (w) { S.profile = { ...S.profile, featuredWall: w.id }; persistProfile(); updateWallsView(); toast(`“${w.name}” is now on your home page`); } break;
+      case 'rename': if (w) wallNameModal(w, name => { w.name = name; persistWall(w.id); updateWallsView(); }); break;
+      case 'delete': if (w) {
+        if (!(await confirmModal(`Delete the wall “${w.name}”? Your wins stay safe; only this wall's decorations and drawings are removed.`))) return;
+        coverFiles(w).forEach(f => removeStoredFile(f.id).catch(() => {}));
+        S.walls = S.walls.filter(x => x.id !== w.id); persistWall(w.id);
+        if (S.profile.featuredWall === w.id) { S.profile = { ...S.profile, featuredWall: S.walls[0] ? S.walls[0].id : '' }; persistProfile(); }
+        UI.fw.id = S.walls[0] ? S.walls[0].id : null; updateWallsView(); toast('Wall deleted');
+      } break;
+    }
+  });
+  el.addEventListener('change', e => {
+    const w = S.walls.find(x => x.id === UI.fw.id);
+    if (w && e.target.id === 'fw-filter') { w.winFilter = e.target.value; persistWall(w.id); updateWallsView(); }
+  });
+  updateWallsView();
+}
+function updateWallsView() {
+  const el = $('#fw-page'); if (!el) return;
+  if (!S.loaded.walls || !S.loaded.wins) { el.innerHTML = '<div class="skel" style="height:420px"></div>'; return; }
+  if (!S.walls.length) {
+    el.innerHTML = `<header class="view-head"><div><p class="eyebrow">${icon('wall', 'sm')}Freedom Wall</p><h1>Your wins, all in one place</h1></div></header>
+      <div class="card"><div class="empty">${ART.clipboard()}<div><b>No Freedom Wall yet</b>Make one and every win you brag will be pinned on it. Decorate it with pictures, stickers, GIFs, drawings and notes.<div class="row" style="margin-top:12px"><button type="button" class="btn" data-fw="new">${icon('plus')}Create my Freedom Wall</button></div></div></div></div>`;
+    return;
+  }
+  let w = S.walls.find(x => x.id === UI.fw.id) || featuredWall();
+  UI.fw.id = w.id;
+  const feat = featuredWall(), isFeat = feat && feat.id === w.id, L = wallLayout(w);
+  el.innerHTML = `
+    <header class="view-head"><div><p class="eyebrow">${icon('wall', 'sm')}Freedom Wall</p><h1>${esc(w.name)}</h1></div>
+      <div class="row">
+        <button type="button" class="btn" data-fw="design">${icon('brush')}Design wall</button>
+        ${S.walls.length > 1 ? (isFeat ? `<span class="badge on fw-featbadge">${icon('home', 'sm')}On home page</span>` : `<button type="button" class="btn ghost" data-fw="feature">${icon('home')}Show on home</button>`) : ''}
+      </div></header>
+    <div class="fw-bar">
+      <div class="fw-tabs" role="tablist">${[...S.walls].sort((a, b) => a.createdAt - b.createdAt).map(x => `<button type="button" role="tab" data-fwtab="${x.id}" aria-selected="${x.id === w.id}">${feat && feat.id === x.id ? icon('home', 'sm') : icon('wall', 'sm')}${esc(x.name)}</button>`).join('')}<button type="button" class="fw-new" data-fw="new">${icon('plus', 'sm')}New wall</button></div>
+      <div class="fw-tools">
+        <label class="fw-filter">${icon('list', 'sm')}<span class="sr-only">Which wins to show</span><select id="fw-filter">${Object.entries(WIN_FILTERS).map(([k, v]) => `<option value="${k}" ${w.winFilter === k ? 'selected' : ''}>${v}</option>`).join('')}</select></label>
+        <span class="small muted">${w.showWins ? `${plural(L.total, 'win')} pinned` : 'Wins hidden'}</span>
+        <button type="button" class="link" data-fw="rename">${icon('edit', 'sm')}Rename</button>
+        <button type="button" class="link danger" data-fw="delete">${icon('trash', 'sm')}Delete</button>
+      </div></div>
+    <div class="fw-scroll">${wallBoardHTML(w, { cls: 'page' })}</div>
+    <p class="small muted fw-hint">${icon('info', 'sm')} Tap a win to read it. Use <b>Design wall</b> to add pictures, stickers, GIFs, notes, text and drawings, or to move your wins around.</p>`;
+  hydrateCovers(el);
+}
+function wallNameModal(w, done) {
+  openModal({
+    title: w ? 'Rename wall' : 'New Freedom Wall',
+    body: `<div class="field"><label for="wn-name">Wall name</label><input id="wn-name" type="text" maxlength="60" value="${esc(w ? w.name : '')}" placeholder="e.g. 2026 Wins, Billease Journey, Proud Moments"></div>`,
+    onOpen: x => setTimeout(() => $('#wn-name', x)?.focus(), 40),
+    actions: [{ label: 'Cancel', kind: 'ghost' }, { label: w ? 'Save' : 'Create wall', onClick: x => { const v = $('#wn-name', x).value.trim(); if (!v) { toast('Give the wall a name.', 'warn'); return false; } done(v); } }],
+  });
+}
+function winQuickView(id) {
+  const x = allWins().find(v => v.id === id); if (!x) return;
+  const b = x.braddy && x.braddy.sig === braddySig(x) ? x.braddy : null;
+  const thumbs = (x.files || []).filter(f => f.thumb).slice(0, 4);
+  const m = openModal({
+    title: 'Win preview', wide: false,
+    body: `<article class="wq" style="--nc:${WALL_NOTE_COLORS[bdHash(x.id) % 6]}">
+      ${x.impact === 3 ? '<span class="big-stamp">Brag-worthy!</span>' : ''}
+      <p class="wq-date">${esc(fmtLong(parseYmd(x.date)))}</p>
+      <h3 class="wq-title">${esc(x.title)}</h3>
+      ${x.mood ? `<p class="wq-mood"><i>${MOOD[x.mood].e}</i>Feeling ${esc(MOOD[x.mood].label.toLowerCase())}</p>` : ''}
+      ${x.result ? `<p class="wq-result">${icon('arrowRight', 'sm')}<span>${esc(x.result)}</span></p>` : ''}
+      ${x.details ? `<p class="wq-story">${esc(x.details)}</p>` : ''}
+      ${thumbs.length ? `<div class="wq-thumbs">${thumbs.map(f => `<img src="${f.thumb}" alt="${esc(f.name)}">`).join('')}</div>` : ''}
+      <div class="wq-foot"><span class="pill" data-cat="${x.category}">${esc(catOf(x.category).label)}</span>${starIcons(x.impact)}${x.project ? `<span class="small muted">${esc(x.project)}</span>` : ''}</div>
+      ${b ? `<div class="wq-braddy">${BRADDY_AV()}<p><b>Braddy:</b> ${esc(b.headline || b.comment.slice(0, 120))}</p></div>` : ''}
+    </article>`,
+    actions: [{ label: 'Close', kind: 'ghost' }, { label: 'Open full page', onClick: () => { openWinPreview(x.id); } }],
+  });
+  return m;
+}
+function wallDesigner(wallId) {
+  const wall = S.walls.find(x => x.id === wallId); if (!wall) return;
+  const D = { c: JSON.parse(JSON.stringify({ bg: wall.bg, items: wall.items, paint: wall.paint, showWins: wall.showWins, winFilter: wall.winFilter, winPos: wall.winPos })), sel: null, selWin: null, tab: 'paint', ink: '#0F6E6A', font: 'hand', noteColor: WALL_NOTE_COLORS[0], fresh: [], saved: false, txt: '', note: '', undo: [], brush: { c: '#E0607E', mode: 'pen', size: 1 } };
+  const oldFiles = coverFiles(wall).map(f => f.id);
+  const tabs = [['paint', 'Paint', 'brush'], ['text', 'Text', 'text'], ['note', 'Notes', 'clipboard'], ['sticker', 'Stickers', 'sparkles'], ['icon', 'Icons', 'star'], ['shape', 'Shapes', 'heart'], ['upload', 'Upload', 'upload'], ['bg', 'Background', 'image'], ['wins', 'Wins', 'trophy']];
+  const BRUSH = { pen: { w: .35, o: 1, label: 'Pen' }, marker: { w: .9, o: 1, label: 'Marker' }, highlighter: { w: 2.4, o: .35, label: 'Highlighter' }, eraser: { w: 2, o: 1, label: 'Eraser' } };
+  const SIZES = [['S', .6], ['M', 1], ['L', 1.8], ['XL', 3]];
+  const m = openModal({
+    title: `Design · ${wall.name}`, wide: true,
+    body: `<div class="fwd">
+      <div class="fwd-stage"><div class="fwd-scroll" id="fwd-scroll"><div class="fw-frame design" id="fwd-frame"><div class="fw-board" id="fwd-board" tabindex="0" aria-label="Wall canvas"></div></div></div></div>
+      <div class="fwd-panel">
+        <div class="cvd-tabs" role="tablist">${tabs.map(([k, l, ic]) => `<button type="button" role="tab" data-tab="${k}">${icon(ic, 'sm')}<span>${l}</span></button>`).join('')}</div>
+        <div class="cvd-tab" id="cvd-tab"></div>
+        <div class="cvd-sel" id="cvd-sel"></div>
+      </div>
+      <input type="file" id="cvd-file" accept="image/*" class="sr-only" tabindex="-1" aria-label="Upload image">
+    </div>`,
+    onOpen: w => w.querySelector('.modal').classList.add('xl'),
+    actions: [
+      { label: 'Cancel', kind: 'ghost' },
+      { label: 'Save wall', onClick: () => {
+        D.saved = true;
+        const nw = normWall(wall.id, { ...wall, ...D.c });
+        Object.assign(wall, nw); persistWall(wall.id);
+        const keep = new Set(coverFiles(wall).map(f => f.id));
+        [...oldFiles, ...D.fresh].forEach(id => { if (!keep.has(id)) removeStoredFile(id).catch(() => {}); });
+        updateWallsView(); renderHomeWall(); toast('Wall saved');
+      } },
+    ],
+  });
+  const W = m.wrap, $w = q => $(q, W), board = $w('#fwd-board'), scroller = $w('#fwd-scroll');
+  new MutationObserver((_, ob) => { if (!W.isConnected) { ob.disconnect(); if (!D.saved) D.fresh.forEach(id => removeStoredFile(id).catch(() => {})); } }).observe(document.body, { childList: true });
+  const selItem = () => D.c.items.find(i => i.id === D.sel);
+  const swatches = (cur, attr) => `<div class="cvd-sw">${COVER_SWATCHES.map(c => `<button type="button" class="${c.toLowerCase() === (cur || '').toLowerCase() ? 'on' : ''}" data-${attr}="${c}" style="--sw:${c}" aria-label="Color ${c}"></button>`).join('')}<label class="cvd-custom" title="Custom color"><input type="color" data-${attr}-custom value="${cur || '#ffffff'}" aria-label="Custom color">${icon('plus', 'sm')}</label></div>`;
+  const wallDoc = () => ({ ...wall, ...D.c });
+  const renderCanvas = () => { const r = wallInner(wallDoc(), { sel: D.sel }); board.setAttribute('style', `${coverBgStyle(D.c.bg)};height:${r.L.H}cqw`); board.innerHTML = r.html; board.classList.toggle('painting', D.tab === 'paint'); if (D.selWin) $(`.fw-win[data-win="${D.selWin}"]`, board)?.classList.add('sel'); hydrateCovers(board); };
+  const viewY = () => { const rect = board.getBoundingClientRect(), sr = scroller.getBoundingClientRect(); return Math.max(5, ((sr.top + sr.height / 2) - rect.top) / rect.width * 100); };
+  const add = it => { const o = { id: newId(), x: 50 + (Math.random() * 16 - 8), y: viewY() + (Math.random() * 8 - 4), r: 0, o: 100, color: D.ink, ...it }; D.c.items.push(o); D.sel = o.id; D.selWin = null; if (D.tab === 'paint') D.tab = 'text'; renderCanvas(); renderTab(); renderSel(); };
+  const renderTab = () => {
+    $$('[data-tab]', W).forEach(b => b.setAttribute('aria-selected', b.dataset.tab === D.tab ? 'true' : 'false'));
+    board.classList.toggle('painting', D.tab === 'paint');
+    const bg = D.c.bg, el = $w('#cvd-tab');
+    const inkRow = `<p class="cvd-lbl">Color for new items</p>${swatches(D.ink, 'ink')}`;
+    if (D.tab === 'paint') el.innerHTML = `<p class="cvd-lbl">Tool</p><div class="cvd-fonts">${Object.entries(BRUSH).map(([k, v]) => `<button type="button" data-brush="${k}" class="${D.brush.mode === k ? 'on' : ''}">${icon(k === 'eraser' ? 'eraser' : 'brush', 'sm')} ${v.label}</button>`).join('')}</div>
+      <p class="cvd-lbl">Size</p><div class="cvd-fonts">${SIZES.map(([l, v]) => `<button type="button" data-bsize="${v}" class="${D.brush.size === v ? 'on' : ''}">${l}</button>`).join('')}</div>
+      ${D.brush.mode === 'eraser' ? '<p class="small muted">Drag over a drawing to erase it.</p>' : `<p class="cvd-lbl">Color</p>${swatches(D.brush.c, 'bcol')}`}
+      <div class="row" style="margin-top:14px"><button type="button" class="btn ghost sm" data-paint="undo" ${D.undo.length ? '' : 'disabled'}>${icon('undo', 'sm')}Undo</button><button type="button" class="btn ghost sm" data-paint="clear" ${D.c.paint.length ? '' : 'disabled'}>${icon('trash', 'sm')}Clear drawings</button></div>
+      <p class="small muted" style="margin-top:10px">${icon('info', 'sm')} Draw anywhere on the wall. Switch to another tab to move things around.</p>`;
+    if (D.tab === 'bg') el.innerHTML = `
+      <p class="cvd-lbl">Solid color</p>${swatches(bg.type === 'color' ? bg.c1 : '', 'bgc')}
+      <p class="cvd-lbl">Gradient</p><div class="cvd-grads">${COVER_GRADS.map(([a, b], i) => `<button type="button" data-grad="${i}" class="${bg.type === 'gradient' && bg.c1 === a && bg.c2 === b ? 'on' : ''}" style="background:linear-gradient(155deg, ${a}, ${b})" aria-label="Gradient ${i + 1}"></button>`).join('')}</div>
+      <p class="cvd-lbl">Pattern <span class="muted">on your color</span></p><div class="cvd-pats">${COVER_PATTERNS.map(p => `<button type="button" data-pat="${p}" class="cover ${bg.type === 'pattern' && bg.pattern === p ? 'on' : ''}" style="background-color:${bg.c1};${cvPatternCSS(p, bg.type === 'pattern' ? bg.c2 : '#FFFFFF')}" aria-label="${p} pattern"><span>${p}</span></button>`).join('')}</div>
+      ${bg.type === 'pattern' ? `<p class="cvd-lbl">Pattern color</p>${swatches(bg.c2, 'patc')}` : ''}
+      <p class="cvd-lbl">Photo or GIF</p><div class="row"><button type="button" class="btn ghost sm" data-up="bg">${icon('upload', 'sm')}Upload background</button>${bg.type === 'image' ? `<button type="button" class="btn ghost sm" data-bgclear>${icon('x', 'sm')}Remove photo</button>` : ''}</div>
+      ${bg.type === 'image' ? `<label class="cvd-range"><span>Darken photo</span><input type="range" min="0" max="70" value="${bg.dim}" data-dim></label>` : ''}
+      <button type="button" class="btn ghost sm" data-bgreset style="margin-top:12px">${icon('refresh', 'sm')}Back to the classic wall</button>`;
+    if (D.tab === 'text') el.innerHTML = `<label class="cvd-lbl" for="cvd-txt">Your text</label><textarea id="cvd-txt" rows="2" maxlength="160" placeholder="e.g. Kaya mo 'yan!">${esc(D.txt)}</textarea>
+      <p class="cvd-lbl">Style</p><div class="cvd-fonts">${Object.entries(COVER_FONTS).map(([k, f]) => `<button type="button" data-font="${k}" class="${D.font === k ? 'on' : ''}" style="font-family:${f.css}">${f.label}</button>`).join('')}</div>
+      ${inkRow}<button type="button" class="btn sm" data-addtext style="margin-top:12px">${icon('plus', 'sm')}Add text</button>
+      <p class="cvd-lbl">Quick words</p><div class="cvd-chips">${['Proud of you!', 'Galing mo!', 'Kaya mo yan!', 'Small wins count', 'Level up!', 'Padayon!', 'You did that!', 'Laban lang!'].map(t => `<button type="button" data-qt="${esc(t)}">${esc(t)}</button>`).join('')}</div>`;
+    if (D.tab === 'note') el.innerHTML = `<label class="cvd-lbl" for="cvd-note">Sticky note</label><textarea id="cvd-note" rows="3" maxlength="240" placeholder="Write a note, a goal or a kind word">${esc(D.note)}</textarea>
+      <p class="cvd-lbl">Note color</p><div class="cvd-sw">${WALL_NOTE_COLORS.map(c => `<button type="button" class="${c === D.noteColor ? 'on' : ''}" data-ncol="${c}" style="--sw:${c}" aria-label="Note color ${c}"></button>`).join('')}</div>
+      <button type="button" class="btn sm" data-addnote style="margin-top:12px">${icon('plus', 'sm')}Pin note</button>`;
+    if (D.tab === 'sticker') el.innerHTML = `<p class="cvd-lbl">Animated stickers</p><div class="cvd-grid cvd-stk">${Object.keys(STICKERS).map(k => `<button type="button" data-stk="${k}" aria-label="${k} sticker">${stickerSVG(k)}</button>`).join('')}</div>
+      <p class="cvd-lbl">Emoji</p><div class="cvd-grid cvd-emo">${COVER_EMOJI.map(e => `<button type="button" data-emo="${e}">${e}</button>`).join('')}</div>`;
+    if (D.tab === 'icon') el.innerHTML = `${inkRow}<p class="cvd-lbl">Icons</p><div class="cvd-grid cvd-ics">${COVER_ICONS.map(k => `<button type="button" data-ic="${k}" aria-label="${k}" style="color:${D.ink === '#FFFFFF' || D.ink === '#F0EEE9' ? 'var(--ink)' : D.ink}">${icon(k)}</button>`).join('')}</div>`;
+    if (D.tab === 'shape') el.innerHTML = `${inkRow}<p class="cvd-lbl">Shapes and graphics</p><div class="cvd-grid cvd-shp">${Object.entries(COVER_SHAPES).map(([k, v]) => `<button type="button" data-shp="${k}" title="${v.label}"><svg viewBox="0 0 100 100">${v.svg(D.ink === '#FFFFFF' || D.ink === '#F0EEE9' ? '#9AA6A3' : D.ink)}</svg><span>${v.label}</span></button>`).join('')}</div>`;
+    if (D.tab === 'upload') { const mine = D.c.items.filter(i => i.type === 'image'); el.innerHTML = `<p class="cvd-lbl">Your own pictures</p><p class="small muted">Photos, stickers (PNG with a see-through background) and GIFs all work. GIFs stay animated.</p>
+        <div class="row" style="margin-top:10px"><button type="button" class="btn sm" data-up="item">${icon('upload', 'sm')}Upload image, sticker or GIF</button><button type="button" class="btn ghost sm" data-up="bg">${icon('image', 'sm')}Use as background</button></div>
+        ${mine.length ? `<p class="cvd-lbl">On this wall</p><div class="cvd-grid cvd-mine">${mine.map(i => `<button type="button" data-pick="${i.id}"><img src="${i.file.thumb}" alt=""></button>`).join('')}</div>` : ''}`; }
+    if (D.tab === 'wins') el.innerHTML = `<label class="check-line"><input type="checkbox" data-wshow ${D.c.showWins ? 'checked' : ''}>Show my bragged wins on this wall</label>
+      <p class="cvd-lbl">Which wins</p><div class="cvd-fonts">${Object.entries(WIN_FILTERS).map(([k, v]) => `<button type="button" data-wfilter="${k}" class="${D.c.winFilter === k ? 'on' : ''}">${v}</button>`).join('')}</div>
+      <p class="small muted" style="margin-top:10px">${icon('info', 'sm')} Drag any win to move it. New wins pin themselves in the next free spot.</p>
+      <button type="button" class="btn ghost sm" data-wtidy style="margin-top:10px" ${Object.keys(D.c.winPos).length ? '' : 'disabled'}>${icon('refresh', 'sm')}Tidy up: put wins back in rows</button>`;
+  };
+  const renderSel = () => {
+    const el = $w('#cvd-sel'), it = selItem();
+    if (D.selWin) { el.innerHTML = `<div class="cvd-sel-head"><b>${icon('trophy', 'sm')}Selected: a win</b></div><p class="small muted">Drag it anywhere on the wall.</p><div class="row"><button type="button" class="btn ghost sm" data-wreset>${icon('refresh', 'sm')}Put it back in its row</button></div><label class="cvd-range"><span>Tilt</span><input type="range" min="-25" max="25" value="${(D.c.winPos[D.selWin] || {}).r || 0}" data-wtilt></label>`; return; }
+    if (!it) { el.innerHTML = `<p class="small muted">${icon('info', 'sm')} ${D.tab === 'paint' ? 'You are drawing. Pick another tab to select and move things.' : 'Tap anything on the wall to edit it.'}</p>`; return; }
+    const name = { text: 'Text', emoji: 'Emoji', icon: 'Icon', sticker: 'Sticker', shape: 'Shape', image: 'Picture', note: 'Sticky note' }[it.type];
+    const colorable = ['text', 'icon', 'shape'].includes(it.type) && it.shape !== 'logo';
+    el.innerHTML = `<div class="cvd-sel-head"><b>${icon('edit', 'sm')}Selected: ${name}</b><span class="row" style="gap:4px">
+        <button type="button" class="icon-btn" data-op="back" title="Send backward" aria-label="Send backward">${icon('layerDown', 'sm')}</button>
+        <button type="button" class="icon-btn" data-op="front" title="Bring forward" aria-label="Bring forward">${icon('layerUp', 'sm')}</button>
+        <button type="button" class="icon-btn" data-op="dup" title="Duplicate" aria-label="Duplicate">${icon('copy', 'sm')}</button>
+        <button type="button" class="icon-btn" data-op="del" title="Delete" aria-label="Delete">${icon('trash', 'sm')}</button></span></div>
+      ${it.type === 'text' || it.type === 'note' ? `<textarea id="cvd-edit" rows="2" maxlength="${it.type === 'note' ? 240 : 160}" aria-label="Edit text">${esc(it.text)}</textarea>` : ''}
+      ${it.type === 'text' ? `<div class="cvd-fonts">${Object.entries(COVER_FONTS).map(([k, f]) => `<button type="button" data-sfont="${k}" class="${it.font === k ? 'on' : ''}" style="font-family:${f.css}">${f.label}</button>`).join('')}<button type="button" data-sbold class="${it.bold ? 'on' : ''}"><b>B</b></button><button type="button" data-sshadow class="${it.shadow ? 'on' : ''}">Shadow</button></div>` : ''}
+      ${it.type === 'note' ? `<div class="cvd-sw">${WALL_NOTE_COLORS.map(c => `<button type="button" class="${c === it.color ? 'on' : ''}" data-scol="${c}" style="--sw:${c}"></button>`).join('')}</div>` : colorable ? swatches(it.color, 'scol') : ''}
+      <label class="cvd-range"><span>Size</span><input type="range" min="2" max="${it.type === 'text' ? 30 : 100}" step="0.5" value="${it.s}" data-rg="s"></label>
+      <label class="cvd-range"><span>Rotate</span><input type="range" min="-180" max="180" value="${it.r}" data-rg="r"></label>
+      <label class="cvd-range"><span>Opacity</span><input type="range" min="10" max="100" value="${it.o}" data-rg="o"></label>`;
+  };
+  const renderAll = () => { renderCanvas(); renderTab(); renderSel(); };
+  const upload = mode => {
+    const inp = $w('#cvd-file'); inp.value = '';
+    inp.onchange = async () => {
+      const f = inp.files[0]; if (!f) return;
+      if (mode !== 'bg' && D.c.items.filter(i => i.type === 'image').length >= 12) { toast('A wall can hold up to 12 pictures. Remove one first.', 'warn'); return; }
+      toast('Uploading…');
+      try {
+        const p = await prepareCoverImage(f, mode === 'bg'), id = 'w' + newId();
+        await storeFileBytes(id, p.bytes, { name: f.name, type: p.type });
+        D.fresh.push(id);
+        const file = { id, type: p.type, thumb: p.thumb };
+        if (mode === 'bg') { D.c.bg = { ...D.c.bg, type: 'image', file, dim: D.c.bg.dim || 0 }; renderCanvas(); renderTab(); }
+        else add({ type: 'image', file, s: p.ratio > 1.3 ? 16 : 22 });
+        toast(p.type === 'image/gif' ? 'GIF added. It plays on your wall.' : 'Picture added');
+      } catch (e) { console.error(e); toast(e && e.message === 'too-big' ? 'That file is too big. Try one under 4 MB.' : e && e.message === 'type' ? 'Pick an image or GIF file.' : "Couldn't add that picture.", 'warn'); }
+    };
+    inp.click();
+  };
+  W.addEventListener('click', async e => {
+    const t = e.target.closest('button, [data-tab]'); if (!t || !W.contains(t) || t.closest('#fwd-board')) return;
+    const d = t.dataset, it = selItem();
+    if (d.tab) { D.tab = d.tab; if (d.tab === 'paint') { D.sel = null; D.selWin = null; } renderAll(); return; }
+    if (d.brush) { D.brush.mode = d.brush; renderTab(); }
+    else if (d.bsize) { D.brush.size = +d.bsize; renderTab(); }
+    else if (d.bcol) { D.brush.c = d.bcol; renderTab(); }
+    else if (d.paint === 'undo') { const u = D.undo.pop(); if (u) { if (u.t === 'add') D.c.paint.pop(); else if (u.t === 'erase') u.list.sort((a, b) => a.i - b.i).forEach(x => D.c.paint.splice(x.i, 0, x.st)); else if (u.t === 'clear') D.c.paint = u.list; } renderCanvas(); renderTab(); }
+    else if (d.paint === 'clear') { if (!(await confirmModal('Clear all drawings on this wall?', 'Clear'))) return; D.undo.push({ t: 'clear', list: D.c.paint }); D.c.paint = []; renderCanvas(); renderTab(); }
+    else if (d.bgc) { D.c.bg = { ...D.c.bg, type: 'color', c1: d.bgc }; renderCanvas(); renderTab(); }
+    else if (d.grad !== undefined) { const [a, b] = COVER_GRADS[+d.grad]; D.c.bg = { ...D.c.bg, type: 'gradient', c1: a, c2: b }; renderCanvas(); renderTab(); }
+    else if (d.pat) { const was = D.c.bg.type === 'pattern'; D.c.bg = { ...D.c.bg, type: 'pattern', pattern: d.pat, c2: was ? D.c.bg.c2 : '#FFFFFF' }; renderCanvas(); renderTab(); }
+    else if (d.patc) { D.c.bg.c2 = d.patc; renderCanvas(); renderTab(); }
+    else if (d.bgclear !== undefined) { D.c.bg = { ...D.c.bg, type: 'color' }; renderCanvas(); renderTab(); }
+    else if (d.bgreset !== undefined) { D.c.bg = { ...WALL_DEFAULT_BG }; renderCanvas(); renderTab(); }
+    else if (d.up) upload(d.up);
+    else if (d.ink) { D.ink = d.ink; renderTab(); if (it && ['text', 'icon', 'shape'].includes(it.type)) { it.color = d.ink; renderCanvas(); renderSel(); } }
+    else if (d.font) { D.font = d.font; renderTab(); }
+    else if (d.addtext !== undefined) { const v = (D.txt || '').trim(); if (!v) { $w('#cvd-txt').focus(); toast('Type your text first.'); return; } add({ type: 'text', text: v, font: D.font, bold: D.font === 'display', s: 4 }); D.txt = ''; }
+    else if (d.qt) add({ type: 'text', text: d.qt, font: D.font, bold: D.font === 'display', s: 4 });
+    else if (d.ncol) { D.noteColor = d.ncol; renderTab(); }
+    else if (d.addnote !== undefined) { const v = (D.note || '').trim(); if (!v) { $w('#cvd-note').focus(); toast('Write your note first.'); return; } add({ type: 'note', text: v, color: D.noteColor, s: 14, r: Math.round(Math.random() * 8 - 4) }); D.note = ''; }
+    else if (d.stk) add({ type: 'sticker', sticker: d.stk, s: 12 });
+    else if (d.emo) add({ type: 'emoji', text: d.emo, s: 6 });
+    else if (d.ic) add({ type: 'icon', icon: d.ic, s: 7 });
+    else if (d.shp) add({ type: 'shape', shape: d.shp, s: d.shp === 'tape' || d.shp === 'ribbon' || d.shp === 'line' ? 22 : 10 });
+    else if (d.pick) { D.sel = d.pick; D.selWin = null; renderCanvas(); renderSel(); }
+    else if (d.wfilter) { D.c.winFilter = d.wfilter; renderCanvas(); renderTab(); }
+    else if (d.wtidy !== undefined) { D.c.winPos = {}; D.selWin = null; renderCanvas(); renderTab(); renderSel(); }
+    else if (d.wreset !== undefined) { delete D.c.winPos[D.selWin]; D.selWin = null; renderCanvas(); renderSel(); renderTab(); }
+    else if (it && d.scol) { it.color = d.scol; renderCanvas(); renderSel(); }
+    else if (it && d.sfont) { it.font = d.sfont; renderCanvas(); renderSel(); }
+    else if (it && d.sbold !== undefined) { it.bold = !it.bold; renderCanvas(); renderSel(); }
+    else if (it && d.sshadow !== undefined) { it.shadow = !it.shadow; renderCanvas(); renderSel(); }
+    else if (it && d.op) {
+      const a = D.c.items, i = a.indexOf(it);
+      if (d.op === 'del') { a.splice(i, 1); D.sel = null; }
+      else if (d.op === 'dup') { const c = { ...JSON.parse(JSON.stringify(it)), id: newId(), x: it.x + 3, y: it.y + 3 }; a.splice(i + 1, 0, c); D.sel = c.id; }
+      else if (d.op === 'front' && i < a.length - 1) { a.splice(i, 1); a.splice(i + 1, 0, it); }
+      else if (d.op === 'back' && i > 0) { a.splice(i, 1); a.splice(i - 1, 0, it); }
+      renderCanvas(); renderSel(); if (D.tab === 'upload') renderTab();
+    }
+  });
+  W.addEventListener('input', e => {
+    const t = e.target, it = selItem();
+    if (t.id === 'cvd-txt') D.txt = t.value;
+    else if (t.id === 'cvd-note') D.note = t.value;
+    else if (t.matches('[data-dim]')) { D.c.bg.dim = +t.value; renderCanvas(); }
+    else if (t.matches('[data-bgc-custom]')) { D.c.bg = { ...D.c.bg, type: 'color', c1: t.value }; renderCanvas(); }
+    else if (t.matches('[data-patc-custom]')) { D.c.bg.c2 = t.value; renderCanvas(); }
+    else if (t.matches('[data-ink-custom]')) { D.ink = t.value; if (it && ['text', 'icon', 'shape'].includes(it.type)) { it.color = t.value; renderCanvas(); } }
+    else if (t.matches('[data-bcol-custom]')) D.brush.c = t.value;
+    else if (t.matches('[data-scol-custom]') && it) { it.color = t.value; renderCanvas(); }
+    else if (t.id === 'cvd-edit' && it) { if (t.value.trim()) { it.text = t.value; const n = $(`[data-id="${it.id}"]`, board); if (n) (it.type === 'note' ? n.querySelector('span') : n.firstChild).textContent = t.value; } }
+    else if (t.matches('[data-rg]') && it) { it[t.dataset.rg] = +t.value; const n = $(`[data-id="${it.id}"]`, board); if (n) n.setAttribute('style', cvItemStyle(it, 'cqw')); }
+    else if (t.matches('[data-wtilt]') && D.selWin) { const L = wallLayout(wallDoc()), i = L.wins.findIndex(x => x.id === D.selWin); const p = D.c.winPos[D.selWin] || L.pos[i]; D.c.winPos[D.selWin] = { x: p.x, y: p.y, r: +t.value }; const n = $(`.fw-win[data-win="${D.selWin}"]`, board); if (n) n.style.setProperty('--r', t.value + 'deg'); }
+    else if (t.matches('[data-wshow]')) { D.c.showWins = t.checked; renderCanvas(); }
+  });
+  W.addEventListener('change', e => { if (e.target.matches('input[type=color]')) renderTab(); });
+  const toBoard = ev => { const r = board.getBoundingClientRect(); return [Math.round((ev.clientX - r.left) / r.width * 1000) / 10, Math.round((ev.clientY - r.top) / r.width * 1000) / 10]; };
+  board.addEventListener('pointerdown', e => {
+    if (e.button && e.button !== 0) return;
+    if (D.tab === 'paint') {
+      e.preventDefault();
+      try { board.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+      const svg = $('.fw-paint', board), mode = D.brush.mode;
+      if (mode === 'eraser') {
+        const erased = [];
+        const er = ev => { const [x, y] = toBoard(ev), rad = 1.4 * D.brush.size; for (let i = D.c.paint.length - 1; i >= 0; i--) { const st = D.c.paint[i]; for (let j = 0; j < st.p.length; j += 2) if (Math.hypot(st.p[j] - x, st.p[j + 1] - y) < rad + st.w / 2) { erased.push({ i, st }); D.c.paint.splice(i, 1); break; } } if (erased.length) svg.innerHTML = D.c.paint.map(strokeHTML).join(''); };
+        er(e);
+        const up = () => { board.removeEventListener('pointermove', er); board.removeEventListener('pointerup', up); board.removeEventListener('pointercancel', up); if (erased.length) { D.undo.push({ t: 'erase', list: erased.reverse() }); renderTab(); } };
+        board.addEventListener('pointermove', er); board.addEventListener('pointerup', up); board.addEventListener('pointercancel', up);
+        return;
+      }
+      const b = BRUSH[mode], st = { c: D.brush.c, w: Math.round(b.w * D.brush.size * 100) / 100, o: b.o, p: toBoard(e) };
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      ['stroke', st.c, 'stroke-width', st.w, 'stroke-opacity', st.o, 'fill', 'none', 'stroke-linecap', 'round', 'stroke-linejoin', 'round'].reduce((k, v, i, a) => { if (i % 2) path.setAttribute(a[i - 1], v); return k; }, 0);
+      path.setAttribute('d', ptsPath(st.p)); svg.append(path);
+      const mv = ev => { const [x, y] = toBoard(ev), n = st.p.length; if (Math.hypot(x - st.p[n - 2], y - st.p[n - 1]) < .25) return; if (n >= 4000) return; st.p.push(x, y); path.setAttribute('d', ptsPath(st.p)); if (y > parseFloat(svg.getAttribute('viewBox').split(' ')[3]) - 6) { /* grow on release */ } };
+      const up = () => { board.removeEventListener('pointermove', mv); board.removeEventListener('pointerup', up); board.removeEventListener('pointercancel', up); D.c.paint.push(st); D.undo.push({ t: 'add' }); if (D.c.paint.reduce((t, s) => t + s.p.length, 0) > 70000) toast('This wall has a lot of drawing. Some may not be saved.', 'warn'); renderCanvas(); renderTab(); };
+      board.addEventListener('pointermove', mv); board.addEventListener('pointerup', up); board.addEventListener('pointercancel', up);
+      return;
+    }
+    const winEl = e.target.closest('.fw-win'), el = e.target.closest('.cv-item');
+    if (!winEl && !el) { if (D.sel || D.selWin) { D.sel = null; D.selWin = null; renderCanvas(); renderSel(); } return; }
+    e.preventDefault();
+    const rect = board.getBoundingClientRect(), sx = e.clientX, sy = e.clientY;
+    try { board.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+    if (winEl) {
+      const id = winEl.dataset.win, L = wallLayout(wallDoc()), i = L.wins.findIndex(x => x.id === id), p0 = { ...(D.c.winPos[id] || L.pos[i]) };
+      if (D.selWin !== id || D.sel) { D.selWin = id; D.sel = null; $$('.sel', board).forEach(n => n.classList.remove('sel')); winEl.classList.add('sel'); renderSel(); }
+      let moved = false;
+      const mv = ev => { const dx = (ev.clientX - sx) / rect.width * 100, dy = (ev.clientY - sy) / rect.width * 100; if (!moved && Math.hypot(dx, dy) < .4) return; moved = true; D.c.winPos[id] = { x: Math.round(Math.min(108, Math.max(-8, p0.x + dx)) * 10) / 10, y: Math.round(Math.max(-5, p0.y + dy) * 10) / 10, r: p0.r || 0 }; winEl.style.left = D.c.winPos[id].x + 'cqw'; winEl.style.top = D.c.winPos[id].y + 'cqw'; };
+      const up = () => { board.removeEventListener('pointermove', mv); board.removeEventListener('pointerup', up); board.removeEventListener('pointercancel', up); if (moved) { renderCanvas(); renderTab(); } };
+      board.addEventListener('pointermove', mv); board.addEventListener('pointerup', up); board.addEventListener('pointercancel', up);
+      return;
+    }
+    const h = e.target.closest('[data-h]'), it = D.c.items.find(x => x.id === el.dataset.id); if (!it) return;
+    if (D.sel !== it.id) { D.sel = it.id; D.selWin = null; renderCanvas(); renderSel(); }
+    const node = $(`[data-id="${it.id}"]`, board);
+    const cx = rect.left + it.x / 100 * rect.width, cy = rect.top + it.y / 100 * rect.width;
+    const x0 = it.x, y0 = it.y, s0 = it.s, d0 = Math.max(8, Math.hypot(sx - cx, sy - cy)), mode = h ? h.dataset.h : 'move', maxS = it.type === 'text' ? 30 : 100;
+    const mv = ev => {
+      if (mode === 'move') { it.x = Math.round(Math.min(110, Math.max(-10, x0 + (ev.clientX - sx) / rect.width * 100)) * 10) / 10; it.y = Math.round(Math.max(-10, y0 + (ev.clientY - sy) / rect.width * 100) * 10) / 10; }
+      else if (mode === 'size') it.s = Math.round(Math.min(maxS, Math.max(2, s0 * Math.hypot(ev.clientX - cx, ev.clientY - cy) / d0)) * 10) / 10;
+      else { let r = Math.round(Math.atan2(ev.clientY - cy, ev.clientX - cx) * 180 / Math.PI + 90); if (r > 180) r -= 360; if (Math.abs(r) < 5) r = 0; it.r = r; }
+      node.setAttribute('style', cvItemStyle(it, 'cqw'));
+    };
+    const up = () => { board.removeEventListener('pointermove', mv); board.removeEventListener('pointerup', up); board.removeEventListener('pointercancel', up); renderSel(); const r = wallInner(wallDoc()); board.style.height = r.L.H + 'cqw'; };
+    board.addEventListener('pointermove', mv); board.addEventListener('pointerup', up); board.addEventListener('pointercancel', up);
+  });
+  board.addEventListener('keydown', e => {
+    const it = selItem(); if (!it) return;
+    if (e.key === 'Delete' || e.key === 'Backspace') { D.c.items = D.c.items.filter(x => x !== it); D.sel = null; renderCanvas(); renderSel(); e.preventDefault(); return; }
+    const st = e.shiftKey ? 5 : 1, dx = { ArrowLeft: -st, ArrowRight: st }[e.key] || 0, dy = { ArrowUp: -st, ArrowDown: st }[e.key] || 0;
+    if (dx || dy) { it.x += dx; it.y += dy; const n = $(`[data-id="${it.id}"]`, board); if (n) n.setAttribute('style', cvItemStyle(it, 'cqw')); e.preventDefault(); }
+  });
+  renderAll();
 }
 
 /* ================= Braddy: your best friend's comments ================= */
@@ -5359,7 +5903,7 @@ async function restoreFromText(text) {
     else if (!(await confirmModal('This is an older backup that was saved without encryption. Restore it anyway? Consider deleting the old file afterwards.', 'Continue', ''))) return;
     const idOk = s => typeof s === 'string' && /^[A-Za-z0-9_\-.~:@+]{1,100}$/.test(s) && s !== '.' && s !== '..';
     const days = Object.entries(data.days || {}).filter(([k, v]) => isYmd(k) && Array.isArray(v));
-    const nbs = (data.notebooks || []).filter(n => idOk(n && n.id)), notes = (data.notes || []).filter(n => idOk(n && n.id));
+    const nbs = (data.notebooks || []).filter(n => idOk(n && n.id)), notes = (data.notes || []).filter(n => idOk(n && n.id)), walls = (data.walls || []).filter(n => idOk(n && n.id));
     const nWins = days.reduce((a, [, v]) => a + v.length, 0);
     if (!(await confirmModal(`Import ${plural(nWins, 'win')}, ${plural(nbs.length, 'notebook')}, ${plural(notes.length, 'page')} and ${plural(Object.keys(data.files || {}).length, 'attachment and cover file', 'attachment and cover files')} from this backup? Entries with the same ID are replaced; everything else is kept.`, 'Import', ''))) return;
     toast('Importing…');
@@ -5367,23 +5911,24 @@ async function restoreFromText(text) {
     for (const [k, items] of days) { const cur = new Map((S.days.get(k) || []).map(x => [x.id, x])); items.map(normItem).filter(Boolean).forEach(it => cur.set(it.id, it)); S.days.set(k, [...cur.values()]); touched.push(['d', k]); }
     for (const n of nbs) { const v = normNb(n.id, n); S.notebooks = S.notebooks.filter(x => x.id !== v.id).concat(v); touched.push(['nb', v.id]); }
     for (const n of notes) { const v = normNote(n.id, n); v.html = sanitize(v.html); S.notes = S.notes.filter(x => x.id !== v.id).concat(v); touched.push(['n', v.id]); }
+    for (const n of walls) { const v = normWall(n.id, n); S.walls = S.walls.filter(x => x.id !== v.id).concat(v); touched.push(['wl', v.id]); }
     if (data.profile) {
       const inc = normProfile(data.profile);
       const have = new Set(S.profile.customCats.map(c => c.key));
       const merged = [...S.profile.customCats, ...inc.customCats.filter(c => !have.has(c.key))];
       const haveSh = new Set((S.profile.shelves || []).map(x => x.id)), shelves = [...(S.profile.shelves || []), ...(inc.shelves || []).filter(x => !haveSh.has(x.id))];
-      S.profile = normProfile(S.profile.name ? { ...S.profile, customCats: merged, shelves } : { ...inc, customCats: merged, shelves });
+      S.profile = normProfile(S.profile.name ? { ...S.profile, customCats: merged, shelves, featuredWall: S.profile.featuredWall || inc.featuredWall } : { ...inc, customCats: merged, shelves });
       applyCategories(); touched.push(['p']);
     }
     invalidate(); onData('all');
-    for (const [t, id] of touched) { if (t === 'd') await persistDay(id); else if (t === 'nb') await persistNotebook(id); else if (t === 'n') await persistNote(id); else await persistProfile(); if (S.mode === 'cloud') await sleep(60); }
+    for (const [t, id] of touched) { if (t === 'd') await persistDay(id); else if (t === 'nb') await persistNotebook(id); else if (t === 'n') await persistNote(id); else if (t === 'wl') await persistWall(id); else await persistProfile(); if (S.mode === 'cloud') await sleep(60); }
     for (const [fid, f] of Object.entries(data.files || {})) { if (!/^[A-Za-z0-9_-]{1,60}$/.test(fid) || !f || !f.b64) continue; try { await storeFileBytes(fid, b64ToBuf(f.b64), { name: String(f.name || 'file'), type: String(f.type || '') }); } catch (e) { console.error(e); } }
     toast(`Backup imported: ${plural(nWins, 'win')}, ${plural(nbs.length, 'notebook')}, ${plural(notes.length, 'page')} and ${plural(Object.keys(data.files || {}).length, 'file')}.`);
   }
 }
 async function buildBackupFile(key, keys, protectedBy, quiet, hint) {
   await Promise.all([...SEALING.values()]).catch(() => {});
-  const payload = { profile: S.profile, days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes.map(n => ({ id: n.id, ...noteBody(n) })), files: {} };
+  const payload = { profile: S.profile, days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes.map(n => ({ id: n.id, ...noteBody(n) })), walls: S.walls, files: {} };
   const refs = allFileRefs(); let missing = 0;
   if (refs.length && !quiet) toast(`Packing ${plural(refs.length, 'attachment')}…`);
   for (const f of refs) { try { const { bytes, meta } = await loadFileBytes(f.id); payload.files[f.id] = { name: meta.name, type: meta.type, b64: bufToB64(bytes) }; } catch (e) { console.error(e); missing++; } }
@@ -5880,7 +6425,7 @@ async function lockNow(auto) {
   NBK.clear(); PLAIN.clear();
   S.unsubs.forEach(u => { try { u(); } catch (e) { /* ignore */ } });
   S.unsubs = [];
-  S.days = new Map(); S.notebooks = []; S.notes = []; S.profile = normProfile({}); applyCategories(); invalidate();
+  S.days = new Map(); S.notebooks = []; S.notes = []; S.walls = []; S.profile = normProfile({}); applyCategories(); invalidate();
   CRYPTO.key = CRYPTO.readKey = null; decCache = new WeakMap(); shownCounts.clear(); fileURLs.forEach(u => URL.revokeObjectURL(u)); fileURLs.clear();
   UI.report.ai = null; UI.report.edits = null;
   S.view = null; $('#view').innerHTML = ''; setBanner(null);
@@ -5894,7 +6439,7 @@ async function boot() {
   if (db && uid) {
     S.mode = 'cloud'; S.db = db;
     const profile = db.doc(`data/users/${uid}/profile`);
-    S.refs = { profile, wins: profile.collection('wins'), notebooks: profile.collection('notebooks'), notes: profile.collection('notes'), files: profile.collection('files'), lock: profile.collection('meta').doc('lock') };
+    S.refs = { profile, wins: profile.collection('wins'), notebooks: profile.collection('notebooks'), notes: profile.collection('notes'), walls: profile.collection('walls'), files: profile.collection('files'), lock: profile.collection('meta').doc('lock') };
   } else S.mode = 'local';
   if (!window.crypto || !crypto.subtle) { S.lock = null; startApp(); return; }
   try { S.lock = await readLock(); } catch (e) { console.error(e); showGate('error'); return; }
@@ -5920,6 +6465,7 @@ function openPalette() {
     { g: 'Go to', label: 'Settings', icon: 'settings', run: () => go('account') },
     { g: 'Actions', label: 'Brag your win', icon: 'megaphone', run: () => { UI.selDate = todayKey(); go('today'); setTimeout(() => $('#t-title')?.focus(), 350); } },
     { g: 'Actions', label: 'New journal entry for today', icon: 'pen', run: () => { const nb = S.notebooks.find(n => n.kind === 'journal') || S.notebooks[0]; if (!nb) { go('notebooks'); return; } openNote(createPage(nb.id, todayKey(), nb.kind === 'journal' ? 'journal' : KINDS[nb.kind].tpl)); } },
+    { g: 'Actions', label: 'Open my Freedom Wall', icon: 'wall', run: () => go('walls') },
     { g: 'Actions', label: 'Email my brags as PDF', icon: 'mail', run: () => openEmailDialog({ scope: 'week', anchor: todayKey() }) },
     { g: 'Actions', label: 'Cheer me up', icon: 'sparkles', run: cheer },
     { g: 'Actions', label: 'Change theme', icon: 'sun', run: cycleTheme },
