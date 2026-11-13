@@ -2830,12 +2830,12 @@ const tplTitle = (key, dateKey) => {
   return `${lbl} · ${fmtShortK(ymd(d))}`;
 };
 const tplHeads = key => { const m = templateHTML(key, todayKey()).match(/<h[23]>(.*?)<\/h[23]>/g) || []; return m.map(x => x.replace(/<[^>]+>/g, '')).slice(0, 4); };
-function templatePicker(nbId, onPick) {
+function templatePicker(nbId, onPick, first = false) {
   const nb = S.notebooks.find(n => n.id === nbId), kind = nb ? nb.kind : 'other';
   const card = t => `<button type="button" class="tpl-card" data-tpl="${t.key}" style="--tc:${{ journal: '#C2477A', planner: '#2F6FB0', work: 'var(--accent)', other: '#B87A0E' }[t.kind]}"><span class="tpl-ic">${icon(t.icon)}</span><span class="tpl-txt"><b>${esc(t.label)}</b><small>${esc(t.desc)}</small><span class="tpl-heads">${tplHeads(t.key).map(h => `<i>${esc(h)}</i>`).join('')}</span></span></button>`;
   const mine = TEMPLATES.filter(t => t.kind === kind), others = TPL_GROUPS.filter(([g]) => g !== kind);
   const m = openModal({
-    title: 'New page', wide: true,
+    title: first ? `Pick a first page for “${nb ? nb.name : 'your notebook'}”` : 'New page', wide: true,
     body: `<div class="tpl-pick">
       <button type="button" class="tpl-card tpl-blank" data-tpl=""><span class="tpl-ic">${icon('plus')}</span><span class="tpl-txt"><b>Blank page</b><small>Start from nothing</small></span></button>
       ${mine.length ? `<p class="tpl-group">${icon(KINDS[kind].icon, 'sm')}For your ${esc(KINDS[kind].label.toLowerCase())}</p><div class="tpl-grid">${mine.map(card).join('')}</div>` : ''}
@@ -2845,8 +2845,8 @@ function templatePicker(nbId, onPick) {
   });
   m.wrap.addEventListener('click', e => { const c = e.target.closest('[data-tpl]'); if (!c) return; m.close(); onPick(c.dataset.tpl || null); });
 }
-function newPageFlow(nbId) {
-  templatePicker(nbId, tpl => { flushEditor(); UI.nb.notebookId = nbId; UI.nb.noteId = createPage(nbId, todayKey(), tpl); updateNotebookSidebar(); mountEditor(); });
+function newPageFlow(nbId, first = false) {
+  templatePicker(nbId, tpl => { flushEditor(); UI.nb.notebookId = nbId; UI.nb.noteId = createPage(nbId, todayKey(), tpl); updateNotebookSidebar(); mountEditor(); }, first);
 }
 function createPage(notebookId, dateKey, tpl) {
   const nb = S.notebooks.find(n => n.id === notebookId);
@@ -2974,7 +2974,8 @@ function createNotebook(name, kind, color) {
   persistNotebook(id);
   flushEditor();
   UI.nb.notebookId = id;
-  UI.nb.noteId = createPage(id, todayKey(), KINDS[kind].tpl);
+  UI.nb.noteId = null;
+  setTimeout(() => newPageFlow(id, true), 60);
   return id;
 }
 function mountEditor() {
