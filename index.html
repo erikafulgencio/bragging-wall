@@ -781,6 +781,27 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 @keyframes st-wave { 0% { opacity: 0; transform: translateX(-4px); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateX(4px); } }
 @keyframes st-lift { 50% { transform: translateY(-14px); } }
 @media (max-width: 560px) { .bd-thread:not(.bd-typing-row) { flex-direction: column; gap: 8px; } .bd-bubble { border-radius: 18px; } .braddy-av { width: 40px; height: 40px; } .bd-bubble { padding: 12px; } .bd-chart { width: 150px; } }
+/* Backup card */
+.bk-main { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.bk-big { display: flex; align-items: center; min-height: 92px; gap: 12px; text-align: left; padding: 14px; border-radius: 16px; border: 0; cursor: pointer; font: inherit; color: #fff; background: var(--grad); box-shadow: 0 10px 22px -12px color-mix(in srgb, var(--accent) 70%, transparent); transition: transform .18s var(--ease), box-shadow .18s; }
+.bk-big:hover, .bk-big:focus-visible { transform: translateY(-2px); box-shadow: 0 14px 26px -12px color-mix(in srgb, var(--accent) 80%, transparent); }
+.bk-big.alt { background: var(--surface-solid); color: var(--ink); border: 1.5px dashed color-mix(in srgb, var(--accent) 45%, var(--line)); box-shadow: none; }
+.bk-big.alt:hover { border-style: solid; border-color: var(--accent); }
+.bk-big b { display: block; font-size: .95rem; }
+.bk-big small { display: block; font-size: .76rem; opacity: .85; line-height: 1.35; margin-top: 2px; }
+.bk-big.alt small { color: var(--muted); opacity: 1; }
+.bk-big-ic { width: 40px; height: 40px; flex: none; border-radius: 12px; display: grid; place-items: center; background: rgba(255,255,255,.18); }
+.bk-big.alt .bk-big-ic { background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
+.bk-last { display: flex; align-items: center; gap: 6px; margin-top: -2px; }
+.bk-what { border: 1px solid var(--line); border-radius: 14px; padding: 10px 14px; background: var(--surface-solid); }
+.bk-what summary { cursor: pointer; display: flex; align-items: center; gap: 7px; font: 600 .86rem var(--font-body); color: var(--accent); list-style: none; }
+.bk-what summary::-webkit-details-marker { display: none; }
+.bk-incl { list-style: none; margin: 10px 0 8px; padding: 0; display: grid; gap: 7px; font-size: .85rem; }
+.bk-incl li { display: flex; gap: 8px; align-items: flex-start; line-height: 1.4; }
+.bk-incl .i { color: var(--accent); flex: none; margin-top: 2px; }
+.bk-what > p { display: flex; gap: 6px; align-items: flex-start; line-height: 1.45; }
+@media (max-width: 560px) { .bk-main { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: no-preference) { .bk-big .bk-big-ic .i { transition: transform .25s var(--ease); } .bk-big:hover .bk-big-ic .i { transform: translateY(2px); } .bk-big.alt:hover .bk-big-ic .i { transform: translateY(-2px); } }
 /* Google Drive backup */
 .gd-card { padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 6%, var(--surface-solid)), var(--surface-solid)); display: flex; flex-direction: column; gap: 10px; transition: box-shadow .3s; }
 .gd-card.flash { box-shadow: 0 0 0 3px var(--accent); }
@@ -1131,7 +1152,9 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .hnote.empty-note { opacity: .85; }
 /* Settings */
 #bk-card { grid-column: 1 / -1; }
-#bk-card .stack { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+#bk-card .stack { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); grid-template-areas: 'main what' 'last what' 'csv what' 'x what'; grid-template-rows: auto auto auto 1fr; gap: 12px 18px; align-items: start; }
+#bk-card .bk-main { grid-area: main; } #bk-card .bk-last { grid-area: last; } #bk-card .bk-what { grid-area: what; } #bk-card .bk-row { grid-area: csv; }
+@media (max-width: 900px) { #bk-card .stack { grid-template-columns: 1fr; grid-template-areas: 'main' 'last' 'what' 'csv'; grid-template-rows: none; } }
 .bk-row { display: grid; grid-template-columns: 34px 1fr auto; gap: 12px; align-items: center; padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-solid); }
 .bk-row b { display: block; font-size: .9rem; }
 .bk-row small { display: block; font-size: .78rem; color: var(--muted); }
@@ -3681,7 +3704,8 @@ const GD_RE = /^[0-9]{6,20}-[a-z0-9]{10,64}\.apps\.googleusercontent\.com$/;
 const GD = { clientId: lsGet('bw-gd-client') || '', token: null, exp: 0, folderId: lsGet('bw-gd-folder') || '', busy: false, pending: false, timer: null, status: null, gis: null, last: Number(lsGet('bw-gd-last')) || 0, auto: lsGet('bw-gd-auto') !== '0' };
 const gdLinked = () => !!GD.clientId && lsGet('bw-gd-linked') === '1';
 const gdConnected = () => !!GD.token && Date.now() < GD.exp - 60000;
-const gdAvailable = () => !window.claude;
+const GD_ENABLED = false;
+const gdAvailable = () => GD_ENABLED && !window.claude;
 function gdSetStatus(st) { GD.status = st; renderDriveCard(); }
 function loadGIS() {
   if (window.google && google.accounts && google.accounts.oauth2) return Promise.resolve();
@@ -3922,7 +3946,7 @@ async function gdConnectAndBackup() {
   catch (e) { gdHandleError(e, true); }
 }
 function renderDriveCard() {
-  const el = $('#gd-card'); if (!el) return;
+  const el = $('#gd-card'); if (!el || !GD_ENABLED) return;
   if (!gdAvailable()) {
     el.innerHTML = `<div class="gd-head"><span class="gd-logo">${GD_LOGO}</span><div><b>Google Drive backup</b><small>Here, your wall is already saved in your Claude account. Google Drive backup is on your own site, <a href="https://erikafulgencio.github.io/bragging-wall/" target="_blank" rel="noopener">erikafulgencio.github.io/bragging-wall</a>.</small></div></div>`;
     return;
@@ -3965,19 +3989,15 @@ function renderDriveCard() {
 const GD_LOGO = `<svg viewBox="0 0 87.3 78" aria-hidden="true"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>`;
 function storageBanner() {
   if (S.mode === 'cloud' || window.claude) return;
-  const goDrive = () => { go('account'); setTimeout(() => { const c = $('#gd-card'); if (c) { c.scrollIntoView({ behavior: 'smooth', block: 'center' }); c.classList.add('flash'); setTimeout(() => c.classList.remove('flash'), 1600); } }, 350); };
-  const days = GD.last ? Math.floor((Date.now() - GD.last) / 864e5) : null;
-  const st = GD.status;
-  if (st && st.kind === 'err' && gdLinked()) { setBanner(`<b>Google Drive backup didn't finish.</b> ${esc(st.text)}`, null, [{ label: 'Fix it', icon: 'refresh', primary: true, onClick: goDrive }], 'alert'); return; }
-  if (gdLinked() && GD.last && days < 7) { setBanner(null); return; }
-  if (gdLinked()) { setBanner(`<b>${days === null ? "You haven't backed up to Google Drive yet." : `It's been ${plural(days, 'day')} since your last backup.`}</b> Back up now so your wins are safe.`, null, [{ label: 'Back up now', icon: 'upload', primary: true, onClick: () => { if (gdConnected()) gdBackup({ interactive: true }); else gdConnectAndBackup(); } }]); return; }
-  setBanner(`<b>Your wall is saved only in this browser.</b> Back it up to Google Drive so you never lose a win.`, LS_BANNER, [{ label: 'Back up to Google Drive', icon: 'upload', primary: true, onClick: goDrive }]);
+  const make = () => { go('account'); setTimeout(() => $('#bk-json')?.click(), 400); };
+  const last = Number(lsGet('bw-last-backup')) || 0, days = last ? Math.floor((Date.now() - last) / 864e5) : null;
+  if (last && days < 14) { setBanner(null); return; }
+  if (last) { setBanner(`<b>It's been ${plural(days, 'day')} since your last backup.</b> Create a new backup file so your latest wins are safe.`, null, [{ label: 'Create backup file', icon: 'download', primary: true, onClick: make }]); return; }
+  setBanner(`<b>Your wall is saved only in this browser.</b> Create a backup file now and then so you never lose a win.`, LS_BANNER, [{ label: 'Create backup file', icon: 'download', primary: true, onClick: make }]);
 }
 function onLocalSaveFailed() {
-  const drive = gdConnected() && journalBackupKey();
-  toast(drive ? "This browser's storage is full, so your latest change may not be saved here. Backing up to Google Drive now." : "This browser's storage is full, so your latest change may not be saved. Back up now, then remove large attachments or old pages.", 'warn');
-  if (drive) gdBackup({ interactive: false });
-  setBanner(`<b>This browser is out of storage space.</b> Your latest changes may not be saved on this device. Back up, then free up space by removing big attachments or cover images.`, null, [{ label: 'Back up', icon: 'upload', primary: true, onClick: () => { go('account'); setTimeout(() => { if (gdLinked()) gdConnected() ? gdBackup({ interactive: true }) : gdConnectAndBackup(); }, 350); } }], 'alert');
+  toast("This browser's storage is full, so your latest change may not be saved. Create a backup file now, then remove large attachments or cover pictures.", 'warn');
+  setBanner(`<b>This browser is out of storage space.</b> Your latest changes may not be saved on this device. Create a backup file, then free up space by removing big attachments or cover pictures.`, null, [{ label: 'Create backup file', icon: 'download', primary: true, onClick: () => { go('account'); setTimeout(() => $('#bk-json')?.click(), 400); } }], 'alert');
 }
 
 /* ================= Notebook covers ================= */
@@ -5262,11 +5282,26 @@ function mountAccount() {
       <section class="card" style="--i:1" id="sec-card"></section>
       <section class="card" style="--i:2" id="areas-card"></section>
       <section class="card" style="--i:2" id="bk-card">
-        <div class="sec-head"><span class="icon-badge">${icon('download')}</span><div style="flex:1"><h2>Backup and export</h2><p>Encrypted copies of everything, plus a spreadsheet export</p></div><span class="badge on">${icon('lock', 'sm')}Encrypted</span></div>
+        <div class="sec-head"><span class="icon-badge">${icon('download')}</span><div style="flex:1"><h2>Backup</h2><p>One encrypted file with everything in your wall</p></div><span class="badge on">${icon('lock', 'sm')}Encrypted</span></div>
         <div class="stack">
-          <div class="gd-card" id="gd-card"></div>
-          <div class="bk-row"><span class="kpi-ic">${icon('shield')}</span><div><b>Encrypted backup</b><small id="bk-json-note"></small></div><button type="button" class="btn sm" id="bk-json">${icon('download')}Download</button></div>
-          <div class="bk-row"><span class="kpi-ic">${icon('upload')}</span><div><b>Restore a backup</b><small>Merges into this wall. Nothing here is deleted.</small></div><label class="btn ghost sm" for="bk-file" tabindex="0" id="bk-file-btn">${icon('upload')}Choose file</label><input type="file" id="bk-file" accept="application/json,.json" class="sr-only"></div>
+          <div class="bk-main">
+            <button type="button" class="bk-big" id="bk-json"><span class="bk-big-ic">${icon('download')}</span><span><b>Create backup file</b><small id="bk-json-note"></small></span></button>
+            <label class="bk-big alt" for="bk-file" tabindex="0" id="bk-file-btn"><span class="bk-big-ic">${icon('upload')}</span><span><b>Import backup file</b><small>Adds everything from a backup. Nothing here is deleted.</small></span></label><input type="file" id="bk-file" accept="application/json,.json" class="sr-only">
+          </div>
+          <p class="bk-last small muted" id="bk-last"></p>
+          <details class="bk-what" open><summary>${icon('checkCircle', 'sm')}What's inside a backup file</summary>
+            <ul class="bk-incl">
+              <li>${icon('trophy', 'sm')}All your wins, with feelings, stories and Braddy's comments</li>
+              <li>${icon('image', 'sm')}Every attachment: photos, screenshots and files</li>
+              <li>${icon('book', 'sm')}Notebooks and pages, with their templates' content</li>
+              <li>${icon('sparkles', 'sm')}Notebook covers, including your uploaded pictures, stickers and GIFs</li>
+              <li>${icon('list', 'sm')}Shelves, categories, tags and your custom areas</li>
+              <li>${icon('key', 'sm')}Notebook PIN locks: locked notebooks stay locked and open with the same PIN</li>
+              <li>${icon('lock', 'sm')}Your passcode lock: the file opens with your passcode or your recovery code</li>
+              <li>${icon('user', 'sm')}Profile and settings</li>
+            </ul>
+            <p class="small muted">${icon('shield', 'sm')} For your safety, your passcode, recovery code and PINs are never written into the file in readable form. Keep your recovery code somewhere separate, like a password manager.</p>
+          </details>
           <div class="bk-row"><span class="kpi-ic gold">${icon('file')}</span><div><b>Spreadsheet of wins (.csv)</b><small>For Excel or Google Sheets. Not encrypted, so keep it private.</small></div><button type="button" class="btn ghost sm" id="bk-csv">${icon('download')}Export</button></div>
         </div>
       </section>
@@ -5287,7 +5322,8 @@ function mountAccount() {
     S.profile = normProfile({ ...S.profile, name: $('#pf-name').value.trim(), nickname: $('#pf-nick').value.trim(), role: $('#pf-role').value.trim(), company: $('#pf-company').value.trim(), email: $('#pf-email').value.trim(), weekStart: Number($('#pf-week').value), weeklyGoal: Number($('#pf-goal').value) });
     persistProfile(); updateSideCard(); fillProfile(true); toast('Details saved');
   });
-  $('#bk-json-note').textContent = S.lock ? 'Locked with your wall passcode (or your recovery code).' : "You'll choose a password for the file.";
+  $('#bk-json-note').textContent = S.lock ? 'Downloads a .json file that opens with your passcode or recovery code.' : "Downloads a .json file. You'll choose a password for it.";
+  bkLastNote();
   $('#bk-file-btn').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $('#bk-file').click(); } });
   $('#bk-json').onclick = () => {
     if (S.lock && CRYPTO.key) { const k = { pin: S.lock.pin }; if (S.lock.rec) k.rec = S.lock.rec; downloadBackup(CRYPTO.key, k, 'journal-passcode'); }
@@ -5306,8 +5342,8 @@ function mountAccount() {
     if (!file) return;
     restoreFromText(await file.text());
   });
-  renderDriveCard();
 }
+function bkLastNote() { const el = $('#bk-last'), t = Number(lsGet('bw-last-backup')) || 0; if (el) el.innerHTML = t ? `${icon('clock', 'sm')} Last backup file created ${esc(bdTime(t))}.` : `${icon('info', 'sm')} You haven't created a backup file on this device yet.`; }
 async function restoreFromText(text) {
   {
     let outer;
@@ -5320,8 +5356,8 @@ async function restoreFromText(text) {
     const days = Object.entries(data.days || {}).filter(([k, v]) => isYmd(k) && Array.isArray(v));
     const nbs = (data.notebooks || []).filter(n => idOk(n && n.id)), notes = (data.notes || []).filter(n => idOk(n && n.id));
     const nWins = days.reduce((a, [, v]) => a + v.length, 0);
-    if (!(await confirmModal(`Restore ${plural(nWins, 'win')}, ${plural(nbs.length, 'notebook')} and ${plural(notes.length, 'page')} from this backup? Entries with the same ID are replaced; everything else is kept.`, 'Restore', ''))) return;
-    toast('Restoring…');
+    if (!(await confirmModal(`Import ${plural(nWins, 'win')}, ${plural(nbs.length, 'notebook')}, ${plural(notes.length, 'page')} and ${plural(Object.keys(data.files || {}).length, 'attachment and cover file', 'attachment and cover files')} from this backup? Entries with the same ID are replaced; everything else is kept.`, 'Import', ''))) return;
+    toast('Importing…');
     const touched = [];
     for (const [k, items] of days) { const cur = new Map((S.days.get(k) || []).map(x => [x.id, x])); items.map(normItem).filter(Boolean).forEach(it => cur.set(it.id, it)); S.days.set(k, [...cur.values()]); touched.push(['d', k]); }
     for (const n of nbs) { const v = normNb(n.id, n); S.notebooks = S.notebooks.filter(x => x.id !== v.id).concat(v); touched.push(['nb', v.id]); }
@@ -5330,13 +5366,14 @@ async function restoreFromText(text) {
       const inc = normProfile(data.profile);
       const have = new Set(S.profile.customCats.map(c => c.key));
       const merged = [...S.profile.customCats, ...inc.customCats.filter(c => !have.has(c.key))];
-      S.profile = S.profile.name ? { ...S.profile, customCats: merged } : { ...inc, customCats: merged };
+      const haveSh = new Set((S.profile.shelves || []).map(x => x.id)), shelves = [...(S.profile.shelves || []), ...(inc.shelves || []).filter(x => !haveSh.has(x.id))];
+      S.profile = normProfile(S.profile.name ? { ...S.profile, customCats: merged, shelves } : { ...inc, customCats: merged, shelves });
       applyCategories(); touched.push(['p']);
     }
     invalidate(); onData('all');
     for (const [t, id] of touched) { if (t === 'd') await persistDay(id); else if (t === 'nb') await persistNotebook(id); else if (t === 'n') await persistNote(id); else await persistProfile(); if (S.mode === 'cloud') await sleep(60); }
     for (const [fid, f] of Object.entries(data.files || {})) { if (!/^[A-Za-z0-9_-]{1,60}$/.test(fid) || !f || !f.b64) continue; try { await storeFileBytes(fid, b64ToBuf(f.b64), { name: String(f.name || 'file'), type: String(f.type || '') }); } catch (e) { console.error(e); } }
-    toast('Backup restored');
+    toast(`Backup imported: ${plural(nWins, 'win')}, ${plural(nbs.length, 'notebook')}, ${plural(notes.length, 'page')} and ${plural(Object.keys(data.files || {}).length, 'file')}.`);
   }
 }
 async function buildBackupFile(key, keys, protectedBy, quiet) {
@@ -5354,7 +5391,7 @@ async function downloadBackup(key, keys, protectedBy) {
   try {
     const { text } = await buildBackupFile(key, keys, protectedBy);
     const ok = await saveFile(`bragging-wall-backup-${todayKey()}.json`, text);
-    if (ok) toast(protectedBy === 'journal-passcode' ? 'Encrypted backup saved. It opens with your current passcode.' : 'Encrypted backup saved. Keep the password safe.');
+    if (ok) { lsSet('bw-last-backup', String(Date.now())); bkLastNote(); storageBanner(); toast(protectedBy === 'journal-passcode' ? 'Backup file created. It opens with your passcode or recovery code.' : 'Backup file created. Keep the password safe.'); }
   } catch (e) { console.error(e); toast("Couldn't create the backup.", 'warn'); }
 }
 function backupPasswordModal(then, actionLabel) {
