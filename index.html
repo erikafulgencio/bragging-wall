@@ -239,7 +239,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .empty b { display: block; color: var(--ink); font-family: var(--font-display); font-size: 1.02rem; margin-bottom: 4px; }
 
 /* Home */
-.hero { position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr) auto 240px; gap: 24px; align-items: center; padding: 30px 32px; background: var(--card); }
+.hero { position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr) 390px; gap: 24px; align-items: center; padding: 30px 32px; background: var(--card); }
 .hero::before { content: ""; position: absolute; z-index: -1; right: -60px; top: -80px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--gold-2) 30%, transparent), transparent); }
 .hero h1 { font-size: 2.6rem; font-weight: 600; letter-spacing: -.035em; }
 .hero-line { margin-top: 8px; color: var(--muted); max-width: 52ch; font-size: 1rem; }
@@ -273,6 +273,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .wins { display: flex; flex-direction: column; gap: 10px; }
 .win { position: relative; display: grid; grid-template-columns: 42px 1fr auto; gap: 14px; border: 1px solid var(--line); border-radius: 16px; padding: 14px; background: var(--surface-solid); transition: transform .2s var(--ease), box-shadow .2s, border-color .2s; }
 .win::before { content: ""; position: absolute; top: -5px; left: 50%; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: var(--cat); box-shadow: 0 0 0 3px var(--surface-solid), 0 2px 4px rgba(0,0,0,.2); }
+.win { cursor: pointer; }
 .win:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--cat) 40%, var(--line)); }
 .cat-ic { width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center; color: var(--cat); background: color-mix(in srgb, var(--cat) 14%, transparent); }
 .win-top { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 4px; }
@@ -536,6 +537,65 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
   .brag-wrap.nudge .brag-btn:not(:hover) { animation: brag-nudge 2.4s ease-out infinite; }
   .brag-wrap.burst .brag-btn { animation: brag-pop .45s var(--ease); }
 }
+/* Bragged-wins carousel */
+.hero-car { min-width: 0; width: 100%; display: flex; flex-direction: column; gap: 6px; }
+.car-head { display: flex; justify-content: space-between; align-items: center; padding: 0 8px; }
+.car-head .eyebrow { margin: 0; }
+.car-count { font: 500 .72rem var(--font-mono); color: var(--muted); }
+.car-view { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; border-radius: 20px; }
+.car-view::-webkit-scrollbar { display: none; }
+.car-view:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.car-slide { flex: 0 0 100%; scroll-snap-align: center; padding: 18px 14px 14px; }
+.car-card { position: relative; display: flex; flex-direction: column; gap: 8px; width: 100%; min-height: 190px; text-align: left; border: 0; cursor: pointer; padding: 24px 18px 14px; background: var(--nc); color: var(--note-ink); font: inherit; box-shadow: 0 12px 24px -14px rgba(0,0,0,.5), 0 1px 0 rgba(0,0,0,.05); transform: rotate(var(--rot)); transition: transform .35s var(--ease), box-shadow .35s; }
+.car-card::before { content: ""; position: absolute; top: 8px; left: 50%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: var(--pin); box-shadow: inset -2px -2px 0 rgba(0,0,0,.2), 0 2px 3px rgba(0,0,0,.3); }
+.car-card::after { content: ""; position: absolute; right: 0; bottom: 0; width: 22px; height: 22px; background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,.09) 50%); }
+.car-card:hover, .car-card:focus-visible { transform: rotate(0) translateY(-4px) scale(1.02); box-shadow: 0 20px 34px -16px rgba(0,0,0,.55); }
+.car-card:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.car-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.car-cat { display: inline-flex; gap: 5px; align-items: center; padding: 3px 9px; border-radius: 99px; background: rgba(255,255,255,.5); font: 600 .72rem var(--font-body); color: var(--note-ink); }
+:root[data-theme="dark"] .car-cat { background: rgba(0,0,0,.22); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .car-cat { background: rgba(0,0,0,.22); } }
+.car-cat svg { width: 13px; height: 13px; }
+.car-card .stars svg:not(.on), .win-note .stars svg:not(.on) { color: currentColor; opacity: .3; }
+.car-title { font: 700 1.6rem/1.06 var(--font-hand); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.car-result { font: 600 .84rem/1.35 var(--font-body); opacity: .82; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.car-meta { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 8px; font: 500 .68rem var(--font-mono); text-transform: uppercase; letter-spacing: .05em; opacity: .78; }
+.car-open { display: inline-flex; gap: 3px; align-items: center; font-weight: 700; transition: transform .2s var(--ease); }
+.car-card:hover .car-open { transform: translateX(3px); }
+.car-foot { display: flex; justify-content: center; align-items: center; gap: 12px; }
+.car-foot .icon-btn { width: 32px; height: 32px; border-radius: 99px; }
+.car-dots { display: flex; gap: 6px; align-items: center; }
+.car-dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 99px; background: var(--line-strong); cursor: pointer; transition: width .35s var(--ease), background-color .35s; }
+.car-dots button[aria-current="true"] { width: 24px; background: var(--accent); }
+.car-slide.active .car-card { animation: note-settle .5s var(--ease); }
+@keyframes note-settle { from { transform: rotate(calc(var(--rot) * 3)) translateY(6px); } to { transform: rotate(var(--rot)); } }
+
+/* Bragged-win preview page */
+.win-layout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: start; }
+.win-note { position: relative; background: var(--nc); color: var(--note-ink); padding: 52px 46px 30px; min-height: 360px; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 28px 50px -26px rgba(0,0,0,.55), 0 1px 0 rgba(0,0,0,.05); transform: rotate(-1deg); margin: 10px 6px; }
+.win-note::before { content: ""; position: absolute; top: 14px; left: 50%; width: 18px; height: 18px; margin-left: -9px; border-radius: 50%; background: var(--pin); box-shadow: inset -3px -3px 0 rgba(0,0,0,.2), 0 3px 5px rgba(0,0,0,.35); }
+.win-note::after { content: ""; position: absolute; right: 0; bottom: 0; width: 34px; height: 34px; background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,.1) 50%); }
+.wn-date { font: 500 .78rem var(--font-mono); text-transform: uppercase; letter-spacing: .07em; opacity: .75; }
+.wn-title { font: 700 clamp(2.1rem, 4.2vw, 3.3rem)/1.02 var(--font-hand); letter-spacing: 0; color: var(--note-ink); overflow-wrap: anywhere; }
+.wn-result { display: flex; gap: 8px; align-items: flex-start; font: 600 1.12rem/1.4 var(--font-body); }
+.wn-result svg { margin-top: 4px; flex: none; }
+.wn-details { font-size: 1rem; line-height: 1.6; white-space: pre-wrap; opacity: .9; max-width: 62ch; }
+.wn-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 10px; padding-top: 10px; border-top: 1.5px dashed rgba(0,0,0,.14); }
+.big-stamp { position: absolute; top: 20px; right: 22px; transform: rotate(9deg); border: 3px solid var(--gold); color: var(--gold); font: 800 .82rem var(--font-mono); text-transform: uppercase; letter-spacing: .1em; padding: 5px 10px; border-radius: 8px; background: rgba(255,255,255,.35); }
+.wn-meta { display: grid; grid-template-columns: 74px 1fr; gap: 12px 12px; margin: 0; align-items: center; }
+.wn-meta dt { font-size: .78rem; color: var(--muted); }
+.wn-meta dd { margin: 0; font-weight: 500; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.rel-list { display: flex; flex-direction: column; gap: 8px; }
+.rel-item { display: grid; grid-template-columns: 36px 1fr auto; gap: 12px; align-items: center; text-align: left; border: 1px solid var(--line); background: var(--surface-solid); border-radius: 14px; padding: 9px 12px; cursor: pointer; transition: border-color .15s, transform .2s var(--ease); }
+.rel-item:hover { border-color: var(--cat); transform: translateX(3px); }
+.rel-item .cat-ic { width: 36px; height: 36px; border-radius: 11px; }
+.rel-item b { display: block; font-weight: 600; font-size: .9rem; }
+.rel-item small { color: var(--muted); font-size: .76rem; }
+@keyframes note-in { from { opacity: 0; transform: rotate(-6deg) translateY(18px) scale(.96); } to { opacity: 1; transform: rotate(-1deg); } }
+@media (prefers-reduced-motion: no-preference) { .win-note { animation: note-in .55s var(--ease) both; } }
+@media (prefers-reduced-motion: reduce) { .car-slide.active .car-card { animation: none; } }
+@media (max-width: 1180px) { .win-layout { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 860px) { .win-note { padding: 44px 24px 24px; min-height: 280px; } .car-title { font-size: 1.45rem; } }
 /* Freedom-wall notes in the hero */
 .hero-notes { position: relative; width: 250px; height: 200px; }
 .hnote { position: absolute; width: 132px; min-height: 112px; padding: 20px 12px 10px; background: var(--nc); color: var(--note-ink); font: 700 1.12rem/1.1 var(--font-hand); box-shadow: 0 8px 16px -8px rgba(0,0,0,.35), 0 1px 0 rgba(0,0,0,.05); display: flex; flex-direction: column; justify-content: space-between; gap: 6px; transition: transform .25s var(--ease); }
@@ -689,8 +749,7 @@ canvas.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 96; 
 
 /* Responsive */
 @media (max-width: 1180px) {
-  .hero { grid-template-columns: minmax(0, 1fr) auto; }
-  .hero-art { display: none; }
+  .hero { grid-template-columns: minmax(0, 1fr) 330px; }
   .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .today-grid, .cal-layout { grid-template-columns: minmax(0, 1fr); }
   .side-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
@@ -805,7 +864,7 @@ const NAV = [
   { view: 'notebooks', label: 'Notebooks', icon: 'book' }, { view: 'report', label: 'Report', icon: 'chart' },
   { view: 'account', label: 'Settings', icon: 'settings' },
 ];
-const VIEWS = NAV.map(n => n.view);
+const VIEWS = [...NAV.map(n => n.view), 'win'];
 const PURPOSES = {
   review: { label: 'Salary or promotion', desc: 'Impact summary for your manager', eyebrow: 'Performance review', title: 'Accomplishments for review', icon: 'briefcase' },
   resume: { label: 'Resume material', desc: 'Action-verb bullets to paste', eyebrow: 'Resume material', title: 'Achievements for my resume', icon: 'file' },
@@ -1466,6 +1525,7 @@ function winCardHTML(w, i = 0) {
       ${(w.project || w.tags.length) ? `<div class="win-meta">${w.project ? `<span>${esc(w.project)}</span>` : ''}${w.tags.map(t => `<span>#${esc(t)}</span>`).join('')}</div>` : ''}
     </div>
     <div class="win-actions">
+      <button type="button" class="icon-btn" data-viewwin="${w.id}" aria-label="Open preview">${icon('eye')}</button>
       <button type="button" class="icon-btn" data-edit="${w.id}" data-date="${w.date}" aria-label="Edit">${icon('edit')}</button>
       <button type="button" class="icon-btn danger" data-del="${w.id}" data-date="${w.date}" aria-label="Delete">${icon('trash')}</button>
     </div>
@@ -1500,6 +1560,10 @@ function bindWinActions(root) {
     if (ed) return editWinModal(ed.dataset.date, ed.dataset.edit);
     const del = e.target.closest('[data-del]');
     if (del) return deleteWinFlow(del.dataset.date, del.dataset.del);
+    const vw = e.target.closest('[data-viewwin]');
+    if (vw) return openWinPreview(vw.dataset.viewwin);
+    const card = e.target.closest('article.win');
+    if (card && !e.target.closest('button, a, input')) { const b = $('[data-viewwin]', card); if (b) openWinPreview(b.dataset.viewwin); }
   });
 }
 
@@ -1524,7 +1588,7 @@ function route() {
   const mount = () => {
     S.view = v;
     $$('.nav a').forEach(a => { if (a.dataset.view === v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
-    ({ today: mountToday, calendar: mountCalendar, notebooks: mountNotebooks, report: mountReport, account: mountAccount })[v]();
+    ({ today: mountToday, calendar: mountCalendar, notebooks: mountNotebooks, report: mountReport, account: mountAccount, win: mountWin })[v]();
     $('#main').scrollTop = 0;
   };
   if (first) { mount(); const el = $('#view'); el.classList.remove('view-enter'); void el.offsetWidth; el.classList.add('view-enter'); }
@@ -1540,6 +1604,7 @@ function onData(kind) {
     case 'notebooks': if (kind !== 'wins' && kind !== 'profile') { updateNotebookSidebar(); syncEditor(); } break;
     case 'report': updateReport(); break;
     case 'account': if (kind === 'profile' || kind === 'all') fillProfile(); updateStorageInfo(); break;
+    case 'win': if (kind === 'wins' || kind === 'all') updateWinView(); break;
   }
 }
 function weekCount() { const s = startOfWeek(new Date()); return winsIn(ymd(s), ymd(addDays(s, 6))).length; }
@@ -1588,11 +1653,7 @@ function mountToday() {
         <p class="hero-line" id="h-line"></p>
         <div class="row"><span class="brag-wrap" id="brag-wrap"><button type="button" class="btn brag-btn" id="h-log"><svg class="i brag-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 10.2 15 5.5v13l-12.5-4.7z"/><path d="M9.2 16.1a2.6 2.6 0 1 1-5-1.6"/><path class="wave w1" d="M18.5 12h3"/><path class="wave w2" d="M18 8.6l2.6-1.6M18 15.4l2.6 1.6"/></svg><span class="brag-lbl">Brag your win</span></button><span class="brag-sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></span><button type="button" class="btn ghost" id="h-report">${icon('chart')}See my report</button></div>
       </div>
-      <div class="ring" aria-label="Weekly goal progress" role="img" id="h-ring-wrap">
-        <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52"/><circle class="val" id="h-ring" cx="60" cy="60" r="52" stroke-dasharray="${C}" stroke-dashoffset="${C}"/></svg>
-        <div class="ring-c"><b id="h-ring-n">0</b><span id="h-ring-l">of 5 this week</span></div>
-      </div>
-      <div class="hero-art" id="hero-notes" aria-label="Your latest wins, pinned"></div>
+      <div class="hero-car" id="brag-car" role="region" aria-roledescription="carousel" aria-label="Your bragged wins"></div>
     </section>
     <div class="kpi-grid" style="--i:1">
       ${[['today', 'Today', 'checkCircle', ''], ['week', 'This week', 'target', ''], ['month', 'This month', 'calendar', ''], ['streak', 'Day streak', 'flame', 'gold']].map(([k, l, ic, cls]) => `
@@ -1664,7 +1725,9 @@ function mountToday() {
     if (!nb) { toast('Create a notebook first. Pick Journal to start.'); go('notebooks'); return; }
     openNote(createPage(nb.id, UI.selDate, nb.kind === 'journal' ? 'journal' : KINDS[nb.kind].tpl));
   };
+  CAR.sig = null; CAR.idx = 0;
   updateToday();
+  startCarouselAutoplay();
 }
 function updateToday() {
   if (!$('#t-list')) return;
@@ -1679,11 +1742,6 @@ function updateToday() {
     : `<b>${plural(left, 'more win')}</b> to reach this week's goal of ${goal}.`;
   if (S.loaded.wins && st >= 3) line += ` You're on a <b>${st}-day streak</b>.`;
   $('#h-line').innerHTML = line;
-  const C = 2 * Math.PI * 52, ring = $('#h-ring');
-  requestAnimationFrame(() => requestAnimationFrame(() => { ring.style.strokeDashoffset = String(C * (1 - Math.min(1, wk / goal))); }));
-  setCount($('#h-ring-n'), 'ring', wk);
-  $('#h-ring-l').textContent = `of ${goal} this week`;
-  $('#h-ring-wrap').setAttribute('aria-label', `${wk} of ${goal} wins this week`);
   const days14 = [...Array(14)].map((_, i) => countOn(ymd(addDays(now, i - 13))));
   const ws = startOfWeek(now);
   const weeks8 = [...Array(8)].map((_, i) => { const s = addDays(ws, (i - 7) * 7); return winsIn(ymd(s), ymd(addDays(s, 6))).length; });
@@ -1693,7 +1751,7 @@ function updateToday() {
   setCount($('#k-week'), 'week', wk); $('#k-week-s').textContent = 'last 8 weeks'; $('#k-week-sp').innerHTML = sparkline(weeks8);
   setCount($('#k-month'), 'month', nMonth); $('#k-month-s').textContent = 'last 6 months'; $('#k-month-sp').innerHTML = sparkline(months6);
   setCount($('#k-streak'), 'streak', st); $('#k-streak-s').textContent = `best: ${bestStreak()} · weekends don't break it`; $('#k-streak-sp').innerHTML = '';
-  $('#hero-notes').innerHTML = heroNotesHTML();
+  renderCarousel();
   $('#brag-wrap').classList.toggle('nudge', S.loaded.wins && !countOn(todayKey()));
   $('#t-date').value = k;
   $('#t-for').textContent = isToday ? 'Saving to today' : `Saving to ${fmtMed(d)}`;
@@ -1710,6 +1768,172 @@ function updateToday() {
   const notes = S.notes.filter(n => n.date === k);
   $('#t-notes').innerHTML = notes.length ? `<div class="note-links">${notes.map(n => { const nb = S.notebooks.find(b => b.id === n.notebookId); return `<button type="button" class="note-link" style="--nb:${nb ? nb.color : 'var(--accent)'}" data-open-note="${n.id}"><span class="dot"></span><span><b>${esc(n.title || 'Untitled page')}</b><span>${esc(nb ? nb.name : 'Notebook')}</span></span></button>`; }).join('')}</div>` : '<p class="small muted" style="margin-bottom:12px">No pages written on this day.</p>';
 }
+const CAR = { sig: null, idx: 0, timer: null, paused: false };
+const NOTE_ROT = ['-1.8deg', '1.4deg', '-0.8deg', '1.9deg', '-1.2deg'];
+const NOTE_PINS = ['var(--accent)', '#E0607E', 'var(--gold-2)', '#5B8DEF'];
+function carSlideHTML(w, i, n) {
+  return `<div class="car-slide" role="group" aria-roledescription="slide" aria-label="${i + 1} of ${n}">
+    <button type="button" class="car-card" data-win="${w.id}" style="--nc:var(--n${1 + i % 6});--rot:${NOTE_ROT[i % 5]};--pin:${NOTE_PINS[i % 4]}" aria-label="Open preview: ${esc(w.title)}">
+      <span class="car-top"><span class="car-cat" data-cat="${w.category}">${catIcon(w.category)}${esc(CAT[w.category].label)}</span>${starIcons(w.impact)}</span>
+      <span class="car-title">${esc(w.title)}</span>
+      ${w.result ? `<span class="car-result">→ ${esc(w.result)}</span>` : ''}
+      <span class="car-meta"><span>${fmtDateK(w.date)}${w.impact === 3 ? ' · Big win' : ''}</span><span class="car-open">View ${icon('arrowRight', 'sm')}</span></span>
+    </button></div>`;
+}
+function carPlaceholderHTML(i, n, title, sub) {
+  return `<div class="car-slide" role="group" aria-roledescription="slide" aria-label="${i + 1} of ${n}">
+    <button type="button" class="car-card placeholder" data-brag="1" style="--nc:var(--n${1 + i % 6});--rot:${NOTE_ROT[i % 5]};--pin:${NOTE_PINS[i % 4]}">
+      <span class="car-top"><span class="car-cat">${icon('megaphone')}${i === 0 ? 'Your first brag' : 'Idea'}</span></span>
+      <span class="car-title">${title}</span><span class="car-result">${sub}</span>
+      <span class="car-meta"><span>Nothing pinned yet</span><span class="car-open">Brag it ${icon('arrowRight', 'sm')}</span></span>
+    </button></div>`;
+}
+function renderCarousel() {
+  const root = $('#brag-car');
+  if (!root) return;
+  const wins = S.loaded.wins ? allWins().slice(-10).reverse() : null;
+  const sig = wins === null ? 'loading' : (wins.map(w => w.id + ':' + w.updatedAt).join('|') || 'empty');
+  if (sig === CAR.sig && root.childElementCount) return;
+  const changedSet = CAR.sig !== null && CAR.sig !== 'loading';
+  CAR.sig = sig;
+  if (wins === null) { root.innerHTML = '<div class="skel" style="height:220px;border-radius:18px"></div>'; return; }
+  const slides = wins.length ? wins.map((w, i) => carSlideHTML(w, i, wins.length))
+    : [['Your first brag goes here', 'Tap to pin a win, even a small one.'], ['Caught a bug before release?', "That's a win. Brag it."], ['Helped a teammate get unstuck?', 'Collaboration counts too.']].map((p, i, a) => carPlaceholderHTML(i, a.length, p[0], p[1]));
+  const n = slides.length;
+  root.innerHTML = `<div class="car-head"><span class="eyebrow">${icon('megaphone', 'sm')}${wins.length ? 'Your latest brags' : 'Start your wall'}</span><span class="car-count" id="car-count" aria-live="polite"></span></div>
+    <div class="car-view" id="car-view" tabindex="0" aria-label="Bragged wins. Use left and right arrow keys to browse.">${slides.join('')}</div>
+    ${n > 1 ? `<div class="car-foot"><button type="button" class="icon-btn" data-car="prev" aria-label="Previous">${icon('left')}</button><div class="car-dots">${slides.map((_, i) => `<button type="button" data-dot="${i}" aria-label="Go to slide ${i + 1}"></button>`).join('')}</div><button type="button" class="icon-btn" data-car="next" aria-label="Next">${icon('right')}</button></div>` : ''}`;
+  const view = $('#car-view', root);
+  root.onclick = e => {
+    const c = e.target.closest('[data-win]'); if (c) return openWinPreview(c.dataset.win);
+    if (e.target.closest('[data-brag]')) return $('#h-log').click();
+    const nav = e.target.closest('[data-car]'); if (nav) { CAR.paused = true; return goSlide(CAR.idx + (nav.dataset.car === 'next' ? 1 : -1)); }
+    const dot = e.target.closest('[data-dot]'); if (dot) { CAR.paused = true; goSlide(Number(dot.dataset.dot)); }
+  };
+  view.addEventListener('keydown', e => { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); CAR.paused = true; goSlide(CAR.idx + (e.key === 'ArrowRight' ? 1 : -1)); } });
+  let st = null;
+  view.addEventListener('scroll', () => { clearTimeout(st); st = setTimeout(() => { CAR.idx = Math.round(view.scrollLeft / Math.max(1, view.clientWidth)); markSlide(); }, 80); }, { passive: true });
+  root.addEventListener('mouseenter', () => { CAR.hover = true; });
+  root.addEventListener('mouseleave', () => { CAR.hover = false; });
+  root.addEventListener('focusin', () => { CAR.hover = true; });
+  root.addEventListener('focusout', () => { CAR.hover = false; });
+  if (changedSet) CAR.idx = 0;
+  CAR.idx = Math.min(CAR.idx, n - 1);
+  requestAnimationFrame(() => goSlide(CAR.idx, false));
+}
+function goSlide(i, smooth = true) {
+  const view = $('#car-view');
+  if (!view) return;
+  const n = view.children.length;
+  CAR.idx = (i + n) % n;
+  view.scrollTo({ left: CAR.idx * view.clientWidth, behavior: smooth && !reduced() ? 'smooth' : 'auto' });
+  markSlide();
+}
+function markSlide() {
+  const view = $('#car-view');
+  if (!view) return;
+  const n = view.children.length;
+  $$('.car-dots [data-dot]').forEach((d, j) => d.setAttribute('aria-current', String(j === CAR.idx)));
+  [...view.children].forEach((sl, j) => sl.classList.toggle('active', j === CAR.idx));
+  const c = $('#car-count'); if (c) c.textContent = n > 1 ? `${CAR.idx + 1} / ${n}` : '';
+}
+function startCarouselAutoplay() {
+  clearInterval(CAR.timer);
+  CAR.paused = false;
+  CAR.timer = setInterval(() => {
+    const view = $('#car-view');
+    if (!view) { clearInterval(CAR.timer); CAR.timer = null; return; }
+    if (reduced() || document.hidden || CAR.hover || CAR.paused || view.children.length < 2) return;
+    goSlide(CAR.idx + 1);
+  }, 5500);
+}
+
+/* ---------- Bragged win preview page ---------- */
+function openWinPreview(id) { UI.win = { id, from: S.view && S.view !== 'win' ? S.view : (UI.win?.from || 'today'), celebrate: true }; go('win'); }
+function mountWin() {
+  $('#view').innerHTML = '<div class="stack" style="gap:18px" id="win-page"></div>';
+  const el = $('#win-page');
+  el.addEventListener('click', async e => {
+    const b = e.target.closest('[data-act], [data-win]');
+    if (!b) return;
+    if (b.dataset.win) { UI.win = { ...UI.win, id: b.dataset.win, celebrate: true }; updateWinView(); $('#main').scrollTop = 0; return; }
+    const all = allWins(), i = UI.win.idx, w = all[i];
+    switch (b.dataset.act) {
+      case 'back': go(UI.win.from || 'today'); break;
+      case 'older': if (i > 0) { UI.win = { ...UI.win, id: all[i - 1].id, celebrate: true }; updateWinView(); } break;
+      case 'newer': if (i < all.length - 1) { UI.win = { ...UI.win, id: all[i + 1].id, celebrate: true }; updateWinView(); } break;
+      case 'edit': editWinModal(w.date, w.id); break;
+      case 'delete': deleteWinFlow(w.date, w.id); break;
+      case 'day': UI.selDate = w.date; go('today'); break;
+      case 'brag': go('today'); setTimeout(() => $('#h-log')?.click(), 350); break;
+      case 'copy': {
+        const t = bulletText(w);
+        try { await navigator.clipboard.writeText(t); toast('Copied as a resume bullet'); }
+        catch (err) { openModal({ title: 'Copy this bullet', body: `<textarea rows="3" readonly id="cp-b">${esc(t)}</textarea>`, onOpen: m => $('#cp-b', m).select() }); }
+        break;
+      }
+    }
+  });
+  updateWinView();
+}
+function updateWinView() {
+  const el = $('#win-page');
+  if (!el) return;
+  if (!S.loaded.wins) { el.innerHTML = '<div class="skel" style="height:360px"></div>'; return; }
+  const all = allWins(), n = all.length;
+  UI.win = UI.win || { from: 'today' };
+  if (!n) {
+    el.innerHTML = `<button type="button" class="link" data-act="back">${icon('left', 'sm')}Back to my wall</button><div class="card"><div class="empty">${ART.clipboard()}<div><b>No bragged wins yet</b>Your wins will show up here once you brag your first one.<div class="row" style="margin-top:12px"><button type="button" class="btn" data-act="brag">${icon('megaphone')}Brag your win</button></div></div></div></div>`;
+    return;
+  }
+  let i = all.findIndex(w => w.id === UI.win.id);
+  if (i < 0) i = Math.max(0, Math.min(UI.win.idx ?? n - 1, n - 1));
+  const w = all[i];
+  const celebrate = UI.win.celebrate && w.impact === 3;
+  UI.win = { ...UI.win, id: w.id, idx: i, celebrate: false };
+  const sameDay = all.filter(x => x.date === w.date && x.id !== w.id);
+  const sameArea = all.filter(x => x.category === w.category && x.id !== w.id && x.date !== w.date).slice(-4).reverse();
+  const nc = 1 + (w.title.length % 6);
+  const related = (title, list) => list.length ? `<section class="card"><h2 class="card-title" style="margin-bottom:12px">${title}</h2><div class="rel-list">${list.map(x => `<button type="button" class="rel-item" data-win="${x.id}" data-cat="${x.category}"><span class="cat-ic">${catIcon(x.category)}</span><span><b>${esc(x.title)}</b><small>${fmtDateK(x.date)} · ${IMPACT[x.impact]}</small></span>${icon('right', 'sm')}</button>`).join('')}</div></section>` : '';
+  el.innerHTML = `
+    <header class="view-head">
+      <div><button type="button" class="link" data-act="back">${icon('left', 'sm')}Back${UI.win.from === 'today' || !UI.win.from ? ' to my wall' : ''}</button><p class="eyebrow" style="margin-top:12px">${icon('megaphone', 'sm')}Bragged win · ${i + 1} of ${n}</p></div>
+      <div class="row"><button type="button" class="btn ghost sm" data-act="older" ${i === 0 ? 'disabled' : ''}>${icon('left', 'sm')}Older</button><button type="button" class="btn ghost sm" data-act="newer" ${i === n - 1 ? 'disabled' : ''}>Newer${icon('right', 'sm')}</button></div>
+    </header>
+    <div class="win-layout">
+      <article class="win-note" data-cat="${w.category}" style="--nc:var(--n${nc});--pin:${NOTE_PINS[i % 4]}" aria-labelledby="wn-title">
+        ${w.impact === 3 ? '<span class="big-stamp">Brag-worthy!</span>' : ''}
+        <p class="wn-date">${esc(fmtLong(parseYmd(w.date)))}</p>
+        <h1 class="wn-title" id="wn-title">${esc(w.title)}</h1>
+        ${w.result ? `<p class="wn-result">${icon('arrowRight')}<span>${esc(w.result)}</span></p>` : ''}
+        ${w.details ? `<p class="wn-details">${esc(w.details)}</p>` : ''}
+        <div class="wn-foot"><span class="car-cat">${catIcon(w.category)}${esc(CAT[w.category].label)}</span>${starIcons(w.impact)}</div>
+      </article>
+      <aside class="card">
+        <h2 class="card-title" style="margin-bottom:14px">${icon('info')}Details</h2>
+        <dl class="wn-meta">
+          <dt>Date</dt><dd>${esc(fmtMed(parseYmd(w.date)))}</dd>
+          <dt>Area</dt><dd data-cat="${w.category}"><span class="pill">${esc(CAT[w.category].label)}</span></dd>
+          <dt>Size</dt><dd>${starIcons(w.impact)} ${IMPACT[w.impact]}</dd>
+          ${w.project ? `<dt>Project</dt><dd>${esc(w.project)}</dd>` : ''}
+          ${w.tags.length ? `<dt>Tags</dt><dd class="win-meta" style="margin:0">${w.tags.map(t => `<span>#${esc(t)}</span>`).join('')}</dd>` : ''}
+        </dl>
+        <div class="stack" style="gap:8px;margin-top:18px">
+          <button type="button" class="btn" data-act="copy">${icon('copy')}Copy as a resume bullet</button>
+          <div class="row"><button type="button" class="btn ghost sm" data-act="edit">${icon('edit')}Edit</button><button type="button" class="btn ghost sm" data-act="day">${icon('calendar')}Open this day</button><button type="button" class="btn ghost sm" data-act="delete">${icon('trash')}Delete</button></div>
+        </div>
+      </aside>
+    </div>
+    ${related('More from this day', sameDay)}
+    ${related(`More ${CAT[w.category].label} wins`, sameArea)}`;
+  if (celebrate) setTimeout(confetti, 250);
+}
+document.addEventListener('keydown', e => {
+  if (S.view !== 'win' || e.altKey || e.ctrlKey || e.metaKey || $('.modal-wrap, .palette-wrap')) return;
+  if (/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || '') || document.activeElement?.isContentEditable) return;
+  if (e.key === 'ArrowLeft') $('[data-act="older"]:not([disabled])')?.click();
+  if (e.key === 'ArrowRight') $('[data-act="newer"]:not([disabled])')?.click();
+});
 function heroNotesHTML() {
   const recent = allWins().slice(-3).reverse();
   const pins = ['var(--accent)', 'var(--gold-2)', '#E0607E'];
@@ -3072,7 +3296,7 @@ function openPalette() {
     items = cmds.filter(c => !q || c.label.toLowerCase().includes(q));
     if (q.length >= 2) {
       allWins().filter(w => (w.title + ' ' + w.result + ' ' + w.tags.join(' ') + ' ' + w.project).toLowerCase().includes(q)).slice(-8).reverse()
-        .forEach(w => items.push({ g: 'Wins', label: w.title, sub: `${fmtDateK(w.date)} · ${CAT[w.category].label}`, cat: w.category, run: () => { UI.selDate = w.date; go('today'); } }));
+        .forEach(w => items.push({ g: 'Wins', label: w.title, sub: `${fmtDateK(w.date)} · ${CAT[w.category].label}`, cat: w.category, run: () => openWinPreview(w.id) }));
       S.notes.filter(n => (n.title + ' ' + n.html.replace(/<[^>]+>/g, ' ')).toLowerCase().includes(q)).slice(0, 6)
         .forEach(n => items.push({ g: 'Pages', label: n.title || 'Untitled page', sub: `${fmtDateK(n.date)} · ${S.notebooks.find(b => b.id === n.notebookId)?.name || ''}`, icon: 'file', run: () => openNote(n.id) }));
     }
