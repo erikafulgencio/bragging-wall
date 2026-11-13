@@ -652,6 +652,27 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .area-row b { display: block; font-size: .9rem; }
 .area-row small { color: var(--muted); font-size: .75rem; }
 @media (max-width: 560px) { .mood-grid { grid-template-columns: repeat(2, 1fr); } .att-file { grid-column: 1 / -1; } }
+/* Edit-win form */
+.wf { display: flex; flex-direction: column; gap: 16px; }
+.wf-title { font-size: 1.08rem; line-height: 1.45; resize: none; min-height: 64px; }
+.wf-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+.wf-col { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.wf-box { border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px 14px; margin: 0; background: var(--surface-2); min-width: 0; }
+.wf-box legend { float: left; width: 100%; display: flex; align-items: center; gap: 6px; padding: 0; margin-bottom: 10px; font-size: .82rem; font-weight: 600; }
+.wf-box legend svg { color: var(--accent); }
+.wf-box > :not(legend) { clear: both; }
+.wf-box .chips { gap: 6px; }
+.wf-box .chip span { font-size: .8rem; padding: 5px 10px 5px 7px; }
+.wf-stars label svg { width: 26px; height: 26px; }
+.wf-mood-lbl { margin-left: auto; font-weight: 500; font-size: .76rem; color: var(--muted); }
+.wf-mood-lbl.set { color: var(--gold); font-weight: 700; }
+.emoji-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.emoji-opt span { width: 40px; height: 40px; padding: 0; display: grid; place-items: center; font-size: 1.35rem; border-radius: 12px; }
+.wf-row3 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 170px; gap: 12px; }
+.wf-files { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 10px 12px; border: 1px dashed var(--line-strong); border-radius: 12px; font-size: .82rem; color: var(--muted); }
+.wf-files .win-thumbs { margin: 0; }
+.wf-files .win-thumbs img { width: 40px; height: 40px; }
+@media (max-width: 680px) { .wf-grid, .wf-row3 { grid-template-columns: minmax(0, 1fr); } .modal-wrap { padding: 8px; } .modal { max-height: calc(100dvh - 16px); } }
 /* Bragged-wins carousel */
 .hero-car { min-width: 0; width: 100%; display: flex; flex-direction: column; gap: 6px; }
 .car-head { display: flex; justify-content: space-between; align-items: center; padding: 0 8px; }
@@ -782,12 +803,12 @@ canvas.freedom-wall { position: fixed; inset: 0; width: 100%; height: 100%; z-in
 .spinner { width: 34px; height: 34px; border-radius: 50%; border: 3px solid var(--line); border-top-color: var(--accent); margin: 6px auto; animation: spin .8s linear infinite; }
 
 /* Modal, palette, toast */
-.modal-wrap { position: fixed; inset: 0; background: rgba(8, 14, 22, .42); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: grid; place-items: center; padding: 16px; z-index: 50; }
-.modal { background: var(--surface-solid); border: 1px solid var(--line); border-radius: 22px; width: min(560px, 100%); max-height: calc(100% - 32px); display: flex; flex-direction: column; box-shadow: var(--shadow-lg); }
-.modal.wide { width: min(740px, 100%); }
-.modal-head { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px 14px; gap: 10px; }
-.modal-body { padding: 4px 20px 18px; overflow-y: auto; }
-.modal-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 14px 20px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+.modal-wrap { overflow-y: auto; position: fixed; inset: 0; background: rgba(8, 14, 22, .42); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: grid; place-items: center; padding: 16px; z-index: 50; }
+.modal { background: var(--surface-solid); border: 1px solid var(--line); border-radius: 22px; width: min(560px, 100%); max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); display: flex; flex-direction: column; box-shadow: var(--shadow-lg); overflow: hidden; }
+.modal.wide { width: min(780px, 100%); }
+.modal-head { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; gap: 10px; border-bottom: 1px solid var(--line); flex: none; }
+.modal-body { padding: 18px 20px 20px; overflow-y: auto; min-height: 0; flex: 1 1 auto; overscroll-behavior: contain; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 14px 20px; border-top: 1px solid var(--line); flex-wrap: wrap; flex: none; background: var(--surface-solid); }
 .modal-actions:empty { display: none; }
 .palette-wrap { position: fixed; inset: 0; z-index: 80; background: rgba(8, 14, 22, .38); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: flex-start; padding: 12vh 16px 16px; }
 .palette { width: min(620px, 100%); background: var(--surface-solid); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow-lg); overflow: hidden; }
@@ -811,6 +832,7 @@ canvas.freedom-wall { position: fixed; inset: 0; width: 100%; height: 100%; z-in
 .cheer-title { font: 620 1.7rem/1.2 var(--font-display); letter-spacing: -.02em; }
 .cheer-result { color: var(--good); font-weight: 500; }
 .toasts { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; gap: 8px; z-index: 95; width: min(420px, calc(100% - 32px)); pointer-events: none; }
+body:has(.modal-wrap) .toasts { top: 18px; bottom: auto; }
 .toast { display: flex; gap: 10px; align-items: center; background: var(--ink); color: var(--bg); padding: 11px 15px; border-radius: 14px; font-size: .9rem; box-shadow: var(--shadow-lg); }
 .toast svg { color: var(--gold-2); }
 .toast.warn { background: var(--danger); color: #fff; }
@@ -1719,22 +1741,45 @@ function swapView(fn) {
 
 /* ================= Win form ================= */
 function winFormHTML(p, it = {}, dateVal) {
-  const cat = it.category || 'quality', imp = it.impact || 2;
-  return `
+  const cat = CAT[it.category] ? it.category : 'quality', imp = it.impact || 2, files = it.files || [];
+  return `<div class="wf">
   <div class="field"><label for="${p}-title">What did you accomplish?</label>
-    <textarea id="${p}-title" rows="2" maxlength="600" placeholder="e.g. Caught a crash in the loan checkout flow on Android 14 before release">${esc(it.title)}</textarea></div>
-  <fieldset class="field"><legend>Feeling</legend><div class="mood-row">${MOODS.map(m => `<label class="mood-opt" title="${m.label}"><input type="radio" name="${p}-mood" value="${m.key}" ${it.mood === m.key ? 'checked' : ''}><span><i>${m.e}</i>${m.label}</span></label>`).join('')}</div></fieldset>
-  <fieldset class="field"><legend>Area</legend><div class="chips">${CATS.map(c => `<label class="chip" data-cat="${c.key}"><input type="radio" name="${p}-cat" value="${c.key}" ${c.key === cat ? 'checked' : ''}><span>${catIcon(c.key)}${esc(c.label)}</span></label>`).join('')}</div></fieldset>
-  <fieldset class="field"><legend>Size of the win</legend><div class="seg">${[1, 2, 3].map(n => `<label><input type="radio" name="${p}-imp" value="${n}" ${n === imp ? 'checked' : ''}><span>${starIcons(n)}${IMPACT[n]}</span></label>`).join('')}</div></fieldset>
+    <textarea id="${p}-title" class="wf-title" rows="2" maxlength="600" placeholder="e.g. Caught a crash in the loan checkout flow on Android 14 before release">${esc(it.title)}</textarea></div>
+  <div class="wf-grid">
+    <fieldset class="wf-box"><legend>${icon('sliders', 'sm')}Area</legend>
+      <div class="chips">${CATS.map(c => `<label class="chip" data-cat="${c.key}"><input type="radio" name="${p}-cat" value="${c.key}" ${c.key === cat ? 'checked' : ''}><span>${catIcon(c.key)}${esc(c.label)}</span></label>`).join('')}</div></fieldset>
+    <div class="wf-col">
+      <fieldset class="wf-box"><legend>${icon('star', 'sm')}Size of the win</legend>
+        <div class="qb-stars wf-stars">${[1, 2, 3].map(n => `<label title="${IMPACT[n]}"><input type="radio" name="${p}-imp" value="${n}" ${n === imp ? 'checked' : ''} class="sr-only"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">${IC.star}</svg><span class="sr-only">${IMPACT[n]}</span></label>`).join('')}<span class="qb-size">${IMPACT[imp]}</span></div></fieldset>
+      <fieldset class="wf-box"><legend>${icon('smile', 'sm')}Feeling <span class="wf-mood-lbl">${it.mood && MOOD[it.mood] ? MOOD[it.mood].label : 'optional'}</span></legend>
+        <div class="emoji-row">${MOODS.map(m => `<label class="mood-opt emoji-opt" title="${m.label}"><input type="radio" name="${p}-mood" value="${m.key}" ${it.mood === m.key ? 'checked' : ''} aria-label="${m.label}"><span>${m.e}</span></label>`).join('')}</div></fieldset>
+    </div>
+  </div>
   <div class="field"><label for="${p}-result">Result or proof <span class="opt">numbers make reports stronger</span></label>
     <input id="${p}-result" type="text" maxlength="400" autocomplete="off" value="${esc(it.result)}" placeholder="e.g. Release shipped with zero P1 bugs; saved about 4 hours of retesting"></div>
   <div class="field"><label for="${p}-details">Details <span class="opt">optional</span></label>
-    <textarea id="${p}-details" rows="2" maxlength="4000" placeholder="Context, who you helped, what you learned">${esc(it.details)}</textarea></div>
-  <div class="field-row">
+    <textarea id="${p}-details" rows="3" maxlength="4000" placeholder="Context, who you helped, what you learned">${esc(it.details)}</textarea></div>
+  <div class="wf-row3">
     <div class="field"><label for="${p}-project">Project <span class="opt">optional</span></label><input id="${p}-project" type="text" maxlength="120" list="dl-projects" autocomplete="off" value="${esc(it.project)}" placeholder="e.g. Android app"></div>
     <div class="field"><label for="${p}-tags">Tags <span class="opt">comma separated</span></label><input id="${p}-tags" type="text" maxlength="300" autocomplete="off" value="${esc((it.tags || []).join(', '))}" placeholder="regression, mentoring"></div>
     ${dateVal ? `<div class="field"><label for="${p}-date">Date</label><input id="${p}-date" type="date" value="${dateVal}"></div>` : ''}
+  </div>
+  ${files.length ? `<div class="wf-files"><div class="win-thumbs">${files.filter(f => f.thumb).slice(0, 5).map(f => `<img src="${f.thumb}" alt="${esc(f.name)}">`).join('')}</div><span>${icon('clip', 'sm')} ${plural(files.length, 'attachment')} · add or remove them on this win's preview page</span></div>` : ''}
   </div>`;
+}
+function bindWinForm(root, p) {
+  const stars = $('.wf-stars', root);
+  if (stars) {
+    const paint = hover => { const val = hover || Number(($(`input[name="${p}-imp"]:checked`, root) || {}).value || 2); $$('label', stars).forEach((l, i) => l.classList.toggle('on', i < val)); const lb = $('.qb-size', stars); lb.textContent = IMPACT[val]; lb.classList.toggle('big', val === 3); };
+    stars.addEventListener('change', () => paint());
+    $$('label', stars).forEach((l, i) => { l.addEventListener('mouseenter', () => paint(i + 1)); l.addEventListener('mouseleave', () => paint()); });
+    paint();
+  }
+  const lbl = $('.wf-mood-lbl', root);
+  if (lbl) root.addEventListener('change', e => { if (e.target.name === `${p}-mood`) { const m = MOOD[($(`input[name="${p}-mood"]:checked`, root) || {}).value]; lbl.textContent = m ? m.label : 'optional'; lbl.classList.toggle('set', !!m); } });
+  if (lbl && $(`input[name="${p}-mood"]:checked`, root)) lbl.classList.add('set');
+  const t = $(`#${p}-title`, root);
+  if (t) { const grow = () => { t.style.height = 'auto'; t.style.height = Math.min(t.scrollHeight + 2, 220) + 'px'; }; t.addEventListener('input', grow); requestAnimationFrame(grow); }
 }
 function readWinForm(p, root, base = {}) {
   const q = id => $('#' + p + '-' + id, root);
@@ -1775,7 +1820,8 @@ function editWinModal(date, id) {
   if (!it) return;
   openModal({
     title: 'Edit win', wide: true,
-    body: `<div class="stack" id="m-form">${winFormHTML('m', it, date)}</div>`,
+    body: `<div id="m-form">${winFormHTML('m', it, date)}</div>`,
+    onOpen: w => bindWinForm(w, 'm'),
     actions: [
       { label: 'Cancel', kind: 'ghost' },
       { label: 'Save changes', onClick: wrap => {
