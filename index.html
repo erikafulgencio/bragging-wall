@@ -1346,23 +1346,49 @@ body.side-anim .app { transition: grid-template-columns .28s var(--ease); }
 /* Template picker */
 .tpl-pick { display: flex; flex-direction: column; gap: 12px; }
 .tpl-group { display: flex; align-items: center; gap: 6px; font: 600 .78rem var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-top: 4px; }
-.tpl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
-.tpl-card { display: flex; gap: 12px; align-items: flex-start; text-align: left; padding: 14px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface-solid); cursor: pointer; transition: transform .18s var(--ease), border-color .18s, box-shadow .18s; min-width: 0; color: inherit; font: inherit; }
-.tpl-card:hover, .tpl-card:focus-visible { transform: translateY(-2px); border-color: var(--tc, var(--accent)); box-shadow: var(--shadow); }
-.tpl-ic { width: 40px; height: 40px; flex: none; border-radius: 12px; display: grid; place-items: center; color: var(--tc, var(--accent)); background: color-mix(in srgb, var(--tc, var(--accent)) 13%, transparent); }
-.tpl-txt { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-.tpl-txt b { font: 650 .98rem var(--font-display); }
-.tpl-txt small { color: var(--muted); font-size: .8rem; line-height: 1.4; }
-.tpl-heads { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
-.tpl-heads i { font-style: normal; font-size: .68rem; padding: 1px 7px; border-radius: 99px; background: var(--surface-2); border: 1px solid var(--line); color: var(--muted); white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
-.tpl-blank { border-style: dashed; align-items: center; }
+.tpl-hint { display: flex; gap: 8px; align-items: center; font-size: .85rem; color: var(--muted); margin: -2px 0 0; }
+.tpl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; }
+.tpl-card { display: flex; flex-direction: column; gap: 10px; text-align: left; padding: 10px 10px 12px; border-radius: 18px; border: 1px solid var(--line); background: var(--surface-solid); cursor: pointer; transition: transform .2s var(--ease), border-color .2s, box-shadow .2s; min-width: 0; color: inherit; font: inherit; }
+.tpl-card:hover, .tpl-card:focus-visible { transform: translateY(-3px); border-color: var(--tc, var(--accent)); box-shadow: 0 14px 30px -14px color-mix(in srgb, var(--tc, var(--accent)) 55%, transparent), var(--shadow); }
+.tpl-ic { width: 22px; height: 22px; flex: none; border-radius: 7px; display: inline-grid; place-items: center; color: var(--tc, var(--accent)); background: color-mix(in srgb, var(--tc, var(--accent)) 14%, transparent); }
+.tpl-txt { display: flex; flex-direction: column; gap: 3px; min-width: 0; padding: 0 4px; }
+.tpl-txt b { display: flex; align-items: center; gap: 7px; font: 650 .95rem var(--font-display); }
+.tpl-txt small { color: var(--muted); font-size: .78rem; line-height: 1.4; }
+/* Mini page preview */
+.tpl-thumb { --z: .36; --paper: #FFFDF8; --rule: transparent; position: relative; display: block; height: 214px; border-radius: 12px; overflow: hidden; background: color-mix(in srgb, var(--tc, var(--accent)) 10%, var(--surface-2)); border: 1px solid color-mix(in srgb, var(--tc, var(--accent)) 18%, var(--line)); }
+.tpl-sheet { position: absolute; inset: 10px 12px 0; border-radius: 6px 6px 0 0; background: var(--paper); box-shadow: 0 6px 16px -8px rgba(20, 40, 38, .35), 0 0 0 1px rgba(20, 40, 38, .06); overflow: hidden; transition: transform .35s var(--ease); transform-origin: top center; }
+.tpl-card:hover .tpl-sheet, .tpl-card:focus-visible .tpl-sheet { transform: translateY(-3px) rotate(-.6deg); }
+.tpl-sheet::before { content: ""; position: absolute; inset: 0; pointer-events: none; }
+.tpl-sheet::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 46px; background: linear-gradient(transparent, var(--paper)); pointer-events: none; }
+.tpl-page { position: absolute; top: 0; left: 0; display: block; width: 520px; padding: 30px 36px; zoom: var(--z); color: #1F2B2A; font-size: 15px; }
+@supports not (zoom: 1) { .tpl-page { zoom: 1; transform: scale(var(--z)); transform-origin: top left; } }
+.tpl-ptitle { display: block; font: 700 1.55rem/1.2 var(--font-display); margin-bottom: 6px; color: #12201F; }
+.tpl-pbody { display: block; line-height: 1.75; }
+.tpl-pbody h2 { font-size: 1.08rem; color: var(--tc, var(--accent)); margin-top: 1em; }
+.tpl-pbody h3 { font-size: .98rem; margin-top: .8em; }
+.tpl-pbody blockquote { border-left-color: var(--tc, var(--accent)); background: color-mix(in srgb, var(--tc, var(--accent)) 9%, transparent); color: #1F2B2A; }
+.tpl-pbody ul.checklist > li::before { background: #fff; border-color: color-mix(in srgb, var(--tc, var(--accent)) 50%, #9AA9A6); }
+.tpl-pbody .ln { display: inline-block; vertical-align: middle; height: 7px; border-radius: 4px; background: rgba(31, 43, 42, .12); }
+.tpl-pbody strong { color: #12201F; }
+/* Paper per notebook type */
+.tpl-thumb[data-paper="journal"] { --paper: #FFFBF6; }
+.tpl-thumb[data-paper="journal"] .tpl-sheet::before { background: linear-gradient(90deg, transparent 15px, rgba(194, 71, 122, .32) 15px 16px, transparent 16px), repeating-linear-gradient(transparent 0 11px, rgba(47, 111, 176, .13) 11px 12px); background-position: 0 24px; }
+.tpl-thumb[data-paper="planner"] { --paper: #FBFDFF; }
+.tpl-thumb[data-paper="planner"] .tpl-sheet::before { background-image: radial-gradient(rgba(47, 111, 176, .26) .8px, transparent 1.2px); background-size: 9px 9px; }
+.tpl-thumb[data-paper="work"] { --paper: #FFFFFF; }
+.tpl-thumb[data-paper="work"] .tpl-sheet::before { background: linear-gradient(var(--tc) 0 4px, transparent 4px); }
+.tpl-thumb[data-paper="other"] { --paper: #FFFCF3; }
+.tpl-thumb[data-paper="other"] .tpl-sheet::before { background-image: repeating-linear-gradient(transparent 0 11px, rgba(184, 122, 14, .12) 11px 12px); }
+.tpl-blank .tpl-thumb { border-style: dashed; }
+.tpl-blank .tpl-sheet { opacity: .9; }
 .tpl-more { border-top: 1px solid var(--line); padding-top: 10px; }
 .tpl-more summary { cursor: pointer; display: flex; align-items: center; gap: 6px; font: 600 .9rem var(--font-body); padding: 4px 0; list-style: none; }
 .tpl-more summary::-webkit-details-marker { display: none; }
 .tpl-more summary::after { content: "+"; margin-left: auto; color: var(--muted); font-size: 1.1rem; }
 .tpl-more[open] summary::after { content: "\2212"; }
 .tpl-more .tpl-grid { margin-top: 10px; }
-@media (prefers-reduced-motion: no-preference) { .tpl-grid .tpl-card { animation: bd-in .35s var(--ease) both; } }
+@media (max-width: 560px) { .tpl-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .tpl-thumb { height: 168px; } .tpl-card { padding: 7px 7px 10px; border-radius: 15px; } .tpl-txt b { font-size: .86rem; } .tpl-txt small { font-size: .72rem; } }
+@media (prefers-reduced-motion: no-preference) { .tpl-grid .tpl-card { animation: bd-in .35s var(--ease) both; } .tpl-grid .tpl-card:nth-child(n+2) { animation-delay: .03s; } .tpl-grid .tpl-card:nth-child(n+4) { animation-delay: .06s; } .tpl-grid .tpl-card:nth-child(n+6) { animation-delay: .09s; } }
 /* Email dialog */
 .em { display: flex; flex-direction: column; gap: 14px; }
 .em-step { display: flex; gap: 14px; padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface-2); transition: opacity .2s; }
@@ -2215,6 +2241,7 @@ function persistDay(k) {
   const key = CRYPTO.key, ref = S.refs.wins.doc(k);
   return enqueue('w/' + k, async () => { if (items.length) await ref.set(await encodeBody(key, { date: k, items })); else await ref.delete(); });
 }
+const TOMB = new Set(); // ids deleted in this session: never let a late snapshot bring them back
 function persistNotebook(id) {
   if (S.mode !== 'cloud') return saveLocal();
   const nb = S.notebooks.find(n => n.id === id);
@@ -2405,19 +2432,19 @@ function subscribeCloud() {
   }), fail('wins')));
   S.unsubs.push(S.refs.notebooks.onSnapshot(handle('notebooks', rows => {
     const prev = new Map(S.notebooks.map(n => [n.id, n])), mig = [];
-    S.notebooks = rows.map(r => r.v === undefined ? prev.get(r.id) : normNb(r.id, r.v)).filter(Boolean);
+    S.notebooks = rows.filter(r => !TOMB.has(r.id)).map(r => r.v === undefined ? prev.get(r.id) : normNb(r.id, r.v)).filter(Boolean);
     rows.forEach(r => { if (r.plain) mig.push(['nb', r.id]); });
     return mig;
   }), fail('notebooks')));
   S.unsubs.push(S.refs.notes.onSnapshot(handle('notes', rows => {
     const prev = new Map(S.notes.map(n => [n.id, n])), mig = [];
-    S.notes = rows.map(r => r.v === undefined ? prev.get(r.id) : normNote(r.id, r.v)).filter(Boolean);
+    S.notes = rows.filter(r => !TOMB.has(r.id)).map(r => r.v === undefined ? prev.get(r.id) : normNote(r.id, r.v)).filter(Boolean);
     rows.forEach(r => { if (r.plain) mig.push(['n', r.id]); });
     return mig;
   }), fail('notes')));
   S.unsubs.push(S.refs.walls.onSnapshot(handle('walls', rows => {
     const prev = new Map(S.walls.map(n => [n.id, n])), mig = [];
-    S.walls = rows.map(r => r.v === undefined ? prev.get(r.id) : normWall(r.id, r.v)).filter(Boolean);
+    S.walls = rows.filter(r => !TOMB.has(r.id)).map(r => r.v === undefined ? prev.get(r.id) : normWall(r.id, r.v)).filter(Boolean);
     rows.forEach(r => { if (r.plain) mig.push(['wl', r.id]); });
     return mig;
   }), fail('walls')));
@@ -2473,14 +2500,15 @@ function setBanner(msg, dismissKey, actions = [], ic = 'info') {
   $$('[data-bact]', b).forEach(btn => { btn.onclick = () => actions[+btn.dataset.bact].onClick(); });
   if (dismissKey) $('#banner-ok').onclick = () => { lsSet(dismissKey, '1'); setBanner(null); };
 }
-function openModal({ title, body, actions = [], wide = false, onOpen }) {
+function openModal({ title, body, actions = [], wide = false, onOpen, onClose }) {
   const last = document.activeElement;
   const wrap = document.createElement('div');
   wrap.className = 'modal-wrap';
   wrap.innerHTML = `<div class="modal ${wide ? 'wide' : ''}" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-head"><h2 id="modal-title">${esc(title)}</h2><button type="button" class="icon-btn" data-close aria-label="Close">${icon('x')}</button></div>
     <div class="modal-body">${body}</div><div class="modal-actions"></div></div>`;
-  const close = () => { wrap.remove(); document.removeEventListener('keydown', onKey); if (last && last.focus) last.focus(); };
+  let closed = false;
+  const close = () => { if (closed) return; closed = true; wrap.remove(); document.removeEventListener('keydown', onKey); if (last && last.focus) last.focus(); if (onClose) onClose(); };
   const onKey = e => { if (e.key === 'Escape') close(); };
   const act = $('.modal-actions', wrap);
   actions.forEach(a => {
@@ -3453,30 +3481,53 @@ const tplTitle = (key, dateKey) => {
   if (['goal', 'project', 'testplan', 'release', 'decision', 'ideas', 'future'].includes(key)) return lbl;
   return `${lbl} · ${fmtShortK(ymd(d))}`;
 };
-const tplHeads = key => { const m = templateHTML(key, todayKey()).match(/<h[23]>(.*?)<\/h[23]>/g) || []; return m.map(x => x.replace(/<[^>]+>/g, '')).slice(0, 4); };
-function templatePicker(nbId, onPick, first = false) {
-  const nb = S.notebooks.find(n => n.id === nbId), kind = nb ? nb.kind : 'other';
-  const card = t => `<button type="button" class="tpl-card" data-tpl="${t.key}" style="--tc:${{ journal: '#C2477A', planner: '#2F6FB0', work: 'var(--accent)', other: '#B87A0E' }[t.kind]}"><span class="tpl-ic">${icon(t.icon)}</span><span class="tpl-txt"><b>${esc(t.label)}</b><small>${esc(t.desc)}</small><span class="tpl-heads">${tplHeads(t.key).map(h => `<i>${esc(h)}</i>`).join('')}</span></span></button>`;
+const TPL_TINT = { journal: '#C2477A', planner: '#2F6FB0', work: '#0F6E6A', other: '#B87A0E' };
+/* A real, scaled-down render of the page each template makes. Empty lines become soft "ink" bars. */
+function tplPreview(key, kind) {
+  const ln = w => `<i class="ln" style="width:${w}%"></i>`;
+  const html = (key ? templateHTML(key, todayKey()) : '')
+    .replace(/<li data-checked="false"><br><\/li>/g, `<li data-checked="false">${ln(62)}</li>`)
+    .replace(/<li><br><\/li>/g, () => `<li>${ln(55 + Math.round(Math.random() * 30))}</li>`)
+    .replace(/<p><br><\/p>/g, `<p>${ln(92)}<br>${ln(70)}</p>`)
+    .replace(/<blockquote><br><\/blockquote>/g, `<blockquote>${ln(80)}</blockquote>`);
+  const title = key ? tplTitle(key, todayKey()) : 'Untitled page';
+  return `<span class="tpl-thumb" data-paper="${kind}" aria-hidden="true"><span class="tpl-sheet"><span class="tpl-page"><span class="tpl-ptitle">${esc(title)}</span>${key ? `<span class="tpl-pbody prose">${html}</span>` : `<span class="tpl-pbody prose"><p>${ln(88)}</p><p>${ln(64)}</p></span>`}</span></span></span>`;
+}
+function fitTplThumbs(root) {
+  const fit = () => $$('.tpl-thumb', root).forEach(t => { const w = t.clientWidth; if (w) t.style.setProperty('--z', (w / 520).toFixed(4)); });
+  fit();
+  if ('ResizeObserver' in window) { const ro = new ResizeObserver(fit); ro.observe(root); return ro; }
+  addEventListener('resize', fit); return null;
+}
+function templatePicker(src, onPick, first = false) {
+  const nb = typeof src === 'string' ? S.notebooks.find(n => n.id === src) : src;
+  const kind = nb ? nb.kind : 'other', creating = !!(nb && nb.creating);
+  const card = t => `<button type="button" class="tpl-card" data-tpl="${t.key}" style="--tc:${TPL_TINT[t.kind]}" aria-label="${esc(t.label)}: ${esc(t.desc)}">${tplPreview(t.key, t.kind)}<span class="tpl-txt"><b><span class="tpl-ic">${icon(t.icon, 'sm')}</span>${esc(t.label)}</b><small>${esc(t.desc)}</small></span></button>`;
   const mine = TEMPLATES.filter(t => t.kind === kind), others = TPL_GROUPS.filter(([g]) => g !== kind);
+  const blank = `<button type="button" class="tpl-card tpl-blank" data-tpl="" style="--tc:var(--muted)" aria-label="Blank page">${tplPreview('', kind)}<span class="tpl-txt"><b><span class="tpl-ic">${icon('plus', 'sm')}</span>Blank page</b><small>Start from nothing</small></span></button>`;
+  let picked = false, ro = null;
   const m = openModal({
-    title: first ? `Pick a first page for “${nb ? nb.name : 'your notebook'}”` : 'New page', wide: true,
+    title: creating ? `Pick a first page for “${nb.name}”` : first ? `Pick a first page for “${nb ? nb.name : 'your notebook'}”` : 'New page', wide: true,
     body: `<div class="tpl-pick">
-      <button type="button" class="tpl-card tpl-blank" data-tpl=""><span class="tpl-ic">${icon('plus')}</span><span class="tpl-txt"><b>Blank page</b><small>Start from nothing</small></span></button>
-      ${mine.length ? `<p class="tpl-group">${icon(KINDS[kind].icon, 'sm')}For your ${esc(KINDS[kind].label.toLowerCase())}</p><div class="tpl-grid">${mine.map(card).join('')}</div>` : ''}
+      ${creating ? `<p class="tpl-hint">${icon('info', 'sm')}Your notebook is created when you pick a page. Cancel and nothing is saved.</p>` : ''}
+      ${mine.length ? `<p class="tpl-group">${icon(KINDS[kind].icon, 'sm')}For your ${esc(KINDS[kind].label.toLowerCase())}</p>` : ''}
+      <div class="tpl-grid">${blank}${mine.map(card).join('')}</div>
       ${others.map(([g, lbl]) => `<details class="tpl-more" ${kind === 'other' ? 'open' : ''}><summary>${icon(KINDS[g].icon, 'sm')}${esc(lbl)} templates <span class="mono small muted">${TEMPLATES.filter(t => t.kind === g).length}</span></summary><div class="tpl-grid">${TEMPLATES.filter(t => t.kind === g).map(card).join('')}</div></details>`).join('')}
     </div>`,
+    onOpen: w => { ro = fitTplThumbs($('.tpl-pick', w)); $$('.tpl-more', w).forEach(d => d.addEventListener('toggle', () => $$('.tpl-thumb', d).forEach(t => { const x = t.clientWidth; if (x) t.style.setProperty('--z', (x / 520).toFixed(4)); }))); },
+    onClose: () => { if (ro) ro.disconnect(); },
     actions: [{ label: 'Cancel', kind: 'ghost' }],
   });
-  m.wrap.addEventListener('click', e => { const c = e.target.closest('[data-tpl]'); if (!c) return; m.close(); onPick(c.dataset.tpl || null); });
+  m.wrap.addEventListener('click', e => { const c = e.target.closest('[data-tpl]'); if (!c || picked) return; picked = true; m.close(); onPick(c.dataset.tpl || null); });
 }
 function newPageFlow(nbId, first = false) {
   templatePicker(nbId, tpl => { flushEditor(); UI.nb.notebookId = nbId; UI.nb.noteId = createPage(nbId, todayKey(), tpl); updateNotebookSidebar(); mountEditor(); }, first);
 }
-function createPage(notebookId, dateKey, tpl) {
+function createPage(notebookId, dateKey, tpl, opts = {}) {
   const nb = S.notebooks.find(n => n.id === notebookId);
   const id = newId(), now = Date.now();
   S.notes.push({ id, notebookId, title: tpl && TPL[tpl] ? tplTitle(tpl, dateKey) : nb ? KINDS[nb.kind].page : 'New page', date: dateKey || todayKey(), html: tpl ? templateHTML(tpl, dateKey) : '<p><br></p>', createdAt: now, updatedAt: now });
-  persistNote(id);
+  if (!opts.defer) persistNote(id);
   return id;
 }
 function openNote(id) {
@@ -3559,12 +3610,17 @@ function mountNotebooks() {
       const nb = S.notebooks.find(n => n.id === ds.nbdel);
       const pages = S.notes.filter(n => n.notebookId === ds.nbdel);
       if (!nb || !(await confirmModal(`Delete the notebook “${nb.name}” and its ${plural(pages.length, 'page')}? Export it as a PDF first if you want a copy.`))) return;
+      flushEditor(); ED.dirty = false;
       coverFiles(nb.cover).forEach(f => removeStoredFile(f.id).catch(() => {})); NBK.delete(nb.id);
+      TOMB.add(nb.id); pages.forEach(p => TOMB.add(p.id));
       S.notebooks = S.notebooks.filter(n => n.id !== nb.id);
       S.notes = S.notes.filter(n => n.notebookId !== nb.id);
-      if (UI.nb.notebookId === nb.id) { UI.nb.notebookId = null; UI.nb.noteId = null; }
+      if (UI.nb.notebookId === nb.id || !S.notebooks.some(n => n.id === UI.nb.notebookId)) {
+        const next = shelfNotebooks()[0] || sortedNotebooks()[0];
+        UI.nb.notebookId = next ? next.id : null; UI.nb.noteId = next ? pagesOf(next.id)[0]?.id || null : null;
+      }
       persistNotebook(nb.id); pages.forEach(p => persistNote(p.id));
-      updateNotebookSidebar(); mountEditor(); toast('Notebook deleted');
+      invalidate(); updateNotebookSidebar(); renderShelf(); mountEditor(); toast(`“${nb.name}” deleted`);
     }
   });
   if (!UI.nb.notebookId && S.notebooks.length) UI.nb.notebookId = sortedNotebooks()[0].id;
@@ -3625,7 +3681,7 @@ function notebookModal(editId) {
       const shelfV = $('#nbm-shelf', wrap).value, shelf = shelfV === '__new' ? '' : shelfV;
       const category = $('#nbm-cat', wrap).value.trim().slice(0, 40), tags = $('#nbm-tags', wrap).value.split(',').map(t => t.trim().replace(/^#/, '')).filter(Boolean).slice(0, 10);
       if (nb) { Object.assign(nb, { name, kind: k, color: col, shelf, category, tags }); persistNotebook(nb.id); }
-      else createNotebook(name, k, col, { shelf, category, tags, pin: $('#nbm-lockit', wrap)?.checked });
+      else { const pin = !!$('#nbm-lockit', wrap)?.checked; setTimeout(() => startNotebookFlow({ name, kind: k, color: col, shelf, category, tags, pin }), 60); return; }
       updateNotebookSidebar(); mountEditor();
     } }],
   });
@@ -3633,12 +3689,41 @@ function notebookModal(editId) {
 function createNotebook(name, kind, color, opts = {}) {
   const id = newId();
   S.notebooks.push({ id, name, kind, color: color || NB_COLORS[S.notebooks.length % NB_COLORS.length], createdAt: Date.now(), shelf: opts.shelf ?? (UI.nb.shelf !== 'all' && UI.nb.shelf !== 'none' ? UI.nb.shelf : ''), category: opts.category || '', tags: opts.tags || [] });
-  persistNotebook(id);
-  flushEditor();
-  UI.nb.notebookId = id;
-  UI.nb.noteId = null;
-  setTimeout(() => opts.pin ? setPinModal(id, () => newPageFlow(id, true)) : newPageFlow(id, true), 60);
+  if (!opts.defer) persistNotebook(id);
   return id;
+}
+/* New notebook flow: settings → (PIN) → first page. Nothing is saved until a first page is picked,
+   so cancelling at any step leaves no half-made notebook behind. */
+function askPinModal(name) {
+  const hasApp = !!(S.lock && S.lock.pin);
+  return new Promise(res => {
+    let pin = null;
+    openModal({
+      title: `Choose a PIN for “${name}”`,
+      body: `<div class="stack"><p class="muted">Pages in this notebook will be encrypted with your PIN. You'll enter it each time you open the notebook.</p>${pinFields()}
+        <div class="note-box ${hasApp ? '' : 'warn'}">${icon(hasApp ? 'info' : 'alert', 'sm')}<span>${hasApp ? 'Forgot it later? You can reset it with your app password.' : "You don't have an app password, so a forgotten PIN can't be reset and the pages can't be recovered. Write it down somewhere safe."}</span></div></div>`,
+      onOpen: w => setTimeout(() => $('#pn-1', w)?.focus(), 50),
+      onClose: () => res(pin),
+      actions: [{ label: 'Cancel', kind: 'ghost' }, { label: 'Next: pick a first page', onClick: w => { const v = readPin(w); if (!v) return false; pin = v; } }],
+    });
+  });
+}
+async function startNotebookFlow(d) {
+  let pin = null;
+  if (d.pin) { pin = await askPinModal(d.name); if (!pin) return; }
+  templatePicker({ name: d.name, kind: d.kind, creating: true }, async tpl => {
+    flushEditor();
+    const id = createNotebook(d.name, d.kind, d.color, { ...d, defer: !!pin });
+    const nb = S.notebooks.find(n => n.id === id);
+    UI.nb.notebookId = id;
+    UI.nb.noteId = createPage(id, todayKey(), tpl, { defer: !!pin });
+    if (pin) {
+      try { const key = await crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt']); await applyPin(nb, pin, key); }
+      catch (e) { console.error(e); persistNotebook(id); persistNote(UI.nb.noteId); toast("Notebook created, but the PIN couldn't be set. Add one from the notebook menu.", 'warn'); }
+    }
+    updateNotebookSidebar(); mountEditor();
+    toast(`“${d.name}” is ready${pin ? ' and locked with your PIN' : ''}`);
+  });
 }
 function mountEditor() {
   const el = $('#nb-editor');
@@ -3648,7 +3733,7 @@ function mountEditor() {
   if (!S.notebooks.length) {
     el.innerHTML = `<div class="nb-empty">${ART.notebook()}<h2>Start your first notebook</h2><p class="muted">Pick a type. Each one comes with its own templates: ${TEMPLATES.filter(t => t.kind === 'journal').length} for journals, ${TEMPLATES.filter(t => t.kind === 'planner').length} for planners and ${TEMPLATES.filter(t => t.kind === 'work').length} for work.</p>
       <div class="kind-grid stagger">${['journal', 'planner', 'work'].map((k, i) => `<button type="button" class="kind-card" style="--i:${i}" data-kind="${k}"><span class="kpi-ic">${icon(KINDS[k].icon)}</span><b>${KINDS[k].label}</b><span>${KINDS[k].blurb}</span></button>`).join('')}</div></div>`;
-    $$('.kind-card', el).forEach(b => b.onclick = () => { createNotebook(KINDS[b.dataset.kind].label, b.dataset.kind); updateNotebookSidebar(); mountEditor(); });
+    $$('.kind-card', el).forEach(b => b.onclick = () => startNotebookFlow({ name: KINDS[b.dataset.kind].label, kind: b.dataset.kind }));
     return;
   }
   const curNb = S.notebooks.find(n => n.id === UI.nb.notebookId);
@@ -3732,7 +3817,7 @@ function mountEditor() {
   $('#ed-del', el).onclick = async () => {
     if (!(await confirmModal(`Delete the page “${note.title || 'Untitled page'}”?`))) return;
     clearTimeout(ED.timer); ED.dirty = false;
-    S.notes = S.notes.filter(n => n.id !== note.id); persistNote(note.id);
+    TOMB.add(note.id); S.notes = S.notes.filter(n => n.id !== note.id); persistNote(note.id);
     UI.nb.noteId = pagesOf(note.notebookId)[0]?.id || null;
     updateNotebookSidebar(); mountEditor(); toast('Page deleted');
   };
@@ -5280,7 +5365,7 @@ function mountWalls() {
       case 'delete': if (w) {
         if (!(await confirmModal(`Delete the wall “${w.name}”? Your wins stay safe; only this wall's decorations and drawings are removed.`))) return;
         coverFiles(w).forEach(f => removeStoredFile(f.id).catch(() => {}));
-        S.walls = S.walls.filter(x => x.id !== w.id); persistWall(w.id);
+        TOMB.add(w.id); S.walls = S.walls.filter(x => x.id !== w.id); persistWall(w.id);
         if (S.profile.featuredWall === w.id) { S.profile = { ...S.profile, featuredWall: S.walls[0] ? S.walls[0].id : '' }; persistProfile(); }
         UI.fw.id = S.walls[0] ? S.walls[0].id : null; updateWallsView(); toast('Wall deleted');
       } break;
@@ -6431,9 +6516,9 @@ async function restoreFromText(text) {
     toast('Importing…');
     const touched = [];
     for (const [k, items] of days) { const cur = new Map((S.days.get(k) || []).map(x => [x.id, x])); items.map(normItem).filter(Boolean).forEach(it => cur.set(it.id, it)); S.days.set(k, [...cur.values()]); touched.push(['d', k]); }
-    for (const n of nbs) { const v = normNb(n.id, n); S.notebooks = S.notebooks.filter(x => x.id !== v.id).concat(v); touched.push(['nb', v.id]); }
-    for (const n of notes) { const v = normNote(n.id, n); v.html = sanitize(v.html); S.notes = S.notes.filter(x => x.id !== v.id).concat(v); touched.push(['n', v.id]); }
-    for (const n of walls) { const v = normWall(n.id, n); S.walls = S.walls.filter(x => x.id !== v.id).concat(v); touched.push(['wl', v.id]); }
+    for (const n of nbs) { const v = normNb(n.id, n); TOMB.delete(v.id); S.notebooks = S.notebooks.filter(x => x.id !== v.id).concat(v); touched.push(['nb', v.id]); }
+    for (const n of notes) { const v = normNote(n.id, n); TOMB.delete(v.id); v.html = sanitize(v.html); S.notes = S.notes.filter(x => x.id !== v.id).concat(v); touched.push(['n', v.id]); }
+    for (const n of walls) { const v = normWall(n.id, n); TOMB.delete(v.id); S.walls = S.walls.filter(x => x.id !== v.id).concat(v); touched.push(['wl', v.id]); }
     if (data.profile) {
       const inc = normProfile(data.profile);
       const have = new Set(S.profile.customCats.map(c => c.key));
