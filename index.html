@@ -5134,7 +5134,7 @@ function showGate(state, opts) {
   document.body.classList.add('gated');
   $('#app').inert = true;
   $$('.modal-wrap, .palette-wrap').forEach(m => m.remove());
-  const steps = n => `<div class="steps"><span class="steps-bar" aria-hidden="true"><i class="${n >= 1 ? 'on' : ''}"></i><i class="${n >= 2 ? 'on' : ''}"></i></span><span class="steps-lbl">Step ${n} of 2 · ${n === 1 ? 'Create a passcode' : 'Save your recovery code'}</span></div>`;
+  const steps = n => `<div class="steps" title="Step ${n} of 2"><span class="sr-only">Step ${n} of 2</span><span class="steps-bar" aria-hidden="true"><i class="${n >= 1 ? 'on' : ''}"></i><i class="${n >= 2 ? 'on' : ''}"></i></span></div>`;
   let html = '';
   if (state === 'loading') html = gateCard(`<div class="spinner"></div><p class="lead" style="text-align:center;color:var(--muted)">Opening your wall…</p>`);
   else if (state === 'error') html = gateCard(`${ART.shield()}<h1>Couldn't reach your wall</h1><p class="lead">Check your connection, then try again.</p><button type="button" class="btn block" id="g-retry">${icon('refresh')}Try again</button>`);
