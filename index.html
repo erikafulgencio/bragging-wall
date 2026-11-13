@@ -568,6 +568,12 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .qb-size { margin-left: 6px; font: 600 .8rem var(--font-body); color: var(--muted); min-width: 64px; }
 .qb-size.big { color: var(--gold); }
 .qb-result { border-style: dashed; }
+.qb-story { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+.qb-story label { display: inline-flex; align-items: center; gap: 6px; font: 600 .82rem var(--font-body); color: var(--muted); }
+.qb-story label .ic { width: 15px; height: 15px; color: var(--accent); }
+.qb-story .opt { font-weight: 500; opacity: .8; }
+.qb-story textarea { border-style: dashed; min-height: 64px; max-height: 260px; line-height: 1.5; resize: none; overflow-y: auto; }
+.qb-story textarea:focus { border-style: solid; }
 .qb-result:focus { border-style: solid; }
 .qb-more summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font: 600 .84rem var(--font-body); padding: 2px 0; }
 .qb-more summary::-webkit-details-marker { display: none; }
@@ -1877,8 +1883,8 @@ function winFormHTML(p, it = {}, dateVal) {
   </div>
   <div class="field"><label for="${p}-result">Result or proof <span class="opt">numbers make reports stronger</span></label>
     <input id="${p}-result" type="text" maxlength="400" autocomplete="off" value="${esc(it.result)}" placeholder="e.g. Release shipped with zero P1 bugs; saved about 4 hours of retesting"></div>
-  <div class="field"><label for="${p}-details">Details <span class="opt">optional</span></label>
-    <textarea id="${p}-details" rows="3" maxlength="4000" placeholder="Context, who you helped, what you learned">${esc(it.details)}</textarea></div>
+  <div class="field"><label for="${p}-details">Tell me the story <span class="opt">optional</span></label>
+    <textarea id="${p}-details" rows="3" maxlength="4000" placeholder="How did it happen? What was hard, who you helped, what you learned…">${esc(it.details)}</textarea></div>
   <div class="wf-row3">
     <div class="field"><label for="${p}-project">Project <span class="opt">optional</span></label><input id="${p}-project" type="text" maxlength="120" list="dl-projects" autocomplete="off" value="${esc(it.project)}" placeholder="e.g. Android app"></div>
     <div class="field"><label for="${p}-tags">Tags <span class="opt">comma separated</span></label><input id="${p}-tags" type="text" maxlength="300" autocomplete="off" value="${esc((it.tags || []).join(', '))}" placeholder="regression, mentoring"></div>
@@ -2106,10 +2112,13 @@ function mountToday() {
             </div>
             <label class="sr-only" for="t-result">Result or proof</label>
             <input id="t-result" type="text" maxlength="400" class="qb-result" placeholder="Result or proof (optional)">
+            <div class="qb-story">
+              <label for="t-details">${icon('book', 'sm')}Tell me the story <span class="opt">optional</span></label>
+              <textarea id="t-details" rows="2" maxlength="4000" placeholder="How did it happen? What was hard, who you helped, what you learned…"></textarea>
+            </div>
             <details class="qb-more" id="t-more">
-              <summary>${icon('plus', 'sm')}Add details, project or tags</summary>
+              <summary>${icon('plus', 'sm')}Add project or tags</summary>
               <div class="stack" style="gap:10px;margin-top:10px">
-                <label class="sr-only" for="t-details">Details</label><textarea id="t-details" rows="2" maxlength="4000" placeholder="Context, who you helped, what you learned"></textarea>
                 <div class="field-row">
                   <div class="field"><label for="t-project">Project</label><input id="t-project" type="text" maxlength="120" list="dl-projects" placeholder="e.g. Android app"></div>
                   <div class="field"><label for="t-tags">Tags</label><input id="t-tags" type="text" maxlength="300" placeholder="regression, mentoring"></div>
@@ -2183,6 +2192,8 @@ function mountToday() {
   $('#t-mood-pop').addEventListener('change', () => { paintMood(); closePops(); title.focus(); });
   document.addEventListener('mousedown', e => { if ($('#t-area-pop') && !e.target.closest('.qb-area, .qb-mood')) closePops(); });
   form.addEventListener('keydown', e => { if (e.key === 'Escape' && pops.some(([p]) => !$(p).hidden)) { closePops(); title.focus(); } });
+  const story = $('#t-details');
+  story.addEventListener('input', () => { story.style.height = 'auto'; story.style.height = Math.min(260, story.scrollHeight + 2) + 'px'; });
   title.addEventListener('input', () => { if (!QB.manual) pickArea(guessArea(title.value + ' ' + $('#t-result').value) || lsGet('bragging-wall-last-area') || 'quality', false); else paintArea(false); });
   $('#t-stars').addEventListener('change', () => paintStars());
   $$('#t-stars label', form).forEach((l, i) => { l.addEventListener('mouseenter', () => paintStars(i + 1)); l.addEventListener('mouseleave', () => paintStars()); });
@@ -2238,7 +2249,7 @@ function mountToday() {
     addWin(date, item);
     lsSet('bragging-wall-last-area', item.category);
     ['title', 'result', 'details', 'tags'].forEach(f => { $('#t-' + f, form).value = ''; });
-    grow();
+    grow(); story.style.height = '';
     QB.manual = false; pickArea(item.category, false);
     const imp = $('input[name="t-imp"][value="2"]', form); if (imp) imp.checked = true; paintStars();
     $$('input[name="t-mood"]', form).forEach(r => { r.checked = false; }); paintMood();
