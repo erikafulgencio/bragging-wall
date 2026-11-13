@@ -181,7 +181,7 @@ body.gated .app { visibility: hidden; }
 .field > label, .field > legend, .lbl { font-size: .82rem; font-weight: 600; padding: 0; }
 .opt { font-weight: 400; color: var(--muted); }
 .field-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
-input[type="text"], input[type="password"], input[type="date"], input[type="search"], input[type="number"], select, textarea {
+input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="search"], input[type="number"], select, textarea {
   width: 100%; border: 1px solid var(--line); background: var(--surface-solid); border-radius: 11px; padding: 9px 12px; min-width: 0;
   transition: border-color .15s, box-shadow .15s;
 }
@@ -673,6 +673,123 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .wf-files .win-thumbs { margin: 0; }
 .wf-files .win-thumbs img { width: 40px; height: 40px; }
 @media (max-width: 680px) { .wf-grid, .wf-row3 { grid-template-columns: minmax(0, 1fr); } .modal-wrap { padding: 8px; } .modal { max-height: calc(100dvh - 16px); } }
+/* Braddy comments */
+.bd-card [data-bd][hidden] { display: none; }
+.bd-card { overflow: hidden; }
+.bd-stale { display: flex; gap: 6px; align-items: center; font-size: .82rem; color: var(--muted); margin: -4px 0 12px; }
+.bd-thread { display: flex; gap: 12px; align-items: flex-start; transition: opacity .2s; }
+.bd-thread.bd-dim { opacity: .45; }
+.bd-typing-row { margin-bottom: 14px; align-items: center; }
+.bd-av-wrap { position: relative; flex: none; }
+.braddy-av { width: 46px; height: 46px; display: block; border-radius: 50%; box-shadow: 0 0 0 3px var(--surface-solid), 0 4px 10px -4px rgba(0,0,0,.3); }
+.bd-online { position: absolute; right: 0; bottom: 1px; width: 12px; height: 12px; border-radius: 50%; background: #2DBE7B; box-shadow: 0 0 0 2.5px var(--surface-solid); }
+.bd-main { flex: 1; min-width: 0; }
+.bd-bubble { position: relative; background: var(--surface-2); border: 1px solid var(--line); border-radius: 4px 18px 18px 18px; padding: 14px 16px 16px; }
+.bd-name { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: .9rem; }
+.bd-tag { display: inline-flex; align-items: center; gap: 4px; font: 600 .7rem var(--font-body); padding: 2px 8px; border-radius: 99px; background: color-mix(in srgb, var(--gold, #F4B336) 26%, transparent); color: color-mix(in srgb, #8A5A00 80%, var(--ink)); }
+.bd-tag .ic { width: 12px; height: 12px; }
+.bd-head { font: 700 1.55rem/1.1 var(--font-hand); margin-top: 8px; color: var(--ink); }
+.bd-text { margin-top: 6px; line-height: 1.6; white-space: pre-line; overflow-wrap: anywhere; }
+.bd-sticker { width: 138px; margin: 14px 0 4px; padding: 8px 8px 4px; background: #FFF6DA; border-radius: 16px; transform: rotate(-2.5deg); box-shadow: 0 6px 14px -8px rgba(0,0,0,.35); text-align: center; }
+.bd-sticker svg { width: 100%; height: auto; display: block; overflow: visible; }
+.bd-sticker figcaption { font: 700 1.2rem/1 var(--font-hand); color: #A4441F; margin-top: 2px; letter-spacing: .02em; }
+.bd-sec { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.bd-label { font: 600 .78rem var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 8px; }
+.bd-atts { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+.bd-att { display: flex; gap: 10px; align-items: center; padding: 8px; border-radius: 12px; background: var(--surface-solid); border: 1px solid var(--line); min-width: 0; }
+.bd-att img, .bd-file { width: 48px; height: 48px; border-radius: 9px; object-fit: cover; flex: none; }
+.bd-file { display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
+.bd-att b { display: block; font-size: .8rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bd-att span { font-size: .84rem; line-height: 1.4; }
+.bd-att > div { min-width: 0; }
+.bd-gwrap { display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; }
+.bd-gwrap > .stack { flex: 1 1 240px !important; }
+.bd-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.bd-chips span { font: 600 .75rem var(--font-body); padding: 3px 10px; border-radius: 99px; background: color-mix(in srgb, var(--accent) 12%, var(--surface-solid)); color: var(--accent); }
+.bd-growth ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: .92rem; line-height: 1.5; }
+.bd-chart-wrap { flex: none; display: grid; gap: 4px; }
+.bd-chart { width: 180px; height: auto; overflow: visible; }
+.bd-chart .old { fill: color-mix(in srgb, var(--muted) 28%, transparent); }
+.bd-chart .now { fill: color-mix(in srgb, var(--accent) 35%, transparent); }
+.bd-chart .area { fill: var(--accent); }
+.bd-chart text { font: 600 8.5px var(--font-body); fill: var(--muted); }
+.bd-chart text.v { fill: var(--ink); }
+.bd-chart-wrap small { font-size: .7rem; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+.bd-chart-wrap .k { width: 9px; height: 9px; border-radius: 3px; background: color-mix(in srgb, var(--muted) 35%, transparent); display: inline-block; margin-left: 4px; }
+.bd-chart-wrap .k.area { background: var(--accent); margin-left: 0; }
+.bd-advice { display: flex; gap: 10px; margin-top: 14px; padding: 12px 14px; border-radius: 14px; background: color-mix(in srgb, #F4B336 16%, var(--surface-solid)); border: 1px solid color-mix(in srgb, #F4B336 40%, transparent); }
+.bd-advice > span { font-size: 1.3rem; line-height: 1.2; }
+.bd-advice b { font-size: .86rem; }
+.bd-advice p { font-size: .92rem; line-height: 1.5; margin-top: 2px; }
+.bd-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; margin: 8px 4px 0; font-size: .76rem; color: var(--muted); }
+.bd-reacts { display: inline-flex; padding: 2px 8px 2px 4px; border-radius: 99px; background: var(--surface-solid); border: 1px solid var(--line); box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,.08)); }
+.bd-reacts i { font-style: normal; font-size: .95rem; margin-left: -1px; }
+.bd-typing { display: inline-flex; align-items: center; gap: 4px; padding: 10px 14px; border-radius: 4px 16px 16px 16px; background: var(--surface-2); border: 1px solid var(--line); }
+.bd-typing .small { margin-right: 6px; }
+.bd-typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); opacity: .4; }
+@media (prefers-reduced-motion: no-preference) {
+  .bd-typing i { animation: bd-dot 1.1s infinite ease-in-out; }
+  .bd-typing i:nth-of-type(2) { animation-delay: .15s; } .bd-typing i:nth-of-type(3) { animation-delay: .3s; }
+  .braddy-av.typing { animation: bd-bob 1.2s ease-in-out infinite; }
+  .braddy-av .bd-star { transform-box: fill-box; transform-origin: center; animation: st-spin 6s linear infinite; }
+  .braddy-av .bd-eyes { transform-box: fill-box; transform-origin: center; animation: bd-blink 4.5s infinite; }
+  .bd-card .bd-bubble { animation: bd-in .45s var(--ease) both; }
+  .bd-sticker { animation: bd-stick .6s .2s var(--ease) both; }
+  .st-conf > * { transform-box: fill-box; transform-origin: center; animation: st-conf 1.8s ease-out infinite both; }
+  .st-pop { transform-box: fill-box; transform-origin: 0 100%; animation: st-pop 1.8s ease-in-out infinite; }
+  .st-bounce { animation: st-bounce 1.4s ease-in-out infinite; }
+  .st-shadow { transform-box: fill-box; transform-origin: center; animation: st-shadow 1.4s ease-in-out infinite; }
+  .st-twinkle > * { transform-box: fill-box; transform-origin: center; animation: st-tw 1.6s ease-in-out infinite; }
+  .st-twinkle > *:nth-child(2) { animation-delay: .5s; } .st-twinkle > *:nth-child(3) { animation-delay: 1s; }
+  .st-rocket { animation: st-fly 1.6s ease-in-out infinite; }
+  .st-flame { transform-box: fill-box; transform-origin: 50% 0; animation: st-flick .18s ease-in-out infinite alternate; }
+  .st-stars { animation: st-drift 1.6s linear infinite; }
+  .st-flick { transform-box: fill-box; transform-origin: 50% 100%; animation: st-flick .5s ease-in-out infinite alternate; }
+  .st-heart { transform-box: fill-box; transform-origin: center; animation: st-beat 1s ease-in-out infinite; }
+  .st-heart.h2 { animation-delay: .3s; } .st-heart.h3 { animation-delay: .6s; }
+  .st-steam path { animation: st-steam 2s ease-in-out infinite; } .st-steam path:nth-child(2) { animation-delay: .4s; } .st-steam path:nth-child(3) { animation-delay: .8s; }
+  .st-spin > * { transform-box: fill-box; transform-origin: center; animation: st-spin 4s linear infinite; }
+  .st-shout { transform-box: fill-box; transform-origin: 30% 60%; animation: st-shout .9s ease-in-out infinite; }
+  .st-waves path { animation: st-wave 1.2s ease-out infinite; } .st-waves path:nth-child(2) { animation-delay: .2s; } .st-waves path:nth-child(3) { animation-delay: .4s; }
+  .st-lift { animation: st-lift 1.2s ease-in-out infinite; }
+}
+.st-steam path { fill: none; stroke: #9AA6A3; stroke-width: 4; stroke-linecap: round; }
+@keyframes bd-dot { 0%, 80%, 100% { transform: translateY(0); opacity: .35; } 40% { transform: translateY(-4px); opacity: 1; } }
+@keyframes bd-bob { 50% { transform: translateY(-3px) rotate(-4deg); } }
+@keyframes bd-blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+@keyframes bd-in { from { opacity: 0; transform: translateY(8px) scale(.98); } }
+@keyframes bd-stick { from { opacity: 0; transform: rotate(-12deg) scale(.6); } 70% { transform: rotate(1deg) scale(1.05); } }
+@keyframes st-conf { 0% { transform: translate(-28px, 28px) scale(.2) rotate(0); opacity: 0; } 25% { opacity: 1; } 100% { transform: translate(6px, -6px) scale(1) rotate(160deg); opacity: 0; } }
+@keyframes st-pop { 0%, 100% { transform: rotate(0); } 12% { transform: rotate(-6deg) scale(1.04); } 24% { transform: rotate(0); } }
+@keyframes st-bounce { 50% { transform: translateY(-9px); } }
+@keyframes st-shadow { 50% { transform: scaleX(.75); opacity: .07; } }
+@keyframes st-tw { 50% { transform: scale(.5) rotate(45deg); opacity: .5; } }
+@keyframes st-fly { 50% { transform: translate(4px, -6px); } }
+@keyframes st-flick { to { transform: scaleY(1.12) scaleX(.94); } }
+@keyframes st-drift { from { transform: translate(0, 0); } to { transform: translate(-6px, 10px); } }
+@keyframes st-beat { 15% { transform: scale(1.15); } 30% { transform: scale(.96); } 45% { transform: scale(1.08); } }
+@keyframes st-steam { 0% { transform: translateY(6px); opacity: 0; } 40% { opacity: 1; } 100% { transform: translateY(-8px); opacity: 0; } }
+@keyframes st-spin { to { transform: rotate(360deg); } }
+@keyframes st-shout { 50% { transform: rotate(-5deg) scale(1.04); } }
+@keyframes st-wave { 0% { opacity: 0; transform: translateX(-4px); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateX(4px); } }
+@keyframes st-lift { 50% { transform: translateY(-14px); } }
+@media (max-width: 560px) { .bd-thread:not(.bd-typing-row) { flex-direction: column; gap: 8px; } .bd-bubble { border-radius: 18px; } .braddy-av { width: 40px; height: 40px; } .bd-bubble { padding: 12px; } .bd-chart { width: 150px; } }
+/* Email dialog */
+.em { display: flex; flex-direction: column; gap: 14px; }
+.em-step { display: flex; gap: 14px; padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface-2); transition: opacity .2s; }
+.em-step.em-off { opacity: .45; pointer-events: none; }
+.em-n { width: 28px; height: 28px; border-radius: 50%; background: var(--grad); color: #fff; display: grid; place-items: center; font: 700 .85rem var(--font-body); flex: none; }
+.em-row { display: grid; grid-template-columns: 200px 1fr; gap: 12px; align-items: end; }
+.em-row .field[hidden] { display: none; }
+.em-sum { display: flex; flex-direction: column; justify-content: center; padding: 8px 12px; border-radius: 12px; background: var(--surface-solid); border: 1px solid var(--line); min-height: 42px; }
+.em-sum b { font: 650 1.05rem var(--font-display); }
+.em-sum span { font-size: .78rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.em-lead { font-size: .9rem; }
+#em-open .btn { text-decoration: none; }
+.em-prev summary { cursor: pointer; color: var(--accent); font: 600 .84rem var(--font-body); }
+.em-prev pre { white-space: pre-wrap; font: .8rem/1.5 var(--font-mono); background: var(--surface-solid); border: 1px solid var(--line); border-radius: 10px; padding: 10px; max-height: 180px; overflow: auto; margin: 8px 0 0; }
+.em-prev p { margin-top: 6px; }
+@media (max-width: 560px) { .em-row { grid-template-columns: 1fr; } .em-step { padding: 12px; gap: 10px; } }
 /* Bragged-wins carousel */
 .hero-car { min-width: 0; width: 100%; display: flex; flex-direction: column; gap: 6px; }
 .car-head { display: flex; justify-content: space-between; align-items: center; padding: 0 8px; }
@@ -1099,6 +1216,8 @@ const IC = {
   award: '<circle cx="12" cy="8" r="6"/><path d="M15.5 12.9 17 22l-5-3-5 3 1.5-9.1"/>',
   heart: '<path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/>',
   megaphone: '<path d="M2.5 10.2 15 5.5v13l-12.5-4.7z"/><path d="M9.2 16.1a2.6 2.6 0 1 1-5-1.6"/><path d="M18 8.6l2.6-1.6M18.5 12h3M18 15.4l2.6 1.6"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/>',
+  share: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/>',
   clip: '<path d="m21 11-8.6 8.6a5.5 5.5 0 0 1-7.8-7.8L13.2 3.2a3.7 3.7 0 0 1 5.2 5.2l-8.6 8.6a1.8 1.8 0 0 1-2.6-2.6L15 6.6"/>',
   image: '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>',
   phone: '<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/>',
@@ -1247,11 +1366,12 @@ function normItem(it) {
     project: String(it.project || '').slice(0, 120),
     tags: Array.isArray(it.tags) ? it.tags.map(String).slice(0, 12) : [],
     createdAt: Number(it.createdAt) || Date.now(), updatedAt: Number(it.updatedAt) || Date.now(),
+    braddy: normBraddy(it.braddy),
   };
 }
 const normNb = (id, v) => ({ id, name: String(v?.name || 'Notebook').slice(0, 80), kind: KINDS[v?.kind] ? v.kind : 'other', color: /^#[0-9a-f]{6}$/i.test(v?.color || '') ? v.color : NB_COLORS[0], createdAt: Number(v?.createdAt) || 0 });
 const normNote = (id, v) => ({ id, notebookId: String(v?.notebookId || ''), title: String(v?.title || '').slice(0, 200), date: isYmd(v?.date) ? v.date : todayKey(), html: String(v?.html || ''), createdAt: Number(v?.createdAt) || 0, updatedAt: Number(v?.updatedAt) || 0 });
-const normProfile = v => ({ name: String(v?.name || '').slice(0, 120), nickname: String(v?.nickname || '').slice(0, 60), role: String(v?.role || '').slice(0, 120), company: String(v?.company || '').slice(0, 120), weekStart: v?.weekStart === 0 ? 0 : 1, weeklyGoal: Math.min(50, Math.max(1, Number(v?.weeklyGoal) || 5)), customCats: (Array.isArray(v?.customCats) ? v.customCats : []).filter(c => c && /^c-[a-z0-9]{3,30}$/.test(c.key || '') && c.label).slice(0, 30).map(c => ({ key: c.key, label: String(c.label).slice(0, 40), icon: ICON_CHOICES.includes(c.icon) ? c.icon : 'star', color: /^#[0-9a-f]{6}$/i.test(c.color || '') ? c.color : CUSTOM_COLORS[0] })) });
+const normProfile = v => ({ name: String(v?.name || '').slice(0, 120), nickname: String(v?.nickname || '').slice(0, 60), role: String(v?.role || '').slice(0, 120), company: String(v?.company || '').slice(0, 120), weekStart: v?.weekStart === 0 ? 0 : 1, weeklyGoal: Math.min(50, Math.max(1, Number(v?.weeklyGoal) || 5)), email: /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/.test(v?.email || '') ? String(v.email).slice(0, 254) : '', customCats: (Array.isArray(v?.customCats) ? v.customCats : []).filter(c => c && /^c-[a-z0-9]{3,30}$/.test(c.key || '') && c.label).slice(0, 30).map(c => ({ key: c.key, label: String(c.label).slice(0, 40), icon: ICON_CHOICES.includes(c.icon) ? c.icon : 'star', color: /^#[0-9a-f]{6}$/i.test(c.color || '') ? c.color : CUSTOM_COLORS[0] })) });
 S.profile = normProfile({});
 
 let _flat = null;
@@ -1793,7 +1913,7 @@ function readWinForm(p, root, base = {}) {
     result: q('result').value.trim(), details: q('details').value.trim(), project: q('project').value.trim(),
     tags: q('tags').value.split(',').map(s => s.trim().replace(/^#/, '')).filter(Boolean).slice(0, 12),
     mood: ($(`input[name="${p}-mood"]:checked`, root) || {}).value || '',
-    files: base.files || [],
+    files: base.files || [], braddy: base.braddy,
     createdAt: base.createdAt || now, updatedAt: now,
   };
 }
@@ -2001,7 +2121,7 @@ function mountToday() {
           </form>
         </section>
         <section class="card">
-          <div class="list-head"><h2 class="card-title">${icon('trophy')}<span id="t-list-title">Wins on this day</span></h2><span class="mono small muted" id="t-count"></span></div>
+          <div class="list-head"><h2 class="card-title">${icon('trophy')}<span id="t-list-title">Wins on this day</span></h2><span class="row" style="gap:10px"><span class="mono small muted" id="t-count"></span><button type="button" class="btn ghost sm" id="t-email">${icon('mail')}Email</button></span></div>
           <div class="wins" id="t-list"></div>
         </section>
       </div>
@@ -2129,6 +2249,7 @@ function mountToday() {
     if (item.impact === 3) confetti();
   });
   bindWinActions($('#t-list'));
+  $('#t-email').onclick = () => openEmailDialog({ scope: 'day', anchor: UI.selDate });
   $('#t-week').addEventListener('click', e => { const b = e.target.closest('[data-date]'); if (b) { UI.selDate = b.dataset.date; updateToday(); } });
   $('#t-notes').addEventListener('click', e => { const b = e.target.closest('[data-open-note]'); if (b) openNote(b.dataset.openNote); });
   $('#t-write').onclick = () => {
@@ -2304,6 +2425,8 @@ function mountWin() {
       }
       return;
     }
+    const bd = e.target.closest('[data-bd]');
+    if (bd) { const w0 = allWins()[UI.win.idx]; if (w0 && bd.dataset.bd === 'ask') askBraddy(w0, true); return; }
     const b = e.target.closest('[data-act], [data-win]');
     if (!b) return;
     if (b.dataset.win) { UI.win = { ...UI.win, id: b.dataset.win, celebrate: true }; updateWinView(); $('#main').scrollTop = 0; return; }
@@ -2315,6 +2438,7 @@ function mountWin() {
       case 'edit': editWinModal(w.date, w.id); break;
       case 'delete': deleteWinFlow(w.date, w.id); break;
       case 'day': UI.selDate = w.date; go('today'); break;
+      case 'email': openEmailDialog({ scope: 'brag', winId: w.id, anchor: w.date }); break;
       case 'brag': go('today'); setTimeout(() => $('#h-log')?.click(), 350); break;
       case 'attach': $('#wn-file').click(); break;
       case 'copy': {
@@ -2372,7 +2496,8 @@ function updateWinView() {
           ${w.tags.length ? `<dt>Tags</dt><dd class="win-meta" style="margin:0">${w.tags.map(t => `<span>#${esc(t)}</span>`).join('')}</dd>` : ''}
         </dl>
         <div class="stack" style="gap:8px;margin-top:18px">
-          <button type="button" class="btn" data-act="copy">${icon('copy')}Copy as a resume bullet</button>
+          <button type="button" class="btn" data-act="email">${icon('mail')}Email this brag as PDF</button>
+          <button type="button" class="btn ghost" data-act="copy">${icon('copy')}Copy as a resume bullet</button>
           <div class="row"><button type="button" class="btn ghost sm" data-act="edit">${icon('edit')}Edit</button><button type="button" class="btn ghost sm" data-act="day">${icon('calendar')}Open this day</button><button type="button" class="btn ghost sm" data-act="delete">${icon('trash')}Delete</button></div>
         </div>
       </aside>
@@ -2385,8 +2510,10 @@ function updateWinView() {
         : `<div class="att-item att-file"><span class="kpi-ic">${icon('file')}</span><span class="att-fname"><b>${esc(f.name)}</b><small>${fmtSize(f.size)}</small></span><button type="button" class="btn ghost sm" data-dl-file="${f.id}">${icon('download', 'sm')}Download</button><button type="button" class="chip-x" data-rm-file="${f.id}" aria-label="Remove ${esc(f.name)}">${icon('trash', 'sm')}</button></div>`).join('')}</div>`
         : `<div class="att-empty" data-act="attach" role="button" tabindex="0">${icon('image')}<span>Add a screenshot of a kind message, a certificate or a report. Drop files here or click to choose.</span></div>`}
     </section>
+    <section class="card bd-card" id="bd-card" aria-label="Comments"></section>
     ${related('More from this day', sameDay)}
     ${related(`More ${catOf(w.category).label} wins`, sameArea)}`;
+  renderBraddy(w);
   if (celebrate) setTimeout(confetti, 250);
 }
 document.addEventListener('keydown', e => {
@@ -2484,6 +2611,7 @@ function mountCalendar() {
     if (!b) return;
     if (b.dataset.act === 'clear') { UI.cal.sel = null; updateCalendar(); }
     if (b.dataset.act === 'open-day') { UI.selDate = b.dataset.date; go('today'); }
+    if (b.dataset.act === 'email') { openEmailDialog({ scope: b.dataset.scope, anchor: b.dataset.date }); return; }
     if (b.dataset.act === 'report') { Object.assign(UI.report, { preset: 'custom', from: b.dataset.from, to: b.dataset.to, ai: null, edits: null }); go('report'); }
   });
   updateCalendar();
@@ -2581,6 +2709,7 @@ function summaryHTML(label, list, opt) {
   <div class="row" style="margin-top:18px">
     ${opt.day ? `<button type="button" class="btn sm" data-act="open-day" data-date="${opt.day}">${icon('plus')}Open this day to add or edit</button>` : ''}
     ${opt.from ? `<button type="button" class="btn ghost sm" data-act="report" data-from="${opt.from}" data-to="${opt.to}">${icon('file')}Report for ${esc(opt.title)}</button>` : ''}
+    <button type="button" class="btn ghost sm" data-act="email" data-date="${opt.day || opt.from}" data-scope="${opt.day ? 'day' : UI.cal.mode}">${icon('mail')}Email ${opt.day ? 'this day' : 'this ' + UI.cal.mode}</button>
   </div>`;
 }
 
@@ -2865,7 +2994,8 @@ function pdfWriter() {
   const W = doc.internal.pageSize.getWidth(), H = doc.internal.pageSize.getHeight(), M = 56, CW = W - 2 * M;
   let y = M;
   const styleOf = t => t.b && t.i ? 'bolditalic' : t.b ? 'bold' : t.i ? 'italic' : 'normal';
-  const ensure = h => { if (y + h > H - M) { doc.addPage(); y = M; } };
+  const hooks = { page: null };
+  const ensure = h => { if (y + h > H - M) { doc.addPage(); y = M; if (hooks.page) hooks.page(); } };
   function runs(rs, o = {}) {
     const x0 = o.x ?? M, width = o.width ?? (CW - (x0 - M)), size = o.size ?? 10.5, lh = o.lh ?? size * 1.45, color = o.color ?? PC.ink, font = o.font || 'helvetica';
     const toks = [];
@@ -2915,7 +3045,8 @@ function pdfWriter() {
     get y() { return y; }, set y(v) { y = v; },
     text(s, o = {}) { return runs([{ text: s, bold: o.bold, italic: o.italic }], o); },
     space(n) { y += n; },
-    newPage() { doc.addPage(); y = M; },
+    hooks,
+    newPage() { doc.addPage(); y = M; if (hooks.page) hooks.page(); },
     band() { doc.setFillColor(...PC.accent); doc.rect(0, 0, W * 0.6, 6, 'F'); doc.setFillColor(...PC.accent2); doc.rect(W * 0.6, 0, W * 0.25, 6, 'F'); doc.setFillColor(...PC.gold); doc.rect(W * 0.85, 0, W * 0.15, 6, 'F'); },
     heading(s, level = 2) {
       const size = { 1: 22, 2: 14, 3: 11.5 }[level], before = { 1: 0, 2: 14, 3: 8 }[level];
@@ -3114,6 +3245,489 @@ async function exportNotebookPdf(nbId) {
     return w.finish(nb.name);
   });
   if (doc) await saveFile(`${fileSafe(nb.name)}-${todayKey()}.pdf`, doc.output('blob'));
+}
+
+
+/* ================= Braddy: your best friend's comments ================= */
+const BRADDY_AV = (cls = '') => `<svg class="braddy-av ${cls}" viewBox="0 0 64 64" role="img" aria-label="Braddy"><circle cx="32" cy="32" r="32" fill="#FFE9B0"/><path d="M32 16v6" stroke="#0F6E6A" stroke-width="2.6" stroke-linecap="round"/><path class="bd-star" d="M32 3.5l2 4.6 4.6 2-4.6 2L32 16.6l-2-4.5-4.6-2 4.6-2z" fill="#F4B336" stroke="#C98A10" stroke-width=".9" stroke-linejoin="round"/><rect x="12.5" y="21" width="39" height="34" rx="11" fill="#E9784B"/><path d="M15 47.5h34M26 47.5v7M39 47.5v7" stroke="#C85E34" stroke-width="1.6" stroke-linecap="round"/><path d="M18 26.5c3-2.4 7-3 11-3" stroke="#F6A27F" stroke-width="2.2" stroke-linecap="round" fill="none"/><g class="bd-eyes"><ellipse cx="25" cy="34" rx="4.2" ry="4.8" fill="#fff"/><ellipse cx="39" cy="34" rx="4.2" ry="4.8" fill="#fff"/><circle cx="25.8" cy="35" r="2.3" fill="#1B2422"/><circle cx="39.8" cy="35" r="2.3" fill="#1B2422"/><circle cx="26.6" cy="34" r=".8" fill="#fff"/><circle cx="40.6" cy="34" r=".8" fill="#fff"/></g><ellipse cx="19.2" cy="41" rx="3" ry="1.8" fill="#FF9EAE" opacity=".85"/><ellipse cx="44.8" cy="41" rx="3" ry="1.8" fill="#FF9EAE" opacity=".85"/><path d="M27.6 40.6Q32 46.4 36.4 40.6Z" fill="#5A1A14"/><path d="M30 43.4q2-1.2 4 0" stroke="#FF7F8E" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg>`;
+const st4 = (x, y, r, fill) => `<path d="M${x} ${y - r}l${r * .28} ${r * .72} ${r * .72} ${r * .28}-${r * .72} ${r * .28}L${x} ${y + r}l-${r * .28}-${r * .72}-${r * .72}-${r * .28} ${r * .72}-${r * .28}z" fill="${fill}"/>`;
+const heartAt = (x, y, k, fill, cls) => `<g transform="translate(${x} ${y}) scale(${k})"><path class="${cls}" d="M0 14C-16 4-15-10-7-11c4-.5 6.2 2 7 5 .8-3 3-5.5 7-5 8 1 9 15-7 25z" fill="${fill}"/></g>`;
+const STICKERS = {
+  party: { cap: "LET'S GOOO!", svg: () => `<g class="st-conf">${[['rect x="70" y="30" width="7" height="12" rx="2"', '#E0607E', 0], ['circle cx="88" cy="50" r="5"', '#149B92', .25], ['rect x="54" y="16" width="6" height="11" rx="2"', '#5B8DEF', .5], ['path d="M94 20l5 9h-10z"', '#F4B336', .15], ['circle cx="102" cy="74" r="4"', '#8A4FB5', .4], ['rect x="82" y="8" width="6" height="10" rx="2"', '#F07A3A', .65], ['circle cx="66" cy="10" r="3.5"', '#F4B336', .8]].map(([t, f, d]) => `<${t} fill="${f}" style="animation-delay:${d}s"/>`).join('')}</g><g class="st-pop"><path d="M20 102L44 44l34 34z" fill="#F4B336" stroke="#C98A10" stroke-width="2.5" stroke-linejoin="round"/><path d="M29 82l28 10M36 64l32 15" stroke="#E0607E" stroke-width="6" stroke-linecap="round"/></g>` },
+  trophy: { cap: 'BIG WIN!', svg: () => `<ellipse class="st-shadow" cx="60" cy="106" rx="26" ry="4" fill="#000" opacity=".12"/><g class="st-bounce"><path d="M38 22h44v20a22 22 0 0 1-44 0z" fill="#F4B336" stroke="#C98A10" stroke-width="2.5"/><path d="M38 28H27a10 10 0 0 0 11 17M82 28h11a10 10 0 0 1-11 17" fill="none" stroke="#C98A10" stroke-width="4" stroke-linecap="round"/><rect x="54" y="63" width="12" height="13" fill="#C98A10"/><rect x="40" y="76" width="40" height="13" rx="3" fill="#0F6E6A"/><path d="M60 30l3 6 6.5 1-4.7 4.6 1.1 6.5L60 45l-5.9 3.1 1.1-6.5L50.5 37l6.5-1z" fill="#fff" opacity=".9"/></g><g class="st-twinkle">${st4(20, 26, 8, '#F4B336')}${st4(100, 20, 6, '#149B92')}${st4(102, 64, 5, '#E0607E')}</g>` },
+  rocket: { cap: 'TO THE MOON', svg: () => `<g class="st-stars"><circle cx="18" cy="26" r="2.2" fill="#F4B336"/><circle cx="96" cy="16" r="2" fill="#149B92"/><circle cx="104" cy="88" r="2.4" fill="#E0607E"/><circle cx="14" cy="84" r="1.8" fill="#5B8DEF"/></g><g class="st-rocket"><g transform="rotate(35 60 60)"><path class="st-flame" d="M50 68c2 14 8 20 10 28 2-8 8-14 10-28z" fill="#F4B336"/><path d="M60 14c14 12 18 32 14 54H46c-4-22 0-42 14-54z" fill="#F0EEE9" stroke="#1B2422" stroke-width="2.5"/><circle cx="60" cy="40" r="7" fill="#149B92" stroke="#1B2422" stroke-width="2.5"/><path d="M46 56l-10 14h12M74 56l10 14H72" fill="#E0607E" stroke="#1B2422" stroke-width="2.5" stroke-linejoin="round"/></g></g>` },
+  fire: { cap: 'ON FIRE!', svg: () => `<g class="st-flick"><path d="M60 10c6 18 28 26 28 54a28 28 0 0 1-56 0c0-15 8-21 12-31 4 8 4 14 10 16 2-14-2-25 6-39z" fill="#F07A3A"/><path d="M60 52c4 10 15 14 15 27a15 15 0 0 1-30 0c0-8 6-12 8-18 2 4 4 6 6 6 0-6-2-10 1-15z" fill="#F4B336"/></g><g class="st-twinkle">${st4(22, 30, 6, '#F4B336')}${st4(100, 40, 5, '#F07A3A')}</g>` },
+  hearts: { cap: 'SO PROUD', svg: () => `${heartAt(60, 62, 2.6, '#E0607E', 'st-heart h1')}${heartAt(24, 30, 1, '#F4B336', 'st-heart h2')}${heartAt(98, 26, 1.2, '#149B92', 'st-heart h3')}` },
+  coffee: { cap: 'YOU EARNED IT', svg: () => `<g class="st-steam"><path d="M46 34c-6-8 6-12 0-21" /><path d="M59 34c-6-8 6-12 0-21"/><path d="M72 34c-6-8 6-12 0-21"/></g><path d="M30 44h52v26a22 22 0 0 1-22 22h-8a22 22 0 0 1-22-22z" fill="#0F6E6A"/><path d="M82 52h5a10 10 0 0 1 0 20h-7" fill="none" stroke="#0F6E6A" stroke-width="6"/><rect x="22" y="94" width="68" height="7" rx="3.5" fill="#C98A10"/>${heartAt(56, 64, .8, '#fff', '')}` },
+  sparkle: { cap: 'SHINE!', svg: () => `<g class="st-spin">${st4(60, 60, 34, '#F4B336')}</g><g class="st-twinkle">${st4(22, 24, 9, '#149B92')}${st4(98, 92, 8, '#E0607E')}${st4(100, 24, 5, '#5B8DEF')}</g>` },
+  megaphone: { cap: 'BRAG IT!', svg: () => `<g class="st-shout"><path d="M22 50h14l38-22v62L36 70H22z" fill="#F4B336" stroke="#1B2422" stroke-width="2.5" stroke-linejoin="round"/><path d="M28 70l6 18h11l-4-16" fill="#0F6E6A" stroke="#1B2422" stroke-width="2.5" stroke-linejoin="round"/><rect x="74" y="40" width="7" height="38" rx="3.5" fill="#1B2422"/></g><g class="st-waves" fill="none" stroke="#E0607E" stroke-width="4" stroke-linecap="round"><path d="M88 48q7 11 0 22"/><path d="M96 40q13 19 0 38"/><path d="M104 32q19 27 0 54"/></g>` },
+  dumbbell: { cap: 'STRONG!', svg: () => `<g class="st-lift"><rect x="24" y="56" width="72" height="8" rx="4" fill="#5E6E6A"/><rect x="14" y="40" width="12" height="40" rx="4" fill="#0F6E6A"/><rect x="26" y="46" width="8" height="28" rx="3" fill="#149B92"/><rect x="94" y="40" width="12" height="40" rx="4" fill="#0F6E6A"/><rect x="86" y="46" width="8" height="28" rx="3" fill="#149B92"/></g><g class="st-twinkle">${st4(60, 26, 7, '#F4B336')}</g>` },
+};
+const stickerSVG = k => `<svg viewBox="0 0 120 120" aria-hidden="true">${(STICKERS[k] || STICKERS.megaphone).svg()}</svg>`;
+function bdHash(str) { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+const braddySig = w => bdHash([w.date, w.title, w.result, w.details, w.impact, w.mood, w.category, w.project, (w.tags || []).join(','), (w.files || []).map(f => f.id).join(',')].join('|')).toString(36);
+function normBraddy(b) {
+  if (!b || typeof b !== 'object' || typeof b.comment !== 'string' || !b.comment.trim()) return undefined;
+  const s = (v, n) => String(v ?? '').trim().slice(0, n), arr = v => Array.isArray(v) ? v : [];
+  return {
+    sig: s(b.sig, 20), at: Number(b.at) || 0, headline: s(b.headline, 90), comment: s(b.comment, 1000),
+    growth: arr(b.growth).map(x => s(x, 260)).filter(Boolean).slice(0, 4), advice: s(b.advice, 420),
+    attachments: arr(b.attachments).filter(a => a && a.name && a.note).map(a => ({ name: s(a.name, 200), note: s(a.note, 260) })).slice(0, 10),
+    sticker: STICKERS[b.sticker] ? b.sticker : 'megaphone', caption: s(b.caption, 22),
+    reactions: arr(b.reactions).map(x => s(x, 8)).filter(Boolean).slice(0, 4),
+  };
+}
+const daysApart = (a, b) => Math.round((parseYmd(b) - parseYmd(a)) / 864e5);
+function braddyCtx(w) {
+  const all = allWins(), idx = Math.max(0, all.findIndex(x => x.id === w.id)), prior = all.slice(0, idx), upto = all.slice(0, idx + 1);
+  const areaPrior = prior.filter(x => x.category === w.category), lastArea = areaPrior[areaPrior.length - 1];
+  let streakAt = 0;
+  for (let d = parseYmd(w.date), i = 0; i < 400; i++, d = addDays(d, -1)) { const dow = d.getDay(); if (hasWins(ymd(d))) streakAt++; else if (!(dow === 0 || dow === 6)) break; }
+  const recentArea = areaPrior.slice(-5), avgArea = recentArea.length ? recentArea.reduce((t, x) => t + x.impact, 0) / recentArea.length : 0;
+  const months = [...Array(6)].map((_, i) => { const d = new Date(parseYmd(w.date).getFullYear(), parseYmd(w.date).getMonth() - 5 + i, 1), k = ymd(d).slice(0, 7); return { k, label: d.toLocaleDateString(undefined, { month: 'short' }), n: upto.filter(x => x.date.slice(0, 7) === k).length, area: upto.filter(x => x.date.slice(0, 7) === k && x.category === w.category).length }; });
+  return {
+    all, idx, prior, nth: idx + 1, area: catOf(w.category).label, nthArea: areaPrior.length + 1, firstInArea: !areaPrior.length,
+    gapDays: lastArea ? daysApart(lastArea.date, w.date) : 0, streakAt,
+    monthNth: upto.filter(x => x.date.slice(0, 7) === w.date.slice(0, 7)).length,
+    bigBefore: prior.filter(x => x.impact === 3).length,
+    projectCount: w.project ? upto.filter(x => x.project && x.project.toLowerCase() === w.project.toLowerCase()).length : 0,
+    biggerThanUsual: areaPrior.length >= 2 && w.impact > avgArea + .4, months, recentArea,
+  };
+}
+function braddyLocal(w, c) {
+  const h = bdHash(w.id), pick = a => a[h % a.length], nm = firstName();
+  const hasNum = /\d/.test(`${w.result} ${w.title}`);
+  const headline = pick({ 3: ['WAIT. This is huge! \u{1F92F}', 'Okay, superstar \u{1F31F}', 'Frame this one \u{1F3C6}'], 2: ['Look at you go! \u{1F64C}', 'Solid, solid work \u{1F4AA}', 'Love this for you \u{1FAF6}'], 1: ['Small win, still counts ✨', 'Every brick counts \u{1F9F1}', 'Tiny but mighty \u{1F331}'] }[w.impact]);
+  const open = { 3: 'this is the kind of win people remember at review time.', 2: 'this is real, steady progress, the stuff a team quietly depends on.', 1: 'small wins are how the big ones get built, and you actually wrote it down. That matters.' }[w.impact];
+  const moodLine = { proud: 'And you feel proud? Good. You should.', happy: 'Love that it made you happy, too.', excited: 'I can feel the excitement from here!', confident: 'That confidence looks good on you.', grateful: 'Love that you feel grateful. Sounds like people were part of this one.', relieved: "That relief tells me it wasn't easy. You pushed through anyway.", determined: 'That determined energy? Keep it.', tired: 'Tired but happy is so valid. Rest is part of the win.' }[w.mood] || '';
+  const resLine = !w.result ? '' : hasNum ? `“${w.result}” with a real number in it? That's resume-ready.` : `“${w.result}” is a real outcome. If you can put a number on it later, it'll hit even harder.`;
+  const comment = [nm ? `${nm}, ${open}` : open.charAt(0).toUpperCase() + open.slice(1), resLine, moodLine].filter(Boolean).join(' ');
+  const growth = [];
+  if (w.impact === 3 && !c.bigBefore) growth.push('Your first big win on the wall. That\'s a milestone. \u{1F3C6}');
+  if (c.firstInArea) growth.push(`Your first ${c.area} win. New territory! \u{1F6A9}`);
+  else if (c.gapDays > 14) growth.push(`Your first ${c.area} win in ${c.gapDays} days. Welcome back! \u{1F44B}`);
+  else if (c.nthArea >= 5) growth.push(`${c.nthArea} ${c.area} wins and counting. This is becoming your thing.`);
+  if (c.biggerThanUsual) growth.push(`This is bigger than your usual ${c.area} wins. That's growth you can point to.`);
+  if (c.projectCount > 1) growth.push(`${c.projectCount} wins on ${w.project} so far. That's a track record building up.`);
+  if (c.streakAt >= 3) growth.push(`You were on a ${c.streakAt}-day streak here. \u{1F525}`);
+  if ([10, 25, 50, 75, 100, 150, 200, 300, 500].includes(c.nth)) growth.push(`This is win #${c.nth} overall. Milestone!`);
+  const attachments = (w.files || []).map((f, i) => ({ name: f.name, note: f.thumb ? ['Receipts! \u{1F4F8} Proof beats memory every time.', 'Love the visual proof here.', 'Screenshot saved = evidence ready for review season.'][(h + i) % 3] : /pdf$/i.test(f.name) ? 'A PDF on file. Perfect evidence when you need it.' : 'Good call keeping this attached.' }));
+  const advice = !w.result ? 'Honest take: add a result. What changed because of you? Even “saved the team about 2 hours” turns this into a resume bullet.'
+    : !hasNum ? 'Try adding a number to the result: how many, how fast, how much. Numbers win salary talks.'
+    : (!w.details || w.details.length < 40) ? 'Add a line on how you did it. In six months you\'ll forget the hard parts, and those are what make this impressive.'
+    : (!w.files.length && w.impact >= 2) ? 'Got proof? A screenshot of a kind message or a report makes this undeniable.'
+    : w.impact === 3 ? "Bring this up in your next 1:1. Don't wait for review season to mention it."
+    : "This is ready for your resume. Copy it as a bullet while it's fresh.";
+  const sticker = w.mood === 'tired' ? 'coffee' : w.impact === 3 ? pick(['trophy', 'party']) : w.mood === 'determined' ? 'dumbbell' : w.mood === 'grateful' ? 'hearts' : w.mood === 'excited' ? 'rocket' : c.streakAt >= 3 ? 'fire' : w.mood === 'proud' ? 'sparkle' : 'megaphone';
+  const reactions = { 3: ['\u{1F389}', '\u{1F525}', '\u{1F3C6}'], 2: ['\u{1F44F}', '\u{1F4AA}', '✨'], 1: ['\u{1F331}', '\u{1F44D}'] }[w.impact];
+  return { headline, comment, growth: growth.slice(0, 3), advice, attachments, sticker, caption: STICKERS[sticker].cap, reactions, at: 0, sig: '' };
+}
+function bdTime(at) {
+  if (!at) return 'Quick take';
+  const s = (Date.now() - at) / 1000;
+  return s < 60 ? 'just now' : s < 3600 ? Math.floor(s / 60) + 'm ago' : s < 86400 ? Math.floor(s / 3600) + 'h ago' : fmtDateK(ymd(new Date(at)));
+}
+function bdChart(c) {
+  const max = Math.max(1, ...c.months.map(m => m.n)), bw = 22, gap = 8, H = 46;
+  return `<svg class="bd-chart" viewBox="0 0 ${c.months.length * (bw + gap)} ${H + 14}" role="img" aria-label="Wins per month, last 6 months">${c.months.map((m, i) => {
+    const hh = Math.max(2, Math.round(m.n / max * H)), ha = m.n ? Math.round(m.area / max * H) : 0, x = i * (bw + gap), last = i === c.months.length - 1;
+    return `<rect x="${x}" y="${H - hh}" width="${bw}" height="${hh}" rx="4" class="${last ? 'now' : 'old'}"/>${ha ? `<rect x="${x}" y="${H - ha}" width="${bw}" height="${ha}" rx="4" class="area"/>` : ''}<text x="${x + bw / 2}" y="${H + 12}" text-anchor="middle">${esc(m.label)}</text>${m.n ? `<text x="${x + bw / 2}" y="${H - hh - 3}" text-anchor="middle" class="v">${m.n}</text>` : ''}`;
+  }).join('')}</svg>`;
+}
+function braddyHTML(w, b, mode, c) {
+  const files = w.files || [];
+  const atts = b.attachments.map(a => ({ ...a, f: files.find(f => f.name === a.name) })).filter(a => a.f);
+  const chips = [c.firstInArea ? `First ${c.area} win` : `#${c.nthArea} in ${c.area}`, `Win #${c.nth} overall`, `${c.monthNth} in ${fmtMonthYear(parseYmd(w.date)).split(' ')[0]}`, c.streakAt >= 2 ? `${c.streakAt}-day streak` : ''].filter(Boolean);
+  return `
+    <div class="card-head" style="margin-bottom:14px"><h2 class="card-title">${icon('chat')}Comments <span class="mono small muted">1</span></h2>
+      <button type="button" class="btn ghost sm" data-bd="ask" hidden>${icon('refresh', 'sm')}${mode === 'claude' ? 'Ask Braddy again' : 'Get Braddy’s full take'}</button></div>
+    ${mode === 'stale' ? `<p class="bd-stale">${icon('info', 'sm')}You edited this win after Braddy commented.</p>` : ''}
+    <div class="bd-thread">
+      <div class="bd-av-wrap">${BRADDY_AV()}<span class="bd-online" title="Online"></span></div>
+      <div class="bd-main">
+        <div class="bd-bubble">
+          <p class="bd-name"><b>Braddy from Bragging Wall</b><span class="bd-tag">${icon('star', 'sm')}Best friend</span></p>
+          ${b.headline ? `<p class="bd-head">${esc(b.headline)}</p>` : ''}
+          <p class="bd-text">${esc(b.comment)}</p>
+          <figure class="bd-sticker" data-st="${b.sticker}">${stickerSVG(b.sticker)}<figcaption>${esc(b.caption || STICKERS[b.sticker].cap)}</figcaption></figure>
+          ${atts.length ? `<div class="bd-sec"><p class="bd-label">\u{1F4CE} On your attachments</p><div class="bd-atts">${atts.map(a => `<div class="bd-att">${a.f.thumb ? `<img src="${a.f.thumb}" alt="">` : `<span class="bd-file">${icon('file')}</span>`}<div><b>${esc(a.name)}</b><span>${esc(a.note)}</span></div></div>`).join('')}</div></div>` : ''}
+          <div class="bd-sec bd-growth"><p class="bd-label">\u{1F4C8} Your journey</p>
+            <div class="bd-gwrap"><div class="stack" style="gap:8px;min-width:0;flex:1"><div class="bd-chips">${chips.map(x => `<span>${esc(x)}</span>`).join('')}</div>${b.growth.length ? `<ul>${b.growth.map(g => `<li>${esc(g)}</li>`).join('')}</ul>` : ''}</div>
+            <div class="bd-chart-wrap">${bdChart(c)}<small><i class="k area"></i>${esc(c.area)} <i class="k"></i>All wins</small></div></div>
+          </div>
+          ${b.advice ? `<div class="bd-advice"><span aria-hidden="true">\u{1F4A1}</span><div><b>Honest advice</b><p>${esc(b.advice)}</p></div></div>` : ''}
+        </div>
+        <div class="bd-meta">${b.reactions.length ? `<span class="bd-reacts" title="Braddy reacted">${b.reactions.map(r => `<i>${esc(r)}</i>`).join('')}</span>` : ''}<span>${mode === 'local' ? 'Quick take · made on this device' : esc(bdTime(b.at))}</span>${mode !== 'local' ? '<span>Braddy is AI and can get things wrong</span>' : ''}</div>
+      </div>
+    </div>`;
+}
+const BD = { busy: new Set(), tried: new Set(), off: false, until: 0 };
+function bdTyping(box) {
+  const th = $('.bd-thread', box); if (!th) return;
+  th.insertAdjacentHTML('beforebegin', `<div class="bd-thread bd-typing-row"><div class="bd-av-wrap">${BRADDY_AV('typing')}</div><div class="bd-typing"><span class="small muted">Braddy is typing</span><i></i><i></i><i></i></div></div>`);
+  th.classList.add('bd-dim');
+  const btn = $('[data-bd="ask"]', box); if (btn) btn.disabled = true;
+}
+function renderBraddy(w) {
+  const box = $('#bd-card'); if (!box) return;
+  const c = braddyCtx(w), sig = braddySig(w), saved = w.braddy, fresh = !!(saved && saved.sig === sig);
+  box.innerHTML = braddyHTML(w, fresh || saved ? saved : braddyLocal(w, c), fresh ? 'claude' : saved ? 'stale' : 'local', c);
+  if (BD.busy.has(w.id)) { bdTyping(box); return; }
+  if (BD.off) return;
+  cap('sample').then(sample => {
+    if (!sample || BD.off || $('#bd-card') !== box) return;
+    const btn = $('[data-bd="ask"]', box); if (btn) btn.hidden = false;
+    const key = w.id + ':' + sig;
+    if (!fresh && !BD.tried.has(key) && Date.now() > BD.until) {
+      setTimeout(() => { if (S.view === 'win' && UI.win.id === w.id && $('#bd-card') === box && !BD.tried.has(key)) askBraddy(w, false); }, 700);
+    }
+  });
+}
+async function bdImages(sample, w) {
+  try {
+    const lim = typeof sample.limits === 'function' ? await sample.limits() : null;
+    if (!lim || !lim.images) return [];
+    const thumbs = (w.files || []).filter(f => f.thumb).slice(0, 4);
+    return thumbs.map(f => { const [h, d] = f.thumb.split(','), bin = atob(d), u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return new Blob([u], { type: (h.match(/data:([^;]+)/) || [])[1] || 'image/jpeg' }); });
+  } catch (e) { return []; }
+}
+async function askBraddy(w, manual) {
+  const sig = braddySig(w), key = w.id + ':' + sig;
+  if (BD.busy.has(w.id)) return;
+  BD.tried.add(key);
+  const sample = await cap('sample');
+  if (!sample) { if (manual) toast("Braddy's full take isn't available in this view.", 'warn'); return; }
+  BD.busy.add(w.id);
+  const box0 = $('#bd-card'); if (box0 && UI.win.id === w.id) bdTyping(box0);
+  const c = braddyCtx(w), nm = firstName(), who = [S.profile.role, S.profile.company].filter(Boolean).join(' at ');
+  const imgs = await bdImages(sample, w), imgFiles = (w.files || []).filter(f => f.thumb).slice(0, imgs.length);
+  const line = x => `${x.date} | ${catOf(x.category).label} | ${IMPACT[x.impact]} | ${x.title.replace(/\s+/g, ' ').slice(0, 160)}${x.result ? ' | Result: ' + x.result.slice(0, 120) : ''}`;
+  const prompt = `You are Braddy, the friendly mascot of Bragging Wall, an app where ${nm || 'the user'}${who ? ` (${who})` : ''} logs work wins. You are their best friend: warm, funny, genuinely proud of them, and honest. You are commenting on one win, like a best friend commenting under a post.
+
+Voice: second person ("you"), casual like texting a close friend, short sentences, 1 to 3 emojis in the comment. No corporate speak and no clichés such as "testament to" or "journey of growth".
+Honesty rules: praise what is genuinely good and be specific about it. If the win is vague, has no result, has no numbers, or undersells itself, say so kindly and say exactly what to add. Do not exaggerate a small win. Never invent facts, numbers, people or outcomes: use only what is given below. Compare with earlier wins only when the journey data supports it.
+${imgs.length ? `Images: you are given ${imgs.length} image attachment(s), in this order: ${imgFiles.map(f => f.name).join('; ')}. Comment on what you can actually see. If you can't read an image, say it's good proof without describing details you can't see.` : ''}
+
+Reply with only JSON:
+{"headline": string (max 8 words, may include 1 emoji),
+ "comment": string (2 to 4 sentences),
+ "attachments": [{"name": exact attachment file name, "note": one short friendly sentence about that file}] (empty array if there are no attachments),
+ "growth": string[] (1 to 3 short observations about their growth and journey, based on the journey data),
+ "advice": string (one honest, specific suggestion: what to improve in this entry, or how to use this win in a resume, 1:1 or salary talk),
+ "sticker": one of "party","trophy","rocket","fire","hearts","coffee","sparkle","megaphone","dumbbell",
+ "caption": string (sticker caption, max 16 characters, upper case),
+ "reactions": string[] (2 or 3 single emojis)}
+
+THE WIN
+Date: ${w.date}
+Achievement: ${w.title}
+Result: ${w.result || '(none written)'}
+Details: ${w.details ? w.details.slice(0, 1500) : '(none written)'}
+Area: ${c.area}
+Size: ${IMPACT[w.impact]}
+Feeling: ${w.mood ? MOOD[w.mood].label : '(not set)'}
+Project: ${w.project || '(none)'}
+Tags: ${(w.tags || []).join(', ') || '(none)'}
+Attachments: ${(w.files || []).map(f => `${f.name} (${f.type || 'file'}, ${fmtSize(f.size)})`).join('; ') || '(none)'}
+
+JOURNEY
+This is win #${c.nth} on the wall overall, #${c.nthArea} in ${c.area}${c.firstInArea ? ' (their first in this area)' : `; previous ${c.area} win was ${c.gapDays} days earlier`}.
+Wins in the same month so far: ${c.monthNth}. Day streak at this point: ${c.streakAt}. Big wins before this one: ${c.bigBefore}.${w.project ? ` Wins on this project so far: ${c.projectCount}.` : ''}
+Wins per month (last 6 months, oldest first): ${c.months.map(m => `${m.label} ${m.n}`).join(', ')}.
+Earlier ${c.area} wins (date | area | size | achievement | result):
+${c.recentArea.map(line).join('\n') || '(none)'}
+Other recent wins:
+${c.prior.filter(x => x.category !== w.category).slice(-6).map(line).join('\n') || '(none)'}`;
+  try {
+    const res = await sample.json(prompt, imgs.length ? { images: imgs } : {});
+    const b = normBraddy({ ...res, sig, at: Date.now() });
+    if (!b) throw { code: 'invalid_json' };
+    const items = S.days.get(w.date);
+    if (items && items.some(x => x.id === w.id)) { S.days.set(w.date, items.map(x => x.id === w.id ? { ...x, braddy: b } : x)); invalidate(); persistDay(w.date); }
+  } catch (e) {
+    const code = e && e.code;
+    if (code === 'not_granted' || code === 'sampling_disabled' || code === 'capability_disabled') BD.off = true;
+    else if (code === 'rate_limited') { BD.until = Date.now() + 60000; if (manual) toast('Braddy is busy right now. Try again in a minute.', 'warn'); }
+    else if (manual) toast("Braddy couldn't comment this time. Try again.", 'warn');
+  } finally {
+    BD.busy.delete(w.id);
+    if (S.view === 'win' && UI.win.id === w.id) { const cur = allWins().find(x => x.id === w.id); if (cur) renderBraddy(cur); }
+  }
+}
+function braddyFor(w) { const sig = braddySig(w); return w.braddy && w.braddy.sig === sig ? w.braddy : braddyLocal(w, braddyCtx(w)); }
+function pdfBraddy(w2, w) {
+  const b = braddyFor(w), { doc, M, CW } = w2, x = M, pad = 16, tx = x + pad + 44, tw = CW - pad * 2 - 44;
+  const clean = t => pdfSafe(t).replace(/\s{2,}/g, ' ').trim();
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(12.5); const hl = b.headline ? doc.splitTextToSize(clean(b.headline), tw) : [];
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(10); const cl = doc.splitTextToSize(clean(b.comment), tw);
+  const gl = b.growth.map(g => doc.splitTextToSize('- ' + clean(g), tw)).flat();
+  doc.setFont('helvetica', 'italic'); const al = b.advice ? doc.splitTextToSize(clean('Honest advice: ' + b.advice), tw - 16) : [];
+  const h = pad + 16 + hl.length * 15 + 4 + cl.length * 13.5 + (gl.length ? 8 + gl.length * 13 : 0) + (al.length ? 14 + al.length * 13 + 10 : 0) + pad;
+  w2.ensure(h + 12);
+  const y = w2.y + 4;
+  doc.setFillColor(255, 248, 228); doc.setDrawColor(240, 215, 150); doc.setLineWidth(.8); doc.roundedRect(x, y, CW, h, 10, 10, 'FD');
+  const ax = x + pad, ay = y + pad, s = 34 / 64;
+  doc.setFillColor(255, 233, 176); doc.circle(ax + 17, ay + 17, 17, 'F');
+  doc.setFillColor(233, 120, 75); doc.roundedRect(ax + 12.5 * s, ay + 21 * s, 39 * s, 34 * s, 11 * s, 11 * s, 'F');
+  doc.setFillColor(255, 255, 255); doc.circle(ax + 25 * s, ay + 34 * s, 4.4 * s, 'F'); doc.circle(ax + 39 * s, ay + 34 * s, 4.4 * s, 'F');
+  doc.setFillColor(27, 36, 34); doc.circle(ax + 25.8 * s, ay + 35 * s, 2.3 * s, 'F'); doc.circle(ax + 39.8 * s, ay + 35 * s, 2.3 * s, 'F');
+  doc.setFillColor(90, 26, 20); pdfPoly(doc, ax, ay, [[27.6 * s, 40.6 * s], [32 * s, 45 * s], [36.4 * s, 40.6 * s]], 'F');
+  pdfStar4(doc, ax + 32 * s, ay + 9.5 * s, 6.5 * s, [244, 179, 54]);
+  let cy = y + pad + 10;
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.setTextColor(15, 110, 106); doc.text('Braddy from Bragging Wall', tx, cy);
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(...PC.muted); doc.text('Best friend' + (b.at ? '' : ' · quick take'), tx + doc.getTextWidth('Braddy from Bragging Wall') * 10 / 8.5 + 8, cy);
+  cy += 6;
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(12.5); doc.setTextColor(...PC.ink); hl.forEach(l => { cy += 15; doc.text(l, tx, cy); }); cy += 4;
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(60, 58, 50); cl.forEach(l => { cy += 13.5; doc.text(l, tx, cy); });
+  if (gl.length) { cy += 8; doc.setFontSize(9.5); doc.setTextColor(15, 110, 106); gl.forEach(l => { cy += 13; doc.text(l, tx, cy); }); }
+  if (al.length) { cy += 10; doc.setFillColor(255, 255, 255); doc.roundedRect(tx - 4, cy - 2, tw + 4, al.length * 13 + 10, 6, 6, 'F'); doc.setFont('helvetica', 'italic'); doc.setFontSize(9.5); doc.setTextColor(120, 80, 0); al.forEach(l => { cy += 13; doc.text(l, tx + 6, cy); }); }
+  w2.y = y + h + 12;
+}
+
+/* ================= Brag sheets: branded PDF + email ================= */
+const NOTE_RGB = [[255, 226, 122], [255, 196, 210], [185, 234, 210], [191, 221, 247], [255, 210, 163], [217, 203, 246]];
+const PIN_RGB = [[15, 110, 106], [224, 96, 126], [244, 179, 54], [91, 141, 239]];
+const SCOPES = { brag: 'This brag', day: 'Day', week: 'Week', month: 'Month', year: 'Year' };
+function pdfPoly(doc, cx, cy, pts, style) { const rel = pts.slice(1).map((p, i) => [p[0] - pts[i][0], p[1] - pts[i][1]]); doc.lines(rel, cx + pts[0][0], cy + pts[0][1], [1, 1], style, true); }
+function pdfStar4(doc, cx, cy, r, rgb) { doc.setFillColor(...rgb); pdfPoly(doc, cx, cy, [[0, -r], [r * .26, -r * .26], [r, 0], [r * .26, r * .26], [0, r], [-r * .26, r * .26], [-r, 0], [-r * .26, -r * .26]], 'F'); }
+function pdfStar5(doc, cx, cy, r, on) {
+  const pts = [...Array(10)].map((_, i) => { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * .45 : r; return [Math.cos(a) * rr, Math.sin(a) * rr]; });
+  if (on) { doc.setFillColor(244, 179, 54); pdfPoly(doc, cx, cy, pts, 'F'); } else { doc.setDrawColor(150, 140, 120); doc.setLineWidth(.6); pdfPoly(doc, cx, cy, pts, 'S'); }
+}
+function pdfLogo(doc, x, y, s) {
+  const k = s / 48;
+  doc.setFillColor(15, 110, 106); doc.roundedRect(x, y, s, s, 13 * k, 13 * k, 'F');
+  doc.setFillColor(240, 238, 233);
+  [[8, 30, 15, 8], [25, 30, 15, 8], [8, 20, 6.5, 8], [16.5, 20, 15, 8], [33.5, 20, 6.5, 8], [8, 10, 15, 8]].forEach(([bx, by, bw, bh]) => doc.roundedRect(x + bx * k, y + by * k, bw * k, bh * k, 2.5 * k, 2.5 * k, 'F'));
+  pdfStar4(doc, x + 32.5 * k, y + 13.5 * k, 8 * k, [244, 179, 54]);
+}
+function pdfBrandHeader(w, kicker, title, sub) {
+  const { doc, W, M } = w;
+  doc.setFillColor(15, 110, 106); doc.rect(0, 0, W, 98, 'F');
+  doc.setFillColor(244, 179, 54); doc.rect(0, 98, W, 4, 'F');
+  pdfLogo(doc, M, 28, 42);
+  doc.setFont('times', 'bold'); doc.setFontSize(23); doc.setTextColor(255, 255, 255); doc.text('Bragging', M + 54, 52);
+  const bw = doc.getTextWidth('Bragging ');
+  doc.setFont('times', 'bolditalic'); doc.setTextColor(244, 179, 54); doc.text('Wall', M + 54 + bw, 52);
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(198, 232, 227); doc.text('Every win, pinned where you can see it.', M + 54, 68);
+  const maxW = W - M - (M + 250);
+  doc.setFont('courier', 'bold'); doc.setFontSize(8); doc.setTextColor(244, 179, 54); doc.text(pdfSafe(kicker).toUpperCase(), W - M, 40, { align: 'right' });
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(13); doc.setTextColor(255, 255, 255); doc.text(doc.splitTextToSize(pdfSafe(title), maxW)[0], W - M, 57, { align: 'right' });
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(198, 232, 227); doc.text(doc.splitTextToSize(pdfSafe(sub), maxW)[0], W - M, 72, { align: 'right' });
+  w.y = 126;
+  w.hooks.page = () => {
+    doc.setFillColor(15, 110, 106); doc.rect(0, 0, W, 6, 'F');
+    pdfLogo(doc, M, 20, 18);
+    doc.setFont('times', 'bold'); doc.setFontSize(11); doc.setTextColor(15, 110, 106); doc.text('Bragging', M + 24, 33);
+    const b2 = doc.getTextWidth('Bragging '); doc.setFont('times', 'bolditalic'); doc.setTextColor(200, 140, 20); doc.text('Wall', M + 24 + b2, 33);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(...PC.muted); doc.text(pdfSafe(title), W - M, 33, { align: 'right' });
+    w.y = 58;
+  };
+}
+function pdfBrandFinish(w, owner) {
+  const { doc, W, H, M } = w, n = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= n; i++) {
+    doc.setPage(i);
+    doc.setDrawColor(...PC.line); doc.setLineWidth(.6); doc.line(M, H - 40, W - M, H - 40);
+    pdfLogo(doc, M, H - 33, 12);
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(15, 110, 106); doc.text('Bragging Wall', M + 17, H - 24.5);
+    doc.setFont('helvetica', 'normal'); doc.setTextColor(...PC.muted);
+    if (owner) doc.text(pdfSafe(owner), M + 17 + doc.getTextWidth('Bragging Wall') + 8, H - 24.5);
+    doc.text(`Generated ${fmtDateK(todayKey())}  ·  Page ${i} of ${n}`, W - M, H - 24.5, { align: 'right' });
+  }
+  return doc;
+}
+function pdfBragCard(w, b, idx, opts = {}) {
+  const { doc, M, CW, H } = w;
+  const pad = 18, x = M, width = CW, innerW = width - pad * 2;
+  const tSize = opts.big ? 21 : 13.5, tLH = tSize * 1.22;
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(tSize);
+  const titleLines = doc.splitTextToSize(pdfSafe(b.title), innerW - (b.impact === 3 ? 95 : 0));
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5);
+  const resLines = b.result ? doc.splitTextToSize(pdfSafe('-> ' + b.result), innerW) : [];
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(9.8);
+  let det = b.details ? pdfSafe(b.details) : '';
+  if (opts.compact && det.length > 360) det = det.slice(0, 360).trim() + '...';
+  let detLines = det ? doc.splitTextToSize(det, innerW) : [];
+  const imgs = (opts.images || []).filter(Boolean), imgH = imgs.length ? (opts.big ? 190 : 66) : 0;
+  const others = (b.files || []).filter(f => !f.thumb);
+  const fixed = pad + 14 + 8 + titleLines.length * tLH + (b.mood ? 20 : 0) + (resLines.length ? resLines.length * 14 + 6 : 0) + (imgH ? imgH + 12 : 0) + (others.length ? 16 : 0) + 26 + pad;
+  const maxH = H - 2 * M - 60;
+  const room = Math.floor((maxH - fixed) / 13.5);
+  if (detLines.length > room) { detLines = detLines.slice(0, Math.max(0, room)); if (detLines.length) detLines[detLines.length - 1] = detLines[detLines.length - 1].replace(/.{0,3}$/, '...'); }
+  const h = fixed + (detLines.length ? detLines.length * 13.5 + 6 : 0);
+  w.ensure(h + 16);
+  const y = w.y + 8, col = NOTE_RGB[idx % NOTE_RGB.length];
+  doc.setFillColor(222, 216, 203); doc.roundedRect(x + 3, y + 4, width, h, 5, 5, 'F');
+  doc.setFillColor(...col); doc.roundedRect(x, y, width, h, 5, 5, 'F');
+  doc.setFillColor(...PIN_RGB[idx % PIN_RGB.length]); doc.circle(x + width / 2, y + 9, 4.6, 'F');
+  doc.setFillColor(255, 255, 255); doc.circle(x + width / 2 - 1.4, y + 7.6, 1.3, 'F');
+  if (b.impact === 3) {
+    doc.setDrawColor(200, 120, 0); doc.setLineWidth(1.6); doc.roundedRect(x + width - pad - 92, y + pad - 2, 92, 20, 4, 4, 'S');
+    doc.setFont('courier', 'bold'); doc.setFontSize(9); doc.setTextColor(200, 120, 0); doc.text('BRAG-WORTHY!', x + width - pad - 46, y + pad + 11.5, { align: 'center' });
+  }
+  let cy = y + pad + 9;
+  doc.setFont('courier', 'bold'); doc.setFontSize(8.2); doc.setTextColor(95, 85, 60);
+  doc.text(fmtLong(parseYmd(b.date)).toUpperCase(), x + pad, cy); cy += 14;
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(tSize); doc.setTextColor(43, 42, 36);
+  titleLines.forEach(l => { cy += tLH * .82; doc.text(l, x + pad, cy); cy += tLH * .18; });
+  cy += 6;
+  if (b.mood) { doc.setFillColor(255, 255, 255); doc.roundedRect(x + pad, cy - 2, 108, 16, 8, 8, 'F'); doc.setFont('helvetica', 'bold'); doc.setFontSize(8.8); doc.setTextColor(43, 42, 36); doc.text('Feeling ' + MOOD[b.mood].label.toLowerCase(), x + pad + 8, cy + 9); cy += 20; }
+  if (resLines.length) { doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5); doc.setTextColor(31, 122, 77); resLines.forEach(l => { cy += 11; doc.text(l, x + pad, cy); cy += 3; }); cy += 6; }
+  if (detLines.length) { doc.setFont('helvetica', 'normal'); doc.setFontSize(9.8); doc.setTextColor(60, 58, 50); detLines.forEach(l => { cy += 10.5; doc.text(l, x + pad, cy); cy += 3; }); cy += 6; }
+  if (imgH) {
+    let ix = x + pad;
+    const total = imgs.reduce((t, im) => t + imgH * im.w / im.h + 8, 0), sc = Math.min(1, innerW / total);
+    imgs.forEach(im => { const iw = imgH * im.w / im.h * sc, ih = imgH * sc; doc.setFillColor(255, 255, 255); doc.rect(ix - 3, cy - 3, iw + 6, ih + 6, 'F'); try { doc.addImage(im.data, 'JPEG', ix, cy, iw, ih); } catch (e) { /* skip */ } ix += iw + 12; });
+    cy += imgH * Math.min(1, innerW / total) + 12;
+  }
+  if (others.length) { doc.setFont('helvetica', 'normal'); doc.setFontSize(8.8); doc.setTextColor(80, 75, 60); cy += 10; doc.text(doc.splitTextToSize(pdfSafe('Attached: ' + others.map(f => `${f.name} (${fmtSize(f.size)})`).join(', ')), innerW)[0], x + pad, cy); cy += 6; }
+  const my = y + h - pad - 4;
+  doc.setDrawColor(0, 0, 0); doc.setLineDashPattern([2, 2], 0); doc.setDrawColor(190, 180, 150); doc.setLineWidth(.6); doc.line(x + pad, my - 12, x + width - pad, my - 12); doc.setLineDashPattern([], 0);
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5); doc.setTextColor(...(catOf(b.category).rgb));
+  const area = pdfSafe(catOf(b.category).label); doc.text(area, x + pad, my + 2);
+  let mx = x + pad + doc.getTextWidth(area) + 10;
+  [1, 2, 3].forEach(i => { pdfStar5(doc, mx + 4, my - 1, 4.2, i <= b.impact); mx += 10; });
+  doc.setFont('helvetica', 'normal'); doc.setTextColor(80, 75, 60);
+  const metaBits = [IMPACT[b.impact], b.project, (b.tags || []).map(t => '#' + t).join(' '), b.files && b.files.length ? plural(b.files.length, 'attachment') : ''].filter(Boolean).join('  ·  ');
+  doc.text(doc.splitTextToSize(pdfSafe(metaBits), x + width - pad - mx - 6)[0] || '', mx + 6, my + 2);
+  w.y = y + h + 14;
+}
+function loadImage(src) { return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = src; }); }
+async function pdfImageFor(f, full) {
+  let src = f.thumb;
+  if (full) { try { src = await fileURL(f); } catch (e) { src = f.thumb; } }
+  if (!src) return null;
+  const im = await loadImage(src);
+  const sc = Math.min(1, (full ? 1400 : 360) / Math.max(im.naturalWidth, im.naturalHeight));
+  const c = document.createElement('canvas'); c.width = Math.max(1, Math.round(im.naturalWidth * sc)); c.height = Math.max(1, Math.round(im.naturalHeight * sc));
+  const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(im, 0, 0, c.width, c.height);
+  return { data: c.toDataURL('image/jpeg', full ? .85 : .75), w: c.width, h: c.height };
+}
+function sheetRange(scope, anchor, winId) {
+  const d = parseYmd(isYmd(anchor) ? anchor : todayKey());
+  if (scope === 'brag') { const w = allWins().find(x => x.id === winId); return w ? { list: [w], from: w.date, to: w.date, kicker: 'Brag', title: fmtLong(parseYmd(w.date)), slug: 'brag-' + w.date, label: `“${w.title.slice(0, 60)}${w.title.length > 60 ? '…' : ''}”` } : null; }
+  let from, to, title, kicker;
+  if (scope === 'day') { from = to = ymd(d); title = fmtLong(d); kicker = 'Daily brag sheet'; }
+  else if (scope === 'week') { const s = startOfWeek(d); from = ymd(s); to = ymd(addDays(s, 6)); title = 'Week of ' + rangeLabel(from, to); kicker = 'Weekly brag sheet'; }
+  else if (scope === 'month') { from = ymd(startOfMonth(d)); to = ymd(endOfMonth(d)); title = fmtMonthYear(d); kicker = 'Monthly brag sheet'; }
+  else { from = `${d.getFullYear()}-01-01`; to = `${d.getFullYear()}-12-31`; title = String(d.getFullYear()); kicker = 'Yearly brag sheet'; }
+  return { list: winsIn(from, to), from, to, kicker, title, slug: `${scope}-${from}`, label: title };
+}
+async function buildBragPdf(scope, r) {
+  const single = scope === 'brag', list = r.list;
+  const imgs = new Map();
+  for (const b of list) imgs.set(b.id, await Promise.all((b.files || []).filter(f => f.thumb).slice(0, single ? 4 : 3).map(f => pdfImageFor(f, single).catch(() => null))));
+  const owner = [S.profile.name, S.profile.role, S.profile.company].filter(Boolean).join(' · ');
+  return pdfOrWarn(() => {
+    const w = pdfWriter(), s = computeStats(list);
+    pdfBrandHeader(w, r.kicker, single ? 'A win worth bragging about' : r.title, single ? r.title : `${plural(s.total, 'win')}${s.big ? ` · ${s.big} big` : ''}${owner ? ' · ' + (S.profile.name || '') : ''}`);
+    if (owner) { w.text(owner, { size: 10.5, bold: true }); w.space(8); }
+    if (single) { pdfBragCard(w, list[0], 0, { big: true, images: imgs.get(list[0].id) }); pdfBraddy(w, list[0]); }
+    else {
+      w.statRow([[s.total, 'Wins'], [s.big, 'Big wins'], [s.activeDays, 'Active days'], [s.topCat ? s.topCat.label : '-', 'Top area']]);
+      const moods = {}; list.forEach(b => { if (b.mood) moods[b.mood] = (moods[b.mood] || 0) + 1; });
+      const ml = Object.entries(moods).sort((a, b) => b[1] - a[1]).map(([k, n]) => `${MOOD[k].label} ${n}`).join('  ·  ');
+      if (ml) { w.text('How it felt: ' + ml, { size: 9.5, color: PC.muted }); w.space(6); }
+      const groupKey = scope === 'year' ? b => b.date.slice(0, 7) : b => b.date;
+      const groupLbl = scope === 'year' ? k => fmtMonthYear(parseYmd(k + '-01')) : k => fmtLong(parseYmd(k));
+      let cur = null, i = 0;
+      for (const b of list) {
+        const k = groupKey(b);
+        if (scope !== 'day' && k !== cur) { cur = k; w.ensure(60); w.space(4); w.text(groupLbl(k), { size: 11.5, bold: true, color: PC.accent }); w.space(2); }
+        pdfBragCard(w, b, i++, { compact: scope === 'year' || scope === 'month', images: imgs.get(b.id) });
+      }
+    }
+    return pdfBrandFinish(w, owner);
+  });
+}
+function emailText(scope, r) {
+  const list = r.list, nm = firstName();
+  const subject = scope === 'brag' ? `Brag: ${list[0].title.replace(/\s+/g, ' ').slice(0, 90)}` : `My ${r.kicker.toLowerCase()} · ${r.title} (${plural(list.length, 'win')})`;
+  const lines = list.map(b => `• ${fmtShortK(b.date)}: ${b.title.replace(/\s+/g, ' ')}${b.result ? ' → ' + b.result : ''} (${IMPACT[b.impact]}${b.mood ? ', feeling ' + MOOD[b.mood].label.toLowerCase() : ''})`);
+  const bt = scope === 'brag' ? braddyFor(list[0]) : null;
+  let body = `Hi,\n\n${scope === 'brag' ? 'Here is a win worth bragging about' : `Here is my ${r.kicker.toLowerCase()} for ${r.title}`}:\n\n${lines.join('\n')}\n\n${bt ? `Braddy from Bragging Wall says: ${bt.headline ? bt.headline + ' ' : ''}${bt.comment}\n\n` : ''}The full brag sheet is attached as a PDF.\n\n${nm ? '— ' + nm + '\n' : ''}Sent from Bragging Wall`;
+  return { subject, body };
+}
+function openEmailDialog({ scope = 'week', anchor = todayKey(), winId = null } = {}) {
+  const st = { scope, anchor, winId, pdf: null, file: '' };
+  const scopes = Object.keys(SCOPES).filter(k => k !== 'brag' || winId);
+  const canShareFiles = !window.claude && !!(navigator.canShare && navigator.share);
+  const m = openModal({
+    title: 'Email your brags', wide: true,
+    body: `<div class="em">
+      <div class="em-step"><span class="em-n">1</span><div class="stack" style="gap:12px;flex:1;min-width:0">
+        <fieldset class="field"><legend>What to send</legend><div class="seg" id="em-scope">${scopes.map(k => `<label><input type="radio" name="em-scope" value="${k}" ${k === scope ? 'checked' : ''}><span>${SCOPES[k]}</span></label>`).join('')}</div></fieldset>
+        <div class="em-row"><div class="field" id="em-date-f"><label for="em-date">Pick any day in the period</label><input type="date" id="em-date" value="${anchor}"></div><div class="em-sum" id="em-sum"></div></div>
+        <div class="field"><label for="em-to">Send to</label><input type="email" id="em-to" autocomplete="email" placeholder="you@example.com" value="${esc(S.profile.email || '')}">
+          <label class="check-line small"><input type="checkbox" id="em-remember" ${S.profile.email ? '' : 'checked'}>Remember this address</label></div>
+      </div></div>
+      <div class="em-step" id="em-step2"><span class="em-n">2</span><div class="stack" style="gap:10px;flex:1;min-width:0">
+        <p class="em-lead" id="em-lead">Create your branded PDF brag sheet. It downloads to your device.</p>
+        <div class="row"><button type="button" class="btn" id="em-make">${icon('file')}Create PDF</button><span class="small muted" id="em-file"></span></div>
+      </div></div>
+      <div class="em-step em-off" id="em-step3"><span class="em-n">3</span><div class="stack" style="gap:10px;flex:1;min-width:0">
+        <p class="em-lead">Open your email with everything filled in, then attach the PDF you just downloaded.</p>
+        <div class="row" id="em-open">
+          ${canShareFiles ? `<button type="button" class="btn" id="em-share">${icon('share')}Share PDF to email app</button>` : ''}
+          <a class="btn ${canShareFiles ? 'ghost' : ''}" id="em-gmail" target="_blank" rel="noopener">${icon('mail')}Open Gmail</a>
+          <a class="btn ghost" id="em-outlook" target="_blank" rel="noopener">${icon('mail')}Open Outlook</a>
+          <a class="btn ghost" id="em-mailto">${icon('mail')}Email app</a>
+          <button type="button" class="btn ghost" id="em-copy">${icon('copy')}Copy email text</button>
+        </div>
+        <details class="em-prev"><summary>Preview the email</summary><p class="small"><b>To:</b> <span id="em-pto"></span></p><p class="small"><b>Subject:</b> <span id="em-psub"></span></p><pre id="em-pbody"></pre></details>
+      </div></div>
+    </div>`,
+    actions: [{ label: 'Done', kind: 'ghost' }],
+  });
+  const W = m.wrap, $w = q => $(q, W);
+  const range = () => sheetRange(st.scope, st.anchor, st.winId);
+  const links = () => {
+    const r = range(); if (!r || !r.list.length) return;
+    const { subject, body } = emailText(st.scope, r), to = $w('#em-to').value.trim();
+    const short = body.length > 1800 ? body.slice(0, 1750) + '\n…\n\nSee the attached PDF for everything.' : body;
+    const e = encodeURIComponent;
+    $w('#em-gmail').href = `https://mail.google.com/mail/?view=cm&fs=1&to=${e(to)}&su=${e(subject)}&body=${e(short)}`;
+    $w('#em-outlook').href = `https://outlook.live.com/mail/0/deeplink/compose?to=${e(to)}&subject=${e(subject)}&body=${e(short)}`;
+    $w('#em-mailto').href = `mailto:${to}?subject=${e(subject)}&body=${e(short)}`;
+    $w('#em-pto').textContent = to || '(add an address above)'; $w('#em-psub').textContent = subject; $w('#em-pbody').textContent = body;
+  };
+  const refresh = () => {
+    const r = range();
+    $w('#em-date-f').hidden = st.scope === 'brag';
+    const n = r ? r.list.length : 0;
+    $w('#em-sum').innerHTML = !r ? 'That brag no longer exists.' : n ? `<b>${plural(n, 'win')}</b><span>${esc(st.scope === 'brag' ? r.label : r.kicker + ' · ' + r.title)}</span>` : `<b>No wins</b><span>Nothing bragged in ${esc(r.title)} yet.</span>`;
+    $w('#em-make').disabled = !n;
+    st.pdf = null; $w('#em-file').textContent = ''; $w('#em-step3').classList.add('em-off'); $w('#em-make').innerHTML = `${icon('file')}Create PDF`;
+    links();
+  };
+  $w('#em-scope').addEventListener('change', e => { st.scope = e.target.value; refresh(); });
+  $w('#em-date').addEventListener('change', e => { if (isYmd(e.target.value)) { st.anchor = e.target.value; refresh(); } });
+  $w('#em-to').addEventListener('input', links);
+  const remember = () => { const to = $w('#em-to').value.trim(); if ($w('#em-remember').checked && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(to) && to !== S.profile.email) { S.profile = { ...S.profile, email: to }; persistProfile(); } };
+  $w('#em-make').onclick = async () => {
+    const r = range(); if (!r || !r.list.length) return;
+    const b = $w('#em-make'); b.disabled = true; b.innerHTML = `<span class="spinner" style="width:16px;height:16px;border-width:2px;margin:0"></span>Creating…`;
+    remember();
+    const doc = await buildBragPdf(st.scope, r);
+    b.disabled = false;
+    if (!doc) { b.innerHTML = `${icon('file')}Create PDF`; return; }
+    st.pdf = doc.output('blob'); st.file = `bragging-wall-${r.slug}.pdf`;
+    const ok = await saveFile(st.file, st.pdf);
+    b.innerHTML = `${icon('download')}Download again`;
+    $w('#em-file').textContent = ok ? `Saved ${st.file}` : st.file;
+    $w('#em-step3').classList.remove('em-off');
+    links();
+  };
+  const share = $w('#em-share');
+  if (share) share.onclick = async () => {
+    if (!st.pdf) return;
+    const r = range(), { subject, body } = emailText(st.scope, r), f = new File([st.pdf], st.file, { type: 'application/pdf' });
+    if (!navigator.canShare({ files: [f] })) { toast("This browser can't share files. Use Open Gmail instead.", 'warn'); return; }
+    try { await navigator.share({ files: [f], title: subject, text: body }); } catch (e) { if (e && e.name !== 'AbortError') toast("Couldn't open the share menu. Use Open Gmail instead.", 'warn'); }
+  };
+  $w('#em-copy').onclick = async () => { const r = range(), { subject, body } = emailText(st.scope, r); try { await navigator.clipboard.writeText(`${subject}\n\n${body}`); toast('Email text copied'); } catch (e) { $w('.em-prev').open = true; toast('Select the text in the preview to copy it.'); } };
+  refresh();
 }
 
 /* ================= Report ================= */
@@ -3347,6 +3961,7 @@ function mountAccount() {
           </div>
           <div class="field"><label for="pf-role">Role or title</label><input id="pf-role" type="text" maxlength="120" placeholder="e.g. Senior QA Specialist"></div>
           <div class="field"><label for="pf-company">Company</label><input id="pf-company" type="text" maxlength="120"></div>
+          <div class="field"><label for="pf-email">Email for brag sheets <span class="opt">where your PDFs get sent</span></label><input id="pf-email" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com"></div>
           <div class="field-row">
             <div class="field"><label for="pf-goal">Weekly goal (wins)</label><input id="pf-goal" type="number" min="1" max="50" step="1"></div>
             <div class="field"><label for="pf-week">Weeks start on</label><select id="pf-week"><option value="1">Monday</option><option value="0">Sunday</option></select></div>
@@ -3378,7 +3993,7 @@ function mountAccount() {
   });
   $('#pf-form').addEventListener('submit', e => {
     e.preventDefault();
-    S.profile = normProfile({ ...S.profile, name: $('#pf-name').value.trim(), nickname: $('#pf-nick').value.trim(), role: $('#pf-role').value.trim(), company: $('#pf-company').value.trim(), weekStart: Number($('#pf-week').value), weeklyGoal: Number($('#pf-goal').value) });
+    S.profile = normProfile({ ...S.profile, name: $('#pf-name').value.trim(), nickname: $('#pf-nick').value.trim(), role: $('#pf-role').value.trim(), company: $('#pf-company').value.trim(), email: $('#pf-email').value.trim(), weekStart: Number($('#pf-week').value), weeklyGoal: Number($('#pf-goal').value) });
     persistProfile(); updateSideCard(); fillProfile(true); toast('Details saved');
   });
   $('#bk-json-note').textContent = S.lock ? 'Locked with your wall passcode (or your recovery code).' : "You'll choose a password for the file.";
@@ -3484,7 +4099,7 @@ async function decryptBackup(f) {
 function fillProfile(force) {
   if (!$('#pf-name') || (!force && $('#pf-form').contains(document.activeElement))) return;
   $('#pf-name').value = S.profile.name || ''; $('#pf-nick').value = S.profile.nickname || '';
-  $('#pf-role').value = S.profile.role || ''; $('#pf-company').value = S.profile.company || '';
+  $('#pf-role').value = S.profile.role || ''; $('#pf-company').value = S.profile.company || ''; $('#pf-email').value = S.profile.email || '';
   $('#pf-goal').value = String(S.profile.weeklyGoal); $('#pf-week').value = String(weekStartDay());
   const n = (S.profile.nickname || S.profile.name || '').trim();
   $('#pf-avatar').innerHTML = n ? esc(n.split(/\s+/).map(x => x[0]).slice(0, 2).join('').toUpperCase()) : icon('user');
@@ -3837,6 +4452,7 @@ function openPalette() {
     { g: 'Go to', label: 'Settings', icon: 'settings', run: () => go('account') },
     { g: 'Actions', label: 'Brag your win', icon: 'megaphone', run: () => { UI.selDate = todayKey(); go('today'); setTimeout(() => $('#t-title')?.focus(), 350); } },
     { g: 'Actions', label: 'New journal entry for today', icon: 'pen', run: () => { const nb = S.notebooks.find(n => n.kind === 'journal') || S.notebooks[0]; if (!nb) { go('notebooks'); return; } openNote(createPage(nb.id, todayKey(), nb.kind === 'journal' ? 'journal' : KINDS[nb.kind].tpl)); } },
+    { g: 'Actions', label: 'Email my brags as PDF', icon: 'mail', run: () => openEmailDialog({ scope: 'week', anchor: todayKey() }) },
     { g: 'Actions', label: 'Cheer me up', icon: 'sparkles', run: cheer },
     { g: 'Actions', label: 'Change theme', icon: 'sun', run: cycleTheme },
     ...(S.lock ? [{ g: 'Actions', label: 'Lock my wall now', icon: 'lock', run: () => lockNow() }] : []),
