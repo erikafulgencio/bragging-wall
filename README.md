@@ -22,6 +22,9 @@ Bragging Wall is a private place to record your work wins every day, so they're 
 ### Freedom Walls
 Every win you brag is pinned on your Freedom Wall as a sticky note (date, title, feeling, area, stars, a photo if you attached one). Tap a note to read a preview, then open the full win. Make as many walls as you like and pick which one shows on your home page (with one wall, it's shown automatically). Design each wall: draw with pen, marker and highlighter (with eraser and undo), add text, sticky notes, animated stickers, emoji, icons, shapes, your own images and GIFs, and choose a color, gradient, pattern or photo background. Drag wins to rearrange them, tilt them, or put them back in rows. Show all wins, this month, this year or big wins only.
 
+### Win highlights
+Make a win stand out with an animated effect: confetti, fireworks, hearts, sparkles, balloons, ladybugs walking around it, a spotlight, a crown, a gold shine, a rainbow border or flames. Pick one from the win page ("Highlight this win"), the win preview on your Freedom Wall, or the wall designer. Effects show on the Freedom Wall, the home carousel and the win page, and stay still if your device is set to reduce motion.
+
 ### Notebook templates
 29 page templates, grouped by notebook type. **Journal:** daily journal, morning pages, evening reflection, gratitude log, mood check-in, prompt of the day, weekly reflection, letter to future me. **Planner:** daily plan with time blocks, weekly plan, monthly plan, goal planner, priority matrix, habit tracker, project plan. **Work:** meeting notes, stand-up, 1:1 prep, test session, bug report, test plan, release checklist, sprint retro, weekly work review, learning notes, decision log. **General:** to-do list, idea dump, Cornell notes. Some templates fill in your wins for you (today's, this week's or the last two weeks').
 

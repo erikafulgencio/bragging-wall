@@ -841,6 +841,92 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .banner { align-items: center; flex-wrap: wrap; }
 .banner-msg { flex: 1 1 260px; line-height: 1.45; }
 .banner-acts { display: flex; gap: 6px; flex-wrap: wrap; }
+/* Win highlight effects */
+.fx { position: absolute; inset: 0; pointer-events: none; z-index: 6; font-size: var(--fxs, 10px); }
+.fw-win .fx { --fxs: 1cqw; }
+.car-card .fx { --fxs: 8px; }
+.win-note .fx { --fxs: 13px; }
+.wq .fx { --fxs: 11px; }
+.fxp-demo .fx { --fxs: 5.5px; }
+.fx-clip { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; }
+.fx i, .fx b, .fx u { position: absolute; display: block; font-style: normal; }
+/* confetti */
+.fx-confetti i { top: -10%; left: var(--x); width: var(--w); height: var(--h); background: var(--c); border-radius: .12em; opacity: 0; }
+/* fireworks */
+.fx-fireworks b { left: var(--x); top: var(--y); width: 0; height: 0; }
+.fx-fireworks b i { left: -.12em; top: 0; width: .24em; height: 1.4em; border-radius: .2em; background: linear-gradient(var(--c), transparent); transform-origin: 50% 0; transform: rotate(var(--a)) translateY(1.6em); opacity: .9; }
+.fx-fireworks b u { left: -.35em; top: -.35em; width: .7em; height: .7em; border-radius: 50%; background: #fff; box-shadow: 0 0 .8em .3em var(--c); opacity: 0; }
+/* hearts */
+.fx-hearts i { bottom: 0; left: var(--x); font-size: var(--s); line-height: 1; color: var(--c); opacity: 0; text-shadow: 0 .05em .15em rgba(0,0,0,.15); }
+/* sparkles */
+.fx-sparkles i { left: var(--x); top: var(--y); width: var(--s); height: var(--s); margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2); background: var(--c); clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%); filter: drop-shadow(0 0 .2em rgba(255, 210, 90, .9)); }
+/* balloons */
+.fx-balloons i { bottom: -1em; left: var(--x); margin-left: -1.2em; width: 2.4em; height: 3em; border-radius: 50% 50% 48% 52% / 58% 58% 42% 42%; background: radial-gradient(circle at 32% 28%, rgba(255,255,255,.75) 0 12%, transparent 24%), var(--c); opacity: 0; }
+.fx-balloons i::after { content: ""; position: absolute; left: 50%; top: 100%; width: .08em; height: 3.2em; background: rgba(60, 50, 30, .45); }
+.fx-balloons i::before { content: ""; position: absolute; left: 50%; top: 96%; margin-left: -.25em; border: .25em solid transparent; border-bottom: .3em solid var(--c); transform: rotate(180deg); }
+/* ladybugs */
+.fx-bugs i { width: 2.2em; height: 2.6em; left: 0; top: 0; margin: -1.3em 0 0 -1.1em; }
+.fx-bugs i svg { width: 100%; height: 100%; display: block; }
+/* spotlight */
+.fx-spotlight .fx-rays { inset: -45%; border-radius: 50%; background: repeating-conic-gradient(from 0deg, rgba(255, 220, 120, .55) 0 7deg, transparent 7deg 20deg); -webkit-mask: radial-gradient(closest-side, transparent 52%, #000 64%, transparent 100%); mask: radial-gradient(closest-side, transparent 52%, #000 64%, transparent 100%); }
+.fx-spotlight .fx-glow { inset: -6%; border-radius: 6%; box-shadow: 0 0 2.4em .8em rgba(255, 214, 102, .55); }
+/* crown */
+.fx-crown .fx-crown { left: 50%; top: -2.9em; width: 4.4em; height: 3em; margin-left: -2.2em; filter: drop-shadow(0 .25em .3em rgba(0,0,0,.25)); }
+.fx-crown .fx-crown svg { width: 100%; height: 100%; display: block; }
+.fx-crown .fx-cs { left: var(--x); top: -3em; width: 1em; height: 1em; background: #FFD978; clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%); }
+/* golden */
+.fx-golden .fx-gl { inset: -.3em; border-radius: .4em; box-shadow: 0 0 0 .22em #F4B336, 0 0 1.6em .3em rgba(244, 179, 54, .65); }
+.fx-golden .fx-sh { top: -20%; bottom: -20%; left: -60%; width: 45%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.75), transparent); transform: skewX(-18deg); }
+/* rainbow */
+.fx-rainbow .fx-rb { inset: -.45em; border-radius: .6em; padding: .32em; background: conic-gradient(#E0607E, #F4B336, #FFE27A, #3C8A37, #149B92, #5B8DEF, #8A4FB5, #E0607E); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; filter: drop-shadow(0 0 .5em rgba(140, 100, 240, .45)); }
+/* fire */
+.fx-fire i { bottom: -1.2em; left: var(--x); width: 2em; height: 3em; margin-left: -1em; border-radius: 50% 50% 42% 42% / 62% 62% 38% 38%; background: radial-gradient(ellipse at 50% 78%, #FFF4C2 0 14%, #FFD34E 28%, #F4892A 52%, rgba(224, 64, 58, .85) 66%, transparent 72%); transform-origin: 50% 100%; transform: scale(var(--s)); filter: blur(.04em); mix-blend-mode: multiply; }
+.fw-win.has-fx { z-index: 4; }
+@media (prefers-reduced-motion: no-preference) {
+  .fx-confetti i { animation: fx-fall var(--d) linear var(--dl) infinite; }
+  .fx-fireworks b i { animation: fx-ray 2.6s ease-out var(--dl) infinite; }
+  .fx-fireworks b u { animation: fx-pop 2.6s ease-out var(--dl) infinite; }
+  .fx-hearts i { animation: fx-rise var(--d) ease-in var(--dl) infinite; }
+  .fx-sparkles i { animation: fx-tw 1.8s ease-in-out var(--dl) infinite; }
+  .fx-balloons i { animation: fx-balloon var(--d) ease-in-out var(--dl) infinite; }
+  .fx-bugs i { animation: fx-walk 14s linear var(--dl) infinite; }
+  .fx-bugs i svg { animation: fx-waddle .3s ease-in-out infinite alternate; }
+  .fx-spotlight .fx-rays { animation: fx-spin 16s linear infinite; }
+  .fx-spotlight .fx-glow { animation: fx-pulse 2.4s ease-in-out infinite; }
+  .fx-crown .fx-crown { animation: fx-bob 2.2s ease-in-out infinite; }
+  .fx-crown .fx-cs { animation: fx-tw 1.6s ease-in-out var(--dl, 0s) infinite; }
+  .fx-golden .fx-gl { animation: fx-pulse 2.4s ease-in-out infinite; }
+  .fx-golden .fx-sh { animation: fx-shine 3s ease-in-out infinite; }
+  .fx-rainbow .fx-rb { animation: fx-hue 4s linear infinite; }
+  .fx-fire i { animation: fx-flick .45s ease-in-out var(--dl) infinite alternate; }
+}
+@media (prefers-reduced-motion: reduce) { .fx-confetti i, .fx-hearts i, .fx-balloons i { opacity: .9; top: var(--x); } .fx-fireworks b u { opacity: 1; } .fx-bugs i:nth-child(1) { left: 20%; } .fx-bugs i:nth-child(2) { left: 100%; top: 60%; } .fx-bugs i:nth-child(3) { left: 60%; top: 100%; } }
+@keyframes fx-fall { 0% { top: -10%; opacity: 0; transform: rotate(0) rotateY(0); } 8% { opacity: 1; } 92% { opacity: 1; } 100% { top: 104%; opacity: 0; transform: rotate(var(--rt)) rotateY(720deg); } }
+@keyframes fx-ray { 0%, 12% { transform: rotate(var(--a)) translateY(.2em) scaleY(0); opacity: 0; } 18% { opacity: 1; } 45% { transform: rotate(var(--a)) translateY(1.8em) scaleY(1); opacity: 1; } 75%, 100% { transform: rotate(var(--a)) translateY(3em) scaleY(.15); opacity: 0; } }
+@keyframes fx-pop { 0%, 10% { opacity: 0; transform: scale(.2); } 16% { opacity: 1; transform: scale(1.2); } 40%, 100% { opacity: 0; transform: scale(.4); } }
+@keyframes fx-rise { 0% { transform: translate(0, 0) scale(.5); opacity: 0; } 15% { opacity: 1; } 50% { transform: translate(var(--sw), -6em) scale(1); } 100% { transform: translate(calc(var(--sw) * -1), -13em) scale(1.15); opacity: 0; } }
+@keyframes fx-tw { 0%, 100% { transform: scale(.35) rotate(0); opacity: .4; } 50% { transform: scale(1) rotate(45deg); opacity: 1; } }
+@keyframes fx-balloon { 0% { transform: translateY(0) rotate(-5deg); opacity: 0; } 10% { opacity: 1; } 50% { transform: translateY(-10em) rotate(5deg); } 90% { opacity: 1; } 100% { transform: translateY(-21em) rotate(-4deg); opacity: 0; } }
+@keyframes fx-walk { 0% { left: 0; top: 0; transform: rotate(90deg); } 24% { left: 100%; top: 0; transform: rotate(90deg); } 25% { left: 100%; top: 0; transform: rotate(180deg); } 49% { left: 100%; top: 100%; transform: rotate(180deg); } 50% { left: 100%; top: 100%; transform: rotate(270deg); } 74% { left: 0; top: 100%; transform: rotate(270deg); } 75% { left: 0; top: 100%; transform: rotate(360deg); } 99% { left: 0; top: 0; transform: rotate(360deg); } 100% { left: 0; top: 0; transform: rotate(450deg); } }
+@keyframes fx-waddle { from { transform: rotate(-6deg); } to { transform: rotate(6deg); } }
+@keyframes fx-spin { to { transform: rotate(360deg); } }
+@keyframes fx-pulse { 50% { opacity: .55; } }
+@keyframes fx-bob { 50% { transform: translateY(-.4em) rotate(-4deg); } }
+@keyframes fx-shine { 0%, 35% { left: -60%; } 75%, 100% { left: 120%; } }
+@keyframes fx-hue { to { filter: hue-rotate(360deg) drop-shadow(0 0 .5em rgba(140, 100, 240, .45)); } }
+@keyframes fx-flick { from { transform: scale(var(--s)) scaleY(.85) skewX(-3deg); } to { transform: scale(var(--s)) scaleY(1.12) skewX(3deg); } }
+/* picker */
+.fxp-modal.modal.wide { width: min(980px, 100%); }
+.fxp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
+.fxp-card { display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 16px; border: 1.5px solid var(--line); background: var(--surface-solid); cursor: pointer; text-align: left; font: inherit; color: var(--ink); transition: border-color .15s, transform .15s var(--ease); }
+.fxp-card:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); }
+.fxp-card.on { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+.fxp-demo { position: relative; height: 110px; border-radius: 12px; background: var(--surface-2); display: grid; place-items: center; overflow: hidden; }
+.fxp-note { position: relative; width: 62%; height: 70%; background: var(--nc); border-radius: 3px; box-shadow: 0 6px 12px -6px rgba(0,0,0,.4); transform: rotate(-3deg); padding: 10px 8px; font: 700 .82rem/1.05 var(--font-hand); color: #2B2A24; overflow: hidden; }
+.fxp-demo .fx { inset: 15% 19%; }
+.fxp-txt b { display: block; font-size: .9rem; } .fxp-txt small { display: block; font-size: .76rem; color: var(--muted); }
+.fx-btn { background: linear-gradient(120deg, #F4B336, #E0607E 55%, #8A4FB5); color: #fff; border: 0; }
+.fx-btn:hover { filter: brightness(1.05); }
 /* Freedom walls */
 .nav .nav-s { display: none; }
 .fw-frame { container-type: inline-size; width: 100%; position: relative; }
@@ -1803,6 +1889,7 @@ function normItem(it) {
     tags: Array.isArray(it.tags) ? it.tags.map(String).slice(0, 12) : [],
     createdAt: Number(it.createdAt) || Date.now(), updatedAt: Number(it.updatedAt) || Date.now(),
     braddy: normBraddy(it.braddy),
+    fx: typeof FX !== 'undefined' && FX[it.fx] ? it.fx : '',
   };
 }
 const normNb = (id, v) => ({ id, name: String(v?.name || 'Notebook').slice(0, 80), kind: KINDS[v?.kind] ? v.kind : 'other', color: /^#[0-9a-f]{6}$/i.test(v?.color || '') ? v.color : NB_COLORS[0], createdAt: Number(v?.createdAt) || 0, cover: normCover(v?.cover), shelf: /^[A-Za-z0-9_-]{1,30}$/.test(v?.shelf || '') ? v.shelf : '', category: String(v?.category || '').trim().slice(0, 40), tags: (Array.isArray(v?.tags) ? v.tags : []).map(t => String(t).trim().replace(/^#/, '').slice(0, 30)).filter(Boolean).slice(0, 10), lock: normNbLock(v?.lock) });
@@ -2378,7 +2465,7 @@ function readWinForm(p, root, base = {}) {
     result: q('result').value.trim(), details: q('details').value.trim(), project: q('project').value.trim(),
     tags: q('tags').value.split(',').map(s => s.trim().replace(/^#/, '')).filter(Boolean).slice(0, 12),
     mood: ($(`input[name="${p}-mood"]:checked`, root) || {}).value || '',
-    files: base.files || [], braddy: base.braddy,
+    files: base.files || [], braddy: base.braddy, fx: base.fx || '',
     createdAt: base.createdAt || now, updatedAt: now,
   };
 }
@@ -2787,7 +2874,7 @@ function carSlideHTML(w, i, n) {
       <span class="car-title">${esc(w.title)}</span>
       ${w.result ? `<span class="car-result">→ ${esc(w.result)}</span>` : ''}
       ${w.files.find(f => f.thumb) ? `<img class="car-polaroid" src="${w.files.find(f => f.thumb).thumb}" alt="">` : ''}
-      <span class="car-meta"><span>${fmtDateK(w.date)}${w.impact === 3 ? ' · Big win' : ''}${w.files.length ? ` · ${icon('clip', 'sm')}${w.files.length}` : ''}</span><span class="car-open">View ${icon('arrowRight', 'sm')}</span></span>
+      <span class="car-meta"><span>${fmtDateK(w.date)}${w.impact === 3 ? ' · Big win' : ''}${w.files.length ? ` · ${icon('clip', 'sm')}${w.files.length}` : ''}</span><span class="car-open">View ${icon('arrowRight', 'sm')}</span></span>${fxHTML(w.fx, w.id)}
     </button></div>`;
 }
 function carPlaceholderHTML(i, n, title, sub) {
@@ -2912,6 +2999,7 @@ function mountWin() {
       case 'delete': deleteWinFlow(w.date, w.id); break;
       case 'day': UI.selDate = w.date; go('today'); break;
       case 'email': openEmailDialog({ scope: 'brag', winId: w.id, anchor: w.date }); break;
+      case 'fx': fxPicker(w.date, w.id); break;
       case 'brag': go('today'); setTimeout(() => $('#h-log')?.click(), 350); break;
       case 'attach': $('#wn-file').click(); break;
       case 'copy': {
@@ -2957,6 +3045,7 @@ function updateWinView() {
         ${w.result ? `<p class="wn-result">${icon('arrowRight')}<span>${esc(w.result)}</span></p>` : ''}
         ${w.details ? `<p class="wn-details">${esc(w.details)}</p>` : ''}
         <div class="wn-foot"><span class="car-cat">${catIcon(w.category)}${esc(catOf(w.category).label)}</span>${starIcons(w.impact)}</div>
+        ${fxHTML(w.fx, w.id)}
       </article>
       <aside class="card">
         <h2 class="card-title" style="margin-bottom:14px">${icon('info')}Details</h2>
@@ -2969,7 +3058,8 @@ function updateWinView() {
           ${w.tags.length ? `<dt>Tags</dt><dd class="win-meta" style="margin:0">${w.tags.map(t => `<span>#${esc(t)}</span>`).join('')}</dd>` : ''}
         </dl>
         <div class="stack" style="gap:8px;margin-top:18px">
-          <button type="button" class="btn" data-act="email">${icon('mail')}Email this brag as PDF</button>
+          <button type="button" class="btn fx-btn" data-act="fx">${icon('sparkles')}${w.fx ? `Highlight: ${esc(FX[w.fx].label)}` : 'Highlight this win'}</button>
+          <button type="button" class="btn ghost" data-act="email">${icon('mail')}Email this brag as PDF</button>
           <button type="button" class="btn ghost" data-act="copy">${icon('copy')}Copy as a resume bullet</button>
           <div class="row"><button type="button" class="btn ghost sm" data-act="edit">${icon('edit')}Edit</button><button type="button" class="btn ghost sm" data-act="day">${icon('calendar')}Open this day</button><button type="button" class="btn ghost sm" data-act="delete">${icon('trash')}Delete</button></div>
         </div>
@@ -4639,6 +4729,63 @@ function forgotPinModal(nbId) {
 }
 
 
+
+/* ================= Win highlights (animated effects) ================= */
+const FX = {
+  confetti: { label: 'Confetti', desc: 'A party of confetti falling down', ic: 'sparkles' },
+  fireworks: { label: 'Fireworks', desc: 'Bursts of color all around', ic: 'zap' },
+  hearts: { label: 'Hearts', desc: 'Little hearts floating up', ic: 'heart' },
+  sparkles: { label: 'Sparkles', desc: 'Twinkling stars around the edges', ic: 'star' },
+  balloons: { label: 'Balloons', desc: 'Balloons rising to celebrate', ic: 'gift' },
+  bugs: { label: 'Ladybugs', desc: 'Friendly bugs walking around it', ic: 'bug' },
+  spotlight: { label: 'Spotlight', desc: 'Golden rays shining on your win', ic: 'sun' },
+  crown: { label: 'Crown', desc: 'A royal crown on top', ic: 'award' },
+  golden: { label: 'Gold shine', desc: 'A gold glow with a shimmer', ic: 'trophy' },
+  rainbow: { label: 'Rainbow', desc: 'A glowing rainbow border', ic: 'sparkles' },
+  fire: { label: 'On fire', desc: 'Flames for a hot streak', ic: 'flame' },
+};
+const FX_COLORS = ['#E0607E', '#F4B336', '#149B92', '#5B8DEF', '#8A4FB5', '#F07A3A', '#3C8A37'];
+function fxRand(seed) { let h = bdHash(seed); return () => { h = Math.imul(h ^ (h >>> 15), 2246822507) >>> 0; h = Math.imul(h ^ (h >>> 13), 3266489909) >>> 0; return ((h ^= h >>> 16) >>> 0) / 4294967296; }; }
+function fxHTML(key, seed = 'x') {
+  if (!FX[key]) return '';
+  const r = fxRand(key + seed), pick = a => a[Math.floor(r() * a.length)], n = (a, b) => (a + r() * (b - a)).toFixed(2);
+  let inner = '';
+  switch (key) {
+    case 'confetti': inner = `<span class="fx-clip">${[...Array(16)].map(() => `<i style="--x:${n(2, 96)}%;--c:${pick(FX_COLORS)};--d:${n(2.2, 4)}s;--dl:-${n(0, 4)}s;--rt:${n(300, 900)}deg;--w:${n(.45, .8)}em;--h:${n(.7, 1.2)}em"></i>`).join('')}</span>`; break;
+    case 'fireworks': inner = [[18, 14], [80, 22], [50, 6], [26, 72], [76, 78]].map(([x, y], k) => `<b style="--x:${x}%;--y:${y}%;--c:${FX_COLORS[k % FX_COLORS.length]};--dl:${(k * .55).toFixed(2)}s">${[...Array(10)].map((_, j) => `<i style="--a:${j * 36}deg"></i>`).join('')}<u></u></b>`).join(''); break;
+    case 'hearts': inner = [...Array(9)].map(() => `<i style="--x:${n(5, 92)}%;--c:${pick(['#E0607E', '#FF8FAB', '#C2477A', '#F4B336'])};--d:${n(3, 5)}s;--dl:-${n(0, 5)}s;--s:${n(1.1, 2)}em;--sw:${n(-1.5, 1.5)}em">♥</i>`).join(''); break;
+    case 'sparkles': inner = [[0, 10], [100, 18], [0, 70], [100, 82], [30, 0], [72, 100], [50, 0], [12, 100], [100, 48]].map(([x, y], k) => `<i style="--x:${x}%;--y:${y}%;--dl:-${(k * .37).toFixed(2)}s;--s:${n(1, 2)}em;--c:${pick(['#F4B336', '#FFD978', '#FFFFFF', '#149B92'])}"></i>`).join(''); break;
+    case 'balloons': inner = [-6, 6, 50, 88, 100].map((bx, k) => `<i style="--x:${(bx + r() * 4 - 2).toFixed(1)}%;--c:${FX_COLORS[(k * 2) % FX_COLORS.length]};--d:${n(5, 7)}s;--dl:-${n(0, 6)}s"></i>`).join(''); break;
+    case 'bugs': inner = [0, 33, 66].map((o, k) => `<i style="--dl:-${(o / 100 * 14).toFixed(2)}s"><svg viewBox="0 0 24 28"><path d="M5 12 1 10M5 17 1 18M5 22 2 25M19 12l4-2M19 17l4 1M19 22l3 3" stroke="#2B2A24" stroke-width="1.4" stroke-linecap="round"/><circle cx="12" cy="6" r="4" fill="#2B2A24"/><path d="M9 3 7 0M15 3l2-3" stroke="#2B2A24" stroke-width="1.2" stroke-linecap="round"/><ellipse cx="12" cy="17" rx="8" ry="9.5" fill="${k === 1 ? '#F4B336' : '#E0403A'}"/><path d="M12 8v18" stroke="#2B2A24" stroke-width="1.2"/><circle cx="8.5" cy="14" r="1.6" fill="#2B2A24"/><circle cx="15.5" cy="14" r="1.6" fill="#2B2A24"/><circle cx="8" cy="20" r="1.4" fill="#2B2A24"/><circle cx="16" cy="20" r="1.4" fill="#2B2A24"/><ellipse cx="9.5" cy="10.5" rx="2" ry="1" fill="#fff" opacity=".5"/></svg></i>`).join(''); break;
+    case 'spotlight': inner = '<i class="fx-rays"></i><i class="fx-glow"></i>'; break;
+    case 'crown': inner = `<i class="fx-crown"><svg viewBox="0 0 64 44"><path d="M6 38 2 10l16 12L32 2l14 20 16-12-4 28z" fill="#F4B336" stroke="#C98A10" stroke-width="2" stroke-linejoin="round"/><rect x="6" y="36" width="52" height="7" rx="2" fill="#E0A21A"/><circle cx="32" cy="24" r="4" fill="#E0607E"/><circle cx="17" cy="28" r="3" fill="#149B92"/><circle cx="47" cy="28" r="3" fill="#5B8DEF"/><path d="M12 14 8 30" stroke="#FFE7A0" stroke-width="2" stroke-linecap="round" opacity=".8"/></svg></i><i class="fx-cs" style="--x:26%"></i><i class="fx-cs" style="--x:74%;--dl:.8s"></i>`; break;
+    case 'golden': inner = '<i class="fx-gl"></i><span class="fx-clip"><i class="fx-sh"></i></span>'; break;
+    case 'rainbow': inner = '<i class="fx-rb"></i>'; break;
+    case 'fire': inner = [...Array(7)].map((_, k) => `<i style="--x:${(k * 15.5 + 4).toFixed(1)}%;--dl:-${n(0, .6)}s;--s:${n(.8, 1.3)}"></i>`).join(''); break;
+  }
+  return `<span class="fx fx-${key}" aria-hidden="true">${inner}</span>`;
+}
+function setWinFx(date, id, fx) {
+  const items = S.days.get(date); if (!items) return;
+  S.days.set(date, items.map(x => x.id === id ? { ...x, fx: FX[fx] ? fx : '', updatedAt: Date.now() } : x));
+  invalidate(); persistDay(date); onData('wins');
+}
+function fxPicker(date, id, onDone) {
+  const w = (S.days.get(date) || []).find(x => x.id === id); if (!w) return;
+  let cur = w.fx || '';
+  const card = (k, v) => `<button type="button" class="fxp-card ${cur === k ? 'on' : ''}" data-fxk="${k}" aria-pressed="${cur === k}">
+      <span class="fxp-demo" style="--nc:${WALL_NOTE_COLORS[bdHash(k) % 6]}"><span class="fxp-note">${esc(w.title.slice(0, 40))}</span>${k ? fxHTML(k, 'demo') : ''}</span>
+      <span class="fxp-txt"><b>${v.label}</b><small>${v.desc}</small></span></button>`;
+  const m = openModal({
+    title: 'Highlight this win', wide: true,
+    body: `<div class="stack"><p class="small muted">Pick an effect to make this win stand out on your Freedom Wall, your wall's carousel and the win page.</p>
+      <div class="fxp-grid">${card('', { label: 'No effect', desc: 'Keep it simple' })}${Object.entries(FX).map(([k, v]) => card(k, v)).join('')}</div></div>`,
+    onOpen: x => x.querySelector('.modal').classList.add('fxp-modal'),
+    actions: [{ label: 'Cancel', kind: 'ghost' }, { label: 'Save highlight', onClick: () => { setWinFx(date, id, cur); toast(cur ? `${FX[cur].label} added to your win` : 'Highlight removed'); if (onDone) onDone(cur); } }],
+  });
+  m.wrap.addEventListener('click', e => { const b = e.target.closest('[data-fxk]'); if (!b) return; cur = b.dataset.fxk; $$('[data-fxk]', m.wrap).forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); }); });
+}
+
 /* ================= Freedom walls ================= */
 const WALL_NOTE_COLORS = ['#FFE27A', '#FFC4D2', '#B9EAD2', '#BFDDF7', '#FFD2A3', '#D9CBF6'];
 const WALL_DEFAULT_BG = { type: 'pattern', c1: '#F3EFE6', c2: '#B9AE96', pattern: 'bricks', file: null, dim: 0 };
@@ -4688,12 +4835,12 @@ function wallLayout(w, limit) {
 }
 function wallWinHTML(x, p, i) {
   const thumb = (x.files || []).find(f => f.thumb);
-  return `<button type="button" class="fw-win ${x.impact === 3 ? 'big' : ''}" data-win="${x.id}" style="left:${p.x}cqw;top:${p.y}cqw;--r:${p.r}deg;--nc:${WALL_NOTE_COLORS[bdHash(x.id) % 6]};--pin:${NOTE_PINS[i % 4]}" aria-label="Open preview: ${esc(x.title)}">
+  return `<button type="button" class="fw-win ${x.impact === 3 ? 'big' : ''} ${x.fx ? 'has-fx' : ''}" data-win="${x.id}" style="left:${p.x}cqw;top:${p.y}cqw;--r:${p.r}deg;--nc:${WALL_NOTE_COLORS[bdHash(x.id) % 6]};--pin:${NOTE_PINS[i % 4]}" aria-label="Open preview: ${esc(x.title)}">
     <span class="fw-top"><span class="fw-date">${esc(fmtShortK(x.date))}</span>${x.mood ? `<i class="fw-mood">${MOOD[x.mood].e}</i>` : ''}</span>
     <span class="fw-title">${esc(x.title)}</span>
     ${thumb ? `<img class="fw-thumb" src="${thumb.thumb}" alt="" draggable="false">` : ''}
     <span class="fw-foot"><span class="fw-area">${esc(catOf(x.category).label)}</span><span class="fw-stars">${'★'.repeat(x.impact)}</span></span>
-    ${x.impact === 3 ? '<span class="fw-stamp">Big win!</span>' : ''}</button>`;
+    ${x.impact === 3 ? '<span class="fw-stamp">Big win!</span>' : ''}${fxHTML(x.fx, x.id)}</button>`;
 }
 const ptsPath = p => { let d = `M${p[0]} ${p[1]}`; if (p.length === 2) return d + 'l.01 0'; for (let i = 2; i < p.length; i += 2) d += `L${p[i]} ${p[i + 1]}`; return d; };
 const strokeHTML = (st, i) => `<path data-st="${i}" d="${ptsPath(st.p)}" stroke="${st.c}" stroke-width="${st.w}" stroke-opacity="${st.o}" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
@@ -4816,7 +4963,7 @@ function winQuickView(id) {
   const thumbs = (x.files || []).filter(f => f.thumb).slice(0, 4);
   const m = openModal({
     title: 'Win preview', wide: false,
-    body: `<article class="wq" style="--nc:${WALL_NOTE_COLORS[bdHash(x.id) % 6]}">
+    body: `<article class="wq" style="--nc:${WALL_NOTE_COLORS[bdHash(x.id) % 6]}">${fxHTML(x.fx, x.id)}
       ${x.impact === 3 ? '<span class="big-stamp">Brag-worthy!</span>' : ''}
       <p class="wq-date">${esc(fmtLong(parseYmd(x.date)))}</p>
       <h3 class="wq-title">${esc(x.title)}</h3>
@@ -4827,7 +4974,7 @@ function winQuickView(id) {
       <div class="wq-foot"><span class="pill" data-cat="${x.category}">${esc(catOf(x.category).label)}</span>${starIcons(x.impact)}${x.project ? `<span class="small muted">${esc(x.project)}</span>` : ''}</div>
       ${b ? `<div class="wq-braddy">${BRADDY_AV()}<p><b>Braddy:</b> ${esc(b.headline || b.comment.slice(0, 120))}</p></div>` : ''}
     </article>`,
-    actions: [{ label: 'Close', kind: 'ghost' }, { label: 'Open full page', onClick: () => { openWinPreview(x.id); } }],
+    actions: [{ label: x.fx ? `${FX[x.fx].label} ✓` : 'Highlight', kind: 'ghost', onClick: () => { setTimeout(() => fxPicker(x.date, x.id), 60); } }, { label: 'Close', kind: 'ghost' }, { label: 'Open full page', onClick: () => { openWinPreview(x.id); } }],
   });
   return m;
 }
@@ -4909,7 +5056,8 @@ function wallDesigner(wallId) {
   };
   const renderSel = () => {
     const el = $w('#cvd-sel'), it = selItem();
-    if (D.selWin) { el.innerHTML = `<div class="cvd-sel-head"><b>${icon('trophy', 'sm')}Selected: a win</b></div><p class="small muted">Drag it anywhere on the wall.</p><div class="row"><button type="button" class="btn ghost sm" data-wreset>${icon('refresh', 'sm')}Put it back in its row</button></div><label class="cvd-range"><span>Tilt</span><input type="range" min="-25" max="25" value="${(D.c.winPos[D.selWin] || {}).r || 0}" data-wtilt></label>`; return; }
+    if (D.selWin) { el.innerHTML = `<div class="cvd-sel-head"><b>${icon('trophy', 'sm')}Selected: a win</b></div><p class="small muted">Drag it anywhere on the wall.</p><div class="row"><button type="button" class="btn ghost sm" data-wreset>${icon('refresh', 'sm')}Put it back in its row</button></div><label class="cvd-range"><span>Tilt</span><input type="range" min="-25" max="25" value="${(D.c.winPos[D.selWin] || {}).r || 0}" data-wtilt></label>
+      <p class="cvd-lbl">Highlight effect</p><div class="cvd-fonts">${[['', 'None'], ...Object.entries(FX).map(([k, v]) => [k, v.label])].map(([k, l]) => `<button type="button" data-wfx="${k}" class="${((allWins().find(v => v.id === D.selWin) || {}).fx || '') === k ? 'on' : ''}">${l}</button>`).join('')}</div>`; return; }
     if (!it) { el.innerHTML = `<p class="small muted">${icon('info', 'sm')} ${D.tab === 'paint' ? 'You are drawing. Pick another tab to select and move things.' : 'Tap anything on the wall to edit it.'}</p>`; return; }
     const name = { text: 'Text', emoji: 'Emoji', icon: 'Icon', sticker: 'Sticker', shape: 'Shape', image: 'Picture', note: 'Sticky note' }[it.type];
     const colorable = ['text', 'icon', 'shape'].includes(it.type) && it.shape !== 'logo';
@@ -4973,6 +5121,7 @@ function wallDesigner(wallId) {
     else if (d.pick) { D.sel = d.pick; D.selWin = null; renderCanvas(); renderSel(); }
     else if (d.wfilter) { D.c.winFilter = d.wfilter; renderCanvas(); renderTab(); }
     else if (d.wtidy !== undefined) { D.c.winPos = {}; D.selWin = null; renderCanvas(); renderTab(); renderSel(); }
+    else if (d.wfx !== undefined && D.selWin) { const wv = allWins().find(v => v.id === D.selWin); if (wv) { setWinFx(wv.date, wv.id, d.wfx); renderCanvas(); renderSel(); } }
     else if (d.wreset !== undefined) { delete D.c.winPos[D.selWin]; D.selWin = null; renderCanvas(); renderSel(); renderTab(); }
     else if (it && d.scol) { it.color = d.scol; renderCanvas(); renderSel(); }
     else if (it && d.sfont) { it.font = d.sfont; renderCanvas(); renderSel(); }
