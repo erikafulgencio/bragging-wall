@@ -25,6 +25,9 @@ Bragging Wall is a private place to record your work wins every day, so they're 
 ### Notebook covers
 Design a cover for every notebook: solid colors, gradients, patterns or your own photo or GIF as the background, then add text in four styles, animated stickers, emoji, icons, shapes (washi tape, ribbons, badges, the Bragging Wall logo) and your own images, stickers or GIFs. Drag to move, pull the handles to resize or rotate. Covers show on your bookshelf and in the notebook list. Uploaded pictures are encrypted like everything else.
 
+### Shelves, categories, tags and PIN locks
+Organize notebooks on shelves you name and color, and give each notebook a category and tags; filter the bookshelf by any of them. Lock a notebook with a 4 to 12 digit PIN: its pages are encrypted with a key that only your PIN unlocks (AES-256-GCM, PBKDF2 600k), on top of the app's own encryption. Unlocked notebooks lock again when you leave Notebooks or lock the app. Too many wrong tries add a wait. If you have an app passcode, you can reset a forgotten PIN with it.
+
 ### Email your brags
 Send a branded PDF brag sheet for one brag, or for every brag in a day, week, month or year. Bragging Wall builds the PDF (logo, header band, sticky-note cards, photos, page footers) and opens Gmail, Outlook or your email app with the subject and a summary already filled in. You attach the PDF there. On phones, **Share PDF** can hand it straight to your mail app. A web page can't send email by itself, so nothing ever leaves your device without you pressing send.
 

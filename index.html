@@ -780,6 +780,55 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 @keyframes st-wave { 0% { opacity: 0; transform: translateX(-4px); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateX(4px); } }
 @keyframes st-lift { 50% { transform: translateY(-14px); } }
 @media (max-width: 560px) { .bd-thread:not(.bd-typing-row) { flex-direction: column; gap: 8px; } .bd-bubble { border-radius: 18px; } .braddy-av { width: 40px; height: 40px; } .bd-bubble { padding: 12px; } .bd-chart { width: 150px; } }
+/* Shelves, filters, locks */
+.shelf-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.shelf-tabs { display: flex; gap: 6px; overflow-x: auto; padding: 2px; scrollbar-width: thin; flex: 1; }
+.shelf-tabs button, .shelf-tab-wrap { flex: none; }
+.shelf-tab-wrap { display: inline-flex; align-items: center; }
+.shelf-tabs [role="tab"] { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 99px; border: 1px solid var(--line); background: var(--surface-solid); color: var(--ink); font: 600 .82rem var(--font-body); cursor: pointer; white-space: nowrap; }
+.shelf-tabs [role="tab"] i { font-style: normal; font-weight: 500; color: var(--muted); font-size: .74rem; }
+.shelf-tabs [role="tab"] .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--sc, var(--accent)); }
+.shelf-tabs [role="tab"][aria-selected="true"] { background: color-mix(in srgb, var(--sc, var(--accent)) 14%, var(--surface-solid)); border-color: var(--sc, var(--accent)); color: color-mix(in srgb, var(--sc, var(--accent)) 75%, var(--ink)); }
+.shelf-tab-edit { margin-left: -2px; width: 30px; height: 30px; border-radius: 50%; border: 0; background: none; color: var(--muted); cursor: pointer; display: grid; place-items: center; }
+.shelf-tab-edit:hover { color: var(--accent); background: var(--surface-2); }
+.shelf-add { display: inline-flex; align-items: center; gap: 5px; padding: 7px 12px; border-radius: 99px; border: 1px dashed var(--line); background: none; color: var(--accent); font: 600 .82rem var(--font-body); cursor: pointer; white-space: nowrap; }
+.shelf-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 2px 0 6px; }
+.shelf-filters:empty { display: none; }
+.sf-lbl { display: inline-flex; align-items: center; gap: 4px; font: 600 .7rem var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 2px 0 6px; }
+.sf-lbl:first-child { margin-left: 0; }
+.sf-chip { padding: 4px 10px; border-radius: 99px; border: 1px solid var(--line); background: var(--surface-solid); font: 500 .78rem var(--font-body); color: var(--ink); cursor: pointer; }
+.sf-chip.tag { color: var(--accent); }
+.sf-chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.shelf-tags { display: flex; gap: 3px; flex-wrap: wrap; margin-top: 3px; overflow: hidden; max-height: 18px; }
+.shelf-tags i { font-style: normal; font-size: .64rem; color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); padding: 0 5px; border-radius: 99px; }
+.shelf-open { position: relative; }
+.shelf-lock { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; border-radius: 50%; background: rgba(15, 20, 19, .72); color: #fff; display: grid; place-items: center; box-shadow: 0 4px 12px rgba(0,0,0,.35); backdrop-filter: blur(4px); z-index: 70; }
+.shelf-lock.open { left: auto; top: auto; right: 6px; bottom: 6px; transform: none; width: 24px; height: 24px; background: rgba(255,255,255,.9); color: var(--accent); }
+.shelf-lock .i { width: 18px; height: 18px; }
+.shelf-lock.open .i { width: 13px; height: 13px; }
+.shelf-book.locked .cover { filter: saturate(.75) brightness(.92); }
+.nb-lockic { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in srgb, var(--ink) 8%, transparent); color: var(--muted); flex: none; }
+.nb-lockic.open { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
+.nb-lockic .i { width: 13px; height: 13px; }
+.nb-name small .i { width: 11px; height: 11px; vertical-align: -1px; margin-right: 3px; }
+.lock-screen { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; padding: 40px 20px 50px; max-width: 420px; margin: 0 auto; }
+.lock-book { position: relative; width: 132px; margin-bottom: 8px; filter: drop-shadow(4px 10px 16px rgba(0,0,0,.25)); }
+.lock-book .cover { filter: blur(1.5px) saturate(.7); }
+.lock-badge { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 54px; height: 54px; border-radius: 50%; background: var(--surface-solid); color: var(--accent); display: grid; place-items: center; box-shadow: 0 6px 18px rgba(0,0,0,.25); z-index: 80; }
+.lock-badge .i { width: 24px; height: 24px; }
+.lock-screen h2 { font: 650 1.35rem var(--font-display); }
+.lock-form { display: flex; gap: 8px; width: 100%; max-width: 300px; margin-top: 6px; }
+.lock-form input { text-align: center; font: 600 1.25rem var(--font-mono); letter-spacing: .3em; }
+.lock-form.shake { animation: lk-shake .4s; }
+@keyframes lk-shake { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
+.lock-msg { min-height: 1.2em; font-size: .86rem; color: var(--danger, #C0392B); }
+.nbm-pin { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-2); }
+.nbm-pin > .i { color: var(--accent); flex: none; }
+.nbm-pin > div { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.nbm-pin b { font-size: .9rem; }
+.note-box { display: flex; gap: 8px; align-items: flex-start; padding: 10px 12px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 9%, var(--surface-solid)); font-size: .86rem; line-height: 1.45; }
+.note-box.warn { background: color-mix(in srgb, #F4B336 18%, var(--surface-solid)); }
+.note-box .i { flex: none; margin-top: 2px; }
 /* Notebook covers */
 .cover { position: relative; container-type: inline-size; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 3% 6% 6% 3% / 2.25% 4.5% 4.5% 2.25%; isolation: isolate; user-select: none; -webkit-user-select: none; display: block; }
 .cover .cv-bgimg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
@@ -1498,7 +1547,7 @@ const S = {
 const UI = {
   selDate: todayKey(),
   cal: { mode: 'month', anchor: new Date(), sel: null, dir: 0 },
-  nb: { notebookId: null, noteId: null, search: '' },
+  nb: { notebookId: null, noteId: null, search: '', shelf: 'all', cat: '', tag: '' },
   report: { purpose: 'review', preset: 'thisYear', from: null, to: null, exclude: new Set(), minImpact: 1, includeLog: true, ai: null, edits: null, pending: false },
 };
 
@@ -1517,9 +1566,14 @@ function normItem(it) {
     braddy: normBraddy(it.braddy),
   };
 }
-const normNb = (id, v) => ({ id, name: String(v?.name || 'Notebook').slice(0, 80), kind: KINDS[v?.kind] ? v.kind : 'other', color: /^#[0-9a-f]{6}$/i.test(v?.color || '') ? v.color : NB_COLORS[0], createdAt: Number(v?.createdAt) || 0, cover: normCover(v?.cover) });
-const normNote = (id, v) => ({ id, notebookId: String(v?.notebookId || ''), title: String(v?.title || '').slice(0, 200), date: isYmd(v?.date) ? v.date : todayKey(), html: String(v?.html || ''), createdAt: Number(v?.createdAt) || 0, updatedAt: Number(v?.updatedAt) || 0 });
-const normProfile = v => ({ name: String(v?.name || '').slice(0, 120), nickname: String(v?.nickname || '').slice(0, 60), role: String(v?.role || '').slice(0, 120), company: String(v?.company || '').slice(0, 120), weekStart: v?.weekStart === 0 ? 0 : 1, weeklyGoal: Math.min(50, Math.max(1, Number(v?.weeklyGoal) || 5)), email: /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/.test(v?.email || '') ? String(v.email).slice(0, 254) : '', customCats: (Array.isArray(v?.customCats) ? v.customCats : []).filter(c => c && /^c-[a-z0-9]{3,30}$/.test(c.key || '') && c.label).slice(0, 30).map(c => ({ key: c.key, label: String(c.label).slice(0, 40), icon: ICON_CHOICES.includes(c.icon) ? c.icon : 'star', color: /^#[0-9a-f]{6}$/i.test(c.color || '') ? c.color : CUSTOM_COLORS[0] })) });
+const normNb = (id, v) => ({ id, name: String(v?.name || 'Notebook').slice(0, 80), kind: KINDS[v?.kind] ? v.kind : 'other', color: /^#[0-9a-f]{6}$/i.test(v?.color || '') ? v.color : NB_COLORS[0], createdAt: Number(v?.createdAt) || 0, cover: normCover(v?.cover), shelf: /^[A-Za-z0-9_-]{1,30}$/.test(v?.shelf || '') ? v.shelf : '', category: String(v?.category || '').trim().slice(0, 40), tags: (Array.isArray(v?.tags) ? v.tags : []).map(t => String(t).trim().replace(/^#/, '').slice(0, 30)).filter(Boolean).slice(0, 10), lock: normNbLock(v?.lock) });
+const normNote = (id, v) => {
+  const n = { id, notebookId: String(v?.notebookId || ''), title: String(v?.title || '').slice(0, 200), date: isYmd(v?.date) ? v.date : todayKey(), html: String(v?.html || ''), createdAt: Number(v?.createdAt) || 0, updatedAt: Number(v?.updatedAt) || 0 };
+  const sl = v?.sealed;
+  if (sl && typeof sl.iv === 'string' && typeof sl.ct === 'string') { n.sealed = { enc: 1, iv: sl.iv, ct: sl.ct }; const p = PLAIN.get(id); if (p && p.ct === sl.ct) { n.title = p.title; n.html = p.html; } else { n.title = ''; n.html = ''; queueUnseal(); } }
+  return n;
+};
+const normProfile = v => ({ name: String(v?.name || '').slice(0, 120), nickname: String(v?.nickname || '').slice(0, 60), role: String(v?.role || '').slice(0, 120), company: String(v?.company || '').slice(0, 120), weekStart: v?.weekStart === 0 ? 0 : 1, weeklyGoal: Math.min(50, Math.max(1, Number(v?.weeklyGoal) || 5)), email: /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/.test(v?.email || '') ? String(v.email).slice(0, 254) : '', shelves: (Array.isArray(v?.shelves) ? v.shelves : []).filter(x => x && /^[A-Za-z0-9_-]{1,30}$/.test(x.id || '') && x.name).slice(0, 30).map(x => ({ id: x.id, name: String(x.name).slice(0, 40), color: /^#[0-9a-f]{6}$/i.test(x.color || '') ? x.color : '#0F6E6A' })), customCats: (Array.isArray(v?.customCats) ? v.customCats : []).filter(c => c && /^c-[a-z0-9]{3,30}$/.test(c.key || '') && c.label).slice(0, 30).map(c => ({ key: c.key, label: String(c.label).slice(0, 40), icon: ICON_CHOICES.includes(c.icon) ? c.icon : 'star', color: /^#[0-9a-f]{6}$/i.test(c.color || '') ? c.color : CUSTOM_COLORS[0] })) });
 S.profile = normProfile({});
 
 let _flat = null;
@@ -1691,7 +1745,7 @@ let lsTimer = null;
 function saveLocal() { clearTimeout(lsTimer); lsTimer = setTimeout(writeLocalNow, 250); return Promise.resolve(); }
 async function writeLocalNow() {
   lsTimer = null;
-  const data = { days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes, profile: S.profile };
+  const data = { days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes.map(n => ({ id: n.id, ...noteBody(n) })), profile: S.profile };
   const body = await encodeBody(CRYPTO.key, data);
   if (!(await kvSet(LS_KEY, JSON.stringify(body)))) toast("This browser isn't letting the page save. Download a backup so you don't lose entries.", 'warn');
 }
@@ -1723,9 +1777,18 @@ function persistNotebook(id) {
   return enqueue('nb/' + id, async () => { if (body) await ref.set(await encodeBody(key, body)); else await ref.delete(); });
 }
 function persistNote(id) {
+  const n = S.notes.find(x => x.id === id), nb = n && S.notebooks.find(b => b.id === n.notebookId);
+  if (n && nb && nb.lock && NBK.has(nb.id)) {
+    const p = sealNote(n).then(() => persistNoteRaw(id)).catch(e => console.error('seal', e));
+    SEALING.set(id, p); p.finally(() => { if (SEALING.get(id) === p) SEALING.delete(id); });
+    return p;
+  }
+  return persistNoteRaw(id);
+}
+function persistNoteRaw(id) {
   if (S.mode !== 'cloud') return saveLocal();
   const n = S.notes.find(x => x.id === id);
-  const body = n ? (({ id: _, ...b }) => b)(n) : null;
+  const body = n ? noteBody(n) : null;
   const key = CRYPTO.key, ref = S.refs.notes.doc(id);
   return enqueue('n/' + id, async () => { if (body) await ref.set(await encodeBody(key, body)); else await ref.delete(); });
 }
@@ -2136,7 +2199,7 @@ function route() {
   if (h === 'profile') h = 'account';
   const v = VIEWS.includes(h) ? h : 'today';
   if (v === S.view) return;
-  if (S.view === 'notebooks') flushEditor();
+  if (S.view === 'notebooks') { flushEditor(); if (v !== 'notebooks') lockAllNotebooks(); }
   const first = S.view === null;
   const mount = () => {
     S.view = v;
@@ -2453,7 +2516,7 @@ function updateToday() {
     : `<div class="empty">${ART.clipboard()}<div><b>${isToday ? 'Nothing logged yet today' : 'No wins logged for this day'}</b>${isToday ? 'Small things count: a bug you caught, a question you answered, a test you improved.' : 'Use the form above to add one for this date.'}</div></div>`;
   $('#t-week').innerHTML = weekStripHTML(k);
   $('#t-heat').innerHTML = heatHTML();
-  const notes = S.notes.filter(n => n.date === k);
+  const notes = visibleNotes().filter(n => n.date === k);
   $('#t-notes').innerHTML = notes.length ? `<div class="note-links">${notes.map(n => { const nb = S.notebooks.find(b => b.id === n.notebookId); return `<button type="button" class="note-link" style="--nb:${nb ? nb.color : 'var(--accent)'}" data-open-note="${n.id}"><span class="dot"></span><span><b>${esc(n.title || 'Untitled page')}</b><span>${esc(nb ? nb.name : 'Notebook')}</span></span></button>`; }).join('')}</div>` : '<p class="small muted" style="margin-bottom:12px">No pages written on this day.</p>';
 }
 const QUICK = { renderAreas: null };
@@ -2796,7 +2859,7 @@ function monthHTML() {
   const a = UI.cal.anchor, first = startOfMonth(a), last = endOfMonth(a);
   let d = startOfWeek(first);
   const end = addDays(startOfWeek(last), 6), tk = todayKey(), cells = [];
-  const noteDays = new Set(S.notes.map(n => n.date));
+  const noteDays = new Set(visibleNotes().map(n => n.date));
   let max = 1;
   for (let x = new Date(first); x <= last; x = addDays(x, 1)) max = Math.max(max, countOn(ymd(x)));
   while (d <= end) {
@@ -2821,7 +2884,7 @@ function weekHTML() {
   }).join('')}</div>`;
 }
 function dayHTML(k) {
-  const items = winsOn(k), notes = S.notes.filter(n => n.date === k);
+  const items = winsOn(k), notes = visibleNotes().filter(n => n.date === k);
   return `<div class="wins stagger">${items.length ? items.map((w, i) => winCardHTML(w, i)).join('') : `<div class="empty">${ART.clipboard()}<div><b>No wins logged for this day</b>Open the day to add one.</div></div>`}</div>
   ${notes.length ? `<p class="sec-title">Notebook pages</p><div class="note-links">${notes.map(n => { const nb = S.notebooks.find(b => b.id === n.notebookId); return `<button type="button" class="note-link" style="--nb:${nb ? nb.color : 'var(--accent)'}" data-open-note="${n.id}"><span class="dot"></span><span><b>${esc(n.title || 'Untitled page')}</b><span>${esc(nb ? nb.name : '')}</span></span></button>`; }).join('')}</div>` : ''}`;
 }
@@ -2977,7 +3040,7 @@ function mountNotebooks() {
       <div><p class="eyebrow">${icon('book', 'sm')}Notebooks</p><h1>Journal, planner and work notes</h1></div>
       <button type="button" class="btn" id="nb-new">${icon('plus')}New notebook</button>
     </header>
-    <section class="card nb-shelf-card" id="nb-shelf-card" hidden><h2 class="card-title" style="margin-bottom:10px">${icon('book')}My bookshelf <span class="small muted" style="font-family:var(--font-body);font-weight:400">Tap a book to open it, or the pencil to design its cover</span></h2><div class="nb-shelf" id="nb-shelf"></div></section>
+    <section class="card nb-shelf-card" id="nb-shelf-card" hidden><div class="shelf-top"><div class="shelf-tabs" id="shelf-tabs" role="tablist" aria-label="Shelves"></div></div><div class="shelf-filters" id="shelf-filters"></div><div class="nb-shelf" id="nb-shelf"></div></section>
     <div class="nb-layout">
       <aside class="card nb-side">
         <div class="search-wrap">${icon('search')}<label class="sr-only" for="nb-search">Search pages</label><input type="search" id="nb-search" placeholder="Search pages" value="${esc(UI.nb.search)}"></div>
@@ -2987,6 +3050,16 @@ function mountNotebooks() {
     </div>
   </div>`;
   $('#nb-new').onclick = () => notebookModal();
+  $('#nb-shelf-card').addEventListener('click', async e => {
+    const t = e.target.closest('button'); if (!t || !t.closest('#shelf-tabs, #shelf-filters')) return;
+    const d = t.dataset;
+    if (d.shelfTab) { UI.nb.shelf = d.shelfTab; updateNotebookSidebar(); }
+    else if (d.shelfAdd !== undefined) { const id = await shelfModal(); if (id) { UI.nb.shelf = id; updateNotebookSidebar(); } }
+    else if (d.shelfEdit) { await shelfModal(d.shelfEdit); updateNotebookSidebar(); }
+    else if (d.fcat !== undefined) { UI.nb.cat = UI.nb.cat === d.fcat ? '' : d.fcat; updateNotebookSidebar(); }
+    else if (d.ftag !== undefined) { UI.nb.tag = UI.nb.tag === d.ftag ? '' : d.ftag; updateNotebookSidebar(); }
+    else if (d.fclear !== undefined) { UI.nb.cat = ''; UI.nb.tag = ''; updateNotebookSidebar(); }
+  });
   $('#nb-shelf').addEventListener('click', e => {
     const t = e.target.closest('button'); if (!t) return;
     if (t.dataset.cover) { coverDesigner(t.dataset.cover); return; }
@@ -2998,17 +3071,20 @@ function mountNotebooks() {
     const t = e.target.closest('button');
     if (!t) return;
     const ds = t.dataset;
-    if (ds.nb) { flushEditor(); UI.nb.notebookId = UI.nb.notebookId === ds.nb && !UI.nb.search ? null : ds.nb; if (UI.nb.notebookId !== ds.nb) UI.nb.noteId = null; else UI.nb.noteId = pagesOf(ds.nb)[0]?.id || null; updateNotebookSidebar(); mountEditor(); }
+    if (ds.nb) { flushEditor(); UI.nb.notebookId = UI.nb.notebookId === ds.nb && !UI.nb.search && !isNbLocked(S.notebooks.find(b => b.id === ds.nb) || {}) ? null : ds.nb; if (UI.nb.notebookId !== ds.nb) UI.nb.noteId = null; else UI.nb.noteId = pagesOf(ds.nb)[0]?.id || null; updateNotebookSidebar(); mountEditor(); }
     else if (ds.note) { flushEditor(); UI.nb.noteId = ds.note; UI.nb.notebookId = S.notes.find(n => n.id === ds.note)?.notebookId || UI.nb.notebookId; updateNotebookSidebar(); mountEditor(); }
     else if (ds.newpage) newPageFlow(ds.newpage);
     else if (ds.nbpdf) exportNotebookPdf(ds.nbpdf);
     else if (ds.nbcover) coverDesigner(ds.nbcover);
+    else if (ds.nblock) lockNotebook(ds.nblock).then(() => toast('Notebook locked'));
+    else if (ds.nbpin) setPinModal(ds.nbpin);
+    else if (ds.nbunlock) { UI.nb.notebookId = ds.nbunlock; UI.nb.noteId = null; updateNotebookSidebar(); mountEditor(); setTimeout(() => $('#lk-pin')?.focus(), 50); }
     else if (ds.nbedit) notebookModal(ds.nbedit);
     else if (ds.nbdel) {
       const nb = S.notebooks.find(n => n.id === ds.nbdel);
       const pages = S.notes.filter(n => n.notebookId === ds.nbdel);
       if (!nb || !(await confirmModal(`Delete the notebook “${nb.name}” and its ${plural(pages.length, 'page')}? Export it as a PDF first if you want a copy.`))) return;
-      coverFiles(nb.cover).forEach(f => removeStoredFile(f.id).catch(() => {}));
+      coverFiles(nb.cover).forEach(f => removeStoredFile(f.id).catch(() => {})); NBK.delete(nb.id);
       S.notebooks = S.notebooks.filter(n => n.id !== nb.id);
       S.notes = S.notes.filter(n => n.notebookId !== nb.id);
       if (UI.nb.notebookId === nb.id) { UI.nb.notebookId = null; UI.nb.noteId = null; }
@@ -3023,6 +3099,7 @@ function mountNotebooks() {
 const sortedNotebooks = () => [...S.notebooks].sort((a, b) => a.createdAt - b.createdAt);
 function pagesOf(nbId) {
   const q = UI.nb.search.trim().toLowerCase();
+  const nbx = S.notebooks.find(b => b.id === nbId); if (nbx && isNbLocked(nbx)) return [];
   return S.notes.filter(n => n.notebookId === nbId && (!q || n.title.toLowerCase().includes(q) || n.html.replace(/<[^>]+>/g, ' ').toLowerCase().includes(q)))
     .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : b.updatedAt - a.updatedAt));
 }
@@ -3032,16 +3109,16 @@ function updateNotebookSidebar() {
   if (!S.loaded.notebooks) { el.innerHTML = '<div class="skel" style="height:56px"></div><div class="skel" style="height:56px;margin-top:8px"></div>'; return; }
   if (!S.notebooks.length) { el.innerHTML = '<p class="small muted">No notebooks yet.</p>'; return; }
   const q = UI.nb.search.trim();
-  el.innerHTML = sortedNotebooks().map(nb => {
-    const pages = pagesOf(nb.id);
+  el.innerHTML = shelfNotebooks().map(nb => {
+    const pages = pagesOf(nb.id), locked = isNbLocked(nb);
     const open = nb.id === UI.nb.notebookId || (q && pages.length);
     if (q && !pages.length) return '';
     return `<div class="nb ${nb.id === UI.nb.notebookId ? 'active' : ''}" style="--nb:${nb.color}">
-      <button type="button" class="nb-row" data-nb="${nb.id}" aria-expanded="${open ? 'true' : 'false'}"><span class="nb-mini">${coverHTML(nb)}</span><span class="nb-name">${esc(nb.name)}<small>${KINDS[nb.kind].label}</small></span><span class="nb-count">${pages.length}</span></button>
-      ${open ? `<div class="nb-pages">${pages.map(n => `<button type="button" class="pg ${n.id === UI.nb.noteId ? 'active' : ''}" data-note="${n.id}"><span class="pg-title">${esc(n.title || 'Untitled page')}</span><span class="pg-date">${fmtShortK(n.date)}</span></button>`).join('')}
-        <div class="nb-actions"><button type="button" class="link" data-newpage="${nb.id}">${icon('plus', 'sm')}New page</button><button type="button" class="link" data-nbpdf="${nb.id}">${icon('download', 'sm')}PDF</button><button type="button" class="link" data-nbcover="${nb.id}">${icon('image', 'sm')}Cover</button><button type="button" class="link" data-nbedit="${nb.id}">${icon('edit', 'sm')}Edit</button><button type="button" class="link danger" data-nbdel="${nb.id}">${icon('trash', 'sm')}Delete</button></div></div>` : ''}
+      <button type="button" class="nb-row" data-nb="${nb.id}" aria-expanded="${open ? 'true' : 'false'}"><span class="nb-mini">${coverHTML(nb)}</span><span class="nb-name">${esc(nb.name)}<small>${locked ? `${icon('lock', 'sm')}Locked` : esc([KINDS[nb.kind].label, nb.category].filter(Boolean).join(' · '))}</small></span>${nb.lock ? `<span class="nb-lockic ${locked ? '' : 'open'}" title="${locked ? 'Locked with a PIN' : 'Unlocked'}">${icon('lock', 'sm')}</span>` : `<span class="nb-count">${pages.length}</span>`}</button>
+      ${open && locked ? `<div class="nb-pages"><button type="button" class="link" data-nbunlock="${nb.id}">${icon('key', 'sm')}Enter PIN to open</button></div>` : open ? `<div class="nb-pages">${pages.map(n => `<button type="button" class="pg ${n.id === UI.nb.noteId ? 'active' : ''}" data-note="${n.id}"><span class="pg-title">${esc(n.title || 'Untitled page')}</span><span class="pg-date">${fmtShortK(n.date)}</span></button>`).join('')}
+        <div class="nb-actions"><button type="button" class="link" data-newpage="${nb.id}">${icon('plus', 'sm')}New page</button><button type="button" class="link" data-nbpdf="${nb.id}">${icon('download', 'sm')}PDF</button><button type="button" class="link" data-nbcover="${nb.id}">${icon('image', 'sm')}Cover</button>${nb.lock ? `<button type="button" class="link" data-nblock="${nb.id}">${icon('lock', 'sm')}Lock now</button>` : `<button type="button" class="link" data-nbpin="${nb.id}">${icon('key', 'sm')}Add PIN</button>`}<button type="button" class="link" data-nbedit="${nb.id}">${icon('edit', 'sm')}Edit</button><button type="button" class="link danger" data-nbdel="${nb.id}">${icon('trash', 'sm')}Delete</button></div></div>` : ''}
     </div>`;
-  }).join('') || '<p class="small muted">No pages match your search.</p>';
+  }).join('') || `<p class="small muted">${UI.nb.search.trim() ? 'No pages match your search.' : 'No notebooks here yet.'}</p>`;
   hydrateCovers(el); renderShelf();
 }
 function notebookModal(editId) {
@@ -3051,29 +3128,41 @@ function notebookModal(editId) {
     title: nb ? 'Edit notebook' : 'New notebook',
     body: `<div class="stack">
       <div class="field"><label for="nbm-name">Name</label><input id="nbm-name" type="text" maxlength="80" value="${esc(nb ? nb.name : '')}" placeholder="e.g. Billease work notes"></div>
+      <div class="field-row">
+        <div class="field"><label for="nbm-shelf">Shelf</label><select id="nbm-shelf"><option value="">No shelf</option>${(S.profile.shelves || []).map(x => `<option value="${x.id}" ${(nb ? nb.shelf : (UI.nb.shelf !== 'all' && UI.nb.shelf !== 'none' ? UI.nb.shelf : '')) === x.id ? 'selected' : ''}>${esc(x.name)}</option>`).join('')}<option value="__new">+ New shelf…</option></select></div>
+        <div class="field"><label for="nbm-cat">Category <span class="opt">optional</span></label><input id="nbm-cat" type="text" maxlength="40" list="dl-nbcats" value="${esc(nb ? nb.category : '')}" placeholder="e.g. Career, Personal"><datalist id="dl-nbcats">${nbCategories().map(c => `<option value="${esc(c)}">`).join('')}</datalist></div>
+      </div>
+      <div class="field"><label for="nbm-tags">Tags <span class="opt">comma separated</span></label><input id="nbm-tags" type="text" maxlength="300" value="${esc(nb ? nb.tags.join(', ') : '')}" placeholder="e.g. 2026, billease, goals"></div>
+      ${nb ? `<div class="nbm-pin">${icon('lock')}<div><b>${nb.lock ? 'Locked with a PIN' : 'No PIN'}</b><span class="small muted">${nb.lock ? 'Pages are encrypted with your PIN.' : 'Add a PIN so only you can open this notebook.'}</span></div><button type="button" class="btn ghost sm" id="nbm-pin">${nb.lock ? 'Change or remove PIN' : 'Add PIN'}</button></div>` : `<label class="check-line"><input type="checkbox" id="nbm-lockit">${icon('lock', 'sm')} Lock this notebook with a PIN</label>`}
       <fieldset class="field"><legend>Type</legend><div class="seg">${Object.entries(KINDS).map(([k, v]) => `<label><input type="radio" name="nbm-kind" value="${k}" ${k === kind ? 'checked' : ''}><span>${icon(v.icon, 'sm')}${v.label}</span></label>`).join('')}</div></fieldset>
       ${nb ? `<button type="button" class="btn ghost sm" id="nbm-cover" style="align-self:flex-start">${icon('image', 'sm')}Customize cover: photos, stickers, text</button>` : ''}
       <fieldset class="field"><legend>${nb && nb.cover ? 'Color (used by the default cover)' : 'Cover color'}</legend><div class="swatches">${NB_COLORS.map(c => `<label class="swatch"><input type="radio" name="nbm-color" value="${c}" ${c === color ? 'checked' : ''} aria-label="Color ${c}"><span style="--sw:${c}"></span></label>`).join('')}</div></fieldset>
     </div>`,
-    onOpen: w => { const b = $('#nbm-cover', w); if (b) b.onclick = () => { $('[data-close]', w)?.click(); setTimeout(() => coverDesigner(nb.id), 60); }; },
+    onOpen: w => {
+      const b = $('#nbm-cover', w); if (b) b.onclick = () => { $('[data-close]', w)?.click(); setTimeout(() => coverDesigner(nb.id), 60); };
+      const pb = $('#nbm-pin', w); if (pb) pb.onclick = () => { $('[data-close]', w)?.click(); setTimeout(() => nb.lock ? pinOptionsModal(nb.id) : setPinModal(nb.id), 60); };
+      $('#nbm-shelf', w).addEventListener('change', async e => { if (e.target.value !== '__new') return; const id = await shelfModal(); const sel = e.target; if (id) { sel.insertAdjacentHTML('beforeend', ''); sel.innerHTML = `<option value="">No shelf</option>${S.profile.shelves.map(x => `<option value="${x.id}">${esc(x.name)}</option>`).join('')}<option value="__new">+ New shelf…</option>`; sel.value = id; } else sel.value = ''; });
+    },
     actions: [{ label: 'Cancel', kind: 'ghost' }, { label: nb ? 'Save' : 'Create notebook', onClick: wrap => {
       const k = $('input[name="nbm-kind"]:checked', wrap).value;
       const name = $('#nbm-name', wrap).value.trim() || KINDS[k].label;
       const col = $('input[name="nbm-color"]:checked', wrap).value;
-      if (nb) { Object.assign(nb, { name, kind: k, color: col }); persistNotebook(nb.id); }
-      else createNotebook(name, k, col);
+      const shelfV = $('#nbm-shelf', wrap).value, shelf = shelfV === '__new' ? '' : shelfV;
+      const category = $('#nbm-cat', wrap).value.trim().slice(0, 40), tags = $('#nbm-tags', wrap).value.split(',').map(t => t.trim().replace(/^#/, '')).filter(Boolean).slice(0, 10);
+      if (nb) { Object.assign(nb, { name, kind: k, color: col, shelf, category, tags }); persistNotebook(nb.id); }
+      else createNotebook(name, k, col, { shelf, category, tags, pin: $('#nbm-lockit', wrap)?.checked });
       updateNotebookSidebar(); mountEditor();
     } }],
   });
 }
-function createNotebook(name, kind, color) {
+function createNotebook(name, kind, color, opts = {}) {
   const id = newId();
-  S.notebooks.push({ id, name, kind, color: color || NB_COLORS[S.notebooks.length % NB_COLORS.length], createdAt: Date.now() });
+  S.notebooks.push({ id, name, kind, color: color || NB_COLORS[S.notebooks.length % NB_COLORS.length], createdAt: Date.now(), shelf: opts.shelf ?? (UI.nb.shelf !== 'all' && UI.nb.shelf !== 'none' ? UI.nb.shelf : ''), category: opts.category || '', tags: opts.tags || [] });
   persistNotebook(id);
   flushEditor();
   UI.nb.notebookId = id;
   UI.nb.noteId = null;
-  setTimeout(() => newPageFlow(id, true), 60);
+  setTimeout(() => opts.pin ? setPinModal(id, () => newPageFlow(id, true)) : newPageFlow(id, true), 60);
   return id;
 }
 function mountEditor() {
@@ -3087,7 +3176,9 @@ function mountEditor() {
     $$('.kind-card', el).forEach(b => b.onclick = () => { createNotebook(KINDS[b.dataset.kind].label, b.dataset.kind); updateNotebookSidebar(); mountEditor(); });
     return;
   }
-  const note = S.notes.find(n => n.id === UI.nb.noteId);
+  const curNb = S.notebooks.find(n => n.id === UI.nb.notebookId);
+  if (curNb && isNbLocked(curNb)) { mountLockScreen(el, curNb); return; }
+  const note = S.notes.find(n => n.id === UI.nb.noteId && !isNbLocked(S.notebooks.find(b => b.id === n.notebookId) || {}));
   if (!note) {
     const nb = S.notebooks.find(n => n.id === UI.nb.notebookId);
     el.innerHTML = nb ? `<div class="nb-empty">${ART.notebook()}<h2>${esc(nb.name)}</h2><p class="muted">This notebook has no pages yet.</p><button type="button" class="btn" id="ed-first">${icon('plus')}New page</button></div>`
@@ -3102,7 +3193,7 @@ function mountEditor() {
     <div class="ed-head view-enter">
       <label class="sr-only" for="ed-title">Page title</label>
       <input id="ed-title" class="ed-title" type="text" maxlength="200" value="${esc(note.title)}" placeholder="Untitled page">
-      <div class="ed-meta"><span class="badge" style="background:color-mix(in srgb, ${nb ? nb.color : 'var(--accent)'} 15%, transparent)">${icon(KINDS[nb?.kind || 'other'].icon, 'sm')}${esc(nb ? nb.name : '')}</span><label>${icon('calendar', 'sm')}<input type="date" id="ed-date" value="${note.date}" aria-label="Page date"></label><span class="ed-status" id="ed-status"><i></i><span>Saved</span></span></div>
+      <div class="ed-meta"><span class="badge" style="background:color-mix(in srgb, ${nb ? nb.color : 'var(--accent)'} 15%, transparent)">${icon(KINDS[nb?.kind || 'other'].icon, 'sm')}${esc(nb ? nb.name : '')}</span><label>${icon('calendar', 'sm')}<input type="date" id="ed-date" value="${note.date}" aria-label="Page date"></label><span class="ed-status" id="ed-status"><i></i><span>Saved</span></span>${nb && nb.lock ? `<button type="button" class="btn ghost sm" id="ed-lock" title="Lock this notebook now">${icon('lock', 'sm')}Lock</button>` : ''}</div>
     </div>
     <div class="ed-toolbar" role="toolbar" aria-label="Formatting">
       ${tb('formatBlock', 'heading', 'Heading', 'h2')}${tb('formatBlock', 'heading2', 'Subheading', 'h3')}${tb('formatBlock', 'text', 'Normal text', 'p')}
@@ -3162,6 +3253,7 @@ function mountEditor() {
   });
   $('#ed-pdf', el).onclick = () => { flushEditor(); exportNotePdf(note.id); };
   $('#ed-newpg', el).onclick = () => { flushEditor(); newPageFlow(note.notebookId); };
+  const lkb = $('#ed-lock', el); if (lkb) lkb.onclick = () => lockNotebook(note.notebookId).then(() => toast('Notebook locked'));
   $('#ed-del', el).onclick = async () => {
     if (!(await confirmModal(`Delete the page “${note.title || 'Untitled page'}”?`))) return;
     clearTimeout(ED.timer); ED.dirty = false;
@@ -3451,6 +3543,8 @@ async function exportNotebookPdf(nbId) {
   flushEditor();
   const nb = S.notebooks.find(n => n.id === nbId);
   if (!nb) return;
+  if (isNbLocked(nb)) { toast('Unlock this notebook first.', 'warn'); return; }
+  await Promise.all([...SEALING.values()]).catch(() => {});
   const pages = S.notes.filter(n => n.notebookId === nbId).sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : a.createdAt - b.createdAt);
   if (!pages.length) { toast('This notebook has no pages to export yet.'); return; }
   const doc = pdfOrWarn(() => {
@@ -3754,12 +3848,230 @@ function renderShelf() {
   const card = $('#nb-shelf-card');
   if (!S.loaded.notebooks || !S.notebooks.length) { if (card) card.hidden = true; return; }
   if (card) card.hidden = false;
-  el.innerHTML = sortedNotebooks().map((nb, i) => `<div class="shelf-book ${nb.id === UI.nb.notebookId ? 'active' : ''}" style="--i:${i}">
-      <button type="button" class="shelf-open" data-shelf="${nb.id}" aria-label="Open ${esc(nb.name)}">${coverHTML(nb)}</button>
+  const shelves = S.profile.shelves || [], all = sortedNotebooks();
+  if (UI.nb.shelf !== 'all' && UI.nb.shelf !== 'none' && !shelves.some(x => x.id === UI.nb.shelf)) UI.nb.shelf = 'all';
+  const cnt = f => all.filter(f).length, unshelved = cnt(n => !n.shelf || !shelves.some(x => x.id === n.shelf));
+  $('#shelf-tabs').innerHTML = `<button type="button" role="tab" data-shelf-tab="all" aria-selected="${UI.nb.shelf === 'all'}">${icon('book', 'sm')}All books <i>${all.length}</i></button>`
+    + shelves.map(x => `<span class="shelf-tab-wrap"><button type="button" role="tab" data-shelf-tab="${x.id}" aria-selected="${UI.nb.shelf === x.id}" style="--sc:${x.color}"><b class="dot"></b>${esc(x.name)} <i>${cnt(n => n.shelf === x.id)}</i></button>${UI.nb.shelf === x.id ? `<button type="button" class="shelf-tab-edit" data-shelf-edit="${x.id}" title="Rename or delete shelf" aria-label="Edit shelf ${esc(x.name)}">${icon('edit', 'sm')}</button>` : ''}</span>`).join('')
+    + (shelves.length && unshelved ? `<button type="button" role="tab" data-shelf-tab="none" aria-selected="${UI.nb.shelf === 'none'}">No shelf <i>${unshelved}</i></button>` : '')
+    + `<button type="button" class="shelf-add" data-shelf-add>${icon('plus', 'sm')}New shelf</button>`;
+  const inShelf = all.filter(shelfMatch), cats = [...new Set(inShelf.map(n => n.category).filter(Boolean))].sort(), tags = [...new Set(inShelf.flatMap(n => n.tags))].sort();
+  if (UI.nb.cat && !cats.includes(UI.nb.cat)) UI.nb.cat = '';
+  if (UI.nb.tag && !tags.includes(UI.nb.tag)) UI.nb.tag = '';
+  $('#shelf-filters').innerHTML = cats.length || tags.length ? `${cats.length ? `<span class="sf-lbl">${icon('list', 'sm')}Category</span>${cats.map(c => `<button type="button" class="sf-chip ${UI.nb.cat === c ? 'on' : ''}" data-fcat="${esc(c)}">${esc(c)}</button>`).join('')}` : ''}${tags.length ? `<span class="sf-lbl">#&nbsp;Tags</span>${tags.map(t => `<button type="button" class="sf-chip tag ${UI.nb.tag === t ? 'on' : ''}" data-ftag="${esc(t)}">#${esc(t)}</button>`).join('')}` : ''}${UI.nb.cat || UI.nb.tag ? `<button type="button" class="link" data-fclear>${icon('x', 'sm')}Clear</button>` : ''}` : '';
+  const list = shelfNotebooks();
+  el.innerHTML = list.map((nb, i) => `<div class="shelf-book ${nb.id === UI.nb.notebookId ? 'active' : ''} ${isNbLocked(nb) ? 'locked' : ''}" style="--i:${i}">
+      <button type="button" class="shelf-open" data-shelf="${nb.id}" aria-label="Open ${esc(nb.name)}${nb.lock ? ' (locked)' : ''}">${coverHTML(nb)}${nb.lock ? `<span class="shelf-lock ${isNbLocked(nb) ? '' : 'open'}">${icon('lock', 'sm')}</span>` : ''}</button>
       <button type="button" class="shelf-edit" data-cover="${nb.id}" title="Customize cover" aria-label="Customize the cover of ${esc(nb.name)}">${icon('edit', 'sm')}</button>
-      <span class="shelf-name">${esc(nb.name)}<small>${plural(S.notes.filter(n => n.notebookId === nb.id).length, 'page')}</small></span></div>`).join('')
-    + `<div class="shelf-book"><button type="button" class="shelf-new" data-shelf-new aria-label="New notebook">${icon('plus')}<span>New notebook</span></button></div>`;
+      <span class="shelf-name">${esc(nb.name)}<small>${esc([nb.category, plural(S.notes.filter(n => n.notebookId === nb.id).length, 'page')].filter(Boolean).join(' · '))}</small>${nb.tags.length ? `<span class="shelf-tags">${nb.tags.slice(0, 3).map(t => `<i>#${esc(t)}</i>`).join('')}</span>` : ''}</span></div>`).join('')
+    + (UI.nb.cat || UI.nb.tag ? (list.length ? '' : '<p class="small muted" style="align-self:center">No notebooks match these filters.</p>') : `<div class="shelf-book"><button type="button" class="shelf-new" data-shelf-new aria-label="New notebook">${icon('plus')}<span>New notebook</span></button></div>`);
   hydrateCovers(el);
+}
+const shelfMatch = nb => { const sh = S.profile.shelves || []; return UI.nb.shelf === 'all' ? true : UI.nb.shelf === 'none' ? !nb.shelf || !sh.some(x => x.id === nb.shelf) : nb.shelf === UI.nb.shelf; };
+const shelfNotebooks = () => sortedNotebooks().filter(nb => shelfMatch(nb) && (!UI.nb.cat || nb.category === UI.nb.cat) && (!UI.nb.tag || nb.tags.includes(UI.nb.tag)));
+const nbCategories = () => [...new Set(S.notebooks.map(n => n.category).filter(Boolean))].sort();
+const SHELF_COLORS = ['#0F6E6A', '#2F6FB0', '#8A4FB5', '#C2477A', '#C0632A', '#B87A0E', '#3C8A37', '#5E6E6A'];
+function shelfModal(editId) {
+  const sh = editId ? (S.profile.shelves || []).find(x => x.id === editId) : null;
+  return new Promise(resolve => {
+    let done = false; const finish = v => { if (!done) { done = true; resolve(v); } };
+    const m = openModal({
+      title: sh ? 'Edit shelf' : 'New shelf',
+      body: `<div class="stack"><div class="field"><label for="shm-name">Shelf name</label><input id="shm-name" type="text" maxlength="40" value="${esc(sh ? sh.name : '')}" placeholder="e.g. Work, Personal, 2026"></div>
+        <fieldset class="field"><legend>Color</legend><div class="swatches">${SHELF_COLORS.map((c, i) => `<label class="swatch"><input type="radio" name="shm-color" value="${c}" ${(sh ? sh.color === c : i === (S.profile.shelves || []).length % SHELF_COLORS.length) ? 'checked' : ''} aria-label="Color ${c}"><span style="--sw:${c}"></span></label>`).join('')}</div></fieldset>
+        ${sh ? `<p class="small muted">Notebooks on this shelf: ${S.notebooks.filter(n => n.shelf === sh.id).length}</p>` : ''}</div>`,
+      actions: [
+        ...(sh ? [{ label: 'Delete shelf', kind: 'ghost danger', onClick: async () => {
+          const n = S.notebooks.filter(x => x.shelf === sh.id);
+          if (!(await confirmModal(`Delete the shelf “${sh.name}”? ${n.length ? `Its ${plural(n.length, 'notebook')} won't be deleted. They move to No shelf.` : ''}`))) return false;
+          n.forEach(x => { x.shelf = ''; persistNotebook(x.id); });
+          S.profile = normProfile({ ...S.profile, shelves: S.profile.shelves.filter(x => x.id !== sh.id) }); persistProfile();
+          if (UI.nb.shelf === sh.id) UI.nb.shelf = 'all';
+          toast('Shelf deleted'); finish(null); m.close(); updateNotebookSidebar(); return false;
+        } }] : []),
+        { label: 'Cancel', kind: 'ghost', onClick: () => finish(null) },
+        { label: sh ? 'Save' : 'Create shelf', onClick: w => {
+          const name = $('#shm-name', w).value.trim();
+          if (!name) { $('#shm-name', w).focus(); toast('Give the shelf a name.', 'warn'); return false; }
+          const color = $('input[name="shm-color"]:checked', w).value;
+          let id = sh ? sh.id : 's' + newId();
+          const list = (S.profile.shelves || []).filter(x => x.id !== id).concat({ id, name, color });
+          if (sh) list.sort((a, b) => S.profile.shelves.findIndex(x => x.id === a.id) - S.profile.shelves.findIndex(x => x.id === b.id));
+          S.profile = normProfile({ ...S.profile, shelves: list }); persistProfile();
+          toast(sh ? 'Shelf saved' : `Shelf “${name}” created`); finish(id);
+        } },
+      ],
+    });
+    new MutationObserver((_, ob) => { if (!m.wrap.isConnected) { ob.disconnect(); finish(null); } }).observe(document.body, { childList: true });
+  });
+}
+
+/* ---- Notebook PIN locks ---- */
+const NBK = new Map(), PLAIN = new Map(), SEALING = new Map(), PIN_FAILS = new Map();
+const isNbLocked = nb => !!(nb && nb.lock && !NBK.has(nb.id));
+const visibleNotes = () => S.notes.filter(n => !isNbLocked(S.notebooks.find(b => b.id === n.notebookId)));
+function normNbLock(l) {
+  if (!l || typeof l !== 'object' || typeof l.salt !== 'string' || typeof l.iv !== 'string' || typeof l.ct !== 'string') return undefined;
+  return { salt: l.salt, iter: Number(l.iter) || PBKDF2_ITER, iv: l.iv, ct: l.ct, rec: l.rec && typeof l.rec.iv === 'string' && typeof l.rec.ct === 'string' ? { iv: l.rec.iv, ct: l.rec.ct } : null };
+}
+function noteBody(n) {
+  const nb = S.notebooks.find(b => b.id === n.notebookId), { id, sealed, title, html, ...rest } = n;
+  return nb && nb.lock && sealed ? { ...rest, sealed } : { ...rest, title, html };
+}
+async function sealNote(n) {
+  const nb = S.notebooks.find(b => b.id === n.notebookId), key = nb && NBK.get(nb.id);
+  if (!nb || !nb.lock) { delete n.sealed; return; }
+  if (!key) return;
+  n.sealed = await sealObj(key, { title: n.title, html: n.html });
+  PLAIN.set(n.id, { ct: n.sealed.ct, title: n.title, html: n.html });
+}
+let unsealTimer = null;
+function queueUnseal() { clearTimeout(unsealTimer); unsealTimer = setTimeout(async () => {
+  let changed = false;
+  for (const n of S.notes) {
+    if (!n.sealed || (PLAIN.get(n.id) || {}).ct === n.sealed.ct) continue;
+    const key = NBK.get(n.notebookId); if (!key) continue;
+    try { const o = await openObj(key, n.sealed); n.title = String(o.title || ''); n.html = String(o.html || ''); PLAIN.set(n.id, { ct: n.sealed.ct, title: n.title, html: n.html }); changed = true; } catch (e) { console.error('unseal', e); }
+  }
+  if (changed && S.view === 'notebooks') { updateNotebookSidebar(); if (!ED.dirty) mountEditor(); }
+}, 30); }
+async function unsealNotebook(nbId) {
+  const key = NBK.get(nbId);
+  for (const n of S.notes.filter(x => x.notebookId === nbId && x.sealed)) {
+    const o = await openObj(key, n.sealed); n.title = String(o.title || ''); n.html = String(o.html || ''); PLAIN.set(n.id, { ct: n.sealed.ct, title: n.title, html: n.html });
+  }
+}
+async function unlockNotebook(nb, pin) {
+  const f = PIN_FAILS.get(nb.id) || { n: 0, until: 0 };
+  if (Date.now() < f.until) throw { code: 'wait', secs: Math.ceil((f.until - Date.now()) / 1000) };
+  let key;
+  try { key = await unwrapDEK(nb.lock, pin); }
+  catch (e) { f.n++; if (f.n >= 5) f.until = Date.now() + Math.min(300, 30 * 2 ** (f.n - 5)) * 1000; PIN_FAILS.set(nb.id, f); throw { code: 'wrong', left: Math.max(0, 5 - f.n) }; }
+  PIN_FAILS.delete(nb.id);
+  NBK.set(nb.id, key);
+  await unsealNotebook(nb.id);
+}
+async function lockNotebook(id) {
+  const nb = S.notebooks.find(b => b.id === id);
+  if (!nb || !nb.lock || !NBK.has(id)) return;
+  if (UI.nb.notebookId === id) flushEditor();
+  await Promise.all([...SEALING.values()]).catch(() => {});
+  for (const n of S.notes.filter(x => x.notebookId === id)) {
+    const p = PLAIN.get(n.id);
+    if (!n.sealed || !p || p.ct !== n.sealed.ct || p.title !== n.title || p.html !== n.html) { await sealNote(n); await persistNoteRaw(n.id); }
+  }
+  NBK.delete(id);
+  S.notes.forEach(n => { if (n.notebookId === id) { n.title = ''; n.html = ''; PLAIN.delete(n.id); } });
+  if (S.view === 'notebooks') { updateNotebookSidebar(); mountEditor(); }
+}
+function lockAllNotebooks() { [...NBK.keys()].forEach(id => lockNotebook(id)); }
+function mountLockScreen(el, nb) {
+  el.innerHTML = `<div class="lock-screen view-enter">
+    <div class="lock-book">${coverHTML(nb)}<span class="lock-badge">${icon('lock')}</span></div>
+    <h2>${esc(nb.name)} is locked</h2>
+    <p class="muted">Enter your notebook PIN to open it. It locks again when you leave Notebooks.</p>
+    <form class="lock-form" id="lk-form" autocomplete="off"><label class="sr-only" for="lk-pin">Notebook PIN</label>
+      <input id="lk-pin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="12" placeholder="PIN" autocomplete="off">
+      <button class="btn" type="submit" id="lk-go">${icon('key', 'sm')}Unlock</button></form>
+    <p class="lock-msg" id="lk-msg" role="alert"></p>
+    <button type="button" class="link" id="lk-forgot">Forgot your PIN?</button></div>`;
+  hydrateCovers(el);
+  const form = $('#lk-form', el), inp = $('#lk-pin', el), msg = $('#lk-msg', el);
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const pin = inp.value.trim(); if (!pin) { inp.focus(); return; }
+    const btn = $('#lk-go', el); btn.disabled = true; msg.textContent = 'Checking…';
+    try { await unlockNotebook(nb, pin); UI.nb.noteId = pagesOf(nb.id)[0]?.id || null; updateNotebookSidebar(); mountEditor(); toast('Notebook unlocked'); }
+    catch (err) {
+      btn.disabled = false; inp.value = ''; inp.focus();
+      form.classList.remove('shake'); void form.offsetWidth; form.classList.add('shake');
+      msg.textContent = err && err.code === 'wait' ? `Too many tries. Wait ${err.secs} seconds and try again.` : err && err.code === 'wrong' ? `That PIN isn't right.${err.left ? ` ${plural(err.left, 'try', 'tries')} before a short wait.` : ''}` : "Couldn't unlock. Try again.";
+    }
+  };
+  $('#lk-forgot', el).onclick = () => forgotPinModal(nb.id);
+  setTimeout(() => { if (inp.isConnected && S.view === 'notebooks') inp.focus(); }, 60);
+}
+function pinFields(confirmLabel = 'Confirm PIN') {
+  return `<div class="field-row"><div class="field"><label for="pn-1">New PIN <span class="opt">4 to 12 digits</span></label><input id="pn-1" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="12" autocomplete="new-password"></div>
+    <div class="field"><label for="pn-2">${confirmLabel}</label><input id="pn-2" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="12" autocomplete="new-password"></div></div>`;
+}
+function readPin(w) {
+  const a = $('#pn-1', w).value.trim(), b = $('#pn-2', w).value.trim();
+  if (!/^\d{4,12}$/.test(a)) { toast('Use 4 to 12 digits for your PIN.', 'warn'); $('#pn-1', w).focus(); return null; }
+  if (a !== b) { toast("The PINs don't match.", 'warn'); $('#pn-2', w).focus(); return null; }
+  return a;
+}
+async function applyPin(nb, pin, key) {
+  const raw = await crypto.subtle.exportKey('raw', key);
+  const w = await wrapDEK(key, pin);
+  const rec = CRYPTO.key && S.lock && S.lock.pin ? await sealBytes(CRYPTO.key, raw) : null;
+  nb.lock = { salt: w.salt, iter: w.iter, iv: w.iv, ct: w.ct, rec };
+  NBK.set(nb.id, key);
+  for (const n of S.notes.filter(x => x.notebookId === nb.id)) await sealNote(n);
+  await persistNotebook(nb.id);
+  for (const n of S.notes.filter(x => x.notebookId === nb.id)) await persistNoteRaw(n.id);
+}
+function setPinModal(nbId, after) {
+  const nb = S.notebooks.find(b => b.id === nbId); if (!nb) return;
+  const hasApp = !!(S.lock && S.lock.pin);
+  openModal({
+    title: `Lock “${nb.name}” with a PIN`,
+    body: `<div class="stack"><p class="muted">Pages in this notebook will be encrypted with your PIN. You'll enter it each time you open the notebook.</p>${pinFields()}
+      <div class="note-box ${hasApp ? '' : 'warn'}">${icon(hasApp ? 'info' : 'alert', 'sm')}<span>${hasApp ? 'Forgot it later? You can reset it with your app passcode.' : "You don't have an app passcode, so a forgotten PIN can't be reset and the pages can't be recovered. Write it down somewhere safe."}</span></div></div>`,
+    onOpen: w => setTimeout(() => $('#pn-1', w)?.focus(), 50),
+    actions: [{ label: 'Cancel', kind: 'ghost', onClick: () => { if (after) setTimeout(after, 60); } }, { label: 'Lock notebook', onClick: async w => {
+      const pin = readPin(w); if (!pin) return false;
+      flushEditor();
+      try { const key = await crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt']); await applyPin(nb, pin, key); }
+      catch (e) { console.error(e); toast("Couldn't set the PIN.", 'warn'); return false; }
+      updateNotebookSidebar(); mountEditor(); toast('PIN set. The notebook locks when you leave Notebooks.');
+      if (after) setTimeout(after, 60);
+    } }],
+  });
+}
+function pinOptionsModal(nbId) {
+  const nb = S.notebooks.find(b => b.id === nbId); if (!nb || !nb.lock) return;
+  if (isNbLocked(nb)) { toast('Unlock the notebook first.'); UI.nb.notebookId = nb.id; updateNotebookSidebar(); mountEditor(); return; }
+  openModal({
+    title: `PIN for “${nb.name}”`,
+    body: `<div class="stack"><p class="muted">Change the PIN, or remove it so the notebook opens without one.</p>${pinFields('Confirm new PIN')}</div>`,
+    actions: [
+      { label: 'Remove PIN', kind: 'ghost danger', onClick: async () => {
+        if (!(await confirmModal(`Remove the PIN from “${nb.name}”? Its pages stay protected by your app passcode, if you have one.`, 'Remove PIN'))) return false;
+        flushEditor(); await Promise.all([...SEALING.values()]).catch(() => {});
+        nb.lock = undefined; NBK.delete(nb.id);
+        S.notes.filter(x => x.notebookId === nb.id).forEach(n => { delete n.sealed; PLAIN.delete(n.id); });
+        await persistNotebook(nb.id); for (const n of S.notes.filter(x => x.notebookId === nb.id)) await persistNoteRaw(n.id);
+        updateNotebookSidebar(); mountEditor(); toast('PIN removed');
+      } },
+      { label: 'Cancel', kind: 'ghost' },
+      { label: 'Change PIN', onClick: async w => {
+        const pin = readPin(w); if (!pin) return false;
+        try { await applyPin(nb, pin, NBK.get(nb.id)); } catch (e) { console.error(e); toast("Couldn't change the PIN.", 'warn'); return false; }
+        toast('PIN changed');
+      } },
+    ],
+  });
+}
+function forgotPinModal(nbId) {
+  const nb = S.notebooks.find(b => b.id === nbId); if (!nb || !nb.lock) return;
+  const can = !!(nb.lock.rec && S.lock && S.lock.pin);
+  if (!can) { openModal({ title: 'Forgot your PIN?', body: `<p class="muted">This notebook's PIN can't be reset${S.lock && S.lock.pin ? ' because it was set before reset was available' : " because there's no app passcode"}. Without the PIN, its pages can't be read. You can keep trying, or delete the notebook from Edit in the notebook list.</p>`, actions: [{ label: 'OK' }] }); return; }
+  openModal({
+    title: 'Reset the notebook PIN',
+    body: `<div class="stack"><p class="muted">Enter your app passcode to prove it's you, then choose a new PIN.</p>
+      <div class="field"><label for="fp-pass">App passcode</label><input id="fp-pass" type="password" autocomplete="current-password"></div>${pinFields('Confirm new PIN')}</div>`,
+    onOpen: w => setTimeout(() => $('#fp-pass', w)?.focus(), 50),
+    actions: [{ label: 'Cancel', kind: 'ghost' }, { label: 'Reset PIN', onClick: async w => {
+      const pin = readPin(w); if (!pin) return false;
+      try {
+        const dek = await unwrapDEK(S.lock.pin, $('#fp-pass', w).value);
+        const key = await importDEK(await openBytes(dek, nb.lock.rec));
+        NBK.set(nb.id, key); await unsealNotebook(nb.id); await applyPin(nb, pin, key);
+      } catch (e) { console.error(e); toast("That passcode isn't right.", 'warn'); $('#fp-pass', w).value = ''; $('#fp-pass', w).focus(); return false; }
+      PIN_FAILS.delete(nb.id); UI.nb.noteId = pagesOf(nb.id)[0]?.id || null; updateNotebookSidebar(); mountEditor(); toast('PIN reset and notebook unlocked');
+    } }],
+  });
 }
 
 /* ================= Braddy: your best friend's comments ================= */
@@ -4604,7 +4916,7 @@ function mountAccount() {
 }
 async function downloadBackup(key, keys, protectedBy) {
   try {
-    const payload = { profile: S.profile, days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes, files: {} };
+    const payload = { profile: S.profile, days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes.map(n => ({ id: n.id, ...noteBody(n) })), files: {} };
     const refs = allFileRefs();
     if (refs.length) toast(`Packing ${plural(refs.length, 'attachment')}…`);
     for (const f of refs) { try { const { bytes, meta } = await loadFileBytes(f.id); payload.files[f.id] = { name: meta.name, type: meta.type, b64: bufToB64(bytes) }; } catch (e) { console.error(e); } }
@@ -4969,7 +5281,9 @@ async function startApp() {
 async function lockNow(auto) {
   if (!S.lock) { toast('Set up a passcode first to lock your wall.'); go('account'); return; }
   if (S.view === 'notebooks') flushEditor();
+  await Promise.all([...SEALING.values()]).catch(() => {});
   await drainQueues();
+  NBK.clear(); PLAIN.clear();
   S.unsubs.forEach(u => { try { u(); } catch (e) { /* ignore */ } });
   S.unsubs = [];
   S.days = new Map(); S.notebooks = []; S.notes = []; S.profile = normProfile({}); applyCategories(); invalidate();
@@ -5023,7 +5337,7 @@ function openPalette() {
     if (q.length >= 2) {
       allWins().filter(w => (w.title + ' ' + w.result + ' ' + w.tags.join(' ') + ' ' + w.project).toLowerCase().includes(q)).slice(-8).reverse()
         .forEach(w => items.push({ g: 'Wins', label: w.title, sub: `${fmtDateK(w.date)} · ${catOf(w.category).label}`, cat: w.category, run: () => openWinPreview(w.id) }));
-      S.notes.filter(n => (n.title + ' ' + n.html.replace(/<[^>]+>/g, ' ')).toLowerCase().includes(q)).slice(0, 6)
+      visibleNotes().filter(n => (n.title + ' ' + n.html.replace(/<[^>]+>/g, ' ')).toLowerCase().includes(q)).slice(0, 6)
         .forEach(n => items.push({ g: 'Pages', label: n.title || 'Untitled page', sub: `${fmtDateK(n.date)} · ${S.notebooks.find(b => b.id === n.notebookId)?.name || ''}`, icon: 'file', run: () => openNote(n.id) }));
     }
     active = Math.min(active, Math.max(0, items.length - 1));
