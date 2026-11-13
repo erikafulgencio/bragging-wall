@@ -1064,7 +1064,9 @@ canvas.freedom-wall { position: fixed; inset: 0; width: 100%; height: 100%; z-in
 .meter[data-s="3"] i:nth-child(-n+3) { background: var(--accent-2); }
 .meter[data-s="4"] i { background: var(--good); }
 .meter-l { font-size: .76rem; color: var(--muted); }
-.steps { display: flex; justify-content: center; gap: 6px; }
+.steps { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.steps-bar { display: flex; gap: 6px; }
+.steps-lbl { font: 600 .7rem var(--font-mono); letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
 .steps i { width: 24px; height: 5px; border-radius: 99px; background: var(--line); }
 .steps i.on { background: var(--grad); }
 .perks { display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 16px; background: var(--surface-2); }
@@ -5132,7 +5134,7 @@ function showGate(state, opts) {
   document.body.classList.add('gated');
   $('#app').inert = true;
   $$('.modal-wrap, .palette-wrap').forEach(m => m.remove());
-  const steps = n => `<div class="steps" aria-hidden="true"><i class="${n >= 1 ? 'on' : ''}"></i><i class="${n >= 2 ? 'on' : ''}"></i></div>`;
+  const steps = n => `<div class="steps"><span class="steps-bar" aria-hidden="true"><i class="${n >= 1 ? 'on' : ''}"></i><i class="${n >= 2 ? 'on' : ''}"></i></span><span class="steps-lbl">Step ${n} of 2 · ${n === 1 ? 'Create a passcode' : 'Save your recovery code'}</span></div>`;
   let html = '';
   if (state === 'loading') html = gateCard(`<div class="spinner"></div><p class="lead" style="text-align:center;color:var(--muted)">Opening your wall…</p>`);
   else if (state === 'error') html = gateCard(`${ART.shield()}<h1>Couldn't reach your wall</h1><p class="lead">Check your connection, then try again.</p><button type="button" class="btn block" id="g-retry">${icon('refresh')}Try again</button>`);
@@ -5148,7 +5150,7 @@ function showGate(state, opts) {
   else if (state === 'newpass') html = gateCard(`${ART.shield()}<h1>Choose a new passcode</h1><p class="lead">Your recovery code worked. Set a new passcode to finish.</p>
       <form class="stack" id="g-form" novalidate>${pwField('g-new', 'New passcode', 'new-password')}<div><div class="meter" id="g-meter"><i></i><i></i><i></i><i></i></div><span class="meter-l" id="g-meter-l">At least 6 characters</span></div>${pwField('g-new2', 'Confirm passcode', 'new-password')}<p class="err" id="g-err" role="alert"></p>
       <button type="submit" class="btn block" id="g-go">${icon('check')}Save and unlock</button></form>`);
-  else if (state === 'setup1') html = gateCard(`${steps(1)}${ART.shield()}<h1>Secure your <em>wall</em></h1><p class="lead">Create a passcode. You'll enter it each time you open Bragging Wall.</p>
+  else if (state === 'setup1') html = gateCard(`${steps(1)}${ART.shield()}<h1>Secure your <em>wall</em></h1><p class="lead">Create a passcode to open your wall.</p>
       <div class="perks"><div>${icon('key')}<span>Every entry is encrypted on your device before it's saved.</span></div><div>${icon('clock')}<span>Locks itself when you step away.</span></div><div>${icon('shield')}<span>A recovery code gets you back in if you forget.</span></div></div>
       <form class="stack" id="g-form" novalidate>${pwField('g-new', 'Passcode', 'new-password')}<div><div class="meter" id="g-meter"><i></i><i></i><i></i><i></i></div><span class="meter-l" id="g-meter-l">At least 6 characters. A short phrase is stronger than a number.</span></div>${pwField('g-new2', 'Confirm passcode', 'new-password')}<p class="err" id="g-err" role="alert"></p>
       <button type="submit" class="btn block" id="g-go">Continue ${icon('arrowRight')}</button></form>
