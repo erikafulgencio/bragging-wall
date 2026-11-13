@@ -3813,13 +3813,13 @@ const GD_README = `BRAGGING WALL BACKUPS
 
 This folder holds encrypted backups of your Bragging Wall: your wins, notebooks and pages, notebook covers, attachments, custom areas and settings. Each backup is one file. Bragging Wall keeps the newest ${GD_KEEP} and removes older ones.
 
-The files are encrypted before they leave your device. Nobody can read them without your Bragging Wall passcode, your recovery code, or the backup password you chose. Pages in PIN-locked notebooks also need their notebook PIN.
+The files are encrypted before they leave your device. Nobody can read them without your Bragging Wall password, your recovery code, or the backup password you chose. Pages in PIN-locked notebooks also need their notebook PIN.
 
 HOW TO RESTORE
 1. Open your Bragging Wall and go to Settings > Backup.
 2. Choose "Restore from Google Drive" and pick a backup.
    Or download a backup file from this folder and use "Restore a backup".
-3. Enter your passcode, recovery code or backup password when asked.
+3. Enter your password, recovery code or backup password when asked.
 
 Please don't rename or edit these files.`;
 async function gdEnsureReadme(folder) {
@@ -3978,10 +3978,10 @@ function renderDriveCard() {
     ${GD.clientId && linked ? `<div class="gd-tools">
       ${folderLink ? `<a class="link" href="${folderLink}" target="_blank" rel="noopener">${icon('globe', 'sm')}Open folder</a>` : ''}
       <button type="button" class="link" data-gd="restore">${icon('download', 'sm')}Restore from Drive</button>
-      <label class="gd-auto" title="${hasKey ? '' : 'Needs the passcode lock'}"><input type="checkbox" data-gd="auto" ${GD.auto && hasKey ? 'checked' : ''} ${hasKey ? '' : 'disabled'}>Back up automatically</label>
+      <label class="gd-auto" title="${hasKey ? '' : 'Needs the password lock'}"><input type="checkbox" data-gd="auto" ${GD.auto && hasKey ? 'checked' : ''} ${hasKey ? '' : 'disabled'}>Back up automatically</label>
       <button type="button" class="link" data-gd="setup">${icon('settings', 'sm')}Setup</button>
       <button type="button" class="link danger" data-gd="disconnect">${icon('x', 'sm')}Disconnect</button></div>
-      ${hasKey ? '' : `<p class="small muted">${icon('info', 'sm')} Turn on the passcode lock in Security to back up automatically. Until then, you'll choose a password for each backup.</p>`}` : ''}`;
+      ${hasKey ? '' : `<p class="small muted">${icon('info', 'sm')} Turn on the password lock in Security to back up automatically. Until then, you'll choose a password for each backup.</p>`}` : ''}`;
   el.onclick = async e => {
     const b = e.target.closest('[data-gd]'); if (!b || b.tagName === 'INPUT') return;
     const a = b.dataset.gd;
@@ -4463,7 +4463,7 @@ function setPinModal(nbId, after) {
   openModal({
     title: `Lock “${nb.name}” with a PIN`,
     body: `<div class="stack"><p class="muted">Pages in this notebook will be encrypted with your PIN. You'll enter it each time you open the notebook.</p>${pinFields()}
-      <div class="note-box ${hasApp ? '' : 'warn'}">${icon(hasApp ? 'info' : 'alert', 'sm')}<span>${hasApp ? 'Forgot it later? You can reset it with your app passcode.' : "You don't have an app passcode, so a forgotten PIN can't be reset and the pages can't be recovered. Write it down somewhere safe."}</span></div></div>`,
+      <div class="note-box ${hasApp ? '' : 'warn'}">${icon(hasApp ? 'info' : 'alert', 'sm')}<span>${hasApp ? 'Forgot it later? You can reset it with your app password.' : "You don't have an app password, so a forgotten PIN can't be reset and the pages can't be recovered. Write it down somewhere safe."}</span></div></div>`,
     onOpen: w => setTimeout(() => $('#pn-1', w)?.focus(), 50),
     actions: [{ label: 'Cancel', kind: 'ghost', onClick: () => { if (after) setTimeout(after, 60); } }, { label: 'Lock notebook', onClick: async w => {
       const pin = readPin(w); if (!pin) return false;
@@ -4483,7 +4483,7 @@ function pinOptionsModal(nbId) {
     body: `<div class="stack"><p class="muted">Change the PIN, or remove it so the notebook opens without one.</p>${pinFields('Confirm new PIN')}</div>`,
     actions: [
       { label: 'Remove PIN', kind: 'ghost danger', onClick: async () => {
-        if (!(await confirmModal(`Remove the PIN from “${nb.name}”? Its pages stay protected by your app passcode, if you have one.`, 'Remove PIN'))) return false;
+        if (!(await confirmModal(`Remove the PIN from “${nb.name}”? Its pages stay protected by your app password, if you have one.`, 'Remove PIN'))) return false;
         flushEditor(); await Promise.all([...SEALING.values()]).catch(() => {});
         nb.lock = undefined; NBK.delete(nb.id);
         S.notes.filter(x => x.notebookId === nb.id).forEach(n => { delete n.sealed; PLAIN.delete(n.id); });
@@ -4502,11 +4502,11 @@ function pinOptionsModal(nbId) {
 function forgotPinModal(nbId) {
   const nb = S.notebooks.find(b => b.id === nbId); if (!nb || !nb.lock) return;
   const can = !!(nb.lock.rec && S.lock && S.lock.pin);
-  if (!can) { openModal({ title: 'Forgot your PIN?', body: `<p class="muted">This notebook's PIN can't be reset${S.lock && S.lock.pin ? ' because it was set before reset was available' : " because there's no app passcode"}. Without the PIN, its pages can't be read. You can keep trying, or delete the notebook from Edit in the notebook list.</p>`, actions: [{ label: 'OK' }] }); return; }
+  if (!can) { openModal({ title: 'Forgot your PIN?', body: `<p class="muted">This notebook's PIN can't be reset${S.lock && S.lock.pin ? ' because it was set before reset was available' : " because there's no app password"}. Without the PIN, its pages can't be read. You can keep trying, or delete the notebook from Edit in the notebook list.</p>`, actions: [{ label: 'OK' }] }); return; }
   openModal({
     title: 'Reset the notebook PIN',
-    body: `<div class="stack"><p class="muted">Enter your app passcode to prove it's you, then choose a new PIN.</p>
-      <div class="field"><label for="fp-pass">App passcode</label><input id="fp-pass" type="password" autocomplete="current-password"></div>${pinFields('Confirm new PIN')}</div>`,
+    body: `<div class="stack"><p class="muted">Enter your app password to prove it's you, then choose a new PIN.</p>
+      <div class="field"><label for="fp-pass">App password</label><input id="fp-pass" type="password" autocomplete="current-password"></div>${pinFields('Confirm new PIN')}</div>`,
     onOpen: w => setTimeout(() => $('#fp-pass', w)?.focus(), 50),
     actions: [{ label: 'Cancel', kind: 'ghost' }, { label: 'Reset PIN', onClick: async w => {
       const pin = readPin(w); if (!pin) return false;
@@ -4514,7 +4514,7 @@ function forgotPinModal(nbId) {
         const dek = await unwrapDEK(S.lock.pin, $('#fp-pass', w).value);
         const key = await importDEK(await openBytes(dek, nb.lock.rec));
         NBK.set(nb.id, key); await unsealNotebook(nb.id); await applyPin(nb, pin, key);
-      } catch (e) { console.error(e); toast("That passcode isn't right.", 'warn'); $('#fp-pass', w).value = ''; $('#fp-pass', w).focus(); return false; }
+      } catch (e) { console.error(e); toast("That password isn't right.", 'warn'); $('#fp-pass', w).value = ''; $('#fp-pass', w).focus(); return false; }
       PIN_FAILS.delete(nb.id); UI.nb.noteId = pagesOf(nb.id)[0]?.id || null; updateNotebookSidebar(); mountEditor(); toast('PIN reset and notebook unlocked');
     } }],
   });
@@ -5396,7 +5396,7 @@ async function downloadBackup(key, keys, protectedBy, hint) {
   try {
     const { text } = await buildBackupFile(key, keys, protectedBy, false, hint);
     const ok = await saveFile(`bragging-wall-backup-${todayKey()}.json`, text);
-    if (ok) { lsSet('bw-last-backup', String(Date.now())); bkLastNote(); storageBanner(); toast(protectedBy === 'journal-passcode' ? 'Backup file created. It opens with your passcode or recovery code.' : 'Backup file created. It opens only with the password you set.'); }
+    if (ok) { lsSet('bw-last-backup', String(Date.now())); bkLastNote(); storageBanner(); toast(protectedBy === 'journal-passcode' ? 'Backup file created. It opens with your password or recovery code.' : 'Backup file created. It opens only with the password you set.'); }
   } catch (e) { console.error(e); toast("Couldn't create the backup.", 'warn'); }
 }
 function backupPasswordModal(then, actionLabel) {
@@ -5518,8 +5518,8 @@ async function decryptBackup(f) {
   return new Promise(res => {
     openModal({
       title: 'Unlock this backup',
-      body: `<div class="stack"><div class="bp-hero"><span class="bp-ic">${icon('lock')}</span><p>${isPc ? `This backup was created on ${esc(when)}. Enter <b>your password</b> from that day and the backup's <b>backup code</b>.` : isPw ? `This backup is password protected. Enter the password you set when you created it on ${esc(when)}.` : `Enter the wall passcode you were using on ${esc(when)}${f.keys.rec ? ', or your recovery code from that time' : ''}.`}</p></div>
-        ${pwField('rb-pass', isPc ? 'Password' : isPw ? 'Backup password' : 'Passcode or recovery code', 'off')}${isPc ? `<div class="field"><label for="rb-code">Backup code</label><input id="rb-code" type="text" autocomplete="off" spellcheck="false" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX" style="font-family:var(--font-mono);letter-spacing:.06em;text-transform:uppercase"></div>` : ''}${isPw && typeof f.hint === 'string' && f.hint ? `<p class="bp-hint">${icon('bulb', 'sm')}<span>Your hint: <b>${esc(f.hint.slice(0, 80))}</b></span></p>` : ''}<p class="err" id="rb-err"></p></div>`,
+      body: `<div class="stack"><div class="bp-hero"><span class="bp-ic">${icon('lock')}</span><p>${isPc ? `This backup was created on ${esc(when)}. Enter <b>your password</b> from that day and the backup's <b>backup code</b>.` : isPw ? `This backup is password protected. Enter the password you set when you created it on ${esc(when)}.` : `Enter the wall password you were using on ${esc(when)}${f.keys.rec ? ', or your recovery code from that time' : ''}.`}</p></div>
+        ${pwField('rb-pass', isPc ? 'Password' : isPw ? 'Backup password' : 'Password or recovery code', 'off')}${isPc ? `<div class="field"><label for="rb-code">Backup code</label><input id="rb-code" type="text" autocomplete="off" spellcheck="false" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX" style="font-family:var(--font-mono);letter-spacing:.06em;text-transform:uppercase"></div>` : ''}${isPw && typeof f.hint === 'string' && f.hint ? `<p class="bp-hint">${icon('bulb', 'sm')}<span>Your hint: <b>${esc(f.hint.slice(0, 80))}</b></span></p>` : ''}<p class="err" id="rb-err"></p></div>`,
       onOpen: bindPw,
       actions: [{ label: 'Cancel', kind: 'ghost', onClick: () => res(null) }, { label: 'Unlock backup', onClick: async w => {
         const v = $('#rb-pass', w).value, err = $('#rb-err', w);
@@ -5551,68 +5551,68 @@ function updateStorageInfo() {
   if (!el) return;
   const encd = !!S.lock;
   el.textContent = S.mode === 'cloud'
-    ? `Saved to your Claude account, in a private space only you can read. If you share this page, other people get their own empty wall and never see yours.${encd ? ' Every entry is also encrypted with your passcode before it leaves this browser.' : ' Turn on the passcode lock to also encrypt every entry.'} Backup files are always encrypted.`
-    : `Saved privately in this browser on this device. Nothing is sent to a server.${encd ? ' Entries are encrypted with your passcode.' : ''} Clearing this site's browser data erases them, so download an encrypted backup regularly. To use your wall on another device, restore that backup there.`;
+    ? `Saved to your Claude account, in a private space only you can read. If you share this page, other people get their own empty wall and never see yours.${encd ? ' Every entry is also encrypted with your password before it leaves this browser.' : ' Turn on the password lock to also encrypt every entry.'} Backup files are always encrypted.`
+    : `Saved privately in this browser on this device. Nothing is sent to a server.${encd ? ' Entries are encrypted with your password.' : ''} Clearing this site's browser data erases them, so download an encrypted backup regularly. To use your wall on another device, restore that backup there.`;
 }
 function renderSecurity() {
   const el = $('#sec-card');
   if (!el) return;
   const L = S.lock;
   el.innerHTML = `
-    <div class="sec-head"><span class="icon-badge">${icon('shield')}</span><div style="flex:1"><h2>Security</h2><p>Passcode lock and encryption</p></div><span class="badge ${L ? 'on' : 'off'}">${icon(L ? 'lock' : 'alert', 'sm')}${L ? 'Passcode on' : 'Not protected'}</span></div>
+    <div class="sec-head"><span class="icon-badge">${icon('shield')}</span><div style="flex:1"><h2>Security</h2><p>Password lock and encryption</p></div><span class="badge ${L ? 'on' : 'off'}">${icon(L ? 'lock' : 'alert', 'sm')}${L ? 'Password on' : 'Not protected'}</span></div>
     ${L ? `<div class="stack">
       <div class="field"><label for="sec-auto">Lock automatically after</label><select id="sec-auto">${[[5, '5 minutes'], [15, '15 minutes'], [30, '30 minutes'], [60, '1 hour'], [0, 'Never (only when I lock it or close the page)']].map(([v, l]) => `<option value="${v}" ${Number(L.autoLockMin ?? 15) === v ? 'selected' : ''}>${l} of inactivity</option>`).join('')}</select></div>
-      <div class="row"><button type="button" class="btn" id="sec-lock">${icon('lock')}Lock now</button><button type="button" class="btn ghost" id="sec-change">${icon('key')}Change passcode</button><button type="button" class="btn ghost" id="sec-rec">${icon('refresh')}New recovery code</button></div>
-      <button type="button" class="link danger" id="sec-off" style="align-self:flex-start">Turn off the passcode</button>
-    </div>` : `<p class="small" style="margin-bottom:14px">Anyone using your device while this page is open could read your wall. Add a passcode to lock it and encrypt every entry.</p><button type="button" class="btn" id="sec-on">${icon('shield')}Set up a passcode</button>`}
+      <div class="row"><button type="button" class="btn" id="sec-lock">${icon('lock')}Lock now</button><button type="button" class="btn ghost" id="sec-change">${icon('key')}Change password</button><button type="button" class="btn ghost" id="sec-rec">${icon('refresh')}New recovery code</button></div>
+      <button type="button" class="link danger" id="sec-off" style="align-self:flex-start">Turn off the password</button>
+    </div>` : `<p class="small" style="margin-bottom:14px">Anyone using your device while this page is open could read your wall. Add a password to lock it and encrypt every entry.</p><button type="button" class="btn" id="sec-on">${icon('shield')}Set up a password</button>`}
     <div class="how">
-      <div>${icon('lock', 'sm')}<span>Your passcode is asked every time you open your wall, and again after the inactivity time you choose.</span></div>
-      <div>${icon('key', 'sm')}<span>Entries are encrypted in your browser (AES-256) before they're saved. The passcode itself is never stored.</span></div>
-      <div>${icon('download', 'sm')}<span>Backups are encrypted with the passcode you have when you download them. After changing it, older backups still open with the old passcode or that time's recovery code.</span></div>
-      <div>${icon('alert', 'sm')}<span>If you lose both your passcode and recovery code, your entries can't be recovered by anyone.</span></div>
+      <div>${icon('lock', 'sm')}<span>Your password is asked every time you open your wall, and again after the inactivity time you choose.</span></div>
+      <div>${icon('key', 'sm')}<span>Entries are encrypted in your browser (AES-256) before they're saved. The password itself is never stored.</span></div>
+      <div>${icon('download', 'sm')}<span>Backups are encrypted with the password you have when you download them. After changing it, older backups still open with the old password or that time's recovery code.</span></div>
+      <div>${icon('alert', 'sm')}<span>If you lose both your password and recovery code, your entries can't be recovered by anyone.</span></div>
     </div>`;
   if (!L) { $('#sec-on').onclick = () => showGate('setup1', { fromSettings: true }); return; }
   $('#sec-auto').onchange = async e => { try { await writeLock({ ...S.lock, autoLockMin: Number(e.target.value) }); toast('Auto-lock updated'); } catch (err) { toast("Couldn't save that setting.", 'warn'); } };
   $('#sec-lock').onclick = () => lockNow();
   $('#sec-change').onclick = () => openModal({
-    title: 'Change passcode',
-    body: `<div class="stack">${pwField('cp-old', 'Current passcode', 'current-password')}${pwField('cp-new', 'New passcode', 'new-password')}<div class="meter" id="cp-meter"><i></i><i></i><i></i><i></i></div>${pwField('cp-new2', 'Confirm new passcode', 'new-password')}<p class="err" id="cp-err"></p></div>`,
+    title: 'Change password',
+    body: `<div class="stack">${pwField('cp-old', 'Current password', 'current-password')}${pwField('cp-new', 'New password', 'new-password')}<div class="meter" id="cp-meter"><i></i><i></i><i></i><i></i></div>${pwField('cp-new2', 'Confirm new password', 'new-password')}<p class="err" id="cp-err"></p></div>`,
     onOpen: w => { bindPw(w); $('#cp-new', w).addEventListener('input', e => $('#cp-meter', w).dataset.s = strength(e.target.value)); },
-    actions: [{ label: 'Cancel', kind: 'ghost' }, { label: 'Change passcode', onClick: async w => {
+    actions: [{ label: 'Cancel', kind: 'ghost' }, { label: 'Change password', onClick: async w => {
       const err = $('#cp-err', w), nw = $('#cp-new', w).value;
       if (nw.length < 6) { err.textContent = 'Use at least 6 characters.'; return false; }
-      if (nw !== $('#cp-new2', w).value) { err.textContent = "The new passcodes don't match."; return false; }
+      if (nw !== $('#cp-new2', w).value) { err.textContent = "The new passwords don't match."; return false; }
       err.textContent = 'Checking…';
-      try { await unwrapDEK(S.lock.pin, $('#cp-old', w).value); } catch (e) { err.textContent = 'Your current passcode is incorrect.'; return false; }
-      try { await writeLock({ ...S.lock, pin: await wrapDEK(CRYPTO.key, nw) }); toast('Passcode changed'); } catch (e) { err.textContent = "Couldn't save. Try again."; return false; }
+      try { await unwrapDEK(S.lock.pin, $('#cp-old', w).value); } catch (e) { err.textContent = 'Your current password is incorrect.'; return false; }
+      try { await writeLock({ ...S.lock, pin: await wrapDEK(CRYPTO.key, nw) }); toast('Password changed'); } catch (e) { err.textContent = "Couldn't save. Try again."; return false; }
     } }],
   });
   $('#sec-rec').onclick = () => openModal({
     title: 'Create a new recovery code',
-    body: `<div class="stack"><p class="small muted">Your old recovery code will stop working.</p>${pwField('nr-pass', 'Your passcode', 'current-password')}<p class="err" id="nr-err"></p></div>`,
+    body: `<div class="stack"><p class="small muted">Your old recovery code will stop working.</p>${pwField('nr-pass', 'Your password', 'current-password')}<p class="err" id="nr-err"></p></div>`,
     onOpen: bindPw,
     actions: [{ label: 'Cancel', kind: 'ghost' }, { label: 'Create code', onClick: async w => {
       const err = $('#nr-err', w);
       err.textContent = 'Checking…';
-      try { await unwrapDEK(S.lock.pin, $('#nr-pass', w).value); } catch (e) { err.textContent = 'That passcode is incorrect.'; return false; }
+      try { await unwrapDEK(S.lock.pin, $('#nr-pass', w).value); } catch (e) { err.textContent = 'That password is incorrect.'; return false; }
       const code = makeRecoveryCode();
       try { await writeLock({ ...S.lock, rec: await wrapDEK(CRYPTO.key, normRec(code)) }); } catch (e) { err.textContent = "Couldn't save. Try again."; return false; }
       setTimeout(() => showRecoveryModal(code), 50);
     } }],
   });
   $('#sec-off').onclick = () => openModal({
-    title: 'Turn off the passcode?',
-    body: `<div class="stack"><p class="small">Your wall will open without a passcode and your entries will be saved without encryption.</p>${pwField('off-pass', 'Your passcode', 'current-password')}<p class="err" id="off-err"></p></div>`,
+    title: 'Turn off the password?',
+    body: `<div class="stack"><p class="small">Your wall will open without a password and your entries will be saved without encryption.</p>${pwField('off-pass', 'Your password', 'current-password')}<p class="err" id="off-err"></p></div>`,
     onOpen: bindPw,
     actions: [{ label: 'Keep it on', kind: 'ghost' }, { label: 'Turn off', kind: 'danger', onClick: async w => {
       const err = $('#off-err', w);
       err.textContent = 'Checking…';
-      try { await unwrapDEK(S.lock.pin, $('#off-pass', w).value); } catch (e) { err.textContent = 'That passcode is incorrect.'; return false; }
+      try { await unwrapDEK(S.lock.pin, $('#off-pass', w).value); } catch (e) { err.textContent = 'That password is incorrect.'; return false; }
       err.textContent = 'Decrypting your entries… keep this page open.';
       CRYPTO.key = null;
       await persistAll((i, n) => { err.textContent = `Decrypting your entries… ${Math.round(i / n * 100)}%`; });
       await deleteLock(); lsSet(LS_SKIP, '1');
-      renderSecurity(); updateStorageInfo(); toast('Passcode turned off');
+      renderSecurity(); updateStorageInfo(); toast('Password turned off');
     } }],
   });
 }
@@ -5676,21 +5676,21 @@ function renderAreasCard() {
 }
 
 /* ================= Gate: lock, setup, recovery ================= */
-const pwField = (id, label, ac) => `<div class="field"><label for="${id}">${label}</label><div class="pw"><input id="${id}" type="password" autocomplete="${ac}" minlength="6"><button type="button" data-eye="${id}" aria-label="Show passcode">${icon('eye')}</button></div></div>`;
+const pwField = (id, label, ac) => `<div class="field"><label for="${id}">${label}</label><div class="pw"><input id="${id}" type="password" autocomplete="${ac}" minlength="6"><button type="button" data-eye="${id}" aria-label="Show password">${icon('eye')}</button></div></div>`;
 function bindPw(root) {
   $$('[data-eye]', root).forEach(b => b.onclick = () => {
     const inp = $('#' + b.dataset.eye, root), show = inp.type === 'password';
-    inp.type = show ? 'text' : 'password'; b.innerHTML = icon(show ? 'eyeOff' : 'eye'); b.setAttribute('aria-label', show ? 'Hide passcode' : 'Show passcode');
+    inp.type = show ? 'text' : 'password'; b.innerHTML = icon(show ? 'eyeOff' : 'eye'); b.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
   });
 }
-const recoveryBlock = code => `<div class="stack"><p class="small muted">If you forget your passcode, this code is the only way back into your wall. Store it somewhere safe, like a password manager or a printed note.</p>
+const recoveryBlock = code => `<div class="stack"><p class="small muted">If you forget your password, this code is the only way back into your wall. Store it somewhere safe, like a password manager or a printed note.</p>
   <div class="code-box" id="rec-code">${esc(code)}</div>
   <div class="row" style="justify-content:center"><button type="button" class="btn ghost sm" data-rc="copy">${icon('copy')}Copy</button><button type="button" class="btn ghost sm" data-rc="dl">${icon('download')}Download as .txt</button></div>
-  <div class="warn-box">${icon('alert')}<span>Nobody, including Claude or Anthropic, can reset this for you. Without the passcode or this code, your entries stay locked.</span></div></div>`;
+  <div class="warn-box">${icon('alert')}<span>Nobody, including Claude or Anthropic, can reset this for you. Without the password or this code, your entries stay locked.</span></div></div>`;
 function bindRecoveryButtons(root, code) {
   $$('[data-rc]', root).forEach(b => b.onclick = async () => {
     if (b.dataset.rc === 'copy') { try { await navigator.clipboard.writeText(code); toast('Recovery code copied'); } catch (e) { const r = document.createRange(); r.selectNodeContents($('#rec-code', root)); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast('Code selected. Press Ctrl+C to copy.'); } }
-    else saveFile('bragging-wall-recovery-code.txt', `Bragging Wall recovery code\n\n${code}\n\nCreated ${fmtLong(new Date())}.\nUse this if you forget your passcode. Keep it private.\n`);
+    else saveFile('bragging-wall-recovery-code.txt', `Bragging Wall recovery code\n\n${code}\n\nCreated ${fmtLong(new Date())}.\nUse this if you forget your password. Keep it private.\n`);
   });
 }
 const GATE = { opts: {}, pending: null, fails: 0, until: 0 };
@@ -5731,20 +5731,20 @@ function showGate(state, opts) {
   let html = '';
   if (state === 'loading') html = gateCard(`<div class="spinner"></div><p class="lead">Opening your wall…</p>`);
   else if (state === 'error') html = gateCard(`${gmBadge('alert')}<h1>Couldn't reach your wall</h1><p class="lead">Check your connection, then try again.</p><button type="button" class="btn block" id="g-retry">${icon('refresh')}Try again</button>`);
-  else if (state === 'unlock') html = gateCard(`${gmBadge('lock')}<h1>Welcome <em>back</em></h1><p class="lead">${GATE.opts.auto ? 'Locked after a period of inactivity. ' : ''}Enter your passcode to open your wall.</p>
-      <form class="stack" id="g-form" novalidate>${pwField('g-pass', 'Passcode', 'current-password')}<p class="err" id="g-err" role="alert"></p>
+  else if (state === 'unlock') html = gateCard(`${gmBadge('lock')}<h1>Welcome <em>back</em></h1><p class="lead">${GATE.opts.auto ? 'Locked after a period of inactivity. ' : ''}Enter your password to open your wall.</p>
+      <form class="stack" id="g-form" novalidate>${pwField('g-pass', 'Password', 'current-password')}<p class="err" id="g-err" role="alert"></p>
       <button type="submit" class="btn block" id="g-go">${icon('lock')}Unlock</button></form>
-      <button type="button" class="link" id="g-forgot" style="align-self:center">Forgot your passcode?</button>
+      <button type="button" class="link" id="g-forgot" style="align-self:center">Forgot your password?</button>
       <p class="gate-foot">${icon('shield', 'sm')}Encrypted on this device with AES-256</p>`);
-  else if (state === 'recover') html = gateCard(`${gmBadge('key')}<h1>Use your <em>recovery code</em></h1><p class="lead">Enter the 20-character code you saved when you set up your passcode.</p>
+  else if (state === 'recover') html = gateCard(`${gmBadge('key')}<h1>Use your <em>recovery code</em></h1><p class="lead">Enter the 20-character code you saved when you set up your password.</p>
       <form class="stack" id="g-form" novalidate><div class="field"><label for="g-rec">Recovery code</label><input id="g-rec" type="text" autocomplete="off" spellcheck="false" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX" style="font-family:var(--font-mono);letter-spacing:.06em"></div><p class="err" id="g-err" role="alert"></p>
       <button type="submit" class="btn block" id="g-go">${icon('key')}Continue</button></form>
-      <button type="button" class="link" id="g-back" style="align-self:center">${icon('left', 'sm')}Back to passcode</button>`);
-  else if (state === 'newpass') html = gateCard(`${gmBadge('shield')}<h1>Choose a new <em>passcode</em></h1><p class="lead">Your recovery code worked. Set a new passcode to finish.</p>
-      <form class="stack" id="g-form" novalidate>${pwField('g-new', 'New passcode', 'new-password')}<div><div class="meter" id="g-meter"><i></i><i></i><i></i><i></i></div><span class="meter-l" id="g-meter-l">At least 6 characters</span></div>${pwField('g-new2', 'Confirm passcode', 'new-password')}<p class="err" id="g-err" role="alert"></p>
+      <button type="button" class="link" id="g-back" style="align-self:center">${icon('left', 'sm')}Back to password</button>`);
+  else if (state === 'newpass') html = gateCard(`${gmBadge('shield')}<h1>Choose a new <em>password</em></h1><p class="lead">Your recovery code worked. Set a new password to finish.</p>
+      <form class="stack" id="g-form" novalidate>${pwField('g-new', 'New password', 'new-password')}<div><div class="meter" id="g-meter"><i></i><i></i><i></i><i></i></div><span class="meter-l" id="g-meter-l">At least 6 characters</span></div>${pwField('g-new2', 'Confirm password', 'new-password')}<p class="err" id="g-err" role="alert"></p>
       <button type="submit" class="btn block" id="g-go">${icon('check')}Save and unlock</button></form>`);
-  else if (state === 'setup1') html = gateCard(`${steps(1)}${gmBadge('lock')}<h1>Secure your <em>wall</em></h1><p class="lead">Create a passcode to open your wall.</p>
-      <form class="stack" id="g-form" novalidate>${pwField('g-new', 'Passcode', 'new-password')}<div><div class="meter" id="g-meter"><i></i><i></i><i></i><i></i></div><span class="meter-l" id="g-meter-l">At least 6 characters. A short phrase beats a number.</span></div>${pwField('g-new2', 'Confirm passcode', 'new-password')}<p class="err" id="g-err" role="alert"></p>
+  else if (state === 'setup1') html = gateCard(`${steps(1)}${gmBadge('lock')}<h1>Secure your <em>wall</em></h1><p class="lead">Create a password to open your wall.</p>
+      <form class="stack" id="g-form" novalidate>${pwField('g-new', 'Password', 'new-password')}<div><div class="meter" id="g-meter"><i></i><i></i><i></i><i></i></div><span class="meter-l" id="g-meter-l">At least 6 characters. A short phrase beats a number.</span></div>${pwField('g-new2', 'Confirm password', 'new-password')}<p class="err" id="g-err" role="alert"></p>
       <button type="submit" class="btn block" id="g-go">Continue ${icon('arrowRight')}</button></form>
       <button type="button" class="link" id="g-skip" style="align-self:center">${GATE.opts.fromSettings ? 'Cancel' : 'Set up later'}</button>`, true);
   else if (state === 'setup2') html = gateCard(`${steps(2)}${gmBadge('key')}<h1>Save your <em>recovery code</em></h1>${recoveryBlock(GATE.pending.code)}
@@ -5764,7 +5764,7 @@ function meterBind() {
 function checkNew() {
   const a = $('#g-new').value, b = $('#g-new2').value;
   if (a.length < 6) return 'Use at least 6 characters.';
-  if (a !== b) return "The passcodes don't match.";
+  if (a !== b) return "The passwords don't match.";
   return null;
 }
 function wireGate(state) {
@@ -5778,7 +5778,7 @@ function wireGate(state) {
       const wait = Math.ceil((GATE.until - Date.now()) / 1000);
       if (wait > 0) { err(`Too many attempts. Try again in ${wait} seconds.`); return; }
       const pass = $('#g-pass').value;
-      if (!pass) { err('Enter your passcode.'); return; }
+      if (!pass) { err('Enter your password.'); return; }
       busy(true, 'Unlocking…');
       try {
         const dek = await unwrapDEK(S.lock.pin, pass);
@@ -5788,7 +5788,7 @@ function wireGate(state) {
         GATE.fails++;
         if (GATE.fails >= 5) GATE.until = Date.now() + Math.min(300, 30 * Math.pow(2, GATE.fails - 5)) * 1000;
         busy(false); $('#g-go').innerHTML = `${icon('lock')}Unlock`;
-        err(GATE.fails >= 5 ? 'Incorrect passcode. Too many attempts, so wait a moment before trying again.' : 'Incorrect passcode. Try again.');
+        err(GATE.fails >= 5 ? 'Incorrect password. Too many attempts, so wait a moment before trying again.' : 'Incorrect password. Try again.');
         shakeGate(); $('#g-pass').select();
       }
     };
@@ -5815,7 +5815,7 @@ function wireGate(state) {
         const dek = GATE.pendingDek;
         await writeLock({ ...S.lock, pin: await wrapDEK(dek, $('#g-new').value) });
         GATE.pendingDek = null; CRYPTO.key = CRYPTO.readKey = dek;
-        startApp(); toast('New passcode saved');
+        startApp(); toast('New password saved');
       } catch (ex) { busy(false); $('#g-go').innerHTML = `${icon('check')}Save and unlock`; err("Couldn't save. Check your connection and try again."); }
     };
   }
@@ -5873,7 +5873,7 @@ async function startApp() {
   route(); onData('all');
 }
 async function lockNow(auto) {
-  if (!S.lock) { toast('Set up a passcode first to lock your wall.'); go('account'); return; }
+  if (!S.lock) { toast('Set up a password first to lock your wall.'); go('account'); return; }
   if (S.view === 'notebooks') flushEditor();
   await Promise.all([...SEALING.values()]).catch(() => {});
   await drainQueues();
