@@ -789,6 +789,15 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .bp-ic .i { width: 18px; height: 18px; }
 .bp-hint { display: flex; gap: 8px; align-items: center; font-size: .86rem; padding: 8px 12px; border-radius: 10px; background: color-mix(in srgb, #F4B336 16%, var(--surface-solid)); }
 .bp-hint .i { color: #B7860B; flex: none; }
+/* Saved password */
+.remember { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.remember select { width: auto; padding: 5px 28px 5px 10px; font-size: .82rem; border-radius: 9px; }
+.or-line { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: .78rem; }
+.or-line::before, .or-line::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.sp-row { display: grid; grid-template-columns: 22px 1fr auto; gap: 12px; align-items: center; padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-solid); }
+.sp-row > .i { color: var(--accent); }
+.sp-row b { display: block; font-size: .9rem; } .sp-row small { display: block; font-size: .78rem; color: var(--muted); line-height: 1.4; }
+.sp-note { display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; font-size: .76rem; color: var(--accent); }
 /* Backup card */
 .bk-main { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .bk-big { display: flex; align-items: center; min-height: 92px; gap: 12px; text-align: left; padding: 14px; border-radius: 16px; border: 0; cursor: pointer; font: inherit; color: #fff; background: var(--grad); box-shadow: 0 10px 22px -12px color-mix(in srgb, var(--accent) 70%, transparent); transition: transform .18s var(--ease), box-shadow .18s; }
@@ -4715,7 +4724,7 @@ function forgotPinModal(nbId) {
     title: 'Reset the notebook PIN',
     body: `<div class="stack"><p class="muted">Enter your app password to prove it's you, then choose a new PIN.</p>
       <div class="field"><label for="fp-pass">App password</label><input id="fp-pass" type="password" autocomplete="current-password"></div>${pinFields('Confirm new PIN')}</div>`,
-    onOpen: w => setTimeout(() => $('#fp-pass', w)?.focus(), 50),
+    onOpen: w => { fillSavedPw(w, 'fp-pass'); setTimeout(() => $('#fp-pass', w)?.focus(), 50); },
     actions: [{ label: 'Cancel', kind: 'ghost' }, { label: 'Reset PIN', onClick: async w => {
       const pin = readPin(w); if (!pin) return false;
       try {
@@ -6106,7 +6115,7 @@ function backupPasswordModal(then, actionLabel) {
       <div class="bp-hero"><span class="bp-ic">${icon('lock')}</span><p>Enter <b>your password</b> to create a backup. Next, you'll get a backup code. You need <b>both</b> to import the file, on this device or a new one.</p></div>
       ${pwField('bp-1', 'Password', 'current-password')}
       <p class="err" id="bp-err" role="alert"></p></div>`,
-    onOpen: w => { bindPw(w); setTimeout(() => $('#bp-1', w)?.focus(), 50); },
+    onOpen: w => { bindPw(w); fillSavedPw(w, 'bp-1'); setTimeout(() => $('#bp-1', w)?.focus(), 50); },
     actions: [{ label: 'Cancel', kind: 'ghost' }, { label: 'Next: get backup code', onClick: async w => {
       const pw = $('#bp-1', w).value, err = $('#bp-err', w);
       if (!pw) { err.textContent = 'Enter your password.'; $('#bp-1', w).focus(); return false; }
@@ -6184,6 +6193,7 @@ function backupCodeModal(built, code, wrap) {
         if (b.dataset.bc === 'copy') { try { await navigator.clipboard.writeText(code); toast('Backup code copied'); } catch (e) { const r = document.createRange(); r.selectNodeContents($('#bc-code', w)); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); toast('Code selected. Press Ctrl+C to copy.'); } }
         else saveFile(`bragging-wall-backup-code-${day}.txt`, `Bragging Wall backup code\r\n\r\nBackup created: ${fmtLong(parseYmd(day))}\r\nBackup code: ${code}\r\n\r\nTo import the backup, you need this code AND your Bragging Wall password from the day you made it.\r\nKeep this note separate from the backup file. Never write your password here.\r\n`);
       });
+      fillSavedPw(w, 'bc-pass');
       $('#bc-saved', w).onchange = e => { $('#bc-dl', w).hidden = !e.target.checked; if (e.target.checked) setTimeout(() => $('#bc-pass', w)?.focus(), 30); };
     },
     actions: [{ label: 'Cancel', kind: 'ghost', onClick: () => { if (!downloaded) toast('Backup not downloaded. Nothing was saved.'); } }, { label: 'Download backup file', onClick: async w => {
@@ -6255,19 +6265,33 @@ function renderSecurity() {
   el.innerHTML = `
     <div class="sec-head"><span class="icon-badge">${icon('shield')}</span><div style="flex:1"><h2>Security</h2><p>Password lock and encryption</p></div><span class="badge ${L ? 'on' : 'off'}">${icon(L ? 'lock' : 'alert', 'sm')}${L ? 'Password on' : 'Not protected'}</span></div>
     ${L ? `<div class="stack">
-      <div class="field"><label for="sec-auto">Lock automatically after</label><select id="sec-auto">${[[5, '5 minutes'], [15, '15 minutes'], [30, '30 minutes'], [60, '1 hour'], [0, 'Never (only when I lock it or close the page)']].map(([v, l]) => `<option value="${v}" ${Number(L.autoLockMin ?? 15) === v ? 'selected' : ''}>${l} of inactivity</option>`).join('')}</select></div>
+      <div class="field"><label for="sec-auto">Lock automatically after${spOn() ? ' <span class="opt">paused while your password is saved</span>' : ''}</label><select id="sec-auto">${[[5, '5 minutes'], [15, '15 minutes'], [30, '30 minutes'], [60, '1 hour'], [0, 'Never (only when I lock it or close the page)']].map(([v, l]) => `<option value="${v}" ${Number(L.autoLockMin ?? 15) === v ? 'selected' : ''}>${l} of inactivity</option>`).join('')}</select></div>
       <div class="row"><button type="button" class="btn" id="sec-lock">${icon('lock')}Lock now</button><button type="button" class="btn ghost" id="sec-change">${icon('key')}Change password</button><button type="button" class="btn ghost" id="sec-rec">${icon('refresh')}New recovery code</button></div>
+      <div class="sp-row">${icon('key')}<div><b>Saved password on this device</b><small>${spOn() ? `On, ${esc(spUntil())}. Your wall opens without typing it, and it fills in for backups.` : spSupported() ? "Off. Save it so you don't have to type it every time." : "This browser can't save it."}</small></div>${spOn() ? '<button type="button" class="btn ghost sm" id="sp-forget">Forget it</button>' : spSupported() ? '<button type="button" class="btn sm" id="sp-save">Save password</button>' : ''}</div>
       <button type="button" class="link danger" id="sec-off" style="align-self:flex-start">Turn off the password</button>
     </div>` : `<p class="small" style="margin-bottom:14px">Anyone using your device while this page is open could read your wall. Add a password to lock it and encrypt every entry.</p><button type="button" class="btn" id="sec-on">${icon('shield')}Set up a password</button>`}
     <div class="how">
       <div>${icon('lock', 'sm')}<span>Your password is asked every time you open your wall, and again after the inactivity time you choose.</span></div>
-      <div>${icon('key', 'sm')}<span>Entries are encrypted in your browser (AES-256) before they're saved. The password itself is never stored.</span></div>
+      <div>${icon('key', 'sm')}<span>Entries are encrypted in your browser (AES-256) before they're saved. Your password is only stored if you choose to save it on this device, and then it's encrypted with a key that never leaves this browser.</span></div>
       <div>${icon('download', 'sm')}<span>Backups are encrypted with the password you have when you download them. After changing it, older backups still open with the old password or that time's recovery code.</span></div>
       <div>${icon('alert', 'sm')}<span>If you lose both your password and recovery code, your entries can't be recovered by anyone.</span></div>
     </div>`;
   if (!L) { $('#sec-on').onclick = () => showGate('setup1', { fromSettings: true }); return; }
   $('#sec-auto').onchange = async e => { try { await writeLock({ ...S.lock, autoLockMin: Number(e.target.value) }); toast('Auto-lock updated'); } catch (err) { toast("Couldn't save that setting.", 'warn'); } };
   $('#sec-lock').onclick = () => lockNow();
+  const spf = $('#sp-forget'); if (spf) spf.onclick = async () => { await forgetPassword(); renderSecurity(); toast('Saved password removed from this device'); };
+  const sps = $('#sp-save'); if (sps) sps.onclick = () => openModal({
+    title: 'Save your password on this device',
+    body: `<div class="stack"><p class="small muted">You won't need to type it to open your wall or create backups on this device. Anyone who uses this browser could open your wall too, so don't do this on a shared computer.</p>${pwField('sp-pass', 'Password', 'current-password')}<div class="field"><label for="sp-days">Keep it saved for</label><select id="sp-days">${SP_DAYS.map(([d, l]) => `<option value="${d}" ${d === 30 ? 'selected' : ''}>${l}</option>`).join('')}</select></div><p class="err" id="sp-err"></p></div>`,
+    onOpen: w => { bindPw(w); setTimeout(() => $('#sp-pass', w)?.focus(), 40); },
+    actions: [{ label: 'Cancel', kind: 'ghost' }, { label: 'Save password', onClick: async w => {
+      const err = $('#sp-err', w), pw = $('#sp-pass', w).value;
+      err.textContent = 'Checking…';
+      try { await unwrapDEK(S.lock.pin, pw); } catch (e) { err.textContent = "That password isn't right."; return false; }
+      try { await savePassword(pw, Number($('#sp-days', w).value)); } catch (e) { err.textContent = "This browser couldn't save it."; return false; }
+      renderSecurity(); toast('Password saved on this device');
+    } }],
+  });
   $('#sec-change').onclick = () => openModal({
     title: 'Change password',
     body: `<div class="stack">${pwField('cp-old', 'Current password', 'current-password')}${pwField('cp-new', 'New password', 'new-password')}<div class="meter" id="cp-meter"><i></i><i></i><i></i><i></i></div>${pwField('cp-new2', 'Confirm new password', 'new-password')}<p class="err" id="cp-err"></p></div>`,
@@ -6278,7 +6302,7 @@ function renderSecurity() {
       if (nw !== $('#cp-new2', w).value) { err.textContent = "The new passwords don't match."; return false; }
       err.textContent = 'Checking…';
       try { await unwrapDEK(S.lock.pin, $('#cp-old', w).value); } catch (e) { err.textContent = 'Your current password is incorrect.'; return false; }
-      try { await writeLock({ ...S.lock, pin: await wrapDEK(CRYPTO.key, nw) }); toast('Password changed'); } catch (e) { err.textContent = "Couldn't save. Try again."; return false; }
+      try { await writeLock({ ...S.lock, pin: await wrapDEK(CRYPTO.key, nw) }); if (spOn()) await savePassword(nw, SAVEPW.exp ? Math.max(1, Math.ceil((SAVEPW.exp - Date.now()) / 864e5)) : 0); toast('Password changed'); renderSecurity(); } catch (e) { err.textContent = "Couldn't save. Try again."; return false; }
     } }],
   });
   $('#sec-rec').onclick = () => openModal({
@@ -6305,7 +6329,7 @@ function renderSecurity() {
       err.textContent = 'Decrypting your entries… keep this page open.';
       CRYPTO.key = null;
       await persistAll((i, n) => { err.textContent = `Decrypting your entries… ${Math.round(i / n * 100)}%`; });
-      await deleteLock(); lsSet(LS_SKIP, '1');
+      await deleteLock(); lsSet(LS_SKIP, '1'); await forgetPassword();
       renderSecurity(); updateStorageInfo(); toast('Password turned off');
     } }],
   });
@@ -6425,8 +6449,9 @@ function showGate(state, opts) {
   let html = '';
   if (state === 'loading') html = gateCard(`<div class="spinner"></div><p class="lead">Opening your wall…</p>`);
   else if (state === 'error') html = gateCard(`${gmBadge('alert')}<h1>Couldn't reach your wall</h1><p class="lead">Check your connection, then try again.</p><button type="button" class="btn block" id="g-retry">${icon('refresh')}Try again</button>`);
-  else if (state === 'unlock') html = gateCard(`${gmBadge('lock')}<h1>Welcome <em>back</em></h1><p class="lead">${GATE.opts.auto ? 'Locked after a period of inactivity. ' : ''}Enter your password to open your wall.</p>
-      <form class="stack" id="g-form" novalidate>${pwField('g-pass', 'Password', 'current-password')}<p class="err" id="g-err" role="alert"></p>
+  else if (state === 'unlock') html = gateCard(`${gmBadge('lock')}<h1>Welcome <em>back</em></h1><p class="lead">${GATE.opts.auto ? 'Locked after a period of inactivity. ' : ''}${spOn() ? 'Your password is saved on this device.' : 'Enter your password to open your wall.'}</p>
+      ${spOn() ? `<button type="button" class="btn block" id="g-saved-go">${icon('key')}Open with saved password</button><div class="or-line"><span>or type it</span></div>` : ''}
+      <form class="stack" id="g-form" novalidate autocomplete="on"><input type="text" class="sr-only" name="username" autocomplete="username" value="Bragging Wall" tabindex="-1" aria-hidden="true" readonly>${pwField('g-pass', 'Password', 'current-password')}${spOn() ? '' : rememberField()}<p class="err" id="g-err" role="alert"></p>
       <button type="submit" class="btn block" id="g-go">${icon('lock')}Unlock</button></form>
       <button type="button" class="link" id="g-forgot" style="align-self:center">Forgot your password?</button>
       <p class="gate-foot">${icon('shield', 'sm')}Encrypted on this device with AES-256</p>`);
@@ -6438,7 +6463,7 @@ function showGate(state, opts) {
       <form class="stack" id="g-form" novalidate>${pwField('g-new', 'New password', 'new-password')}<div><div class="meter" id="g-meter"><i></i><i></i><i></i><i></i></div><span class="meter-l" id="g-meter-l">At least 6 characters</span></div>${pwField('g-new2', 'Confirm password', 'new-password')}<p class="err" id="g-err" role="alert"></p>
       <button type="submit" class="btn block" id="g-go">${icon('check')}Save and unlock</button></form>`);
   else if (state === 'setup1') html = gateCard(`${steps(1)}${gmBadge('lock')}<h1>Secure your <em>wall</em></h1><p class="lead">Create a password to open your wall.</p>
-      <form class="stack" id="g-form" novalidate>${pwField('g-new', 'Password', 'new-password')}<div><div class="meter" id="g-meter"><i></i><i></i><i></i><i></i></div><span class="meter-l" id="g-meter-l">At least 6 characters. A short phrase beats a number.</span></div>${pwField('g-new2', 'Confirm password', 'new-password')}<p class="err" id="g-err" role="alert"></p>
+      <form class="stack" id="g-form" novalidate autocomplete="on"><input type="text" class="sr-only" name="username" autocomplete="username" value="Bragging Wall" tabindex="-1" aria-hidden="true" readonly>${pwField('g-new', 'Password', 'new-password')}<div><div class="meter" id="g-meter"><i></i><i></i><i></i><i></i></div><span class="meter-l" id="g-meter-l">At least 6 characters. A short phrase beats a number.</span></div>${pwField('g-new2', 'Confirm password', 'new-password')}${rememberField()}<p class="err" id="g-err" role="alert"></p>
       <button type="submit" class="btn block" id="g-go">Continue ${icon('arrowRight')}</button></form>
       <button type="button" class="link" id="g-skip" style="align-self:center">${GATE.opts.fromSettings ? 'Cancel' : 'Set up later'}</button>`, true);
   else if (state === 'setup2') html = gateCard(`${steps(2)}${gmBadge('key')}<h1>Save your <em>recovery code</em></h1>${recoveryBlock(GATE.pending.code)}
@@ -6467,6 +6492,8 @@ function wireGate(state) {
   if (state === 'error') $('#g-retry').onclick = () => boot();
   if (state === 'unlock') {
     $('#g-forgot').onclick = () => showGate('recover');
+    const sg = $('#g-saved-go');
+    if (sg) sg.onclick = async () => { sg.disabled = true; sg.innerHTML = `<span class="spinner" style="width:16px;height:16px;border-width:2px;margin:0"></span>Opening…`; try { const dek = await unwrapDEK(S.lock.pin, SAVEPW.pw); CRYPTO.key = CRYPTO.readKey = dek; startApp(); } catch (e) { await forgetPassword(); showGate('unlock'); setTimeout(() => { const er = $('#g-err'); if (er) er.textContent = 'Your saved password no longer works. Please type it.'; }, 50); } };
     $('#g-form').onsubmit = async e => {
       e.preventDefault();
       const wait = Math.ceil((GATE.until - Date.now()) / 1000);
@@ -6477,6 +6504,7 @@ function wireGate(state) {
       try {
         const dek = await unwrapDEK(S.lock.pin, pass);
         GATE.fails = 0; CRYPTO.key = CRYPTO.readKey = dek;
+        await maybeSavePw(pass);
         startApp();
       } catch (ex) {
         GATE.fails++;
@@ -6509,6 +6537,7 @@ function wireGate(state) {
         const dek = GATE.pendingDek;
         await writeLock({ ...S.lock, pin: await wrapDEK(dek, $('#g-new').value) });
         GATE.pendingDek = null; CRYPTO.key = CRYPTO.readKey = dek;
+        await forgetPassword();
         startApp(); toast('New password saved');
       } catch (ex) { busy(false); $('#g-go').innerHTML = `${icon('check')}Save and unlock`; err("Couldn't save. Check your connection and try again."); }
     };
@@ -6524,7 +6553,7 @@ function wireGate(state) {
         const dek = await crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt']);
         const code = makeRecoveryCode();
         const lock = { v: 1, pin: await wrapDEK(dek, $('#g-new').value), rec: await wrapDEK(dek, normRec(code)), autoLockMin: 15, createdAt: Date.now() };
-        GATE.pending = { dek, code, lock };
+        GATE.pending = { dek, code, lock, remember: $('#g-remember')?.checked ? { pw: $('#g-new').value, days: Number($('#g-remember-days').value) } : null };
         showGate('setup2');
       } catch (ex) { console.error(ex); busy(false); $('#g-go').innerHTML = `Continue ${icon('arrowRight')}`; err("This browser couldn't create the encryption key."); }
     };
@@ -6537,8 +6566,10 @@ function wireGate(state) {
       const { dek, lock } = GATE.pending;
       try { await writeLock(lock); }
       catch (ex) { busy(false); $('#g-go').innerHTML = `${icon('lock')}Turn on protection and open my wall`; err("Couldn't save. Check your connection and try again."); return; }
+      const rem = GATE.pending.remember;
       GATE.pending = null; lsDel(LS_SKIP);
       CRYPTO.key = CRYPTO.readKey = dek;
+      if (rem) { try { await savePassword(rem.pw, rem.days); } catch (e) { console.error(e); } }
       if (GATE.opts.fromSettings && S.started) {
         hideGate(); renderSecurity(); updateStorageInfo();
         toast('Protection is on. Encrypting your entries…');
@@ -6547,6 +6578,42 @@ function wireGate(state) {
       } else { startApp(); toast('Your wall is protected'); }
     };
   }
+}
+
+
+/* ================= Saved password (this device only) ================= */
+const SAVEPW = { pw: null, exp: 0 };
+const SP_DAYS = [[1, '1 day'], [7, '7 days'], [30, '30 days'], [90, '90 days'], [0, 'Until I forget it']];
+function devDB() { return new Promise((res, rej) => { try { const r = indexedDB.open('bragging-wall-device', 1); r.onupgradeneeded = () => r.result.createObjectStore('k'); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); } catch (e) { rej(e); } }); }
+async function devOp(mode, fn) { const db = await devDB(); return new Promise((res, rej) => { const tx = db.transaction('k', mode), st = tx.objectStore('k'), q = fn(st); tx.oncomplete = () => { res(q && q.result); db.close(); }; tx.onerror = () => { rej(tx.error); db.close(); }; }); }
+const devGet = k => devOp('readonly', st => st.get(k)), devSet = (k, v) => devOp('readwrite', st => st.put(v, k)), devDel = k => devOp('readwrite', st => st.delete(k));
+const spSupported = () => !!(window.indexedDB && crypto && crypto.subtle);
+async function savePassword(pw, days) {
+  const key = await crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+  const exp = days ? Date.now() + days * 864e5 : 0;
+  const box = await sealObj(key, { pw, exp });
+  await devSet('pwkey', key); await devSet('pwbox', box);
+  SAVEPW.pw = pw; SAVEPW.exp = exp; lsSet('bw-pw-saved', exp ? String(exp) : 'always');
+}
+async function loadSavedPassword() {
+  if (!spSupported() || !lsGet('bw-pw-saved')) return null;
+  try {
+    const key = await devGet('pwkey'), box = await devGet('pwbox');
+    if (!key || !box) { lsSet('bw-pw-saved', ''); return null; }
+    const o = await openObj(key, box);
+    if (o.exp && Date.now() > o.exp) { await forgetPassword(); return null; }
+    SAVEPW.exp = o.exp || 0;
+    return String(o.pw || '') || null;
+  } catch (e) { console.error('saved password', e); return null; }
+}
+async function forgetPassword() { SAVEPW.pw = null; SAVEPW.exp = 0; lsSet('bw-pw-saved', ''); try { await devDel('pwkey'); await devDel('pwbox'); } catch (e) { /* ignore */ } }
+const spOn = () => !!SAVEPW.pw;
+const spUntil = () => SAVEPW.exp ? `until ${fmtMed(new Date(SAVEPW.exp))}` : 'until you forget it';
+const rememberField = (id = 'g-remember') => spSupported() ? `<div class="remember"><label class="check-line"><input type="checkbox" id="${id}">Save my password on this device</label><select id="${id}-days" aria-label="How long to save it">${SP_DAYS.map(([d, l]) => `<option value="${d}" ${d === 30 ? 'selected' : ''}>${l}</option>`).join('')}</select></div>` : '';
+async function maybeSavePw(pw, id = 'g-remember') { const c = $('#' + id); if (!c || !c.checked) return; try { await savePassword(pw, Number($('#' + id + '-days').value)); } catch (e) { console.error(e); toast("This browser couldn't save your password.", 'warn'); } }
+function fillSavedPw(root, ...ids) {
+  if (!spOn()) return;
+  ids.forEach(id => { const inp = $('#' + id, root); if (inp && !inp.value) { inp.value = SAVEPW.pw; inp.closest('.field')?.insertAdjacentHTML('beforeend', `<span class="sp-note">${icon('key', 'sm')}Filled in from your saved password</span>`); } });
 }
 
 /* ================= App lifecycle ================= */
@@ -6592,7 +6659,14 @@ async function boot() {
   } else S.mode = 'local';
   if (!window.crypto || !crypto.subtle) { S.lock = null; startApp(); return; }
   try { S.lock = await readLock(); } catch (e) { console.error(e); showGate('error'); return; }
-  if (S.lock && S.lock.pin) showGate('unlock');
+  if (S.lock && S.lock.pin) {
+    const pw = await loadSavedPassword();
+    if (pw) {
+      try { const dek = await unwrapDEK(S.lock.pin, pw); SAVEPW.pw = pw; CRYPTO.key = CRYPTO.readKey = dek; startApp(); return; }
+      catch (e) { await forgetPassword(); toast('Your saved password no longer works, so it was removed. Please sign in again.', 'warn'); }
+    }
+    showGate('unlock');
+  }
   else if (lsGet(LS_SKIP)) startApp();
   else showGate('setup1');
 }
@@ -6774,7 +6848,7 @@ $('#search-btn').addEventListener('click', openPalette);
 document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); openPalette(); } });
 ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(ev => addEventListener(ev, () => { lastActivity = Date.now(); }, { passive: true, capture: true }));
 setInterval(() => {
-  if (!S.lock || !CRYPTO.key || document.body.classList.contains('gated')) return;
+  if (!S.lock || !CRYPTO.key || document.body.classList.contains('gated') || spOn()) return;
   const m = Number(S.lock.autoLockMin ?? 15);
   if (m > 0 && Date.now() - lastActivity > m * 60000) lockNow(true);
 }, 15000);
