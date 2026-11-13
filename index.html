@@ -852,17 +852,23 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 }
 /* Collapsible sidebar */
 .brand { position: relative; }
-.side-toggle { margin-left: auto; width: 32px; height: 32px; flex: none; border-radius: 10px; border: 1px solid transparent; background: none; color: var(--muted); display: grid; place-items: center; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
-.side-toggle:hover, .side-toggle:focus-visible { background: var(--surface-2); color: var(--ink); border-color: var(--line); }
-.side-toggle .i { width: 18px; height: 18px; }
+.side-toggle { position: absolute; z-index: 30; top: 34px; left: 238px; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--card-border); background: var(--card); color: var(--muted); display: grid; place-items: center; cursor: pointer; box-shadow: 0 4px 12px -4px rgba(0,0,0,.25), 0 0 0 4px color-mix(in srgb, var(--bg) 60%, transparent); transition: left .28s var(--ease), background .18s, color .18s, transform .18s var(--ease), box-shadow .18s; }
+.side-toggle .i { width: 16px; height: 16px; stroke-width: 2.4; transition: transform .35s var(--ease); }
+.side-toggle:hover, .side-toggle:focus-visible { background: var(--grad); color: #fff; border-color: transparent; transform: scale(1.12); box-shadow: 0 8px 18px -6px color-mix(in srgb, var(--accent) 70%, transparent), 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent); outline: none; }
+.side-toggle:hover .i { transform: translateX(-1px); }
+body.side-collapsed .side-toggle { left: 64px; }
+body.side-collapsed .side-toggle .i { transform: rotate(180deg); }
+body.side-collapsed .side-toggle:hover .i { transform: rotate(180deg) translateX(-1px); }
+.side-toggle::after { content: attr(data-tip) "  Ctrl+\\"; position: absolute; left: calc(100% + 10px); top: 50%; transform: translateY(-50%) translateX(-4px); white-space: pre; padding: 6px 10px; border-radius: 9px; background: var(--ink); color: var(--bg); font: 600 .74rem var(--font-body); opacity: 0; pointer-events: none; transition: opacity .15s, transform .15s; box-shadow: 0 6px 14px -6px rgba(0,0,0,.4); }
+.side-toggle:hover::after, .side-toggle:focus-visible::after { opacity: 1; transform: translateY(-50%); }
+body.gated .side-toggle { display: none; }
 body.side-anim .app { transition: grid-template-columns .28s var(--ease); }
 @media (min-width: 861px) {
   body.side-collapsed .app { grid-template-columns: 78px 1fr; }
   body.side-collapsed .sidebar { padding: 16px 10px; gap: 14px; align-items: stretch; overflow-x: hidden; }
   body.side-collapsed .brand { flex-direction: column; gap: 10px; padding: 2px 0; }
   body.side-collapsed .brand .wordmark { display: none; }
-  body.side-collapsed .side-toggle { margin: 0; }
-  body.side-collapsed .search-btn { justify-content: center; padding: 9px 0; }
+    body.side-collapsed .search-btn { justify-content: center; padding: 9px 0; }
   body.side-collapsed .search-btn .lbl, body.side-collapsed .search-btn kbd { display: none; }
   body.side-collapsed .nav a { justify-content: center; padding: 11px 0; gap: 0; }
   body.side-collapsed .nav a .nav-l, body.side-collapsed .nav a .nav-s { display: none; }
@@ -1650,7 +1656,7 @@ canvas.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 96; 
 <div class="gate" id="gate" hidden></div>
 <div class="app" id="app" inert>
   <aside class="sidebar">
-    <div class="brand"><span class="brand-mark" id="brand-mark"></span><span class="wordmark">Bragging <em>Wall</em></span><button type="button" class="side-toggle" id="side-toggle" aria-controls="nav" aria-expanded="true" aria-label="Collapse the menu" title="Collapse the menu (Ctrl+\)"></button></div>
+    <div class="brand"><span class="brand-mark" id="brand-mark"></span><span class="wordmark">Bragging <em>Wall</em></span></div>
     <button type="button" class="search-btn" id="search-btn" aria-label="Search and commands"></button>
     <p class="nav-label" aria-hidden="true">Menu</p>
     <nav class="nav" aria-label="Sections" id="nav"></nav>
@@ -1664,6 +1670,7 @@ canvas.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 96; 
       <button class="btn gold block" id="cheer-btn" type="button"></button>
     </div>
   </aside>
+  <button type="button" class="side-toggle" id="side-toggle" aria-controls="nav" aria-expanded="true" aria-label="Collapse the menu" data-tip="Collapse menu"></button>
   <main class="main" id="main">
     <div class="main-inner">
       <div class="banner" id="banner" hidden></div>
@@ -6943,9 +6950,9 @@ function applySide(collapsed, animate = true) {
   document.body.classList.toggle('side-anim', !!animate);
   document.body.classList.toggle('side-collapsed', !!collapsed);
   const b = $('#side-toggle'); if (!b) return;
-  b.innerHTML = icon(collapsed ? 'panelR' : 'panelL');
+  b.innerHTML = icon('left');
   b.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
-  const t = collapsed ? 'Expand the menu' : 'Collapse the menu'; b.setAttribute('aria-label', t); b.title = `${t} (Ctrl+\\)`;
+  const t = collapsed ? 'Expand the menu' : 'Collapse the menu'; b.setAttribute('aria-label', `${t} (Ctrl+\\)`); b.dataset.tip = collapsed ? 'Expand menu' : 'Collapse menu'; b.removeAttribute('title');
   if (animate) setTimeout(() => { document.body.classList.remove('side-anim'); window.dispatchEvent(new Event('resize')); }, 320);
 }
 function toggleSide() { const c = !document.body.classList.contains('side-collapsed'); lsSet('bw-side-collapsed', c ? '1' : '0'); applySide(c); }
