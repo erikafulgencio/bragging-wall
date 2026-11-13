@@ -25,6 +25,12 @@ Every win you brag is pinned on your Freedom Wall as a sticky note (date, title,
 ### Win highlights
 Make a win stand out with an animated effect: confetti, fireworks, hearts, sparkles, balloons, ladybugs walking around it, a spotlight, a crown, a gold shine, a rainbow border or flames. Pick one from the win page ("Highlight this win"), the win preview on your Freedom Wall, or the wall designer. Effects show on the Freedom Wall, the home carousel and the win page, and stay still if your device is set to reduce motion.
 
+### Share, print and post your Freedom Wall
+**Share or print** turns a wall into a branded picture: a 4:5 post, a 9:16 story or the whole wall. Download it, print it, save it as a PDF, use your phone's Share menu, or post it to Facebook, Instagram, X, LinkedIn or Threads (the picture is saved and your caption copied, then the app opens). **Hide win details** keeps work wins private by showing only each win's area and size.
+
+### Saved password and side menu
+Save your password on a device for 1, 7, 30 or 90 days or until you forget it, so your wall opens without typing it and backups fill it in. It's encrypted with a key that can't leave that browser. Collapse the side menu to icons with the button next to the logo or Ctrl+\.
+
 ### Notebook templates
 29 page templates, grouped by notebook type. **Journal:** daily journal, morning pages, evening reflection, gratitude log, mood check-in, prompt of the day, weekly reflection, letter to future me. **Planner:** daily plan with time blocks, weekly plan, monthly plan, goal planner, priority matrix, habit tracker, project plan. **Work:** meeting notes, stand-up, 1:1 prep, test session, bug report, test plan, release checklist, sprint retro, weekly work review, learning notes, decision log. **General:** to-do list, idea dump, Cornell notes. Some templates fill in your wins for you (today's, this week's or the last two weeks').
 

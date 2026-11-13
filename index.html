@@ -789,6 +789,29 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .bp-ic .i { width: 18px; height: 18px; }
 .bp-hint { display: flex; gap: 8px; align-items: center; font-size: .86rem; padding: 8px 12px; border-radius: 10px; background: color-mix(in srgb, #F4B336 16%, var(--surface-solid)); }
 .bp-hint .i { color: #B7860B; flex: none; }
+/* Collapsible sidebar */
+.brand { position: relative; }
+.side-toggle { margin-left: auto; width: 32px; height: 32px; flex: none; border-radius: 10px; border: 1px solid transparent; background: none; color: var(--muted); display: grid; place-items: center; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.side-toggle:hover, .side-toggle:focus-visible { background: var(--surface-2); color: var(--ink); border-color: var(--line); }
+.side-toggle .i { width: 18px; height: 18px; }
+body.side-anim .app { transition: grid-template-columns .28s var(--ease); }
+@media (min-width: 861px) {
+  body.side-collapsed .app { grid-template-columns: 78px 1fr; }
+  body.side-collapsed .sidebar { padding: 16px 10px; gap: 14px; align-items: stretch; overflow-x: hidden; }
+  body.side-collapsed .brand { flex-direction: column; gap: 10px; padding: 2px 0; }
+  body.side-collapsed .brand .wordmark { display: none; }
+  body.side-collapsed .side-toggle { margin: 0; }
+  body.side-collapsed .search-btn { justify-content: center; padding: 9px 0; }
+  body.side-collapsed .search-btn .lbl, body.side-collapsed .search-btn kbd { display: none; }
+  body.side-collapsed .nav a { justify-content: center; padding: 11px 0; gap: 0; }
+  body.side-collapsed .nav a .nav-l, body.side-collapsed .nav a .nav-s { display: none; }
+  body.side-collapsed .nav a[aria-current="page"]::before { left: -10px; }
+  body.side-collapsed .side-card { display: none; }
+  body.side-collapsed .side-tools { flex-direction: column; }
+  body.side-collapsed .side-foot .btn .lbl { display: none; }
+  body.side-collapsed .side-foot .btn { padding: 10px 0; justify-content: center; }
+}
+@media (max-width: 860px) { .side-toggle { display: none; } }
 /* Saved password */
 .remember { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
 .remember select { width: auto; padding: 5px 28px 5px 10px; font-size: .82rem; border-radius: 9px; }
@@ -850,6 +873,21 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .banner { align-items: center; flex-wrap: wrap; }
 .banner-msg { flex: 1 1 260px; line-height: 1.45; }
 .banner-acts { display: flex; gap: 6px; flex-wrap: wrap; }
+/* Share wall */
+.sh-modal.modal.wide { width: min(1060px, 100%); }
+.sh { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 20px; align-items: start; }
+.sh-prev { position: sticky; top: 0; }
+.sh-img { min-height: 320px; max-height: 64vh; border-radius: 14px; background: var(--surface-2); display: grid; place-items: center; overflow: auto; padding: 10px; }
+.sh-img img { width: 100%; height: auto; display: block; border-radius: 6px; box-shadow: 0 10px 24px -12px rgba(0,0,0,.45); }
+.sh-side { display: flex; flex-direction: column; gap: 14px; }
+.sh-acts { display: flex; flex-wrap: wrap; gap: 8px; }
+.sh-social { border-top: 1px solid var(--line); padding-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+.sh-social .cvd-lbl { margin: 0; }
+.sh-soc { display: flex; flex-wrap: wrap; gap: 8px; }
+.sh-soc button { padding: 8px 14px; border-radius: 99px; border: 0; background: var(--sc); color: #fff; font: 600 .84rem var(--font-body); cursor: pointer; transition: transform .15s var(--ease), filter .15s; }
+.sh-soc button:hover { transform: translateY(-2px); filter: brightness(1.1); }
+.sh-social p { display: flex; gap: 6px; align-items: flex-start; line-height: 1.45; }
+@media (max-width: 820px) { .sh { grid-template-columns: 1fr; } .sh-prev { position: static; } .sh-img { max-height: 46vh; } }
 /* Win highlight effects */
 .fx { position: absolute; inset: 0; pointer-events: none; z-index: 6; font-size: var(--fxs, 10px); }
 .fw-win .fx { --fxs: 1cqw; }
@@ -1551,7 +1589,7 @@ canvas.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 96; 
 <div class="gate" id="gate" hidden></div>
 <div class="app" id="app" inert>
   <aside class="sidebar">
-    <div class="brand"><span class="brand-mark" id="brand-mark"></span><span class="wordmark">Bragging <em>Wall</em></span></div>
+    <div class="brand"><span class="brand-mark" id="brand-mark"></span><span class="wordmark">Bragging <em>Wall</em></span><button type="button" class="side-toggle" id="side-toggle" aria-controls="nav" aria-expanded="true" aria-label="Collapse the menu" title="Collapse the menu (Ctrl+\)"></button></div>
     <button type="button" class="search-btn" id="search-btn" aria-label="Search and commands"></button>
     <nav class="nav" aria-label="Sections" id="nav"></nav>
     <div class="side-card" id="side-card"></div>
@@ -1704,6 +1742,8 @@ const IC = {
   eraser: '<path d="m7 20-4-4L14 5l6 6-9 9z"/><path d="M10 9l5 5M7 20h13"/>',
   undo: '<path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>',
   brush: '<path d="M18.4 2.6a2 2 0 0 1 2.8 2.8L12 14.6 9.4 12z"/><path d="M9 13c-2.5 0-4 1.6-4 4 0 1.5-1 2.5-2.5 3 4 1.5 9 .5 9-4.4z"/>',
+  panelL: '<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M9.5 4v16M16 10l-2 2 2 2"/>',
+  panelR: '<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M9.5 4v16M14 10l2 2-2 2"/>',
   upload: '<path d="M12 17V5M7 10l5-5 5 5M5 21h14"/>',
   sparkles: '<path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 3v4M21 5h-4M5 17v4M7 19H3"/>',
   flame: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3.4.4 1.6 1.4 2.9 2.5 2.9z"/>',
@@ -2537,9 +2577,11 @@ function bindWinActions(root) {
 function renderShell() {
   $('#brand-mark').innerHTML = LOGO();
   $('#search-btn').innerHTML = `${icon('search')}<span class="lbl">Search</span><kbd>${/Mac|iPhone|iPad/.test(navigator.platform) ? '⌘' : 'Ctrl'} K</kbd>`;
-  $('#nav').innerHTML = NAV.map(n => `<a href="#${n.view}" data-view="${n.view}">${icon(n.icon)}<span class="nav-l">${n.label}</span>${n.short ? `<span class="nav-s">${n.short}</span>` : ''}</a>`).join('');
+  $('#nav').innerHTML = NAV.map(n => `<a href="#${n.view}" data-view="${n.view}" title="${n.label}">${icon(n.icon)}<span class="nav-l">${n.label}</span>${n.short ? `<span class="nav-s">${n.short}</span>` : ''}</a>`).join('');
   $('#lock-btn').innerHTML = icon('lock');
-  $('#cheer-btn').innerHTML = `${icon('sparkles')}<span class="lbl">Cheer me up</span>`;
+  $('#cheer-btn').innerHTML = `${icon('sparkles')}<span class="lbl">Cheer me up</span>`; $('#cheer-btn').title = 'Cheer me up';
+  applySide(lsGet('bw-side-collapsed') === '1', false);
+  $('#side-toggle').onclick = () => toggleSide();
   updateThemeBtn();
 }
 function go(view) { if (location.hash.slice(1) === view) { S.view = null; route(); } else location.hash = view; }
@@ -4795,6 +4837,248 @@ function fxPicker(date, id, onDone) {
   m.wrap.addEventListener('click', e => { const b = e.target.closest('[data-fxk]'); if (!b) return; cur = b.dataset.fxk; $$('[data-fxk]', m.wrap).forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); }); });
 }
 
+
+/* ================= Freedom wall: image export, print, share ================= */
+const CF = { display: '"Fraunces", Georgia, serif', hand: '"Caveat", "Segoe Print", "Bradley Hand", cursive', sans: '"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif', mono: '"JetBrains Mono", ui-monospace, Menlo, monospace', emoji: '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif' };
+const FX_EMOJI = { confetti: '\u{1F389}', fireworks: '\u{1F386}', hearts: '\u{1F496}', sparkles: '✨', balloons: '\u{1F388}', bugs: '\u{1F41E}', spotlight: '\u{1F31F}', crown: '\u{1F451}', golden: '\u{1F3C6}', rainbow: '\u{1F308}', fire: '\u{1F525}' };
+const svgDoc = (svg, extra = '') => 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"').replace(/(<svg[^>]*>)/, `$1${extra}`));
+const hexA = (hex, a) => { const [r, g, b] = hexToRgb(hex); return `rgba(${r},${g},${b},${a})`; };
+function cWrap(ctx, text, maxW, maxLines = 99) {
+  const out = [];
+  for (const para of String(text).split('\n')) {
+    let line = '';
+    for (const word of para.split(/\s+/)) {
+      if (!word) continue;
+      const t = line ? line + ' ' + word : word;
+      if (ctx.measureText(t).width <= maxW) { line = t; continue; }
+      if (line) out.push(line);
+      if (ctx.measureText(word).width > maxW) { let part = ''; for (const ch of word) { if (ctx.measureText(part + ch).width > maxW) { out.push(part); part = ch; } else part += ch; } line = part; } else line = word;
+    }
+    out.push(line);
+  }
+  if (out.length > maxLines) { const cut = out.slice(0, maxLines); cut[maxLines - 1] = cut[maxLines - 1].replace(/.{0,2}$/, '…'); return cut; }
+  return out;
+}
+function cRound(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+async function cBg(ctx, bg, W, H, u) {
+  if (bg.type === 'gradient') { const a = 155 * Math.PI / 180, dx = Math.sin(a), dy = -Math.cos(a), len = Math.abs(W * dx) + Math.abs(H * dy); const g = ctx.createLinearGradient(W / 2 - dx * len / 2, H / 2 - dy * len / 2, W / 2 + dx * len / 2, H / 2 + dy * len / 2); g.addColorStop(0, bg.c1); g.addColorStop(1, bg.c2); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); return; }
+  ctx.fillStyle = bg.c1; ctx.fillRect(0, 0, W, H);
+  if (bg.type === 'image' && bg.file) {
+    try { const im = await loadImage(await fileURL(bg.file).catch(() => bg.file.thumb)); const sc = Math.max(W / im.naturalWidth, H / im.naturalHeight); ctx.drawImage(im, (W - im.naturalWidth * sc) / 2, (H - im.naturalHeight * sc) / 2, im.naturalWidth * sc, im.naturalHeight * sc); } catch (e) { /* keep color */ }
+    if (bg.dim) { ctx.fillStyle = `rgba(0,0,0,${bg.dim / 100})`; ctx.fillRect(0, 0, W, H); }
+    return;
+  }
+  if (bg.type !== 'pattern') return;
+  const c = hexA(bg.c2, .38);
+  ctx.save(); ctx.fillStyle = c; ctx.strokeStyle = c;
+  switch (bg.pattern) {
+    case 'dots': for (let y = 4 * u; y < H; y += 8 * u) for (let x = 4 * u; x < W; x += 8 * u) { ctx.beginPath(); ctx.arc(x, y, 1.4 * u, 0, 7); ctx.fill(); } break;
+    case 'grid': for (let y = 0; y < H; y += 10 * u) ctx.fillRect(0, y, W, .45 * u); for (let x = 0; x < W; x += 10 * u) ctx.fillRect(x, 0, .45 * u, H); break;
+    case 'lines': for (let y = 7 * u; y < H; y += 7.5 * u) ctx.fillRect(0, y, W, .5 * u); break;
+    case 'stripes': ctx.translate(W / 2, H / 2); ctx.rotate(-Math.PI / 4); { const R = W + H; for (let x = -R; x < R; x += 8 * u * Math.SQRT2 / Math.SQRT2) ctx.fillRect(x, -R, 3 * u, 2 * R); } break;
+    case 'checks': for (let y = 0; y < H; y += 6 * u) for (let x = ((y / (6 * u)) % 2) * 6 * u; x < W; x += 12 * u) ctx.fillRect(x, y, 6 * u, 6 * u); break;
+    default: {
+      const tiles = { bricks: [40, 20, `<path d='M0 .6H40M0 10.6H40M20 .6V10.6M.6 10.6V20M39.4 10.6V20' stroke='${bg.c2}' stroke-opacity='.4' stroke-width='1.2' fill='none'/>`, 18, 9], waves: [40, 20, `<path d='M0 10Q10 2 20 10T40 10' stroke='${bg.c2}' stroke-opacity='.4' stroke-width='2' fill='none'/>`, 14, 7], hearts: [30, 30, `<path d='M15 22C7 16 5 11 8 8c2-2 5-2 7 1 2-3 5-3 7-1 3 3 1 8-7 14z' fill='${bg.c2}' fill-opacity='.35'/>`, 11, 11] };
+      const t = tiles[bg.pattern]; if (!t) break;
+      const tw = Math.max(4, Math.round(t[3] * u)), th = Math.max(2, Math.round(t[4] * u));
+      try { const im = await loadImage(svgDoc(`<svg width="${tw}" height="${th}" viewBox="0 0 ${t[0]} ${t[1]}" preserveAspectRatio="none">${t[2]}</svg>`)); ctx.fillStyle = ctx.createPattern(im, 'repeat'); ctx.fillRect(0, 0, W, H); } catch (e) { /* skip */ }
+    }
+  }
+  ctx.restore();
+}
+const STICKER_CSS = '<style>.st-steam path{fill:none;stroke:#9AA6A3;stroke-width:4;stroke-linecap:round}</style>';
+async function cItem(ctx, it, u) {
+  ctx.save(); ctx.translate(it.x * u, it.y * u); ctx.rotate(it.r * Math.PI / 180); ctx.globalAlpha = it.o / 100;
+  const S2 = it.s * u;
+  try {
+    if (it.type === 'text') {
+      ctx.font = `${it.bold ? 700 : 500} ${S2}px ${CF[it.font] || CF.display}`; ctx.fillStyle = it.color; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      if (it.shadow) { ctx.shadowColor = 'rgba(0,0,0,.4)'; ctx.shadowBlur = 1.6 * u; ctx.shadowOffsetY = .5 * u; }
+      const lines = cWrap(ctx, it.text, 88 * u), lh = S2 * 1.04;
+      lines.forEach((l, i) => ctx.fillText(l, 0, (i - (lines.length - 1) / 2) * lh));
+    } else if (it.type === 'emoji') { ctx.font = `${S2}px ${CF.emoji}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(it.text, 0, 0); }
+    else if (it.type === 'note') {
+      const fs = it.s * .085 * u; ctx.font = `700 ${fs}px ${CF.hand}`;
+      const lines = cWrap(ctx, it.text, S2 - 1.8 * fs), h = lines.length * fs * 1.12 + 2.4 * fs;
+      ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = 1.2 * u; ctx.shadowOffsetY = .5 * u; ctx.fillStyle = it.color; ctx.fillRect(-S2 / 2, -h / 2, S2, h);
+      ctx.shadowColor = 'transparent'; ctx.fillStyle = 'rgba(255,255,255,.6)'; ctx.save(); ctx.translate(0, -h / 2); ctx.rotate(-3 * Math.PI / 180); ctx.fillRect(-S2 * .19, -.5 * fs, S2 * .38, 1.1 * fs); ctx.restore();
+      ctx.fillStyle = '#2B2A24'; ctx.textAlign = 'center'; ctx.textBaseline = 'top'; lines.forEach((l, i) => ctx.fillText(l, 0, -h / 2 + 1.4 * fs + i * fs * 1.12));
+    } else {
+      let src;
+      if (it.type === 'icon') src = svgDoc(`<svg viewBox="0 0 24 24" width="${S2}" height="${S2}" fill="none" stroke="${it.color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${IC[it.icon] || IC.star}</svg>`);
+      else if (it.type === 'sticker') src = svgDoc(stickerSVG(it.sticker).replace('<svg', `<svg width="${S2}" height="${S2}"`), STICKER_CSS);
+      else if (it.type === 'shape') src = svgDoc(`<svg viewBox="0 0 100 100" width="${S2}" height="${S2}">${COVER_SHAPES[it.shape].svg(it.color)}</svg>`);
+      else if (it.type === 'image') src = await fileURL(it.file).catch(() => it.file.thumb);
+      const im = await loadImage(src), h = it.type === 'image' ? S2 * im.naturalHeight / im.naturalWidth : S2;
+      if (it.type === 'image') { ctx.shadowColor = 'rgba(0,0,0,.2)'; ctx.shadowBlur = .6 * u; }
+      ctx.drawImage(im, -S2 / 2, -h / 2, S2, h);
+    }
+  } catch (e) { console.error('export item', e); }
+  ctx.restore();
+}
+async function cWin(ctx, x, p, i, u, hide) {
+  const w = FW_NW * u, pad = 1.1 * u, tf = 1.45 * u;
+  ctx.font = `700 ${tf}px ${CF.hand}`;
+  const title = hide ? `A ${IMPACT[x.impact].toLowerCase()} in ${catOf(x.category).label}` : x.title;
+  const lines = cWrap(ctx, title, w - 2 * pad, 5), thumb = !hide && (x.files || []).find(f => f.thumb);
+  const h = Math.max(14 * u, 1.5 * u + .82 * u + .5 * u + lines.length * tf * 1.12 + (thumb ? 5.9 * u : 0) + .5 * u + 1.2 * u + 1 * u);
+  ctx.save(); ctx.translate(p.x * u, p.y * u + h / 2); ctx.rotate(p.r * Math.PI / 180);
+  if (x.fx === 'golden') { ctx.shadowColor = 'rgba(244,179,54,.8)'; ctx.shadowBlur = 2 * u; ctx.fillStyle = '#F4B336'; ctx.fillRect(-w / 2 - .3 * u, -h / 2 - .3 * u, w + .6 * u, h + .6 * u); }
+  if (x.fx === 'rainbow') { const g = ctx.createLinearGradient(-w / 2, -h / 2, w / 2, h / 2); ['#E0607E', '#F4B336', '#FFE27A', '#3C8A37', '#149B92', '#5B8DEF', '#8A4FB5'].forEach((c, k, a) => g.addColorStop(k / (a.length - 1), c)); ctx.fillStyle = g; cRound(ctx, -w / 2 - .45 * u, -h / 2 - .45 * u, w + .9 * u, h + .9 * u, .6 * u); ctx.fill(); }
+  ctx.shadowColor = 'rgba(40,30,10,.4)'; ctx.shadowBlur = 1.2 * u; ctx.shadowOffsetY = .6 * u;
+  ctx.fillStyle = WALL_NOTE_COLORS[bdHash(x.id) % 6]; ctx.fillRect(-w / 2, -h / 2, w, h);
+  ctx.shadowColor = 'transparent';
+  const top = -h / 2, left = -w / 2;
+  ctx.fillStyle = ['#0F6E6A', '#E0607E', '#F4B336', '#5B8DEF'][i % 4]; ctx.beginPath(); ctx.arc(0, top, .65 * u, 0, 7); ctx.fill(); ctx.strokeStyle = 'rgba(255,255,255,.75)'; ctx.lineWidth = .25 * u; ctx.stroke();
+  let y = top + 1.5 * u;
+  ctx.fillStyle = 'rgba(43,42,36,.7)'; ctx.font = `600 ${.82 * u}px ${CF.mono}`; ctx.textBaseline = 'top'; ctx.textAlign = 'left'; ctx.fillText(fmtShortK(x.date).toUpperCase(), left + pad, y);
+  if (x.mood && !hide) { ctx.font = `${1.3 * u}px ${CF.emoji}`; ctx.textAlign = 'right'; ctx.fillText(MOOD[x.mood].e, -left - pad, y - .2 * u); }
+  y += .82 * u + .5 * u;
+  ctx.fillStyle = '#2B2A24'; ctx.font = `700 ${tf}px ${CF.hand}`; ctx.textAlign = 'left';
+  lines.forEach(l => { ctx.fillText(l, left + pad, y); y += tf * 1.12; });
+  if (thumb) { try { const im = await loadImage(thumb.thumb); y += .4 * u; ctx.save(); ctx.translate(0, y + 2.6 * u); ctx.rotate(-2 * Math.PI / 180); ctx.fillStyle = '#fff'; ctx.fillRect(-w / 2 + pad, -2.6 * u, w - 2 * pad, 5.2 * u); const iw = w - 2 * pad - .7 * u, ih = 4.5 * u, sc = Math.max(iw / im.naturalWidth, ih / im.naturalHeight); ctx.beginPath(); ctx.rect(-iw / 2, -ih / 2, iw, ih); ctx.clip(); ctx.drawImage(im, -im.naturalWidth * sc / 2, -im.naturalHeight * sc / 2, im.naturalWidth * sc, im.naturalHeight * sc); ctx.restore(); } catch (e) { /* skip */ } }
+  ctx.font = `600 ${.8 * u}px ${CF.sans}`; ctx.textBaseline = 'bottom'; ctx.fillStyle = 'rgba(43,42,36,.8)'; ctx.textAlign = 'left';
+  ctx.fillText(cWrap(ctx, catOf(x.category).label, w - 2 * pad - 3 * u, 1)[0], left + pad, h / 2 - 1 * u);
+  ctx.fillStyle = '#C98A10'; ctx.textAlign = 'right'; ctx.fillText('★'.repeat(x.impact), -left - pad, h / 2 - 1 * u);
+  if (x.impact === 3) { ctx.save(); ctx.translate(-left - .2 * u, top + 2 * u); ctx.rotate(12 * Math.PI / 180); ctx.font = `800 ${.8 * u}px ${CF.mono}`; const tw = ctx.measureText('BIG WIN!').width; ctx.fillStyle = 'rgba(255,255,255,.6)'; ctx.fillRect(-tw / 2 - .5 * u, -.75 * u, tw + u, 1.5 * u); ctx.strokeStyle = '#C2477A'; ctx.lineWidth = .2 * u; ctx.strokeRect(-tw / 2 - .5 * u, -.75 * u, tw + u, 1.5 * u); ctx.fillStyle = '#C2477A'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('BIG WIN!', 0, 0); ctx.restore(); }
+  if (FX_EMOJI[x.fx]) { ctx.font = `${2.4 * u}px ${CF.emoji}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(FX_EMOJI[x.fx], x.fx === 'crown' ? 0 : -left - .3 * u, x.fx === 'crown' ? top - 1.4 * u : h / 2 - .6 * u); }
+  ctx.restore();
+}
+async function cLogo(ctx, x, y, size) { try { ctx.drawImage(await loadImage(svgDoc(LOGO().replace('<svg', `<svg width="${size}" height="${size}"`))), x, y, size, size); } catch (e) { /* skip */ } }
+async function renderWallImage(w, { format = 'post', hide = false } = {}) {
+  try { if (document.fonts && document.fonts.ready) await Promise.race([document.fonts.ready, sleep(2500)]); } catch (e) { /* ignore */ }
+  const F = { post: [1080, 1350], story: [1080, 1920], full: [2000, 0] }[format] || [1080, 1350];
+  const L = wallLayout(w);
+  let W = F[0], u = W / 100, wallH = L.H * u;
+  if (format === 'full' && wallH > 14000) { W = Math.floor(14000 / L.H * 100); u = W / 100; wallH = L.H * u; }
+  const foot = format === 'full' ? Math.round(9 * u) : Math.round(F[0] * .11), head = format === 'story' ? Math.round(F[0] * .1) : 0;
+  const CH = format === 'full' ? Math.ceil(wallH) + foot : F[1];
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = CH;
+  const ctx = cv.getContext('2d');
+  const view = format === 'full' ? wallH : CH - foot - head;
+  ctx.save(); ctx.translate(0, head); ctx.beginPath(); ctx.rect(0, 0, W, view); ctx.clip();
+  await cBg(ctx, w.bg, W, view, u);
+  for (const it of w.items) if (it.y * u - it.s * u < view) await cItem(ctx, it, u);
+  for (let i = 0; i < L.wins.length; i++) if (L.pos[i].y * u < view) await cWin(ctx, L.wins[i], L.pos[i], i, u, hide);
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  for (const st of w.paint) { ctx.strokeStyle = st.c; ctx.globalAlpha = st.o; ctx.lineWidth = st.w * u; ctx.beginPath(); ctx.moveTo(st.p[0] * u, st.p[1] * u); if (st.p.length === 2) ctx.lineTo(st.p[0] * u + .01, st.p[1] * u); for (let k = 2; k < st.p.length; k += 2) ctx.lineTo(st.p[k] * u, st.p[k + 1] * u); ctx.stroke(); }
+  ctx.globalAlpha = 1;
+  if (format !== 'full') { const g = ctx.createLinearGradient(0, view - 120, 0, view); g.addColorStop(0, 'rgba(243,239,230,0)'); g.addColorStop(1, 'rgba(243,239,230,.85)'); ctx.fillStyle = g; ctx.fillRect(0, view - 120, W, 120); }
+  ctx.restore();
+  // branded header (story) and footer
+  const band = (y, h) => { const g = ctx.createLinearGradient(0, y, W, y + h); g.addColorStop(0, '#149B92'); g.addColorStop(.55, '#0F6E6A'); g.addColorStop(1, '#0A4D4A'); ctx.fillStyle = g; ctx.fillRect(0, y, W, h); ctx.fillStyle = '#F4B336'; ctx.fillRect(0, y, W, Math.max(3, h * .045)); };
+  if (head) { band(0, head); ctx.fillStyle = '#fff'; ctx.font = `700 ${head * .38}px ${CF.hand}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(w.name, W / 2, head * .55); }
+  const fy = CH - foot; band(fy, foot);
+  const ls = foot * .52; await cLogo(ctx, foot * .32, fy + (foot - ls) / 2 + foot * .02, ls);
+  const tx = foot * .32 + ls + foot * .2;
+  ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#fff'; ctx.font = `700 ${foot * .27}px ${CF.display}`;
+  ctx.fillText('Bragging', tx, fy + foot * .4); const bw = ctx.measureText('Bragging ').width; ctx.fillStyle = '#F9CF6E'; ctx.font = `italic 700 ${foot * .27}px ${CF.display}`; ctx.fillText('Wall', tx + bw, fy + foot * .4);
+  ctx.fillStyle = 'rgba(255,255,255,.85)'; ctx.font = `500 ${foot * .15}px ${CF.sans}`; ctx.fillText(`${format === 'story' ? '' : w.name + ' · '}${plural(L.total, 'win')} pinned`, tx, fy + foot * .7);
+  ctx.textAlign = 'right'; ctx.font = `700 ${foot * .2}px ${CF.hand}`; ctx.fillStyle = '#F9CF6E'; ctx.fillText('Every win, pinned where you can see it.', W - foot * .32, fy + foot * .52);
+  return cv;
+}
+const canvasBlob = cv => new Promise((res, rej) => { try { cv.toBlob(b => b ? res(b) : rej(new Error('blob')), 'image/png'); } catch (e) { rej(e); } });
+function wallCaption(w) {
+  const n = wallWins(w).length, big = wallWins(w).filter(x => x.impact === 3).length;
+  return `Look at my Freedom Wall! ${n} wins pinned${big ? `, ${big} of them big ones` : ''}. Small wins count. \u{1F389}\n\n#BraggingWall #SmallWinsCount #Proud`;
+}
+function shareWallModal(wallId) {
+  const w = S.walls.find(x => x.id === wallId); if (!w) return;
+  const st = { format: 'post', hide: false, blob: null, url: '', busy: 0, saved: false };
+  const canFiles = !window.claude && !!(navigator.canShare && navigator.share);
+  const canPrint = !window.claude;
+  const SOC = [['facebook', 'Facebook', 'https://www.facebook.com/', '#1877F2'], ['instagram', 'Instagram', 'https://www.instagram.com/', '#E1306C'], ['x', 'X', 'https://x.com/intent/post?text=', '#111'], ['linkedin', 'LinkedIn', 'https://www.linkedin.com/feed/?shareActive=true&text=', '#0A66C2'], ['threads', 'Threads', 'https://www.threads.net/intent/post?text=', '#000']];
+  const m = openModal({
+    title: `Share “${w.name}”`, wide: true,
+    body: `<div class="sh">
+      <div class="sh-prev"><div class="sh-img" id="sh-img"><span class="spinner"></span></div></div>
+      <div class="sh-side">
+        <fieldset class="field"><legend>Picture size</legend><div class="seg" id="sh-fmt">${[['post', 'Post 4:5'], ['story', 'Story 9:16'], ['full', 'Whole wall']].map(([k, l]) => `<label><input type="radio" name="sh-fmt" value="${k}" ${k === 'post' ? 'checked' : ''}><span>${l}</span></label>`).join('')}</div></fieldset>
+        <label class="check-line"><input type="checkbox" id="sh-hide">Hide win details (show only the area and size of each win)</label>
+        <div class="sh-acts">
+          <button type="button" class="btn" data-sh="dl">${icon('download')}Download picture</button>
+          ${canFiles ? `<button type="button" class="btn ghost" data-sh="share">${icon('share')}Share…</button>` : ''}
+          ${canPrint ? `<button type="button" class="btn ghost" data-sh="print">${icon('file')}Print</button>` : ''}
+          <button type="button" class="btn ghost" data-sh="pdf">${icon('file')}Save as PDF</button>
+        </div>
+        <div class="sh-social"><p class="cvd-lbl">Post to social media</p>
+          <div class="sh-soc">${SOC.map(([k, l, , c]) => `<button type="button" data-soc="${k}" style="--sc:${c}">${l}</button>`).join('')}</div>
+          <label class="cvd-lbl" for="sh-cap">Caption</label><textarea id="sh-cap" rows="4" maxlength="500">${esc(wallCaption(w))}</textarea>
+          <p class="small muted">${icon('info', 'sm')} Social apps don't let websites attach pictures for you. Tapping a button saves the picture and copies your caption, then opens the app so you can add the picture to your post.${canFiles ? ' On a phone, Share… sends it straight to the app.' : ''}</p>
+        </div>
+      </div></div>`,
+    onOpen: x => x.querySelector('.modal').classList.add('sh-modal'),
+    actions: [{ label: 'Done', kind: 'ghost' }],
+  });
+  const W = m.wrap, $w = q => $(q, W);
+  const build = async () => {
+    const my = ++st.busy; $w('#sh-img').innerHTML = '<span class="spinner"></span>'; st.blob = null; st.saved = false;
+    try {
+      const cv = await renderWallImage(w, { format: st.format, hide: st.hide });
+      const blob = await canvasBlob(cv); if (my !== st.busy) return;
+      if (st.url) URL.revokeObjectURL(st.url);
+      st.blob = blob; st.url = URL.createObjectURL(blob);
+      $w('#sh-img').innerHTML = `<img src="${st.url}" alt="Preview of your Freedom Wall picture">`;
+    } catch (e) { console.error(e); if (my === st.busy) $w('#sh-img').innerHTML = '<p class="small muted">Couldn’t create the picture. Try again.</p>'; }
+  };
+  const fname = () => `${fileSafe(w.name)}-${st.format}-${todayKey()}.png`;
+  const ready = async () => { while (!st.blob) { if (!$w('#sh-img')) return false; await sleep(150); } return true; };
+  const download = async () => { if (!(await ready())) return false; const ok = await saveFile(fname(), st.blob); if (ok) st.saved = true; return ok; };
+  $w('#sh-fmt').addEventListener('change', e => { st.format = e.target.value; build(); });
+  $w('#sh-hide').addEventListener('change', e => { st.hide = e.target.checked; build(); });
+  W.addEventListener('click', async e => {
+    const b = e.target.closest('[data-sh], [data-soc]'); if (!b) return;
+    const a = b.dataset.sh;
+    if (a === 'dl') { if (await download()) toast('Picture saved'); }
+    else if (a === 'share') { if (!(await ready())) return; const f = new File([st.blob], fname(), { type: 'image/png' }); if (!navigator.canShare({ files: [f] })) { toast("This browser can't share pictures. Download it instead.", 'warn'); return; } try { await navigator.share({ files: [f], text: $w('#sh-cap').value }); } catch (err) { if (err && err.name !== 'AbortError') toast("Couldn't open the share menu.", 'warn'); } }
+    else if (a === 'print') { if (!(await ready())) return; printImage(st.url, w.name); }
+    else if (a === 'pdf') { if (!(await ready())) return; wallPdf(w, st.blob, st.format); }
+    else if (b.dataset.soc) {
+      const [, label, url] = SOC.find(x => x[0] === b.dataset.soc), cap = $w('#sh-cap').value;
+      if (!st.saved) await download();
+      try { await navigator.clipboard.writeText(cap); } catch (err) { /* ignore */ }
+      window.open(url.endsWith('=') ? url + encodeURIComponent(cap) : url, '_blank', 'noopener');
+      toast(`Picture saved and caption copied. Add the picture to your ${label} post.`);
+    }
+  });
+  new MutationObserver((_, ob) => { if (!W.isConnected) { ob.disconnect(); st.busy++; if (st.url) setTimeout(() => URL.revokeObjectURL(st.url), 60000); } }).observe(document.body, { childList: true });
+  build();
+}
+function printImage(url, title) {
+  const f = document.createElement('iframe');
+  f.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0';
+  document.body.append(f);
+  const d = f.contentDocument;
+  d.open(); d.write(`<!DOCTYPE html><html><head><title>${esc(title)}</title><style>@page{margin:10mm}html,body{margin:0}img{width:100%;height:auto;display:block}</style></head><body><img src="${url}"></body></html>`); d.close();
+  const im = d.querySelector('img');
+  const go = () => { try { f.contentWindow.focus(); f.contentWindow.print(); } catch (e) { toast("Printing isn't available here. Save as PDF and print that instead.", 'warn'); } setTimeout(() => f.remove(), 60000); };
+  if (im.complete) setTimeout(go, 50); else im.onload = () => setTimeout(go, 50);
+}
+async function wallPdf(w, blob, format) {
+  try {
+    const url = await new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(blob); });
+    const im = await loadImage(url);
+    const doc = pdfOrWarn(() => {
+      const land = format === 'full' && im.naturalWidth > im.naturalHeight;
+      const d = new window.jspdf.jsPDF({ unit: 'pt', format: 'a4', orientation: land ? 'landscape' : 'portrait' });
+      const PW = d.internal.pageSize.getWidth(), PH = d.internal.pageSize.getHeight(), M = 24, aw = PW - 2 * M, ah = PH - 2 * M;
+      const sc = Math.min(aw / im.naturalWidth, format === 'full' ? Infinity : ah / im.naturalHeight), dw = im.naturalWidth * sc, dh = im.naturalHeight * sc;
+      if (dh <= ah) d.addImage(url, 'PNG', (PW - dw) / 2, M, dw, dh);
+      else {
+        const sliceH = Math.floor(ah / sc); let y = 0, first = true;
+        while (y < im.naturalHeight) {
+          const h = Math.min(sliceH, im.naturalHeight - y), c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = h;
+          c.getContext('2d').drawImage(im, 0, y, im.naturalWidth, h, 0, 0, im.naturalWidth, h);
+          if (!first) d.addPage(); first = false;
+          d.addImage(c.toDataURL('image/jpeg', .92), 'JPEG', M, M, dw, h * sc); y += h;
+        }
+      }
+      return d;
+    });
+    if (doc) { await saveFile(`${fileSafe(w.name)}-${todayKey()}.pdf`, doc.output('blob')); toast('PDF saved. Open it to print.'); }
+  } catch (e) { console.error(e); toast("Couldn't create the PDF.", 'warn'); }
+}
+
 /* ================= Freedom walls ================= */
 const WALL_NOTE_COLORS = ['#FFE27A', '#FFC4D2', '#B9EAD2', '#BFDDF7', '#FFD2A3', '#D9CBF6'];
 const WALL_DEFAULT_BG = { type: 'pattern', c1: '#F3EFE6', c2: '#B9AE96', pattern: 'bricks', file: null, dim: 0 };
@@ -4893,12 +5177,13 @@ function renderHomeWall() {
       <h2 class="card-title">${icon('wall')}My Freedom Wall</h2>
       ${S.walls.length > 1 ? `<label class="fw-pick"><span class="sr-only">Wall shown on your home page</span><select id="fw-feature">${S.walls.map(x => `<option value="${x.id}" ${x.id === w.id ? 'selected' : ''}>${esc(x.name)}</option>`).join('')}</select></label>` : w.name !== 'My Freedom Wall' ? `<span class="fw-name">${esc(w.name)}</span>` : ''}
       <span class="small muted fw-count">${plural(L.total, 'win')} pinned</span>
+      <button type="button" class="btn ghost sm" data-fwh="share">${icon('share', 'sm')}Share</button>
       <button type="button" class="btn ghost sm" data-fwh="open">Open wall${icon('arrowRight', 'sm')}</button></div>
     <div class="fw-home-board" data-fwh="open" role="link" tabindex="0" aria-label="Open ${esc(w.name)}">${wallBoardHTML(w, { limit: 18, cls: 'home' })}<span class="fw-home-fade"><span>${icon('wall', 'sm')}Open my Freedom Wall</span></span></div>`;
   hydrateCovers(el);
   const sel = $('#fw-feature', el);
   if (sel) sel.onchange = () => { S.profile = { ...S.profile, featuredWall: sel.value }; persistProfile(); renderHomeWall(); toast('Shown on your home page'); };
-  el.onclick = e => { if (e.target.closest('select, label')) return; if (e.target.closest('[data-fwh="open"]')) { UI.fw.id = w.id; go('walls'); } };
+  el.onclick = e => { if (e.target.closest('select, label')) return; if (e.target.closest('[data-fwh="share"]')) { shareWallModal(w.id); return; } if (e.target.closest('[data-fwh="open"]')) { UI.fw.id = w.id; go('walls'); } };
   const hb = $('.fw-home-board', el); if (hb) hb.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); UI.fw.id = w.id; go('walls'); } };
 }
 function mountWalls() {
@@ -4912,6 +5197,7 @@ function mountWalls() {
     switch (b.dataset.fw) {
       case 'new': wallNameModal(null, name => createWall(name)); break;
       case 'design': if (w) wallDesigner(w.id); break;
+      case 'share': if (w) shareWallModal(w.id); break;
       case 'feature': if (w) { S.profile = { ...S.profile, featuredWall: w.id }; persistProfile(); updateWallsView(); toast(`“${w.name}” is now on your home page`); } break;
       case 'rename': if (w) wallNameModal(w, name => { w.name = name; persistWall(w.id); updateWallsView(); }); break;
       case 'delete': if (w) {
@@ -4944,6 +5230,7 @@ function updateWallsView() {
     <header class="view-head"><div><p class="eyebrow">${icon('wall', 'sm')}Freedom Wall</p><h1>${esc(w.name)}</h1></div>
       <div class="row">
         <button type="button" class="btn" data-fw="design">${icon('brush')}Design wall</button>
+        <button type="button" class="btn ghost" data-fw="share">${icon('share')}Share or print</button>
         ${S.walls.length > 1 ? (isFeat ? `<span class="badge on fw-featbadge">${icon('home', 'sm')}On home page</span>` : `<button type="button" class="btn ghost" data-fw="feature">${icon('home')}Show on home</button>`) : ''}
       </div></header>
     <div class="fw-bar">
@@ -6581,6 +6868,19 @@ function wireGate(state) {
 }
 
 
+
+function applySide(collapsed, animate = true) {
+  document.body.classList.toggle('side-anim', !!animate);
+  document.body.classList.toggle('side-collapsed', !!collapsed);
+  const b = $('#side-toggle'); if (!b) return;
+  b.innerHTML = icon(collapsed ? 'panelR' : 'panelL');
+  b.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+  const t = collapsed ? 'Expand the menu' : 'Collapse the menu'; b.setAttribute('aria-label', t); b.title = `${t} (Ctrl+\\)`;
+  if (animate) setTimeout(() => { document.body.classList.remove('side-anim'); window.dispatchEvent(new Event('resize')); }, 320);
+}
+function toggleSide() { const c = !document.body.classList.contains('side-collapsed'); lsSet('bw-side-collapsed', c ? '1' : '0'); applySide(c); }
+document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === '\\') { e.preventDefault(); toggleSide(); } });
+
 /* ================= Saved password (this device only) ================= */
 const SAVEPW = { pw: null, exp: 0 };
 const SP_DAYS = [[1, '1 day'], [7, '7 days'], [30, '30 days'], [90, '90 days'], [0, 'Until I forget it']];
@@ -6689,6 +6989,7 @@ function openPalette() {
     { g: 'Actions', label: 'Brag your win', icon: 'megaphone', run: () => { UI.selDate = todayKey(); go('today'); setTimeout(() => $('#t-title')?.focus(), 350); } },
     { g: 'Actions', label: 'New journal entry for today', icon: 'pen', run: () => { const nb = S.notebooks.find(n => n.kind === 'journal') || S.notebooks[0]; if (!nb) { go('notebooks'); return; } openNote(createPage(nb.id, todayKey(), nb.kind === 'journal' ? 'journal' : KINDS[nb.kind].tpl)); } },
     { g: 'Actions', label: 'Open my Freedom Wall', icon: 'wall', run: () => go('walls') },
+    { g: 'Actions', label: 'Collapse or expand the side menu', icon: 'panelL', run: () => toggleSide() },
     { g: 'Actions', label: 'Email my brags as PDF', icon: 'mail', run: () => openEmailDialog({ scope: 'week', anchor: todayKey() }) },
     { g: 'Actions', label: 'Cheer me up', icon: 'sparkles', run: cheer },
     { g: 'Actions', label: 'Change theme', icon: 'sun', run: cycleTheme },
