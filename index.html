@@ -9,7 +9,7 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='13' fill='%230F6E6A'/%3E%3Cg fill='%23F0EEE9'%3E%3Crect x='8' y='30' width='15' height='8' rx='2.5'/%3E%3Crect x='25' y='30' width='15' height='8' rx='2.5'/%3E%3Crect x='8' y='20' width='6.5' height='8' rx='2.5'/%3E%3Crect x='16.5' y='20' width='15' height='8' rx='2.5'/%3E%3Crect x='33.5' y='20' width='6.5' height='8' rx='2.5'/%3E%3Crect x='8' y='10' width='15' height='8' rx='2.5'/%3E%3C/g%3E%3Cpath fill='%23F4B336' d='M32.5 5.5l1.9 6 6 1.9-6 1.9-1.9 6-1.9-6-6-1.9 6-1.9z'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..800;1,9..144,500..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght@0,9..144,500..800;1,9..144,500..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 /* Bragging Wall. Layout idea: a pin-up wall of wins. A solid rail on the left; a bento "wall" of bricks (cards) on the right.
@@ -42,6 +42,9 @@
   --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
   --font-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --font-hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+  --note-ink: #2B2A24;
+  --n1: #FFE27A; --n2: #FFC4D2; --n3: #B9EAD2; --n4: #BFDDF7; --n5: #FFD2A3; --n6: #D9CBF6;
   --r: 18px;
   --shadow: 0 1px 2px rgba(27, 36, 34, .05), 0 10px 26px -14px rgba(27, 36, 34, .18);
   --shadow-lg: 0 2px 4px rgba(27, 36, 34, .06), 0 22px 48px -16px rgba(27, 36, 34, .28);
@@ -59,6 +62,8 @@
     --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='28'%3E%3Cg fill='none' stroke='%23EEF1EC' stroke-opacity='.045'%3E%3Crect x='.5' y='.5' width='27' height='13' rx='3.5'/%3E%3Crect x='28.5' y='.5' width='27' height='13' rx='3.5'/%3E%3Crect x='-13.5' y='14.5' width='27' height='13' rx='3.5'/%3E%3Crect x='14.5' y='14.5' width='27' height='13' rx='3.5'/%3E%3Crect x='42.5' y='14.5' width='27' height='13' rx='3.5'/%3E%3C/g%3E%3C/svg%3E");
     --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 26px -12px rgba(0,0,0,.6);
     --shadow-lg: 0 2px 4px rgba(0,0,0,.35), 0 22px 48px -14px rgba(0,0,0,.7);
+    --note-ink: #F3F0E6;
+    --n1: #6A5A1E; --n2: #6A3343; --n3: #24584A; --n4: #284A68; --n5: #6A4527; --n6: #4A3C6A;
     color-scheme: dark;
   }
 }
@@ -72,12 +77,14 @@
     --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='28'%3E%3Cg fill='none' stroke='%23EEF1EC' stroke-opacity='.045'%3E%3Crect x='.5' y='.5' width='27' height='13' rx='3.5'/%3E%3Crect x='28.5' y='.5' width='27' height='13' rx='3.5'/%3E%3Crect x='-13.5' y='14.5' width='27' height='13' rx='3.5'/%3E%3Crect x='14.5' y='14.5' width='27' height='13' rx='3.5'/%3E%3Crect x='42.5' y='14.5' width='27' height='13' rx='3.5'/%3E%3C/g%3E%3C/svg%3E");
     --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 26px -12px rgba(0,0,0,.6);
     --shadow-lg: 0 2px 4px rgba(0,0,0,.35), 0 22px 48px -14px rgba(0,0,0,.7);
+    --note-ink: #F3F0E6;
+    --n1: #6A5A1E; --n2: #6A3343; --n3: #24584A; --n4: #284A68; --n5: #6A4527; --n6: #4A3C6A;
     color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; }
-body { background: var(--bg) var(--pattern); color: var(--ink); font: 15.5px/1.55 var(--font-body); -webkit-font-smoothing: antialiased; overflow: hidden; }
+body { background: var(--bg); color: var(--ink); font: 15.5px/1.55 var(--font-body); -webkit-font-smoothing: antialiased; overflow: hidden; }
 h1, h2, h3 { font-family: var(--font-display); font-optical-sizing: auto; text-wrap: balance; margin: 0; line-height: 1.12; }
 h1 em, h2 em, .wordmark em { font-style: italic; color: var(--accent); font-weight: 600; }
 h1 { font-size: 2rem; font-weight: 650; letter-spacing: -.025em; }
@@ -232,7 +239,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .empty b { display: block; color: var(--ink); font-family: var(--font-display); font-size: 1.02rem; margin-bottom: 4px; }
 
 /* Home */
-.hero { position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr) auto 240px; gap: 24px; align-items: center; padding: 30px 32px; background: var(--card) var(--pattern); }
+.hero { position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr) auto 240px; gap: 24px; align-items: center; padding: 30px 32px; background: var(--card); }
 .hero::before { content: ""; position: absolute; z-index: -1; right: -60px; top: -80px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--gold-2) 30%, transparent), transparent); }
 .hero h1 { font-size: 2.6rem; font-weight: 600; letter-spacing: -.035em; }
 .hero-line { margin-top: 8px; color: var(--muted); max-width: 52ch; font-size: 1rem; }
@@ -497,6 +504,18 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .chart .val { fill: var(--ink); font: 600 11px var(--font-mono); }
 .chart .bar { fill: url(#bar-grad); }
 
+/* Freedom-wall notes in the hero */
+.hero-notes { position: relative; width: 250px; height: 200px; }
+.hnote { position: absolute; width: 132px; min-height: 112px; padding: 20px 12px 10px; background: var(--nc); color: var(--note-ink); font: 700 1.12rem/1.1 var(--font-hand); box-shadow: 0 8px 16px -8px rgba(0,0,0,.35), 0 1px 0 rgba(0,0,0,.05); display: flex; flex-direction: column; justify-content: space-between; gap: 6px; transition: transform .25s var(--ease); }
+.hnote::before { content: ""; position: absolute; top: 6px; left: 50%; width: 11px; height: 11px; margin-left: -5.5px; border-radius: 50%; background: var(--pin, var(--accent)); box-shadow: inset -2px -2px 0 rgba(0,0,0,.18), 0 2px 3px rgba(0,0,0,.3); }
+.hnote.tape::before { top: -7px; width: 54px; height: 16px; margin-left: -27px; border-radius: 2px; background: rgba(255,255,255,.55); box-shadow: 0 1px 2px rgba(0,0,0,.08); transform: rotate(-3deg); }
+.hnote span { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.hnote small { font: 500 .62rem var(--font-mono); opacity: .7; letter-spacing: .04em; text-transform: uppercase; }
+.hnote.n0 { left: 0; top: 4px; transform: rotate(-6deg); z-index: 1; }
+.hnote.n1 { right: 0; top: 0; transform: rotate(5deg); z-index: 2; }
+.hnote.n2 { left: 58px; bottom: -6px; transform: rotate(-1.5deg); z-index: 3; }
+.hnote:hover { transform: rotate(0) scale(1.05); z-index: 4; }
+.hnote.empty-note { opacity: .85; }
 /* Settings */
 #bk-card { grid-column: 1 / -1; }
 #bk-card .stack { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
@@ -516,7 +535,9 @@ label.btn { user-select: none; }
 /* Gate (lock / setup) */
 .gate { position: fixed; inset: 0; z-index: 90; display: flex; flex-direction: column; padding: 20px; overflow-y: auto; background: var(--bg); }
 .gate[hidden] { display: none; }
-.gate { background: var(--bg) var(--pattern); }
+.gate { background: transparent; }
+canvas.freedom-wall { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+@media print { canvas.freedom-wall { display: none; } }
 .gate-bg { position: fixed; left: 50%; top: 50%; width: 760px; height: 760px; transform: translate(-50%, -50%); pointer-events: none; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--accent-2) 22%, transparent), color-mix(in srgb, var(--gold-2) 10%, transparent) 60%, transparent); }
 .gate-card { position: relative; margin: auto; width: min(440px, 100%); background: var(--card); border: 1px solid var(--card-border); border-radius: 26px; padding: 30px; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; gap: 16px; }
 .gate-card.wide { width: min(520px, 100%); }
@@ -1517,7 +1538,7 @@ function updateThemeBtn() {
 function cycleTheme() {
   const order = ['system', 'light', 'dark'];
   const next = order[(order.indexOf(themePref()) + 1) % 3];
-  lsSet(LS_THEME, next); applyTheme(); updateThemeBtn();
+  lsSet(LS_THEME, next); applyTheme(); updateThemeBtn(); drawFreedomWall();
   toast(`Theme: ${next === 'system' ? 'matching your device' : next}`);
 }
 
@@ -1538,7 +1559,7 @@ function mountToday() {
         <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52"/><circle class="val" id="h-ring" cx="60" cy="60" r="52" stroke-dasharray="${C}" stroke-dashoffset="${C}"/></svg>
         <div class="ring-c"><b id="h-ring-n">0</b><span id="h-ring-l">of 5 this week</span></div>
       </div>
-      <div class="hero-art">${ART.hero()}</div>
+      <div class="hero-art" id="hero-notes" aria-label="Your latest wins, pinned"></div>
     </section>
     <div class="kpi-grid" style="--i:1">
       ${[['today', 'Today', 'checkCircle', ''], ['week', 'This week', 'target', ''], ['month', 'This month', 'calendar', ''], ['streak', 'Day streak', 'flame', 'gold']].map(([k, l, ic, cls]) => `
@@ -1634,6 +1655,7 @@ function updateToday() {
   setCount($('#k-week'), 'week', wk); $('#k-week-s').textContent = 'last 8 weeks'; $('#k-week-sp').innerHTML = sparkline(weeks8);
   setCount($('#k-month'), 'month', nMonth); $('#k-month-s').textContent = 'last 6 months'; $('#k-month-sp').innerHTML = sparkline(months6);
   setCount($('#k-streak'), 'streak', st); $('#k-streak-s').textContent = `best: ${bestStreak()} · weekends don't break it`; $('#k-streak-sp').innerHTML = '';
+  $('#hero-notes').innerHTML = heroNotesHTML();
   $('#t-date').value = k;
   $('#t-for').textContent = isToday ? 'Saving to today' : `Saving to ${fmtMed(d)}`;
   $('#t-list-title').textContent = isToday ? 'Wins today' : `Wins on ${fmtMed(d)}`;
@@ -1648,6 +1670,12 @@ function updateToday() {
   $('#t-heat').innerHTML = heatHTML();
   const notes = S.notes.filter(n => n.date === k);
   $('#t-notes').innerHTML = notes.length ? `<div class="note-links">${notes.map(n => { const nb = S.notebooks.find(b => b.id === n.notebookId); return `<button type="button" class="note-link" style="--nb:${nb ? nb.color : 'var(--accent)'}" data-open-note="${n.id}"><span class="dot"></span><span><b>${esc(n.title || 'Untitled page')}</b><span>${esc(nb ? nb.name : 'Notebook')}</span></span></button>`; }).join('')}</div>` : '<p class="small muted" style="margin-bottom:12px">No pages written on this day.</p>';
+}
+function heroNotesHTML() {
+  const recent = allWins().slice(-3).reverse();
+  const pins = ['var(--accent)', 'var(--gold-2)', '#E0607E'];
+  if (!recent.length) return `<div class="hero-notes"><div class="hnote n0 tape empty-note" style="--nc:var(--n1)"><span>Your first win goes here</span><small>Pin it today</small></div><div class="hnote n1 empty-note" style="--nc:var(--n3);--pin:${pins[1]}"><span>Kaya mo 'yan!</span><small>From the wall</small></div></div>`;
+  return `<div class="hero-notes">${recent.map((w, i) => `<div class="hnote n${i} ${i === 1 ? 'tape' : ''}" style="--nc:var(--n${1 + (w.title.length + i) % 6});--pin:${pins[i]}" title="${esc(w.title)}"><span>${esc(w.title)}</span><small>${fmtShortK(w.date)}${w.impact === 3 ? ' · big win' : ''}</small></div>`).join('')}</div>`;
 }
 function weekStripHTML(k) {
   const s = startOfWeek(parseYmd(k));
@@ -3068,9 +3096,83 @@ function confetti() {
   requestAnimationFrame(frame);
 }
 
+/* ================= Freedom wall background ================= */
+const FW_MSGS = ["Proud of you!", "Kaya mo 'yan!", "Laban lang!", "Galing mo!", "You shipped it!", "Small wins count", "Nice catch!", "Ang husay!", "Keep going", "Zero P1s!", "Tuloy lang!", "Bug caught!", "You've got this", "Sana all!", "Level up!", "Salamat, team!", "Big win today", "Rest counts too", "One step at a time", "Way to go!", "Padayon!", "Brag a little", "You did that!", "Wow, ikaw na!"];
+const FW = { canvas: null, timer: null };
+function seeded(seed) { return () => { seed = (seed + 0x6D2B79F5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function isDarkTheme() { const t = document.documentElement.getAttribute('data-theme'); return t ? t === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; }
+function drawFreedomWall() {
+  let c = FW.canvas;
+  if (!c) { c = FW.canvas = document.createElement('canvas'); c.className = 'freedom-wall'; c.setAttribute('aria-hidden', 'true'); document.body.prepend(c); }
+  const W = innerWidth, H = innerHeight, dpr = Math.min(2, devicePixelRatio || 1);
+  c.width = Math.round(W * dpr); c.height = Math.round(H * dpr);
+  const x = c.getContext('2d');
+  x.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const cs = getComputedStyle(document.documentElement), v = n => cs.getPropertyValue(n).trim();
+  const dark = isDarkTheme(), r = seeded(20261113);
+  x.fillStyle = v('--bg'); x.fillRect(0, 0, W, H);
+  for (let i = 0; i < (W * H) / 700; i++) { x.fillStyle = dark ? `rgba(255,255,255,${r() * .04})` : `rgba(60,48,30,${r() * .045})`; x.fillRect(r() * W, r() * H, 1.4, 1.4); }
+  const notes = ['--n1', '--n2', '--n3', '--n4', '--n5', '--n6'].map(v), ink = v('--note-ink');
+  const pins = [v('--accent'), v('--gold-2'), '#E0607E', '#5B8DEF'], doodle = [v('--accent'), v('--gold-2'), '#E0607E'];
+  const card = dark ? '#222C2A' : '#FFFEFA', alpha = dark ? .62 : .78;
+  const msgs = [...FW_MSGS].sort(() => r() - .5);
+  let mi = 0;
+  const hand = sz => `700 ${sz}px Caveat, "Segoe Print", "Bradley Hand", cursive`;
+  const wrap = (text, maxW, sz, lh) => {
+    x.font = hand(sz);
+    const words = text.split(' '), lines = [];
+    let line = '';
+    for (const w of words) { const t = line ? line + ' ' + w : w; if (x.measureText(t).width > maxW && line) { lines.push(line); line = w; } else line = t; }
+    if (line) lines.push(line);
+    lines.forEach((l, i) => x.fillText(l, 0, (i - (lines.length - 1) / 2) * lh));
+  };
+  const shadow = on => { x.shadowColor = on ? (dark ? 'rgba(0,0,0,.55)' : 'rgba(60,48,30,.18)') : 'transparent'; x.shadowBlur = on ? 10 : 0; x.shadowOffsetY = on ? 4 : 0; };
+  const pinAt = (px, py, col) => { x.fillStyle = col; x.beginPath(); x.arc(px, py, 5, 0, 7); x.fill(); x.fillStyle = 'rgba(255,255,255,.55)'; x.beginPath(); x.arc(px - 1.5, py - 1.5, 1.6, 0, 7); x.fill(); };
+  const tapeAt = (tx, ty, w) => { x.save(); x.translate(tx, ty); x.rotate((r() - .5) * .3); x.fillStyle = dark ? 'rgba(255,255,255,.16)' : 'rgba(255,255,255,.6)'; x.fillRect(-w / 2, -7, w, 14); x.restore(); };
+  const cell = W < 700 ? 128 : 168;
+  for (let gy = -1; gy * cell < H + cell; gy++) for (let gx = -1; gx * cell < W + cell; gx++) {
+    const roll = r(), cx = gx * cell + cell / 2 + (r() - .5) * cell * .55, cy = gy * cell + cell / 2 + (r() - .5) * cell * .55;
+    x.save(); x.translate(cx, cy); x.rotate((r() - .5) * .36); x.globalAlpha = alpha;
+    if (roll < .44) {
+      const s = 84 + r() * 34;
+      shadow(true); x.fillStyle = notes[Math.floor(r() * notes.length)]; x.fillRect(-s / 2, -s / 2, s, s); shadow(false);
+      x.fillStyle = 'rgba(0,0,0,.07)'; x.beginPath(); x.moveTo(s / 2, s / 2 - 16); x.lineTo(s / 2, s / 2); x.lineTo(s / 2 - 16, s / 2); x.closePath(); x.fill();
+      if (r() < .5) tapeAt(0, -s / 2, 44); else pinAt(0, -s / 2 + 10, pins[Math.floor(r() * pins.length)]);
+      x.fillStyle = ink; x.textAlign = 'center'; x.textBaseline = 'middle';
+      wrap(msgs[mi++ % msgs.length], s - 18, s > 104 ? 22 : 19, s > 104 ? 21 : 18);
+    } else if (roll < .56) {
+      const w = 124, h = 78;
+      shadow(true); x.fillStyle = card; x.fillRect(-w / 2, -h / 2, w, h); shadow(false);
+      x.strokeStyle = dark ? 'rgba(120,170,220,.18)' : 'rgba(80,130,200,.22)'; x.lineWidth = 1;
+      for (let ly = -h / 2 + 24; ly < h / 2 - 4; ly += 11) { x.beginPath(); x.moveTo(-w / 2 + 6, ly); x.lineTo(w / 2 - 6, ly); x.stroke(); }
+      x.strokeStyle = 'rgba(224,96,126,.5)'; x.beginPath(); x.moveTo(-w / 2 + 4, -h / 2 + 15); x.lineTo(w / 2 - 4, -h / 2 + 15); x.stroke();
+      tapeAt(-w / 2 + 12, -h / 2 + 2, 30); tapeAt(w / 2 - 12, -h / 2 + 2, 30);
+      x.fillStyle = ink; x.textAlign = 'center'; x.textBaseline = 'middle'; x.translate(0, 8);
+      wrap(msgs[mi++ % msgs.length], w - 18, 19, 17);
+    } else if (roll < .78) {
+      x.strokeStyle = doodle[Math.floor(r() * doodle.length)]; x.fillStyle = x.strokeStyle; x.lineWidth = 2.2; x.lineCap = 'round'; x.lineJoin = 'round'; x.globalAlpha = dark ? .45 : .55;
+      const k = Math.floor(r() * 5), z = 12 + r() * 10;
+      x.beginPath();
+      if (k === 0) { for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? z * .45 : z; x.lineTo(Math.cos(a) * rr, Math.sin(a) * rr); } x.closePath(); x.stroke(); }
+      else if (k === 1) { x.moveTo(0, z * .7); x.bezierCurveTo(-z * 1.4, -z * .2, -z * .5, -z * 1.1, 0, -z * .35); x.bezierCurveTo(z * .5, -z * 1.1, z * 1.4, -z * .2, 0, z * .7); x.stroke(); }
+      else if (k === 2) { for (let a = 0; a < 12; a += .25) x.lineTo(Math.cos(a) * a * 1.4, Math.sin(a) * a * 1.4); x.stroke(); }
+      else if (k === 3) { x.moveTo(-z, z * .3); x.quadraticCurveTo(0, -z, z, 0); x.moveTo(z, 0); x.lineTo(z - 7, -6); x.moveTo(z, 0); x.lineTo(z - 8, 5); x.stroke(); }
+      else { x.font = hand(22); x.textAlign = 'center'; x.globalAlpha = dark ? .5 : .6; x.fillText(['yay!', 'woo!', 'GO!', '\u2605', 'proud!', 'laban!'][Math.floor(r() * 6)], 0, 0); }
+    }
+    x.restore();
+  }
+}
+function scheduleWall() { clearTimeout(FW.timer); FW.timer = setTimeout(drawFreedomWall, 120); }
+
 /* ================= Boot ================= */
 applyTheme();
 renderShell();
+drawFreedomWall();
+addEventListener('resize', scheduleWall);
+try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', scheduleWall); } catch (e) { /* older browsers */ }
+new MutationObserver(scheduleWall).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleWall);
+try { document.fonts.load('700 20px Caveat').then(scheduleWall); } catch (e) { /* fonts API optional */ }
 $('#cheer-btn').addEventListener('click', cheer);
 $('#theme-btn').addEventListener('click', cycleTheme);
 $('#lock-btn').addEventListener('click', () => lockNow());

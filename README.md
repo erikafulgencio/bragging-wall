@@ -32,8 +32,9 @@ Bragging Wall is a private place to record your work wins every day, so they're 
 
 - **Name and logo:** a wall of bricks with a marigold star on top, for a wall you build one win at a time.
 - **Color:** a warm off-white ground (inspired by Pantone's 2026 Cloud Dancer), deep teal for actions and progress, and marigold kept for brag-worthy wins. Light and dark themes are both fully designed.
-- **Type:** Fraunces, an expressive variable serif, for headings, and Instrument Sans for reading.
-- **Layout:** a bento-style "wall" of cards, pinned win cards and a soft brick pattern. There's one localized glow per screen instead of full-page gradients.
+- **Type:** Fraunces, an expressive variable serif, for headings; Instrument Sans for reading; Caveat for the handwritten notes.
+- **Freedom wall:** the background is a Filipino-style freedom wall of sticky notes, taped index cards, pushpins and doodles with encouraging messages ("Kaya mo 'yan!", "Laban lang!", "Proud of you!"). Your three newest wins are pinned as notes on the home screen.
+- **Layout:** a bento-style wall of solid cards over the freedom wall, with one localized glow per screen instead of full-page gradients.
 - **Motion:** used only to guide the eye (entrances, progress, saving). It's turned off automatically when your device asks for reduced motion.
 - **Accessibility:** keyboard-friendly controls, visible focus states, and text contrast designed for both themes.
 
