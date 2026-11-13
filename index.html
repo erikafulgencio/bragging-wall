@@ -537,6 +537,45 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
   .brag-wrap.nudge .brag-btn:not(:hover) { animation: brag-nudge 2.4s ease-out infinite; }
   .brag-wrap.burst .brag-btn { animation: brag-pop .45s var(--ease); }
 }
+/* Quick brag card */
+.qb form { display: flex; flex-direction: column; gap: 12px; }
+.qb-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.qb-date { position: relative; display: flex; align-items: center; gap: 4px; }
+.qb-date-input { position: absolute; right: 0; bottom: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.chip-btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--surface-solid); color: var(--ink); border-radius: 99px; padding: 6px 10px 6px 11px; font: 600 .82rem var(--font-body); cursor: pointer; transition: border-color .15s, background .15s; }
+.chip-btn:hover { border-color: var(--line-strong); background: var(--surface-2); }
+.chip-btn svg { color: var(--muted); }
+.chip-btn.past { border-color: color-mix(in srgb, var(--gold-2) 60%, var(--line)); background: var(--gold-soft); }
+.chip-x { border: 0; background: none; color: var(--muted); cursor: pointer; padding: 4px; border-radius: 99px; display: grid; }
+.chip-x[hidden] { display: none; }
+.chip-x:hover { color: var(--ink); background: var(--surface-2); }
+.qb-main { display: flex; gap: 8px; align-items: stretch; }
+.qb-main input { flex: 1; font-size: 1.05rem; padding: 13px 15px; border-radius: 14px; }
+.qb-send { padding: 0 18px; border-radius: 14px; }
+.qb-meta { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.qb-area { position: relative; }
+.area-chip { border-color: color-mix(in srgb, var(--cat) 45%, var(--line)); background: color-mix(in srgb, var(--cat) 10%, var(--surface-solid)); }
+.area-chip svg:first-child { color: var(--cat); width: 15px; height: 15px; }
+.area-chip em { font: 500 .66rem var(--font-mono); font-style: normal; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); background: var(--surface-solid); border-radius: 99px; padding: 1px 6px; }
+.area-pop { position: absolute; z-index: 20; top: calc(100% + 8px); left: 0; width: min(440px, 86vw); background: var(--surface-solid); border: 1px solid var(--line); border-radius: 16px; padding: 14px; box-shadow: var(--shadow-lg); }
+.qb-stars { display: flex; align-items: center; gap: 2px; }
+.qb-stars label { cursor: pointer; padding: 3px; border-radius: 8px; color: var(--line-strong); display: grid; }
+.qb-stars label svg { width: 22px; height: 22px; stroke-width: 1.6; transition: transform .15s var(--ease), color .15s, fill .15s; }
+.qb-stars label.on { color: var(--gold-2); }
+.qb-stars label.on svg { fill: var(--gold-2); }
+.qb-stars label:hover svg { transform: scale(1.18) rotate(-8deg); }
+.qb-stars label:has(input:focus-visible) { outline: 2px solid var(--accent); }
+.qb-size { margin-left: 6px; font: 600 .8rem var(--font-body); color: var(--muted); min-width: 64px; }
+.qb-size.big { color: var(--gold); }
+.qb-result { border-style: dashed; }
+.qb-result:focus { border-style: solid; }
+.qb-more summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font: 600 .84rem var(--font-body); padding: 2px 0; }
+.qb-more summary::-webkit-details-marker { display: none; }
+.qb-more[open] summary svg { transform: rotate(45deg); }
+.qb-more summary svg { transition: transform .2s var(--ease); }
+.qb-hint { font-size: .78rem; color: var(--muted); }
+.qb-hint b { color: var(--ink); font-weight: 600; }
+@media (max-width: 560px) { .qb-send .lbl { display: none; } .qb-send.saved .ok { font-size: 0; } .qb-send.saved .ok svg { font-size: 1rem; } .qb-hint { display: none; } }
 /* Bragged-wins carousel */
 .hero-car { min-width: 0; width: 100%; display: flex; flex-direction: column; gap: 6px; }
 .car-head { display: flex; justify-content: space-between; align-items: center; padding: 0 8px; }
@@ -1662,19 +1701,44 @@ function mountToday() {
     </div>
     <div class="today-grid" style="--i:2">
       <div class="today-main">
-        <section class="card" id="log-card">
-          <div class="card-head">
-            <div><h2 class="card-title">${icon('megaphone')}Brag your win</h2><p class="small muted" id="t-for"></p></div>
-            <div class="date-nav">
-              <button type="button" class="icon-btn" id="t-prev" aria-label="Previous day">${icon('left')}</button>
-              <label class="sr-only" for="t-date">Date</label><input type="date" id="t-date">
-              <button type="button" class="icon-btn" id="t-next" aria-label="Next day">${icon('right')}</button>
-              <button type="button" class="btn ghost sm" id="t-today">Today</button>
+        <section class="card qb" id="log-card">
+          <form id="t-form" novalidate autocomplete="off">
+            <div class="qb-head">
+              <h2 class="card-title">${icon('megaphone')}Brag your win</h2>
+              <div class="qb-date">
+                <button type="button" class="chip-btn" id="t-date-btn" aria-label="Change the date for this win">${icon('calendar', 'sm')}<span id="t-date-lbl">Today</span>${icon('right', 'sm')}</button>
+                <button type="button" class="chip-x" id="t-today" aria-label="Back to today" hidden>${icon('x', 'sm')}</button>
+                <label class="sr-only" for="t-date">Date</label><input type="date" id="t-date" class="qb-date-input" tabindex="-1">
+              </div>
             </div>
-          </div>
-          <form class="stack" id="t-form" novalidate>
-            ${winFormHTML('t')}
-            <div class="row"><button class="btn" type="submit" id="t-save"><span class="ic">${icon('plus')}</span><span class="lbl">Save win</span><span class="ok">${icon('check')} Saved</span></button><span class="small muted">Tip: press Ctrl+Enter to save</span></div>
+            <div class="qb-main">
+              <label class="sr-only" for="t-title">What did you accomplish?</label>
+              <input id="t-title" type="text" maxlength="300" placeholder="What did you accomplish?" enterkeyhint="send">
+              <button class="btn qb-send" type="submit" id="t-save" aria-label="Brag it"><span class="ic">${icon('megaphone')}</span><span class="lbl">Brag it</span><span class="ok">${icon('check')} Pinned!</span></button>
+            </div>
+            <div class="qb-meta">
+              <div class="qb-area">
+                <button type="button" class="chip-btn area-chip" id="t-area-btn" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="area-pop" id="t-area-pop" hidden>
+                  <p class="small muted" style="margin-bottom:8px">Pick an area. I'll guess it from your words if you don't.</p>
+                  <div class="chips">${CATS.map(c => `<label class="chip" data-cat="${c.key}"><input type="radio" name="t-cat" value="${c.key}"><span>${catIcon(c.key)}${esc(c.label)}</span></label>`).join('')}</div>
+                </div>
+              </div>
+              <div class="qb-stars" role="radiogroup" aria-label="Size of the win" id="t-stars">${[1, 2, 3].map(n => `<label title="${IMPACT[n]}"><input type="radio" name="t-imp" value="${n}" ${n === 2 ? 'checked' : ''} class="sr-only"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">${IC.star}</svg><span class="sr-only">${IMPACT[n]}</span></label>`).join('')}<span class="qb-size" id="t-size-lbl">Solid win</span></div>
+            </div>
+            <label class="sr-only" for="t-result">Result or proof</label>
+            <input id="t-result" type="text" maxlength="400" class="qb-result" placeholder="Result or proof (optional), e.g. saved 4 hours">
+            <details class="qb-more" id="t-more">
+              <summary>${icon('plus', 'sm')}Add details, project or tags</summary>
+              <div class="stack" style="gap:10px;margin-top:10px">
+                <label class="sr-only" for="t-details">Details</label><textarea id="t-details" rows="2" maxlength="4000" placeholder="Context, who you helped, what you learned"></textarea>
+                <div class="field-row">
+                  <div class="field"><label for="t-project">Project</label><input id="t-project" type="text" maxlength="120" list="dl-projects" placeholder="e.g. Android app"></div>
+                  <div class="field"><label for="t-tags">Tags</label><input id="t-tags" type="text" maxlength="300" placeholder="regression, mentoring"></div>
+                </div>
+              </div>
+            </details>
+            <p class="qb-hint">Press <kbd>Enter</kbd> to brag · saving to <b id="t-for">today</b></p>
           </form>
         </section>
         <section class="card">
@@ -1700,21 +1764,51 @@ function mountToday() {
   });
   $('#h-log').onclick = () => { const w = $('#brag-wrap'); w.classList.remove('burst'); void w.offsetWidth; w.classList.add('burst'); setTimeout(() => w.classList.remove('burst'), 900); UI.selDate = todayKey(); updateToday(); $('#log-card').scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' }); setTimeout(() => $('#t-title').focus(), 300); };
   $('#h-report').onclick = () => go('report');
-  $('#t-prev').onclick = () => { UI.selDate = ymd(addDays(parseYmd(UI.selDate), -1)); updateToday(); };
-  $('#t-next').onclick = () => { UI.selDate = ymd(addDays(parseYmd(UI.selDate), 1)); updateToday(); };
-  $('#t-today').onclick = () => { UI.selDate = todayKey(); updateToday(); };
-  $('#t-date').onchange = e => { if (isYmd(e.target.value)) { UI.selDate = e.target.value; updateToday(); } };
   const form = $('#t-form');
-  form.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); form.requestSubmit(); } });
+  const QB = { manual: false };
+  const pickArea = (key, manual) => { const r = $(`input[name="t-cat"][value="${key}"]`, form); if (r) r.checked = true; if (manual) QB.manual = true; paintArea(!manual && !QB.manual); };
+  const paintArea = auto => {
+    const key = ($('input[name="t-cat"]:checked', form) || {}).value || 'quality';
+    const b = $('#t-area-btn');
+    b.dataset.cat = key;
+    b.innerHTML = `${catIcon(key, 'sm')}<span>${esc(CAT[key].label)}</span>${auto && $('#t-title').value.trim() ? '<em>auto</em>' : ''}${icon('right', 'sm')}`;
+  };
+  const paintStars = (hover) => {
+    const val = hover || Number(($('input[name="t-imp"]:checked', form) || {}).value || 2);
+    $$('#t-stars label', form).forEach((l, i) => l.classList.toggle('on', i < val));
+    $('#t-size-lbl').textContent = IMPACT[val];
+    $('#t-size-lbl').classList.toggle('big', val === 3);
+  };
+  const closePop = () => { $('#t-area-pop').hidden = true; $('#t-area-btn').setAttribute('aria-expanded', 'false'); };
+  pickArea(lsGet('bragging-wall-last-area') || 'quality', false);
+  paintStars();
+  $('#t-area-btn').onclick = () => { const p = $('#t-area-pop'); p.hidden = !p.hidden; $('#t-area-btn').setAttribute('aria-expanded', String(!p.hidden)); if (!p.hidden) $('input[name="t-cat"]:checked', p)?.focus(); };
+  $('#t-area-pop').addEventListener('change', e => { if (e.target.name === 't-cat') { pickArea(e.target.value, true); closePop(); $('#t-title').focus(); } });
+  document.addEventListener('mousedown', e => { const p = $('#t-area-pop'); if (p && !p.hidden && !e.target.closest('.qb-area')) closePop(); });
+  form.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#t-area-pop').hidden) { closePop(); $('#t-area-btn').focus(); } });
+  $('#t-title').addEventListener('input', () => { if (!QB.manual) pickArea(guessArea($('#t-title').value + ' ' + $('#t-result').value) || lsGet('bragging-wall-last-area') || 'quality', false); else paintArea(false); });
+  $('#t-stars').addEventListener('change', () => paintStars());
+  $$('#t-stars label', form).forEach((l, i) => { l.addEventListener('mouseenter', () => paintStars(i + 1)); l.addEventListener('mouseleave', () => paintStars()); });
+  $('#t-date-btn').onclick = () => { const inp = $('#t-date'); try { inp.showPicker(); } catch (err) { inp.focus(); inp.click(); } };
+  $('#t-today').onclick = () => { UI.selDate = todayKey(); updateToday(); $('#t-title').focus(); };
+  $('#t-date').onchange = e => { if (isYmd(e.target.value)) { UI.selDate = e.target.value; updateToday(); } };
+  form.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); form.requestSubmit(); }
+    else if (e.key === 'Enter' && e.target.tagName === 'INPUT' && e.target.type === 'text' && e.target.list == null) { e.preventDefault(); form.requestSubmit(); }
+  });
   form.addEventListener('submit', e => {
     e.preventDefault();
     const item = readWinForm('t', form);
     if (!item) return;
     addWin(UI.selDate, item);
+    lsSet('bragging-wall-last-area', item.category);
     ['title', 'result', 'details', 'tags'].forEach(f => { $('#t-' + f, form).value = ''; });
+    QB.manual = false; pickArea(item.category, false);
+    const imp = $('input[name="t-imp"][value="2"]', form); if (imp) imp.checked = true; paintStars();
+    $('#t-more').open = false;
     $('#t-title', form).focus();
     const btn = $('#t-save'); btn.classList.add('saved'); setTimeout(() => btn.classList.remove('saved'), 1400);
-    toast(item.impact === 3 ? 'Big win saved. Well done!' : 'Win saved');
+    toast(item.impact === 3 ? 'Big win pinned. Well done!' : 'Win pinned to your wall');
     if (item.impact === 3) confetti();
   });
   bindWinActions($('#t-list'));
@@ -1754,7 +1848,10 @@ function updateToday() {
   renderCarousel();
   $('#brag-wrap').classList.toggle('nudge', S.loaded.wins && !countOn(todayKey()));
   $('#t-date').value = k;
-  $('#t-for').textContent = isToday ? 'Saving to today' : `Saving to ${fmtMed(d)}`;
+  $('#t-date-lbl').textContent = isToday ? 'Today' : (k === ymd(addDays(new Date(), -1)) ? 'Yesterday' : DF({ weekday: 'short', month: 'short', day: 'numeric' }).format(d));
+  $('#t-today').hidden = isToday;
+  $('#t-date-btn').classList.toggle('past', !isToday);
+  $('#t-for').textContent = isToday ? 'today' : fmtMed(d);
   $('#t-list-title').textContent = isToday ? 'Wins today' : `Wins on ${fmtMed(d)}`;
   const list = winsOn(k);
   $('#t-count').textContent = list.length ? plural(list.length, 'win') : '';
@@ -1934,6 +2031,23 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft') $('[data-act="older"]:not([disabled])')?.click();
   if (e.key === 'ArrowRight') $('[data-act="newer"]:not([disabled])')?.click();
 });
+const AREA_WORDS = {
+  quality: 'bug bugs test tests tested testing qa regression defect defects crash crashes issue issues verified verify validation smoke sanity uat caught reproduce reproduced edge',
+  delivery: 'release released releases ship shipped shipping deploy deployed launch launched deliver delivered rollout live hotfix feature milestone deadline',
+  leadership: 'mentor mentored mentoring lead led coach coached trained onboard onboarded guided taught teach demo presented',
+  process: 'process improve improved improvement automate automated automation streamline streamlined template checklist documented documentation faster reduced cut saved efficiency workflow',
+  learning: 'learn learned learnt course certification certified cert passed exam studied training webinar workshop read book skill',
+  collab: 'help helped helping support supported pair paired team teammate collaborate collaborated unblock unblocked assisted dev devs',
+  recognition: 'praise praised award awarded recognized recognition kudos shoutout shout-out thanked compliment complimented appreciated promoted',
+  personal: 'run ran gym family health personal 5k 10k marathon meditation sleep rest hobby',
+};
+const AREA_SETS = Object.fromEntries(Object.entries(AREA_WORDS).map(([k, v]) => [k, new Set(v.split(' '))]));
+function guessArea(text) {
+  const words = String(text).toLowerCase().match(/[a-z0-9-]+/g) || [];
+  let best = null, score = 0;
+  for (const k of Object.keys(AREA_SETS)) { const n = words.reduce((t, w, i) => t + (AREA_SETS[k].has(w) ? (i === 0 ? 3 : 1) : 0), 0); if (n > score) { best = k; score = n; } }
+  return best;
+}
 function heroNotesHTML() {
   const recent = allWins().slice(-3).reverse();
   const pins = ['var(--accent)', 'var(--gold-2)', '#E0607E'];
