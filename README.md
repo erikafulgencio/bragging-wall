@@ -22,7 +22,7 @@ Bragging Wall is a private place to record your work wins every day, so they're 
 ### Email your brags
 Send a branded PDF brag sheet for one brag, or for every brag in a day, week, month or year. Bragging Wall builds the PDF (logo, header band, sticky-note cards, photos, page footers) and opens Gmail, Outlook or your email app with the subject and a summary already filled in. You attach the PDF there. On phones, **Share PDF** can hand it straight to your mail app. A web page can't send email by itself, so nothing ever leaves your device without you pressing send.
 
-### Braddy, your best friend
+### Braddy, your supporter
 Every win gets a comment from **Braddy from Bragging Wall**: an honest, friendly take on the win, notes on your attachments, an animated sticker, a look at your journey (chips and a six-month chart) and one piece of honest advice. In the claude.ai version Braddy is written by Claude and saved with the win (encrypted like everything else). On GitHub Pages, Braddy gives a quick take made on your device.
 
 ## Privacy and security

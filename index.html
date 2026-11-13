@@ -681,12 +681,13 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .bd-thread.bd-dim { opacity: .45; }
 .bd-typing-row { margin-bottom: 14px; align-items: center; }
 .bd-av-wrap { position: relative; flex: none; }
-.braddy-av { width: 46px; height: 46px; display: block; border-radius: 50%; box-shadow: 0 0 0 3px var(--surface-solid), 0 4px 10px -4px rgba(0,0,0,.3); }
+.braddy-av { width: 48px; height: 48px; display: block; border-radius: 50%; box-shadow: 0 0 0 3px var(--surface-solid), 0 4px 10px -4px rgba(0,0,0,.3); }
 .bd-online { position: absolute; right: 0; bottom: 1px; width: 12px; height: 12px; border-radius: 50%; background: #2DBE7B; box-shadow: 0 0 0 2.5px var(--surface-solid); }
 .bd-main { flex: 1; min-width: 0; }
 .bd-bubble { position: relative; background: var(--surface-2); border: 1px solid var(--line); border-radius: 4px 18px 18px 18px; padding: 14px 16px 16px; }
 .bd-name { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: .9rem; }
-.bd-tag { display: inline-flex; align-items: center; gap: 4px; font: 600 .7rem var(--font-body); padding: 2px 8px; border-radius: 99px; background: color-mix(in srgb, var(--gold, #F4B336) 26%, transparent); color: color-mix(in srgb, #8A5A00 80%, var(--ink)); }
+.bd-tag { display: inline-flex; align-items: center; gap: 4px; font: 600 .7rem var(--font-body); padding: 2px 9px 2px 7px; border-radius: 99px; background: color-mix(in srgb, var(--accent) 12%, var(--surface-solid)); color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent); }
+.bd-tag .ic { color: #E0A21A; }
 .bd-tag .ic { width: 12px; height: 12px; }
 .bd-head { font: 700 1.55rem/1.1 var(--font-hand); margin-top: 8px; color: var(--ink); }
 .bd-text { margin-top: 6px; line-height: 1.6; white-space: pre-line; overflow-wrap: anywhere; }
@@ -732,7 +733,6 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
   .bd-typing i:nth-of-type(2) { animation-delay: .15s; } .bd-typing i:nth-of-type(3) { animation-delay: .3s; }
   .braddy-av.typing { animation: bd-bob 1.2s ease-in-out infinite; }
   .braddy-av .bd-star { transform-box: fill-box; transform-origin: center; animation: st-spin 6s linear infinite; }
-  .braddy-av .bd-eyes { transform-box: fill-box; transform-origin: center; animation: bd-blink 4.5s infinite; }
   .bd-card .bd-bubble { animation: bd-in .45s var(--ease) both; }
   .bd-sticker { animation: bd-stick .6s .2s var(--ease) both; }
   .st-conf > * { transform-box: fill-box; transform-origin: center; animation: st-conf 1.8s ease-out infinite both; }
@@ -3249,7 +3249,8 @@ async function exportNotebookPdf(nbId) {
 
 
 /* ================= Braddy: your best friend's comments ================= */
-const BRADDY_AV = (cls = '') => `<svg class="braddy-av ${cls}" viewBox="0 0 64 64" role="img" aria-label="Braddy"><circle cx="32" cy="32" r="32" fill="#FFE9B0"/><path d="M32 16v6" stroke="#0F6E6A" stroke-width="2.6" stroke-linecap="round"/><path class="bd-star" d="M32 3.5l2 4.6 4.6 2-4.6 2L32 16.6l-2-4.5-4.6-2 4.6-2z" fill="#F4B336" stroke="#C98A10" stroke-width=".9" stroke-linejoin="round"/><rect x="12.5" y="21" width="39" height="34" rx="11" fill="#E9784B"/><path d="M15 47.5h34M26 47.5v7M39 47.5v7" stroke="#C85E34" stroke-width="1.6" stroke-linecap="round"/><path d="M18 26.5c3-2.4 7-3 11-3" stroke="#F6A27F" stroke-width="2.2" stroke-linecap="round" fill="none"/><g class="bd-eyes"><ellipse cx="25" cy="34" rx="4.2" ry="4.8" fill="#fff"/><ellipse cx="39" cy="34" rx="4.2" ry="4.8" fill="#fff"/><circle cx="25.8" cy="35" r="2.3" fill="#1B2422"/><circle cx="39.8" cy="35" r="2.3" fill="#1B2422"/><circle cx="26.6" cy="34" r=".8" fill="#fff"/><circle cx="40.6" cy="34" r=".8" fill="#fff"/></g><ellipse cx="19.2" cy="41" rx="3" ry="1.8" fill="#FF9EAE" opacity=".85"/><ellipse cx="44.8" cy="41" rx="3" ry="1.8" fill="#FF9EAE" opacity=".85"/><path d="M27.6 40.6Q32 46.4 36.4 40.6Z" fill="#5A1A14"/><path d="M30 43.4q2-1.2 4 0" stroke="#FF7F8E" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg>`;
+const BD_BRICKS = [[18, 21.5, 12.5, 5], [31.5, 21.5, 12.5, 5], [18, 28, 5.5, 5], [24.5, 28, 13, 5], [38.5, 28, 5.5, 5], [18, 34.5, 12.5, 5], [31.5, 34.5, 12.5, 5]];
+const BRADDY_AV = (cls = '') => `<svg class="braddy-av ${cls}" viewBox="0 0 64 64" role="img" aria-label="Braddy"><circle cx="32" cy="32" r="32" fill="#0F6E6A"/><circle cx="32" cy="32" r="30.6" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="1.2"/><path d="M21 17h20a7 7 0 0 1 7 7v12a7 7 0 0 1-7 7H27l-8.5 7.2 1.8-7.4A7 7 0 0 1 14 36V24a7 7 0 0 1 7-7z" fill="#F0EEE9"/>${BD_BRICKS.map(([x, y, w, h], i) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="1.4" fill="#0F6E6A" opacity="${[1, .82, .82, 1, .82, 1, .82][i]}"/>`).join('')}<path class="bd-star" d="M47 8.5l2.5 6 6 2.5-6 2.5-2.5 6-2.5-6-6-2.5 6-2.5z" fill="#F4B336" stroke="#0F6E6A" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
 const st4 = (x, y, r, fill) => `<path d="M${x} ${y - r}l${r * .28} ${r * .72} ${r * .72} ${r * .28}-${r * .72} ${r * .28}L${x} ${y + r}l-${r * .28}-${r * .72}-${r * .72}-${r * .28} ${r * .72}-${r * .28}z" fill="${fill}"/>`;
 const heartAt = (x, y, k, fill, cls) => `<g transform="translate(${x} ${y}) scale(${k})"><path class="${cls}" d="M0 14C-16 4-15-10-7-11c4-.5 6.2 2 7 5 .8-3 3-5.5 7-5 8 1 9 15-7 25z" fill="${fill}"/></g>`;
 const STICKERS = {
@@ -3346,7 +3347,7 @@ function braddyHTML(w, b, mode, c) {
       <div class="bd-av-wrap">${BRADDY_AV()}<span class="bd-online" title="Online"></span></div>
       <div class="bd-main">
         <div class="bd-bubble">
-          <p class="bd-name"><b>Braddy from Bragging Wall</b><span class="bd-tag">${icon('star', 'sm')}Best friend</span></p>
+          <p class="bd-name"><b>Braddy from Bragging Wall</b><span class="bd-tag">${icon('star', 'sm')}Supporter</span></p>
           ${b.headline ? `<p class="bd-head">${esc(b.headline)}</p>` : ''}
           <p class="bd-text">${esc(b.comment)}</p>
           <figure class="bd-sticker" data-st="${b.sticker}">${stickerSVG(b.sticker)}<figcaption>${esc(b.caption || STICKERS[b.sticker].cap)}</figcaption></figure>
@@ -3467,15 +3468,15 @@ function pdfBraddy(w2, w) {
   const y = w2.y + 4;
   doc.setFillColor(255, 248, 228); doc.setDrawColor(240, 215, 150); doc.setLineWidth(.8); doc.roundedRect(x, y, CW, h, 10, 10, 'FD');
   const ax = x + pad, ay = y + pad, s = 34 / 64;
-  doc.setFillColor(255, 233, 176); doc.circle(ax + 17, ay + 17, 17, 'F');
-  doc.setFillColor(233, 120, 75); doc.roundedRect(ax + 12.5 * s, ay + 21 * s, 39 * s, 34 * s, 11 * s, 11 * s, 'F');
-  doc.setFillColor(255, 255, 255); doc.circle(ax + 25 * s, ay + 34 * s, 4.4 * s, 'F'); doc.circle(ax + 39 * s, ay + 34 * s, 4.4 * s, 'F');
-  doc.setFillColor(27, 36, 34); doc.circle(ax + 25.8 * s, ay + 35 * s, 2.3 * s, 'F'); doc.circle(ax + 39.8 * s, ay + 35 * s, 2.3 * s, 'F');
-  doc.setFillColor(90, 26, 20); pdfPoly(doc, ax, ay, [[27.6 * s, 40.6 * s], [32 * s, 45 * s], [36.4 * s, 40.6 * s]], 'F');
-  pdfStar4(doc, ax + 32 * s, ay + 9.5 * s, 6.5 * s, [244, 179, 54]);
+  doc.setFillColor(15, 110, 106); doc.circle(ax + 17, ay + 17, 17, 'F');
+  doc.setFillColor(240, 238, 233); doc.roundedRect(ax + 14 * s, ay + 17 * s, 34 * s, 26 * s, 7 * s, 7 * s, 'F');
+  pdfPoly(doc, ax, ay, [[22 * s, 42 * s], [18.5 * s, 50.2 * s], [28 * s, 42 * s]], 'F');
+  doc.setFillColor(15, 110, 106); BD_BRICKS.forEach(([x, y, w, h]) => doc.roundedRect(ax + x * s, ay + y * s, w * s, h * s, 1.4 * s, 1.4 * s, 'F'));
+  pdfStar4(doc, ax + 47 * s, ay + 17 * s, 9.5 * s, [15, 110, 106]);
+  pdfStar4(doc, ax + 47 * s, ay + 17 * s, 8.5 * s, [244, 179, 54]);
   let cy = y + pad + 10;
   doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.setTextColor(15, 110, 106); doc.text('Braddy from Bragging Wall', tx, cy);
-  doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(...PC.muted); doc.text('Best friend' + (b.at ? '' : ' · quick take'), tx + doc.getTextWidth('Braddy from Bragging Wall') * 10 / 8.5 + 8, cy);
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(...PC.muted); doc.text('Supporter' + (b.at ? '' : ' · quick take'), tx + doc.getTextWidth('Braddy from Bragging Wall') * 10 / 8.5 + 8, cy);
   cy += 6;
   doc.setFont('helvetica', 'bold'); doc.setFontSize(12.5); doc.setTextColor(...PC.ink); hl.forEach(l => { cy += 15; doc.text(l, tx, cy); }); cy += 4;
   doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(60, 58, 50); cl.forEach(l => { cy += 13.5; doc.text(l, tx, cy); });
