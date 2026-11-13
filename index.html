@@ -780,6 +780,26 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 @keyframes st-wave { 0% { opacity: 0; transform: translateX(-4px); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateX(4px); } }
 @keyframes st-lift { 50% { transform: translateY(-14px); } }
 @media (max-width: 560px) { .bd-thread:not(.bd-typing-row) { flex-direction: column; gap: 8px; } .bd-bubble { border-radius: 18px; } .braddy-av { width: 40px; height: 40px; } .bd-bubble { padding: 12px; } .bd-chart { width: 150px; } }
+/* Template picker */
+.tpl-pick { display: flex; flex-direction: column; gap: 12px; }
+.tpl-group { display: flex; align-items: center; gap: 6px; font: 600 .78rem var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-top: 4px; }
+.tpl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+.tpl-card { display: flex; gap: 12px; align-items: flex-start; text-align: left; padding: 14px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface-solid); cursor: pointer; transition: transform .18s var(--ease), border-color .18s, box-shadow .18s; min-width: 0; color: inherit; font: inherit; }
+.tpl-card:hover, .tpl-card:focus-visible { transform: translateY(-2px); border-color: var(--tc, var(--accent)); box-shadow: var(--shadow); }
+.tpl-ic { width: 40px; height: 40px; flex: none; border-radius: 12px; display: grid; place-items: center; color: var(--tc, var(--accent)); background: color-mix(in srgb, var(--tc, var(--accent)) 13%, transparent); }
+.tpl-txt { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.tpl-txt b { font: 650 .98rem var(--font-display); }
+.tpl-txt small { color: var(--muted); font-size: .8rem; line-height: 1.4; }
+.tpl-heads { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.tpl-heads i { font-style: normal; font-size: .68rem; padding: 1px 7px; border-radius: 99px; background: var(--surface-2); border: 1px solid var(--line); color: var(--muted); white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+.tpl-blank { border-style: dashed; align-items: center; }
+.tpl-more { border-top: 1px solid var(--line); padding-top: 10px; }
+.tpl-more summary { cursor: pointer; display: flex; align-items: center; gap: 6px; font: 600 .9rem var(--font-body); padding: 4px 0; list-style: none; }
+.tpl-more summary::-webkit-details-marker { display: none; }
+.tpl-more summary::after { content: "+"; margin-left: auto; color: var(--muted); font-size: 1.1rem; }
+.tpl-more[open] summary::after { content: "\2212"; }
+.tpl-more .tpl-grid { margin-top: 10px; }
+@media (prefers-reduced-motion: no-preference) { .tpl-grid .tpl-card { animation: bd-in .35s var(--ease) both; } }
 /* Email dialog */
 .em { display: flex; flex-direction: column; gap: 14px; }
 .em-step { display: flex; gap: 14px; padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface-2); transition: opacity .2s; }
@@ -1135,10 +1155,46 @@ const KINDS = {
   other: { label: 'Notebook', page: 'New page', tpl: null, blurb: 'Anything else', icon: 'book' },
 };
 const NB_COLORS = ['#0F6E6A', '#2F6FB0', '#8A4FB5', '#C0632A', '#C2477A', '#B87A0E', '#3C8A37', '#5E6E6A'];
+const TPL_GROUPS = [['journal', 'Journal'], ['planner', 'Planner'], ['work', 'Work notebook'], ['other', 'General']];
 const TEMPLATES = [
-  { key: 'journal', label: 'Daily journal' }, { key: 'plan', label: 'Daily plan' }, { key: 'week', label: 'Weekly plan' },
-  { key: 'meeting', label: 'Meeting notes' }, { key: 'test', label: 'Test session notes' },
-  { key: 'review', label: "Weekly review (adds this week's wins)" }, { key: 'oneone', label: '1:1 prep (adds recent wins)' },
+  { key: 'journal', kind: 'journal', label: 'Daily journal', icon: 'smile', desc: 'How you feel, today’s wins, gratitude and lessons' },
+  { key: 'morning', kind: 'journal', label: 'Morning pages', icon: 'sun', desc: 'Set an intention before the day starts' },
+  { key: 'evening', kind: 'journal', label: 'Evening reflection', icon: 'moon', desc: 'Close the day: highlights, energy and lessons' },
+  { key: 'gratitude', kind: 'journal', label: 'Gratitude log', icon: 'heart', desc: 'Five things, one person, one small joy' },
+  { key: 'mood', kind: 'journal', label: 'Mood check-in', icon: 'sparkles', desc: 'Name the feeling and what you need' },
+  { key: 'prompt', kind: 'journal', label: 'Prompt of the day', icon: 'pen', desc: 'A new writing prompt every day' },
+  { key: 'weekref', kind: 'journal', label: 'Weekly reflection', icon: 'refresh', desc: 'Adds this week’s wins for you to reflect on' },
+  { key: 'future', kind: 'journal', label: 'Letter to future me', icon: 'mail', desc: 'Write to yourself a year from now' },
+  { key: 'plan', kind: 'planner', label: 'Daily plan', icon: 'clipboard', desc: 'Top 3, time blocks, meetings and to-dos' },
+  { key: 'week', kind: 'planner', label: 'Weekly plan', icon: 'calendar', desc: 'Goals plus a checklist for each day' },
+  { key: 'month', kind: 'planner', label: 'Monthly plan', icon: 'target', desc: 'Goals, key dates and habits for the month' },
+  { key: 'goal', kind: 'planner', label: 'Goal planner', icon: 'trophy', desc: 'Why, success measure, milestones, first step' },
+  { key: 'matrix', kind: 'planner', label: 'Priority matrix', icon: 'zap', desc: 'Sort tasks: do, schedule, delegate, drop' },
+  { key: 'habit', kind: 'planner', label: 'Habit tracker', icon: 'flame', desc: 'Check off your habits each day this week' },
+  { key: 'project', kind: 'planner', label: 'Project plan', icon: 'rocket', desc: 'Scope, milestones, risks and next actions' },
+  { key: 'meeting', kind: 'work', label: 'Meeting notes', icon: 'users', desc: 'Agenda, notes, decisions and action items' },
+  { key: 'standup', kind: 'work', label: 'Stand-up notes', icon: 'chat', desc: 'Yesterday, today and blockers' },
+  { key: 'oneone', kind: 'work', label: '1:1 prep', icon: 'briefcase', desc: 'Adds your last two weeks of wins to share' },
+  { key: 'test', kind: 'work', label: 'Test session notes', icon: 'checkSq', desc: 'Charter, build, devices, findings and bugs' },
+  { key: 'bug', kind: 'work', label: 'Bug report', icon: 'bug', desc: 'Steps, expected vs actual, severity, evidence' },
+  { key: 'testplan', kind: 'work', label: 'Test plan', icon: 'list', desc: 'Scope, approach, environments, entry and exit' },
+  { key: 'release', kind: 'work', label: 'Release checklist', icon: 'rocket', desc: 'Everything to check before you ship' },
+  { key: 'retro', kind: 'work', label: 'Sprint retro', icon: 'refresh', desc: 'What went well, what to change, actions' },
+  { key: 'review', kind: 'work', label: 'Weekly work review', icon: 'chart', desc: 'Adds this week’s wins, challenges and focus' },
+  { key: 'learning', kind: 'work', label: 'Learning notes', icon: 'grad', desc: 'Key ideas and how you’ll use them' },
+  { key: 'decision', kind: 'work', label: 'Decision log', icon: 'bulb', desc: 'Context, options and why you chose this' },
+  { key: 'todo', kind: 'other', label: 'To-do list', icon: 'checkSq', desc: 'Today, this week and someday' },
+  { key: 'ideas', kind: 'other', label: 'Idea dump', icon: 'bulb', desc: 'Capture ideas, then pick the best one' },
+  { key: 'cornell', kind: 'other', label: 'Cornell notes', icon: 'book', desc: 'Questions, notes and a summary' },
+];
+const TPL = Object.fromEntries(TEMPLATES.map(t => [t.key, t]));
+const PROMPTS = [
+  'What is one thing you did this week that past-you would be impressed by?', 'When did you feel most like yourself today?', 'What problem are you quietly proud of solving?',
+  'Who made your work easier recently, and how could you thank them?', 'What would you try if you knew you couldn’t fail?', 'What did you learn the hard way this month?',
+  'Describe a moment today when you were in the zone.', 'What skill are you building right now, and how will you know it’s working?', 'What are you carrying that you could put down?',
+  'What compliment did you brush off that you should actually believe?', 'Where do you want to be one year from today?', 'What small habit has made the biggest difference for you?',
+  'What feedback stuck with you, and why?', 'What would make tomorrow a great day?', 'Write about a time you surprised yourself.', 'What does a good workday look like for you?',
+  'What are you curious about lately?', 'What boundary would make your week better?', 'What would you tell a new teammate starting your job?', 'What did you do today that no one saw but mattered?',
 ];
 const NAV = [
   { view: 'today', label: 'My wall', icon: 'home' }, { view: 'calendar', label: 'Calendar', icon: 'calendar' },
@@ -2726,24 +2782,76 @@ function summaryHTML(label, list, opt) {
 
 /* ================= Notebooks ================= */
 function templateHTML(key, dateKey) {
-  const li = '<li><br></li>', chk = '<li data-checked="false"><br></li>';
-  const winsList = (from, to) => { const w = winsIn(from, to); return w.length ? w.map(x => `<li><strong>${esc(x.title)}</strong>${x.result ? ' — ' + esc(x.result) : ''}</li>`).join('') : li; };
-  const d = parseYmd(dateKey || todayKey());
+  const li = '<li><br></li>', chk = '<li data-checked="false"><br></li>', p = '<p><br></p>';
+  const lis = n => li.repeat(n), chks = n => chk.repeat(n);
+  const label = (k, v = '') => `<p><strong>${k}:</strong> ${v}</p>`;
+  const winsList = (from, to, empty = li) => { const w = winsIn(from, to); return w.length ? w.map(x => `<li><strong>${esc(x.title)}</strong>${x.result ? ' — ' + esc(x.result) : ''}</li>`).join('') : empty; };
+  const d = parseYmd(dateKey || todayKey()), k = ymd(d), s0 = startOfWeek(d);
+  const dayName = x => DF({ weekday: 'long', month: 'short', day: 'numeric' }).format(x);
+  const moods = winsOn(k).filter(x => x.mood).map(x => MOOD[x.mood].label.toLowerCase());
   switch (key) {
-    case 'journal': return `<h2>How I feel today</h2><p><br></p><h2>What went well</h2><ul>${li}</ul><h2>What I'm grateful for</h2><ul>${li}</ul><h2>What I learned</h2><p><br></p>`;
-    case 'plan': return `<h2>Top 3 priorities</h2><ul class="checklist">${chk}${chk}${chk}</ul><h2>Meetings</h2><ul>${li}</ul><h2>Other tasks</h2><ul class="checklist">${chk}</ul><h2>Notes</h2><p><br></p>`;
-    case 'week': { const s = startOfWeek(d); return `<h2>Goals this week</h2><ul class="checklist">${chk}${chk}${chk}</ul>` + [...Array(5)].map((_, i) => `<h3>${DF({ weekday: 'long', month: 'short', day: 'numeric' }).format(addDays(s, i))}</h3><ul class="checklist">${chk}</ul>`).join(''); }
-    case 'meeting': return `<h2>Meeting</h2><p><strong>Attendees:</strong> </p><h2>Agenda</h2><ul>${li}</ul><h2>Notes</h2><p><br></p><h2>Decisions</h2><ul>${li}</ul><h2>Action items</h2><ul class="checklist">${chk}</ul>`;
-    case 'test': return `<h2>Test session</h2><p><strong>Charter:</strong> </p><p><strong>Build / version:</strong> </p><p><strong>Devices and OS:</strong> </p><h2>What I tested</h2><ul>${li}</ul><h2>Findings</h2><ul>${li}</ul><h2>Bugs logged</h2><ul>${li}</ul><h2>Follow-ups</h2><ul class="checklist">${chk}</ul>`;
-    case 'review': { const s = startOfWeek(d); return `<h2>Wins this week</h2><ul>${winsList(ymd(s), ymd(addDays(s, 6)))}</ul><h2>Challenges</h2><ul>${li}</ul><h2>Lessons</h2><ul>${li}</ul><h2>Focus for next week</h2><ul class="checklist">${chk}${chk}</ul>`; }
-    case 'oneone': return `<h2>Wins to share</h2><ul>${winsList(ymd(addDays(d, -13)), ymd(d))}</ul><h2>Blockers</h2><ul>${li}</ul><h2>Questions</h2><ul>${li}</ul><h2>Growth and career</h2><p><br></p>`;
-    default: return '<p><br></p>';
+    case 'journal': return `<h2>How I feel today</h2>${moods.length ? `<p>When I bragged today I felt ${esc([...new Set(moods)].join(', '))}. </p>` : p}<h2>Today’s wins</h2><ul>${winsList(k, k)}</ul><h2>What went well</h2><ul>${li}</ul><h2>What I’m grateful for</h2><ol>${lis(3)}</ol><h2>What I learned</h2>${p}<h2>Tomorrow I want to…</h2><ul class="checklist">${chk}</ul>`;
+    case 'morning': return `<h2>My intention for today</h2>${p}<h2>Three things I’m looking forward to</h2><ol>${lis(3)}</ol><h2>What might be hard, and how I’ll handle it</h2>${p}<h2>Today I am…</h2><blockquote><br></blockquote>`;
+    case 'evening': return `<h2>Today’s wins</h2><ul>${winsList(k, k)}</ul><h2>Highlight of the day</h2>${p}<h2>What gave me energy</h2><ul>${li}</ul><h2>What drained me</h2><ul>${li}</ul><h2>What I’d do differently</h2>${p}<h2>What I’m letting go of tonight</h2>${p}`;
+    case 'gratitude': return `<h2>Five things I’m grateful for</h2><ol>${lis(5)}</ol><h2>Someone I’m thankful for, and why</h2>${p}<h2>A small joy from today</h2>${p}`;
+    case 'mood': return `<h2>Mood right now</h2>${label('Score (1 to 10)')}${label('Words for it')}<h2>What’s behind it</h2>${p}<h2>What I need right now</h2><ul>${li}</ul><h2>One kind thing I’ll do for myself</h2><ul class="checklist">${chk}</ul>`;
+    case 'prompt': { const q = PROMPTS[Math.floor(d.getTime() / 864e5) % PROMPTS.length]; return `<blockquote>${esc(q)}</blockquote>${p}`; }
+    case 'weekref': return `<h2>Wins this week</h2><ul>${winsList(ymd(s0), ymd(addDays(s0, 6)))}</ul><h2>My proudest moment</h2>${p}<h2>What challenged me</h2><ul>${li}</ul><h2>What I learned about myself</h2>${p}<h2>Next week I want to feel…</h2>${p}`;
+    case 'future': return `<p>Dear future me,</p>${p}<h2>What’s going on right now</h2>${p}<h2>What I’m working toward</h2><ul>${li}</ul><h2>What I hope you remember</h2><blockquote><br></blockquote><p>Love, me (${esc(fmtLong(d))})</p>`;
+    case 'plan': return `<h2>Top 3 priorities</h2><ul class="checklist">${chks(3)}</ul><h2>Schedule</h2><ul>${['8:00', '9:00', '10:00', '11:00', '12:00', '1:00', '2:00', '3:00', '4:00', '5:00'].map(t => `<li><strong>${t}</strong> – </li>`).join('')}</ul><h2>Meetings</h2><ul>${li}</ul><h2>Other tasks</h2><ul class="checklist">${chks(2)}</ul><h2>Don’t forget</h2><ul>${li}</ul><h2>Notes</h2>${p}`;
+    case 'week': return `<h2>Goals this week</h2><ul class="checklist">${chks(3)}</ul>` + [...Array(5)].map((_, i) => `<h3>${dayName(addDays(s0, i))}</h3><ul class="checklist">${chk}</ul>`).join('') + `<h3>Weekend</h3><ul class="checklist">${chk}</ul><h2>Notes</h2>${p}`;
+    case 'month': { const m0 = startOfMonth(d), m1 = endOfMonth(d); let wk = startOfWeek(m0), weeks = []; while (wk <= m1) { weeks.push(wk); wk = addDays(wk, 7); } return `<h2>${esc(fmtMonthYear(d))} goals</h2><ul class="checklist">${chks(3)}</ul><h2>Key dates</h2><ul>${li}</ul><h2>Week by week</h2>${weeks.map(w => `<h3>Week of ${esc(DF({ month: 'short', day: 'numeric' }).format(w))}</h3><ul class="checklist">${chk}</ul>`).join('')}<h2>Habits to build</h2><ul>${li}</ul><h2>End-of-month review</h2>${p}`; }
+    case 'goal': return `<h2>Goal</h2>${p}<h2>Why it matters to me</h2>${p}<h2>What success looks like</h2>${label('Measure')}${label('Deadline')}<h2>Milestones</h2><ul class="checklist">${chks(4)}</ul><h2>First step this week</h2><ul class="checklist">${chk}</ul><h2>Possible obstacles, and my plan</h2><ul>${li}</ul><h2>Who can help</h2>${p}`;
+    case 'matrix': return `<h2>Do now</h2><p><em>Urgent and important</em></p><ul class="checklist">${chk}</ul><h2>Schedule</h2><p><em>Important, not urgent</em></p><ul class="checklist">${chk}</ul><h2>Delegate</h2><p><em>Urgent, not important</em></p><ul class="checklist">${chk}</ul><h2>Drop</h2><p><em>Neither urgent nor important</em></p><ul>${li}</ul>`;
+    case 'habit': return `<h2>Habits I’m tracking</h2><ol>${lis(3)}</ol>` + [...Array(7)].map((_, i) => `<h3>${dayName(addDays(s0, i))}</h3><ul class="checklist">${chks(3)}</ul>`).join('') + `<h2>How the week went</h2>${p}`;
+    case 'project': return `<h2>Overview</h2>${label('Goal')}${label('Owner')}${label('Deadline')}<h2>Scope</h2><h3>In scope</h3><ul>${li}</ul><h3>Out of scope</h3><ul>${li}</ul><h2>Milestones</h2><ul class="checklist">${chks(3)}</ul><h2>Risks</h2><ul>${li}</ul><h2>Stakeholders</h2><ul>${li}</ul><h2>Next actions</h2><ul class="checklist">${chks(2)}</ul>`;
+    case 'meeting': return `<h2>Meeting</h2>${label('Date', esc(fmtMed(d)))}${label('Attendees')}<h2>Agenda</h2><ul>${li}</ul><h2>Notes</h2>${p}<h2>Decisions</h2><ul>${li}</ul><h2>Action items</h2><ul class="checklist">${chk}</ul>`;
+    case 'standup': return `<h2>Yesterday</h2><ul>${winsList(ymd(addDays(d, -1)), ymd(addDays(d, -1)))}</ul><h2>Today</h2><ul class="checklist">${chks(2)}</ul><h2>Blockers</h2><ul>${li}</ul>`;
+    case 'oneone': return `<h2>Wins to share</h2><ul>${winsList(ymd(addDays(d, -13)), ymd(d))}</ul><h2>Blockers</h2><ul>${li}</ul><h2>Questions</h2><ul>${li}</ul><h2>Feedback to ask for</h2><ul>${li}</ul><h2>Growth and career</h2>${p}<h2>Follow-ups</h2><ul class="checklist">${chk}</ul>`;
+    case 'test': return `<h2>Test session</h2>${label('Charter')}${label('Build / version')}${label('Devices and OS')}${label('Time box')}<h2>What I tested</h2><ul>${li}</ul><h2>Findings</h2><ul>${li}</ul><h2>Bugs logged</h2><ul>${li}</ul><h2>Questions and risks</h2><ul>${li}</ul><h2>Follow-ups</h2><ul class="checklist">${chk}</ul>`;
+    case 'bug': return `<h2>Summary</h2>${p}<h2>Environment</h2>${label('Build / version')}${label('Device and OS')}${label('Account / test data')}<h2>Steps to reproduce</h2><ol>${lis(3)}</ol><h2>Expected result</h2>${p}<h2>Actual result</h2>${p}<h2>Severity and priority</h2>${label('Severity')}${label('Priority')}${label('Reproducible', 'Always / Sometimes / Once')}<h2>Evidence</h2><ul>${li}</ul><h2>Notes</h2>${p}`;
+    case 'testplan': return `<h2>Feature and scope</h2>${p}<h3>In scope</h3><ul>${li}</ul><h3>Out of scope</h3><ul>${li}</ul><h2>Approach</h2><ul>${li}</ul><h2>Environments and devices</h2><ul>${li}</ul><h2>Entry criteria</h2><ul class="checklist">${chk}</ul><h2>Exit criteria</h2><ul class="checklist">${chk}</ul><h2>Risks</h2><ul>${li}</ul><h2>Test cases</h2><ul class="checklist">${chks(3)}</ul><h2>Sign-off</h2>${label('Approved by')}`;
+    case 'release': return `<h2>Release</h2>${label('Version')}${label('Target date')}<h2>Before release</h2><ul class="checklist">${['Scope and release notes reviewed', 'Regression suite passed', 'Smoke test on the release build', 'Critical bugs closed or accepted', 'Store listing and screenshots checked', 'Rollback plan agreed'].map(t => `<li data-checked="false">${t}</li>`).join('')}</ul><h2>After release</h2><ul class="checklist">${['Smoke test in production', 'Crash and error dashboards checked', 'Team told it’s live'].map(t => `<li data-checked="false">${t}</li>`).join('')}</ul><h2>Notes</h2>${p}`;
+    case 'retro': return `<h2>What went well</h2><ul>${li}</ul><h2>What didn’t go well</h2><ul>${li}</ul><h2>What we’ll try next</h2><ul>${li}</ul><h2>Action items</h2><ul class="checklist">${chk}</ul><h2>My wins this sprint</h2><ul>${winsList(ymd(addDays(d, -13)), ymd(d))}</ul>`;
+    case 'review': return `<h2>Wins this week</h2><ul>${winsList(ymd(s0), ymd(addDays(s0, 6)))}</ul><h2>Challenges</h2><ul>${li}</ul><h2>Lessons</h2><ul>${li}</ul><h2>Focus for next week</h2><ul class="checklist">${chks(2)}</ul>`;
+    case 'learning': return `<h2>Topic</h2>${label('Source')}<h2>Key ideas</h2><ul>${lis(3)}</ul><h2>How I’ll use it</h2>${p}<h2>Questions</h2><ul>${li}</ul><h2>Is this brag-worthy?</h2><p>If you finished a course or learned something new, brag it on your wall.</p>`;
+    case 'decision': return `<h2>Decision</h2>${p}<h2>Context</h2>${p}<h2>Options considered</h2><ol>${lis(2)}</ol><h2>Why we chose this</h2>${p}${label('Decided by')}${label('Date', esc(fmtMed(d)))}<h2>Follow-up</h2><ul class="checklist">${chk}</ul>`;
+    case 'todo': return `<h2>Today</h2><ul class="checklist">${chks(3)}</ul><h2>This week</h2><ul class="checklist">${chks(2)}</ul><h2>Someday</h2><ul class="checklist">${chk}</ul>`;
+    case 'ideas': return `<h2>Ideas</h2><ul>${lis(3)}</ul><h2>The best one</h2>${p}<h2>Next step</h2><ul class="checklist">${chk}</ul>`;
+    case 'cornell': return `<h2>Questions and cues</h2><ul>${li}</ul><h2>Notes</h2>${p}<h2>Summary</h2><blockquote><br></blockquote>`;
+    default: return p;
   }
+}
+const tplTitle = (key, dateKey) => {
+  const d = parseYmd(dateKey || todayKey()), lbl = TPL[key] ? TPL[key].label : 'New page';
+  if (key === 'month') return `${lbl} · ${fmtMonthYear(d)}`;
+  if (['week', 'weekref', 'habit', 'review'].includes(key)) return `${lbl} · Week of ${DF({ month: 'short', day: 'numeric' }).format(startOfWeek(d))}`;
+  if (['goal', 'project', 'testplan', 'release', 'decision', 'ideas', 'future'].includes(key)) return lbl;
+  return `${lbl} · ${fmtShortK(ymd(d))}`;
+};
+const tplHeads = key => { const m = templateHTML(key, todayKey()).match(/<h[23]>(.*?)<\/h[23]>/g) || []; return m.map(x => x.replace(/<[^>]+>/g, '')).slice(0, 4); };
+function templatePicker(nbId, onPick) {
+  const nb = S.notebooks.find(n => n.id === nbId), kind = nb ? nb.kind : 'other';
+  const card = t => `<button type="button" class="tpl-card" data-tpl="${t.key}" style="--tc:${{ journal: '#C2477A', planner: '#2F6FB0', work: 'var(--accent)', other: '#B87A0E' }[t.kind]}"><span class="tpl-ic">${icon(t.icon)}</span><span class="tpl-txt"><b>${esc(t.label)}</b><small>${esc(t.desc)}</small><span class="tpl-heads">${tplHeads(t.key).map(h => `<i>${esc(h)}</i>`).join('')}</span></span></button>`;
+  const mine = TEMPLATES.filter(t => t.kind === kind), others = TPL_GROUPS.filter(([g]) => g !== kind);
+  const m = openModal({
+    title: 'New page', wide: true,
+    body: `<div class="tpl-pick">
+      <button type="button" class="tpl-card tpl-blank" data-tpl=""><span class="tpl-ic">${icon('plus')}</span><span class="tpl-txt"><b>Blank page</b><small>Start from nothing</small></span></button>
+      ${mine.length ? `<p class="tpl-group">${icon(KINDS[kind].icon, 'sm')}For your ${esc(KINDS[kind].label.toLowerCase())}</p><div class="tpl-grid">${mine.map(card).join('')}</div>` : ''}
+      ${others.map(([g, lbl]) => `<details class="tpl-more" ${kind === 'other' ? 'open' : ''}><summary>${icon(KINDS[g].icon, 'sm')}${esc(lbl)} templates <span class="mono small muted">${TEMPLATES.filter(t => t.kind === g).length}</span></summary><div class="tpl-grid">${TEMPLATES.filter(t => t.kind === g).map(card).join('')}</div></details>`).join('')}
+    </div>`,
+    actions: [{ label: 'Cancel', kind: 'ghost' }],
+  });
+  m.wrap.addEventListener('click', e => { const c = e.target.closest('[data-tpl]'); if (!c) return; m.close(); onPick(c.dataset.tpl || null); });
+}
+function newPageFlow(nbId) {
+  templatePicker(nbId, tpl => { flushEditor(); UI.nb.notebookId = nbId; UI.nb.noteId = createPage(nbId, todayKey(), tpl); updateNotebookSidebar(); mountEditor(); });
 }
 function createPage(notebookId, dateKey, tpl) {
   const nb = S.notebooks.find(n => n.id === notebookId);
   const id = newId(), now = Date.now();
-  S.notes.push({ id, notebookId, title: nb ? KINDS[nb.kind].page : 'New page', date: dateKey || todayKey(), html: tpl ? templateHTML(tpl, dateKey) : '<p><br></p>', createdAt: now, updatedAt: now });
+  S.notes.push({ id, notebookId, title: tpl && TPL[tpl] ? tplTitle(tpl, dateKey) : nb ? KINDS[nb.kind].page : 'New page', date: dateKey || todayKey(), html: tpl ? templateHTML(tpl, dateKey) : '<p><br></p>', createdAt: now, updatedAt: now });
   persistNote(id);
   return id;
 }
@@ -2799,7 +2907,7 @@ function mountNotebooks() {
     const ds = t.dataset;
     if (ds.nb) { flushEditor(); UI.nb.notebookId = UI.nb.notebookId === ds.nb && !UI.nb.search ? null : ds.nb; if (UI.nb.notebookId !== ds.nb) UI.nb.noteId = null; else UI.nb.noteId = pagesOf(ds.nb)[0]?.id || null; updateNotebookSidebar(); mountEditor(); }
     else if (ds.note) { flushEditor(); UI.nb.noteId = ds.note; UI.nb.notebookId = S.notes.find(n => n.id === ds.note)?.notebookId || UI.nb.notebookId; updateNotebookSidebar(); mountEditor(); }
-    else if (ds.newpage) { flushEditor(); const nb = S.notebooks.find(n => n.id === ds.newpage); UI.nb.noteId = createPage(ds.newpage, todayKey(), KINDS[nb?.kind || 'other'].tpl); updateNotebookSidebar(); mountEditor(); $('#ed-title')?.select(); }
+    else if (ds.newpage) newPageFlow(ds.newpage);
     else if (ds.nbpdf) exportNotebookPdf(ds.nbpdf);
     else if (ds.nbedit) notebookModal(ds.nbedit);
     else if (ds.nbdel) {
@@ -2875,7 +2983,7 @@ function mountEditor() {
   ED.dirty = false; clearTimeout(ED.timer); ED.range = null;
   if (!S.loaded.notebooks || !S.loaded.notes) { el.innerHTML = '<div class="nb-empty"><div class="skel" style="height:40px;width:60%"></div><div class="skel" style="height:260px;width:100%"></div></div>'; return; }
   if (!S.notebooks.length) {
-    el.innerHTML = `<div class="nb-empty">${ART.notebook()}<h2>Start your first notebook</h2><p class="muted">Pick a type. Each one opens with a page template you can change.</p>
+    el.innerHTML = `<div class="nb-empty">${ART.notebook()}<h2>Start your first notebook</h2><p class="muted">Pick a type. Each one comes with its own templates: ${TEMPLATES.filter(t => t.kind === 'journal').length} for journals, ${TEMPLATES.filter(t => t.kind === 'planner').length} for planners and ${TEMPLATES.filter(t => t.kind === 'work').length} for work.</p>
       <div class="kind-grid stagger">${['journal', 'planner', 'work'].map((k, i) => `<button type="button" class="kind-card" style="--i:${i}" data-kind="${k}"><span class="kpi-ic">${icon(KINDS[k].icon)}</span><b>${KINDS[k].label}</b><span>${KINDS[k].blurb}</span></button>`).join('')}</div></div>`;
     $$('.kind-card', el).forEach(b => b.onclick = () => { createNotebook(KINDS[b.dataset.kind].label, b.dataset.kind); updateNotebookSidebar(); mountEditor(); });
     return;
@@ -2886,7 +2994,7 @@ function mountEditor() {
     el.innerHTML = nb ? `<div class="nb-empty">${ART.notebook()}<h2>${esc(nb.name)}</h2><p class="muted">This notebook has no pages yet.</p><button type="button" class="btn" id="ed-first">${icon('plus')}New page</button></div>`
       : `<div class="nb-empty">${ART.notebook()}<p class="muted">Choose a notebook on the left to see its pages.</p></div>`;
     const b = $('#ed-first', el);
-    if (b) b.onclick = () => { UI.nb.noteId = createPage(nb.id, todayKey(), KINDS[nb.kind].tpl); updateNotebookSidebar(); mountEditor(); };
+    if (b) b.onclick = () => newPageFlow(nb.id);
     return;
   }
   const nb = S.notebooks.find(n => n.id === note.notebookId);
@@ -2904,11 +3012,11 @@ function mountEditor() {
       <span class="tb-sep"></span>
       ${tb('insertUnorderedList', 'list', 'Bulleted list')}${tb('insertOrderedList', 'listOl', 'Numbered list')}${tb('checklist', 'checkSq', 'Checklist')}${tb('formatBlock', 'quote', 'Quote', 'blockquote')}${tb('insertHorizontalRule', 'minus', 'Divider')}
       <label class="sr-only" for="ed-template">Insert a template</label>
-      <select id="ed-template"><option value="">Insert template…</option>${TEMPLATES.map(t => `<option value="${t.key}">${esc(t.label)}</option>`).join('')}</select>
+      <select id="ed-template"><option value="">Insert template…</option>${[nb?.kind || 'other', ...TPL_GROUPS.map(g => g[0]).filter(g => g !== (nb?.kind || 'other'))].map(g => `<optgroup label="${esc(TPL_GROUPS.find(x => x[0] === g)[1])}">${TEMPLATES.filter(t => t.kind === g).map(t => `<option value="${t.key}">${esc(t.label)}</option>`).join('')}</optgroup>`).join('')}</select>
     </div>
     <div id="ed-body" class="ed-body prose" contenteditable="true" spellcheck="true" aria-label="Page content"></div>
     <div class="ed-foot"><span class="small muted mono" id="ed-words"></span>
-      <div class="row"><button type="button" class="btn ghost sm" id="ed-pdf">${icon('download')}Export page as PDF</button><button type="button" class="btn ghost sm" id="ed-del">${icon('trash')}Delete page</button></div></div>`;
+      <div class="row"><button type="button" class="btn ghost sm" id="ed-newpg">${icon('plus')}New page</button><button type="button" class="btn ghost sm" id="ed-pdf">${icon('download')}Export page as PDF</button><button type="button" class="btn ghost sm" id="ed-del">${icon('trash')}Delete page</button></div></div>`;
   const body = $('#ed-body', el);
   body.innerHTML = sanitize(note.html);
   ED.loadedHtml = note.html;
@@ -2954,6 +3062,7 @@ function mountEditor() {
     markDirty(); updateWords();
   });
   $('#ed-pdf', el).onclick = () => { flushEditor(); exportNotePdf(note.id); };
+  $('#ed-newpg', el).onclick = () => { flushEditor(); newPageFlow(note.notebookId); };
   $('#ed-del', el).onclick = async () => {
     if (!(await confirmModal(`Delete the page “${note.title || 'Untitled page'}”?`))) return;
     clearTimeout(ED.timer); ED.dirty = false;
