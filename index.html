@@ -5305,10 +5305,10 @@ function mountAccount() {
               <li>${icon('sparkles', 'sm')}Notebook covers, including your uploaded pictures, stickers and GIFs</li>
               <li>${icon('list', 'sm')}Shelves, categories, tags and your custom areas</li>
               <li>${icon('key', 'sm')}Notebook PIN locks: locked notebooks stay locked and open with the same PIN</li>
-              <li>${icon('lock', 'sm')}Locked with two things: a password you set and a backup code made for you. Both are needed to import it.</li>
+              <li>${icon('lock', 'sm')}Locked with two things: your password and a backup code made for you. Both are needed to import it.</li>
               <li>${icon('user', 'sm')}Profile and settings</li>
             </ul>
-            <p class="small muted">${icon('shield', 'sm')} Your backup password, passcode, recovery code and PINs are never written into the file. If you lose the password or the backup code, the file can't be opened. Keep them in a password manager, apart from the file.</p>
+            <p class="small muted">${icon('shield', 'sm')} Your password, recovery code, backup code and PINs are never written into the file. To import, use your password from the day you made the backup, and keep the backup code somewhere safe, apart from the file.</p>
           </details>
           <div class="bk-row"><span class="kpi-ic gold">${icon('file')}</span><div><b>Spreadsheet of wins (.csv)</b><small>For Excel or Google Sheets. Not encrypted, so keep it private.</small></div><button type="button" class="btn ghost sm" id="bk-csv">${icon('download')}Export</button></div>
         </div>
@@ -5400,6 +5400,38 @@ async function downloadBackup(key, keys, protectedBy, hint) {
   } catch (e) { console.error(e); toast("Couldn't create the backup.", 'warn'); }
 }
 function backupPasswordModal(then, actionLabel) {
+  if (then) return legacyBackupPasswordModal(then, actionLabel);
+  if (!(S.lock && S.lock.pin && CRYPTO.key)) {
+    openModal({ title: 'Set up your password first', body: `<div class="stack"><div class="bp-hero"><span class="bp-ic">${icon('lock')}</span><p>Backups are locked with <b>your password</b>, the one you use to open Bragging Wall. You haven't set one yet.</p></div></div>`,
+      actions: [{ label: 'Not now', kind: 'ghost' }, { label: 'Set up my password', onClick: () => { setTimeout(() => showGate('setup1', { fromSettings: true }), 60); } }] });
+    return;
+  }
+  openModal({
+    title: 'Create backup file · Step 1 of 2',
+    body: `<div class="stack bp-modal">
+      <div class="bp-hero"><span class="bp-ic">${icon('lock')}</span><p>Enter <b>your password</b> to create a backup. Next, you'll get a backup code. You need <b>both</b> to import the file, on this device or a new one.</p></div>
+      ${pwField('bp-1', 'Password', 'current-password')}
+      <p class="err" id="bp-err" role="alert"></p></div>`,
+    onOpen: w => { bindPw(w); setTimeout(() => $('#bp-1', w)?.focus(), 50); },
+    actions: [{ label: 'Cancel', kind: 'ghost' }, { label: 'Next: get backup code', onClick: async w => {
+      const pw = $('#bp-1', w).value, err = $('#bp-err', w);
+      if (!pw) { err.textContent = 'Enter your password.'; $('#bp-1', w).focus(); return false; }
+      if (Date.now() < BK_TRY.until) { err.textContent = `Too many tries. Wait ${Math.ceil((BK_TRY.until - Date.now()) / 1000)} seconds.`; return false; }
+      err.textContent = 'Checking…';
+      try { await unwrapDEK(S.lock.pin, pw); BK_TRY.n = 0; }
+      catch (e) { BK_TRY.n++; if (BK_TRY.n >= 5) BK_TRY.until = Date.now() + Math.min(300, 30 * 2 ** (BK_TRY.n - 5)) * 1000; err.textContent = "That password isn't right."; $('#bp-1', w).select(); return false; }
+      err.textContent = 'Packing and encrypting everything…';
+      const key = await crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt']);
+      const code = makeRecoveryCode();
+      const keys = { pin: await wrapDEK(key, bkSecret(pw, code)) };
+      let built;
+      try { built = await buildBackupFile(key, keys, 'password-and-code', false); }
+      catch (e) { console.error(e); err.textContent = "Couldn't create the backup. Try again."; return false; }
+      setTimeout(() => backupCodeModal(built, code, keys.pin), 0);
+    } }],
+  });
+}
+function legacyBackupPasswordModal(then, actionLabel) {
   openModal({
     title: 'Create backup file · Step 1 of 2',
     body: `<div class="stack bp-modal">
@@ -5447,8 +5479,8 @@ function backupCodeModal(built, code, wrap) {
       <div class="row" style="justify-content:center"><button type="button" class="btn ghost sm" data-bc="copy">${icon('copy', 'sm')}Copy code</button><button type="button" class="btn ghost sm" data-bc="txt">${icon('download', 'sm')}Save code as .txt</button></div>
       <label class="check-line"><input type="checkbox" id="bc-saved">I've saved my backup code somewhere safe, separate from the backup file.</label>
       <div class="bc-dl" id="bc-dl" hidden>
-        <p class="small"><b>Enter your backup password to download the file.</b></p>
-        ${pwField('bc-pass', 'Backup password', 'off')}
+        <p class="small"><b>Enter your password to download the file.</b></p>
+        ${pwField('bc-pass', 'Password', 'current-password')}
       </div>
       <p class="err" id="bc-err" role="alert"></p>
       <p class="small muted">${icon('info', 'sm')} Keep the code and the file in different places. For example, the code in your password manager and the file in your cloud storage.</p></div>`,
@@ -5456,7 +5488,7 @@ function backupCodeModal(built, code, wrap) {
       bindPw(w);
       $$('[data-bc]', w).forEach(b => b.onclick = async () => {
         if (b.dataset.bc === 'copy') { try { await navigator.clipboard.writeText(code); toast('Backup code copied'); } catch (e) { const r = document.createRange(); r.selectNodeContents($('#bc-code', w)); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); toast('Code selected. Press Ctrl+C to copy.'); } }
-        else saveFile(`bragging-wall-backup-code-${day}.txt`, `Bragging Wall backup code\r\n\r\nBackup created: ${fmtLong(parseYmd(day))}\r\nBackup code: ${code}\r\n\r\nTo import the backup, you need this code AND the backup password you set.\r\nKeep this note separate from the backup file. Never write the password here.\r\n`);
+        else saveFile(`bragging-wall-backup-code-${day}.txt`, `Bragging Wall backup code\r\n\r\nBackup created: ${fmtLong(parseYmd(day))}\r\nBackup code: ${code}\r\n\r\nTo import the backup, you need this code AND your Bragging Wall password from the day you made it.\r\nKeep this note separate from the backup file. Never write your password here.\r\n`);
       });
       $('#bc-saved', w).onchange = e => { $('#bc-dl', w).hidden = !e.target.checked; if (e.target.checked) setTimeout(() => $('#bc-pass', w)?.focus(), 30); };
     },
@@ -5464,11 +5496,11 @@ function backupCodeModal(built, code, wrap) {
       const err = $('#bc-err', w);
       if (!$('#bc-saved', w).checked) { err.textContent = 'Save your backup code first, then tick the box.'; return false; }
       const pw = $('#bc-pass', w).value;
-      if (!pw) { err.textContent = 'Enter your backup password.'; $('#bc-pass', w).focus(); return false; }
+      if (!pw) { err.textContent = 'Enter your password.'; $('#bc-pass', w).focus(); return false; }
       if (fails >= 5) { err.textContent = 'Too many wrong tries. Cancel and create a new backup.'; return false; }
       err.textContent = 'Checking…';
       try { await unwrapDEK(wrap, bkSecret(pw, code)); }
-      catch (e) { fails++; err.textContent = "That isn't the password you just set."; $('#bc-pass', w).select(); return false; }
+      catch (e) { fails++; err.textContent = "That password isn't right."; $('#bc-pass', w).select(); return false; }
       const ok = await saveFile(`bragging-wall-backup-${day}.json`, built.text);
       if (!ok) { err.textContent = "Couldn't download the file. Try again."; return false; }
       downloaded = true; lsSet('bw-last-backup', String(Date.now())); bkLastNote(); storageBanner();
@@ -5486,12 +5518,12 @@ async function decryptBackup(f) {
   return new Promise(res => {
     openModal({
       title: 'Unlock this backup',
-      body: `<div class="stack"><div class="bp-hero"><span class="bp-ic">${icon('lock')}</span><p>${isPc ? `This backup was created on ${esc(when)}. Enter its <b>backup password</b> and <b>backup code</b>.` : isPw ? `This backup is password protected. Enter the password you set when you created it on ${esc(when)}.` : `Enter the wall passcode you were using on ${esc(when)}${f.keys.rec ? ', or your recovery code from that time' : ''}.`}</p></div>
-        ${pwField('rb-pass', isPw ? 'Backup password' : 'Passcode or recovery code', 'off')}${isPc ? `<div class="field"><label for="rb-code">Backup code</label><input id="rb-code" type="text" autocomplete="off" spellcheck="false" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX" style="font-family:var(--font-mono);letter-spacing:.06em;text-transform:uppercase"></div>` : ''}${isPw && typeof f.hint === 'string' && f.hint ? `<p class="bp-hint">${icon('bulb', 'sm')}<span>Your hint: <b>${esc(f.hint.slice(0, 80))}</b></span></p>` : ''}<p class="err" id="rb-err"></p></div>`,
+      body: `<div class="stack"><div class="bp-hero"><span class="bp-ic">${icon('lock')}</span><p>${isPc ? `This backup was created on ${esc(when)}. Enter <b>your password</b> from that day and the backup's <b>backup code</b>.` : isPw ? `This backup is password protected. Enter the password you set when you created it on ${esc(when)}.` : `Enter the wall passcode you were using on ${esc(when)}${f.keys.rec ? ', or your recovery code from that time' : ''}.`}</p></div>
+        ${pwField('rb-pass', isPc ? 'Password' : isPw ? 'Backup password' : 'Passcode or recovery code', 'off')}${isPc ? `<div class="field"><label for="rb-code">Backup code</label><input id="rb-code" type="text" autocomplete="off" spellcheck="false" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX" style="font-family:var(--font-mono);letter-spacing:.06em;text-transform:uppercase"></div>` : ''}${isPw && typeof f.hint === 'string' && f.hint ? `<p class="bp-hint">${icon('bulb', 'sm')}<span>Your hint: <b>${esc(f.hint.slice(0, 80))}</b></span></p>` : ''}<p class="err" id="rb-err"></p></div>`,
       onOpen: bindPw,
       actions: [{ label: 'Cancel', kind: 'ghost', onClick: () => res(null) }, { label: 'Unlock backup', onClick: async w => {
         const v = $('#rb-pass', w).value, err = $('#rb-err', w);
-        if (!v) { err.textContent = isPw ? 'Enter your backup password.' : 'Enter it first.'; $('#rb-pass', w).focus(); return false; }
+        if (!v) { err.textContent = isPc ? 'Enter your password.' : isPw ? 'Enter your backup password.' : 'Enter it first.'; $('#rb-pass', w).focus(); return false; }
         const codeV = isPc ? normRec($('#rb-code', w).value) : '';
         if (isPc && codeV.length !== 20) { err.textContent = 'Enter the 20-character backup code.'; $('#rb-code', w).focus(); return false; }
         if (Date.now() < BK_TRY.until) { err.textContent = `Too many tries. Wait ${Math.ceil((BK_TRY.until - Date.now()) / 1000)} seconds.`; return false; }
