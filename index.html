@@ -1351,6 +1351,13 @@ body.side-anim .app { transition: grid-template-columns .28s var(--ease); }
 .pl[data-pltheme="sage"] { --pp: #F8FAF6; --pt: #E6EEE4; --pt2: #CFDFCC; --pi: #3B473B; --pm: #77897A; --pln: #CAD8C7; --pa: #7C9A79; }
 .pl[data-pltheme="sand"] { --pp: #FBF9F5; --pt: #EFE8DD; --pt2: #DFD3C2; --pi: #4A4238; --pm: #8E8270; --pln: #D9CEBE; --pa: #A48E6E; }
 .pl[data-pltheme="ivory"] { --pp: #FFFFFF; --pt: #F4F2EF; --pt2: #E6E2DC; --pi: #3D3B38; --pm: #85807A; --pln: #DDD8D1; --pa: #8F8880; }
+.pl[data-pltheme="rose"] { --pp: #FDF7F8; --pt: #F7E4E8; --pt2: #F0CFD6; --pi: #4D3940; --pm: #94727C; --pln: #EBCED5; --pa: #C46A82; }
+.pl[data-pltheme="peach"] { --pp: #FEF9F4; --pt: #FAE8DC; --pt2: #F5D7C3; --pi: #4D3D33; --pm: #96796A; --pln: #EFD6C6; --pa: #D08A5C; }
+.pl[data-pltheme="butter"] { --pp: #FFFCF2; --pt: #F8EFD0; --pt2: #F2E4B5; --pi: #45402F; --pm: #8D8463; --pln: #E9DDB4; --pa: #BC9A35; }
+.pl[data-pltheme="mint"] { --pp: #F5FBF8; --pt: #E1F2EA; --pt2: #C7E6D8; --pi: #2F4840; --pm: #6C8E81; --pln: #C9E2D6; --pa: #4F9C7D; }
+.pl[data-pltheme="night"] { --pp: #23272B; --pt: #2F353A; --pt2: #3C444A; --pi: #ECE7E1; --pm: #9EA7AC; --pln: #3B4349; --pa: #D9A38F; }
+.pl[data-pltheme="night"] .pl-dn.pl-won { color: #23272B; }
+.pl[data-pltheme="custom"] { --pp: color-mix(in srgb, var(--plc, #B98B82) 5%, #fff); --pt: color-mix(in srgb, var(--plc, #B98B82) 14%, #fff); --pt2: color-mix(in srgb, var(--plc, #B98B82) 30%, #fff); --pi: color-mix(in srgb, var(--plc, #B98B82) 28%, #262626); --pm: color-mix(in srgb, var(--plc, #B98B82) 50%, #6e6e6e); --pln: color-mix(in srgb, var(--plc, #B98B82) 26%, #fff); --pa: var(--plc, #B98B82); }
 .pl[data-pltheme="teal"] { --pp: #F7FBFA; --pt: #E1EFEC; --pt2: #BFDCD7; --pi: #1F3A37; --pm: #5F7E7A; --pln: #C6DDD9; --pa: #0F6E6A; }
 .prose .pl, .prose .pl * { margin-top: 0; }
 .pl ul, .pl ol { padding-left: 0; margin: 0; }
@@ -1470,9 +1477,33 @@ body.side-anim .app { transition: grid-template-columns .28s var(--ease); }
 /* editor integration */
 .ed-body.has-pl { max-width: none; padding: 18px 18px 40px; }
 .pl-themes { display: inline-flex; align-items: center; gap: 5px; }
-.pl-sw { width: 20px; height: 20px; border-radius: 50%; background: var(--sw); border: 2px solid var(--surface-solid); box-shadow: 0 0 0 1px var(--line); cursor: pointer; padding: 0; transition: transform .15s, box-shadow .15s; }
-.pl-sw:hover { transform: scale(1.12); }
-.pl-sw.on { box-shadow: 0 0 0 2px var(--ink); }
+/* Color scheme chooser */
+.plc { display: grid; grid-template-columns: repeat(auto-fill, minmax(66px, 1fr)); gap: 8px; }
+.plc-sw { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 6px 2px 5px; border-radius: 12px; border: 1px solid transparent; background: none; cursor: pointer; color: inherit; font: inherit; transition: background .15s, border-color .15s, transform .15s; }
+.plc-sw:hover { background: var(--surface-2); transform: translateY(-1px); }
+.plc-sw.on { border-color: var(--ink); background: var(--surface-2); }
+.plc-chip { position: relative; display: block; width: 38px; height: 38px; border-radius: 50%; background: conic-gradient(var(--st) 0 50%, var(--sp) 50% 100%); box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); overflow: hidden; }
+.plc-chip i { position: absolute; inset: 31%; border-radius: 50%; background: var(--sa); box-shadow: 0 0 0 2px var(--sp); }
+.plc-n { font-size: .74rem; color: var(--muted); }
+.plc-sw.on .plc-n { color: var(--ink); font-weight: 600; }
+.plc-custom .plc-chip { background: conic-gradient(var(--st) 0 50%, var(--sp) 50% 100%); }
+.plc-custom .plc-chip::after { content: "+"; position: absolute; right: 1px; bottom: -2px; font: 700 .8rem/1 var(--font-body); color: var(--ink); background: var(--surface-solid); width: 15px; height: 15px; border-radius: 50%; display: grid; place-items: center; box-shadow: 0 0 0 1px var(--line); }
+.plc-custom input { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer; border: 0; padding: 0; }
+.plc-compact { display: flex; flex-wrap: wrap; gap: 4px; }
+.plc-compact .plc-sw { padding: 3px; border-radius: 50%; }
+.plc-compact .plc-n { display: none; }
+.plc-compact .plc-chip { width: 28px; height: 28px; }
+.plc-compact .plc-custom .plc-chip::after { width: 12px; height: 12px; font-size: .66rem; }
+.tpl-colors { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 10px 12px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--line); }
+.tpl-colors-l { display: flex; align-items: center; gap: 6px; font: 600 .86rem var(--font-body); }
+.tpl-colors-l small { display: block; font-weight: 400; color: var(--muted); font-size: .74rem; margin-left: 4px; }
+.pl-colbtn { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 10px 0 5px; border-radius: 99px; border: 1px solid var(--line); background: var(--surface-solid); color: inherit; font: 500 .82rem var(--font-body); cursor: pointer; }
+.pl-colbtn:hover { border-color: var(--line-strong); }
+.pl-colbtn .plc-chip { width: 22px; height: 22px; }
+.plm { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 20px; align-items: start; }
+.plm-prev .tpl-thumb { height: 360px; }
+.plm-side { display: flex; flex-direction: column; gap: 14px; }
+@media (max-width: 700px) { .plm { grid-template-columns: 1fr; } .plm-prev .tpl-thumb { height: 220px; } }
 @media (max-width: 760px) {
   .ed-body .pl { padding: 16px 14px 20px; }
   .ed-body .pl-cols { grid-template-columns: 1fr; gap: 10px; }
@@ -1974,6 +2005,10 @@ const IC = {
   edit: '<path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
   trash: '<path d="M4 7h16M10 11v6M14 11v6M9 7V4h6v3M6 7l1 13h10l1-13"/>',
   left: '<path d="m15 5-7 7 7 7"/>',
+  down: '<path d="m6 9 6 6 6-6"/>',
+  palette: '<path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.8 1.8-1.8 0-.5-.2-.9-.5-1.2-.3-.4-.5-.8-.5-1.2 0-1 .8-1.8 1.8-1.8h2.2A4.2 4.2 0 0 0 21 10.8C21 6.5 17 3 12 3z"/><circle cx="7.5" cy="11.5" r=".6"/><circle cx="9.5" cy="7.5" r=".6"/><circle cx="14.5" cy="7.5" r=".6"/>',
+  kanban: '<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M9 4v16M15 4v16M5.5 8h2M11.5 8h2M17.5 8h2M5.5 11h2M11.5 11h2"/>',
+  gantt: '<path d="M4 4v16h16"/><path d="M7 7h6M9 11h8M8 15h5"/>',
   right: '<path d="m9 5 7 7-7 7"/>',
   file: '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/>',
   copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',
@@ -2183,7 +2218,7 @@ function normItem(it) {
     fx: typeof FX !== 'undefined' && FX[it.fx] ? it.fx : '',
   };
 }
-const normNb = (id, v) => ({ id, name: String(v?.name || 'Notebook').slice(0, 80), kind: KINDS[v?.kind] ? v.kind : 'other', color: /^#[0-9a-f]{6}$/i.test(v?.color || '') ? v.color : NB_COLORS[0], createdAt: Number(v?.createdAt) || 0, cover: normCover(v?.cover), shelf: /^[A-Za-z0-9_-]{1,30}$/.test(v?.shelf || '') ? v.shelf : '', category: String(v?.category || '').trim().slice(0, 40), tags: (Array.isArray(v?.tags) ? v.tags : []).map(t => String(t).trim().replace(/^#/, '').slice(0, 30)).filter(Boolean).slice(0, 10), lock: normNbLock(v?.lock) });
+const normNb = (id, v) => ({ id, name: String(v?.name || 'Notebook').slice(0, 80), kind: KINDS[v?.kind] ? v.kind : 'other', color: /^#[0-9a-f]{6}$/i.test(v?.color || '') ? v.color : NB_COLORS[0], createdAt: Number(v?.createdAt) || 0, cover: normCover(v?.cover), shelf: /^[A-Za-z0-9_-]{1,30}$/.test(v?.shelf || '') ? v.shelf : '', category: String(v?.category || '').trim().slice(0, 40), tags: (Array.isArray(v?.tags) ? v.tags : []).map(t => String(t).trim().replace(/^#/, '').slice(0, 30)).filter(Boolean).slice(0, 10), lock: normNbLock(v?.lock), plTheme: isPlTheme(v?.plTheme) ? v.plTheme : '' });
 const normNote = (id, v) => {
   const n = { id, notebookId: String(v?.notebookId || ''), title: String(v?.title || '').slice(0, 200), date: isYmd(v?.date) ? v.date : todayKey(), html: String(v?.html || ''), createdAt: Number(v?.createdAt) || 0, updatedAt: Number(v?.updatedAt) || 0 };
   const sl = v?.sealed;
@@ -3581,9 +3616,31 @@ function summaryHTML(label, list, opt) {
 /* ================= Notebooks ================= */
 /* Planner pages: structured, printable-planner layouts. Labels are locked (contenteditable=false);
    every .pl-f is a field you type into. Dots, stars and cups are tap-to-toggle. */
-const PL_THEMES = [['blush', 'Blush', '#E7D3CD'], ['lavender', 'Lavender', '#D9D0EB'], ['sky', 'Sky', '#CCDDEB'], ['sage', 'Sage', '#CEDDCC'], ['sand', 'Sand', '#DED3C3'], ['ivory', 'Ivory', '#E6E2DC'], ['teal', 'Teal', '#BFDCD7']];
-const plTheme = () => { try { const t = localStorage.getItem('bw-pl-theme'); return PL_THEMES.some(x => x[0] === t) ? t : 'blush'; } catch (e) { return 'blush'; } };
-function plannerHTML(key, d) {
+// [key, name, paper, tint, accent]: paper/tint/accent are only used to draw the swatch
+const PL_THEMES = [['blush', 'Blush', '#FBF7F5', '#E7D3CD', '#B98B82'], ['rose', 'Rose', '#FDF6F7', '#F0CFD6', '#C46A82'], ['peach', 'Peach', '#FEF8F3', '#F5D7C3', '#D08A5C'], ['butter', 'Butter', '#FFFCF1', '#F2E4B5', '#BC9A35'], ['sage', 'Sage', '#F8FAF6', '#CFDFCC', '#7C9A79'], ['mint', 'Mint', '#F5FBF8', '#C7E6D8', '#4F9C7D'], ['teal', 'Teal', '#F7FBFA', '#BFDCD7', '#0F6E6A'], ['sky', 'Sky', '#F7FAFC', '#CDDEEC', '#6F94B4'], ['lavender', 'Lavender', '#F9F8FC', '#DAD1EC', '#8E7DB8'], ['sand', 'Sand', '#FBF9F5', '#DFD3C2', '#A48E6E'], ['ivory', 'Ivory', '#FFFFFF', '#E6E2DC', '#8F8880'], ['night', 'Night', '#23272B', '#3C444A', '#D9A38F']];
+const isPlTheme = v => typeof v === 'string' && (PL_THEMES.some(x => x[0] === v) || /^#[0-9a-f]{6}$/i.test(v));
+const plTheme = nbId => { const nb = nbId && S.notebooks.find(n => n.id === nbId); if (nb && isPlTheme(nb.plTheme)) return nb.plTheme; try { const t = localStorage.getItem('bw-pl-theme'); return isPlTheme(t) ? t : 'blush'; } catch (e) { return 'blush'; } };
+const plAttrs = v => v && v[0] === '#' ? `data-pltheme="custom" data-plc="${v.toLowerCase()}"` : `data-pltheme="${isPlTheme(v) ? v : 'blush'}"`;
+const plOf = el => el ? (el.dataset.pltheme === 'custom' && /^#[0-9a-f]{6}$/i.test(el.dataset.plc || '') ? el.dataset.plc : el.dataset.pltheme || 'blush') : 'blush';
+function setPl(el, v) { if (v[0] === '#') { el.dataset.pltheme = 'custom'; el.dataset.plc = v.toLowerCase(); } else { el.dataset.pltheme = v; delete el.dataset.plc; } plPaint(el.parentElement || el); }
+function plPaint(root) { if (!root) return; $$('.pl', root).forEach(p => { if (p.dataset.pltheme === 'custom' && /^#[0-9a-f]{6}$/i.test(p.dataset.plc || '')) p.style.setProperty('--plc', p.dataset.plc); else p.style.removeProperty('--plc'); }); }
+const plName = v => v && v[0] === '#' ? 'Custom' : (PL_THEMES.find(x => x[0] === v) || PL_THEMES[0])[1];
+const plSwatch = v => { const t = PL_THEMES.find(x => x[0] === v); return t ? `--sp:${t[2]};--st:${t[3]};--sa:${t[4]}` : `--sp:color-mix(in srgb, ${v} 6%, #fff);--st:color-mix(in srgb, ${v} 30%, #fff);--sa:${v}`; };
+/* A color-scheme chooser used in the template picker, the notebook settings and the page toolbar */
+function plChooserHTML(cur, compact = false) {
+  const custom = cur && cur[0] === '#' ? cur : '#B98B82';
+  return `<div class="plc ${compact ? 'plc-compact' : ''}" role="radiogroup" aria-label="Planner color scheme">${PL_THEMES.map(([k, n]) => `<button type="button" class="plc-sw ${cur === k ? 'on' : ''}" role="radio" aria-checked="${cur === k}" data-plv="${k}" title="${n}" style="${plSwatch(k)}"><span class="plc-chip"><i></i></span><span class="plc-n">${n}</span></button>`).join('')}
+    <label class="plc-sw plc-custom ${cur && cur[0] === '#' ? 'on' : ''}" title="Pick any color" style="${plSwatch(custom)}"><span class="plc-chip"><i></i><input type="color" value="${custom}" aria-label="Custom planner color"></span><span class="plc-n">Custom</span></label></div>`;
+}
+function wirePlChooser(root, onChange) {
+  const box = $('.plc', root); if (!box) return;
+  const mark = v => { $$('.plc-sw', box).forEach(b => { const on = b.dataset.plv ? b.dataset.plv === v : v[0] === '#'; b.classList.toggle('on', on); if (b.getAttribute('role')) b.setAttribute('aria-checked', String(on)); }); if (v[0] === '#') $('.plc-custom', box).setAttribute('style', plSwatch(v)); };
+  box.addEventListener('click', e => { const b = e.target.closest('[data-plv]'); if (!b) return; mark(b.dataset.plv); onChange(b.dataset.plv); });
+  const inp = $('.plc-custom input', box);
+  inp.addEventListener('input', () => { mark(inp.value); onChange(inp.value); });
+}
+const rememberPl = v => { try { localStorage.setItem('bw-pl-theme', v); } catch (e) { /* private mode */ } };
+function plannerHTML(key, d, theme) {
   const L = t => `<div class="pl-lbl" contenteditable="false">${t}</div>`;
   const f1 = '<div class="pl-f pl-1"><br></div>';
   const area = (h = 2) => `<div class="pl-f pl-area pl-h${h}"><p><br></p></div>`;
@@ -3593,7 +3650,7 @@ function plannerHTML(key, d) {
   const dots = (n, cls = 'pl-dot') => `<span class="pl-dots" contenteditable="false">${`<span class="${cls}" data-on="false"></span>`.repeat(n)}</span>`;
   const stars = n => `<span class="pl-stars" contenteditable="false">${'<span class="pl-star" data-on="false"></span>'.repeat(n)}</span>`;
   const sec = (t, inner) => `<div class="pl-sec">${L(t)}${inner}</div>`;
-  const page = (type, head, inner) => `<div class="pl" data-pl="${type}" data-pltheme="${plTheme()}">${head}${inner}</div>`;
+  const page = (type, head, inner) => `<div class="pl" data-pl="${type}" ${plAttrs(theme || plTheme())}>${head}${inner}</div>`;
   const head = (title, pills = []) => `<div class="pl-head" contenteditable="false"><span class="pl-title">${esc(title)}</span>${pills.length ? `<span class="pl-pills">${pills.map(x => `<span class="pl-pill">${esc(x)}</span>`).join('')}</span>` : ''}</div>`;
   const tbl = (cols, n, total) => `<div class="pl-tbl" data-cols="${cols.length}"><div class="pl-tr pl-th" contenteditable="false">${cols.map(c => `<span>${c}</span>`).join('')}</div>${[...Array(n)].map(() => `<div class="pl-tr">${cols.map(() => f1).join('')}</div>`).join('')}${total ? `<div class="pl-tot"><span contenteditable="false">TOTAL:</span>${f1}</div>` : ''}</div>`;
   const winLis = list => list.map(w => `<li><strong>${esc(w.title)}</strong>${w.result ? ' — ' + esc(w.result) : ''}</li>`).join('');
@@ -3658,8 +3715,9 @@ function plannerHTML(key, d) {
   }
   return null;
 }
-function templateHTML(key, dateKey) {
-  if (['plan', 'week', 'month', 'monthov', 'finance', 'monthref', 'habit', 'goal', 'matrix'].includes(key)) return plannerHTML(key, parseYmd(dateKey || todayKey()));
+const PL_KEYS = ['plan', 'week', 'month', 'monthov', 'finance', 'monthref', 'habit', 'goal', 'matrix'];
+function templateHTML(key, dateKey, theme) {
+  if (PL_KEYS.includes(key)) return plannerHTML(key, parseYmd(dateKey || todayKey()), theme);
   const li = '<li><br></li>', chk = '<li data-checked="false"><br></li>', p = '<p><br></p>';
   const lis = n => li.repeat(n), chks = n => chk.repeat(n);
   const label = (k, v = '') => `<p><strong>${k}:</strong> ${v}</p>`;
@@ -3703,9 +3761,9 @@ const tplTitle = (key, dateKey) => {
 };
 const TPL_TINT = { journal: '#C2477A', planner: '#2F6FB0', work: '#0F6E6A', other: '#B87A0E' };
 /* A real, scaled-down render of the page each template makes. Empty lines become soft "ink" bars. */
-function tplPreview(key, kind) {
+function tplPreview(key, kind, theme) {
   const ln = w => `<i class="ln" style="width:${w}%"></i>`;
-  const html = (key ? templateHTML(key, todayKey()) : '')
+  const html = (key ? templateHTML(key, todayKey(), theme) : '')
     .replace(/<li data-checked="false"><br><\/li>/g, `<li data-checked="false">${ln(62)}</li>`)
     .replace(/<li><br><\/li>/g, () => `<li>${ln(55 + Math.round(Math.random() * 30))}</li>`)
     .replace(/<p><br><\/p>/g, `<p>${ln(92)}<br>${ln(70)}</p>`)
@@ -3723,7 +3781,8 @@ function fitTplThumbs(root) {
 function templatePicker(src, onPick, first = false) {
   const nb = typeof src === 'string' ? S.notebooks.find(n => n.id === src) : src;
   const kind = nb ? nb.kind : 'other', creating = !!(nb && nb.creating);
-  const card = t => `<button type="button" class="tpl-card" data-tpl="${t.key}" style="--tc:${TPL_TINT[t.kind]}" aria-label="${esc(t.label)}: ${esc(t.desc)}">${tplPreview(t.key, t.kind)}<span class="tpl-txt"><b><span class="tpl-ic">${icon(t.icon, 'sm')}</span>${esc(t.label)}</b><small>${esc(t.desc)}</small></span></button>`;
+  let theme = nb && nb.creating ? (nb.plTheme || plTheme()) : plTheme(nb && nb.id);
+  const card = t => `<button type="button" class="tpl-card" data-tpl="${t.key}" style="--tc:${TPL_TINT[t.kind]}" aria-label="${esc(t.label)}: ${esc(t.desc)}">${tplPreview(t.key, t.kind, theme)}<span class="tpl-txt"><b><span class="tpl-ic">${icon(t.icon, 'sm')}</span>${esc(t.label)}</b><small>${esc(t.desc)}</small></span></button>`;
   const mine = TEMPLATES.filter(t => t.kind === kind), others = TPL_GROUPS.filter(([g]) => g !== kind);
   const blank = `<button type="button" class="tpl-card tpl-blank" data-tpl="" style="--tc:var(--muted)" aria-label="Blank page">${tplPreview('', kind)}<span class="tpl-txt"><b><span class="tpl-ic">${icon('plus', 'sm')}</span>Blank page</b><small>Start from nothing</small></span></button>`;
   let picked = false, ro = null;
@@ -3731,23 +3790,29 @@ function templatePicker(src, onPick, first = false) {
     title: creating ? `Pick a first page for “${nb.name}”` : first ? `Pick a first page for “${nb ? nb.name : 'your notebook'}”` : 'New page', wide: true,
     body: `<div class="tpl-pick">
       ${creating ? `<p class="tpl-hint">${icon('info', 'sm')}Your notebook is created when you pick a page. Cancel and nothing is saved.</p>` : ''}
+      <div class="tpl-colors"><span class="tpl-colors-l">${icon('palette', 'sm')}Planner colors<small>Used by the planner pages</small></span>${plChooserHTML(theme, true)}</div>
       ${mine.length ? `<p class="tpl-group">${icon(KINDS[kind].icon, 'sm')}For your ${esc(KINDS[kind].label.toLowerCase())}</p>` : ''}
       <div class="tpl-grid">${blank}${mine.map(card).join('')}</div>
       ${others.map(([g, lbl]) => `<details class="tpl-more" ${kind === 'other' ? 'open' : ''}><summary>${icon(KINDS[g].icon, 'sm')}${esc(lbl)} templates <span class="mono small muted">${TEMPLATES.filter(t => t.kind === g).length}</span></summary><div class="tpl-grid">${TEMPLATES.filter(t => t.kind === g).map(card).join('')}</div></details>`).join('')}
     </div>`,
-    onOpen: w => { ro = fitTplThumbs($('.tpl-pick', w)); $$('.tpl-more', w).forEach(d => d.addEventListener('toggle', () => $$('.tpl-thumb', d).forEach(t => { const x = t.clientWidth; if (x) t.style.setProperty('--z', ((x - 24) / (+t.dataset.w || 520)).toFixed(4)); }))); },
+    onOpen: w => { plPaint(w); wirePlChooser($('.tpl-colors', w), v => { theme = v; $$('.tpl-thumb .pl', w).forEach(x => setPl(x, v)); }); ro = fitTplThumbs($('.tpl-pick', w)); $$('.tpl-more', w).forEach(d => d.addEventListener('toggle', () => $$('.tpl-thumb', d).forEach(t => { const x = t.clientWidth; if (x) t.style.setProperty('--z', ((x - 24) / (+t.dataset.w || 520)).toFixed(4)); }))); },
     onClose: () => { if (ro) ro.disconnect(); },
     actions: [{ label: 'Cancel', kind: 'ghost' }],
   });
-  m.wrap.addEventListener('click', e => { const c = e.target.closest('[data-tpl]'); if (!c || picked) return; picked = true; m.close(); onPick(c.dataset.tpl || null); });
+  m.wrap.addEventListener('click', e => { const c = e.target.closest('[data-tpl]'); if (!c || picked) return; picked = true; m.close(); if (PL_KEYS.includes(c.dataset.tpl)) rememberPl(theme); onPick(c.dataset.tpl || null, theme); });
 }
 function newPageFlow(nbId, first = false) {
-  templatePicker(nbId, tpl => { flushEditor(); UI.nb.notebookId = nbId; UI.nb.noteId = createPage(nbId, todayKey(), tpl); updateNotebookSidebar(); mountEditor(); }, first);
+  templatePicker(nbId, (tpl, theme) => {
+    flushEditor(); UI.nb.notebookId = nbId;
+    const nb = S.notebooks.find(n => n.id === nbId);
+    if (nb && PL_KEYS.includes(tpl) && theme && nb.plTheme !== theme) { nb.plTheme = theme; persistNotebook(nb.id); }
+    UI.nb.noteId = createPage(nbId, todayKey(), tpl, { theme }); updateNotebookSidebar(); mountEditor();
+  }, first);
 }
 function createPage(notebookId, dateKey, tpl, opts = {}) {
   const nb = S.notebooks.find(n => n.id === notebookId);
   const id = newId(), now = Date.now();
-  S.notes.push({ id, notebookId, title: tpl && TPL[tpl] ? tplTitle(tpl, dateKey) : nb ? KINDS[nb.kind].page : 'New page', date: dateKey || todayKey(), html: tpl ? templateHTML(tpl, dateKey) : '<p><br></p>', createdAt: now, updatedAt: now });
+  S.notes.push({ id, notebookId, title: tpl && TPL[tpl] ? tplTitle(tpl, dateKey) : nb ? KINDS[nb.kind].page : 'New page', date: dateKey || todayKey(), html: tpl ? templateHTML(tpl, dateKey, opts.theme || plTheme(notebookId)) : '<p><br></p>', createdAt: now, updatedAt: now });
   if (!opts.defer) persistNote(id);
   return id;
 }
@@ -3776,7 +3841,8 @@ function sanitize(html) {
         const keep = (tag === 'LI' && a.name === 'data-checked') || (tag === 'A' && a.name === 'href' && /^(https?:|mailto:)/i.test(a.value.trim()))
           || (isPl && a.name === 'contenteditable' && (a.value === 'false' || a.value === 'true') && (tag === 'DIV' || tag === 'SPAN'))
           || (isPl && tag === 'SPAN' && a.name === 'data-on' && (a.value === 'true' || a.value === 'false'))
-          || (isPl && tag === 'DIV' && a.name === 'data-pltheme' && PL_THEMES.some(x => x[0] === a.value))
+          || (isPl && tag === 'DIV' && a.name === 'data-pltheme' && (a.value === 'custom' || PL_THEMES.some(x => x[0] === a.value)))
+          || (isPl && tag === 'DIV' && a.name === 'data-plc' && /^#[0-9a-f]{6}$/i.test(a.value))
           || (isPl && tag === 'DIV' && (a.name === 'data-pl' || a.name === 'data-cols') && /^[a-z0-9]{1,12}$/.test(a.value));
         if (!keep) child.removeAttribute(a.name);
       }
@@ -3893,10 +3959,14 @@ function notebookModal(editId) {
       <div class="field"><label for="nbm-tags">Tags <span class="opt">comma separated</span></label><input id="nbm-tags" type="text" maxlength="300" value="${esc(nb ? nb.tags.join(', ') : '')}" placeholder="e.g. 2026, billease, goals"></div>
       ${nb ? `<div class="nbm-pin">${icon('lock')}<div><b>${nb.lock ? 'Locked with a PIN' : 'No PIN'}</b><span class="small muted">${nb.lock ? 'Pages are encrypted with your PIN.' : 'Add a PIN so only you can open this notebook.'}</span></div><button type="button" class="btn ghost sm" id="nbm-pin">${nb.lock ? 'Change or remove PIN' : 'Add PIN'}</button></div>` : `<label class="check-line"><input type="checkbox" id="nbm-lockit">${icon('lock', 'sm')} Lock this notebook with a PIN</label>`}
       <fieldset class="field"><legend>Type</legend><div class="seg">${Object.entries(KINDS).map(([k, v]) => `<label><input type="radio" name="nbm-kind" value="${k}" ${k === kind ? 'checked' : ''}><span>${icon(v.icon, 'sm')}${v.label}</span></label>`).join('')}</div></fieldset>
+      <fieldset class="field nbm-plc" ${kind === 'planner' ? '' : 'hidden'}><legend>Planner page colors</legend>${plChooserHTML(nb ? plTheme(nb.id) : plTheme())}<span class="small muted">New planner pages use this color scheme. You can change any page later from its toolbar.</span></fieldset>
       ${nb ? `<button type="button" class="btn ghost sm" id="nbm-cover" style="align-self:flex-start">${icon('image', 'sm')}Customize cover: photos, stickers, text</button>` : ''}
       <fieldset class="field"><legend>${nb && nb.cover ? 'Color (used by the default cover)' : 'Cover color'}</legend><div class="swatches">${NB_COLORS.map(c => `<label class="swatch"><input type="radio" name="nbm-color" value="${c}" ${c === color ? 'checked' : ''} aria-label="Color ${c}"><span style="--sw:${c}"></span></label>`).join('')}</div></fieldset>
     </div>`,
     onOpen: w => {
+      w._plc = nb ? plTheme(nb.id) : plTheme();
+      wirePlChooser($('.nbm-plc', w), v => { w._plc = v; });
+      $$('input[name="nbm-kind"]', w).forEach(r => r.addEventListener('change', () => { $('.nbm-plc', w).hidden = $('input[name="nbm-kind"]:checked', w).value !== 'planner'; }));
       const b = $('#nbm-cover', w); if (b) b.onclick = () => { $('[data-close]', w)?.click(); setTimeout(() => coverDesigner(nb.id), 60); };
       const pb = $('#nbm-pin', w); if (pb) pb.onclick = () => { $('[data-close]', w)?.click(); setTimeout(() => nb.lock ? pinOptionsModal(nb.id) : setPinModal(nb.id), 60); };
       $('#nbm-shelf', w).addEventListener('change', async e => { if (e.target.value !== '__new') return; const id = await shelfModal(); const sel = e.target; if (id) { sel.insertAdjacentHTML('beforeend', ''); sel.innerHTML = `<option value="">No shelf</option>${S.profile.shelves.map(x => `<option value="${x.id}">${esc(x.name)}</option>`).join('')}<option value="__new">+ New shelf…</option>`; sel.value = id; } else sel.value = ''; });
@@ -3907,15 +3977,16 @@ function notebookModal(editId) {
       const col = $('input[name="nbm-color"]:checked', wrap).value;
       const shelfV = $('#nbm-shelf', wrap).value, shelf = shelfV === '__new' ? '' : shelfV;
       const category = $('#nbm-cat', wrap).value.trim().slice(0, 40), tags = $('#nbm-tags', wrap).value.split(',').map(t => t.trim().replace(/^#/, '')).filter(Boolean).slice(0, 10);
-      if (nb) { Object.assign(nb, { name, kind: k, color: col, shelf, category, tags }); persistNotebook(nb.id); }
-      else { const pin = !!$('#nbm-lockit', wrap)?.checked; setTimeout(() => startNotebookFlow({ name, kind: k, color: col, shelf, category, tags, pin }), 60); return; }
+      const plt = k === 'planner' && isPlTheme(wrap._plc) ? wrap._plc : (nb ? nb.plTheme : '');
+      if (nb) { Object.assign(nb, { name, kind: k, color: col, shelf, category, tags, plTheme: plt || '' }); persistNotebook(nb.id); if (plt) rememberPl(plt); }
+      else { const pin = !!$('#nbm-lockit', wrap)?.checked; if (plt) rememberPl(plt); setTimeout(() => startNotebookFlow({ name, kind: k, color: col, shelf, category, tags, pin, plTheme: plt }), 60); return; }
       updateNotebookSidebar(); mountEditor();
     } }],
   });
 }
 function createNotebook(name, kind, color, opts = {}) {
   const id = newId();
-  S.notebooks.push({ id, name, kind, color: color || NB_COLORS[S.notebooks.length % NB_COLORS.length], createdAt: Date.now(), shelf: opts.shelf ?? (UI.nb.shelf !== 'all' && UI.nb.shelf !== 'none' ? UI.nb.shelf : ''), category: opts.category || '', tags: opts.tags || [] });
+  S.notebooks.push({ id, name, kind, color: color || NB_COLORS[S.notebooks.length % NB_COLORS.length], createdAt: Date.now(), shelf: opts.shelf ?? (UI.nb.shelf !== 'all' && UI.nb.shelf !== 'none' ? UI.nb.shelf : ''), category: opts.category || '', tags: opts.tags || [], plTheme: isPlTheme(opts.plTheme) ? opts.plTheme : '' });
   if (!opts.defer) persistNotebook(id);
   return id;
 }
@@ -3938,12 +4009,12 @@ function askPinModal(name) {
 async function startNotebookFlow(d) {
   let pin = null;
   if (d.pin) { pin = await askPinModal(d.name); if (!pin) return; }
-  templatePicker({ name: d.name, kind: d.kind, creating: true }, async tpl => {
+  templatePicker({ name: d.name, kind: d.kind, creating: true, plTheme: d.plTheme }, async (tpl, theme) => {
     flushEditor();
-    const id = createNotebook(d.name, d.kind, d.color, { ...d, defer: !!pin });
+    const id = createNotebook(d.name, d.kind, d.color, { ...d, defer: !!pin, plTheme: PL_KEYS.includes(tpl) ? theme : d.plTheme });
     const nb = S.notebooks.find(n => n.id === id);
     UI.nb.notebookId = id;
-    UI.nb.noteId = createPage(id, todayKey(), tpl, { defer: !!pin });
+    UI.nb.noteId = createPage(id, todayKey(), tpl, { defer: !!pin, theme });
     if (pin) {
       try { const key = await crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt']); await applyPin(nb, pin, key); }
       catch (e) { console.error(e); persistNotebook(id); persistNote(UI.nb.noteId); toast("Notebook created, but the PIN couldn't be set. Add one from the notebook menu.", 'warn'); }
@@ -3988,7 +4059,7 @@ function mountEditor() {
       ${tb('bold', 'bold', 'Bold (Ctrl+B)')}${tb('italic', 'italic', 'Italic (Ctrl+I)')}${tb('underline', 'underline', 'Underline (Ctrl+U)')}${tb('strikeThrough', 'strike', 'Strikethrough')}
       <span class="tb-sep"></span>
       ${tb('insertUnorderedList', 'list', 'Bulleted list')}${tb('insertOrderedList', 'listOl', 'Numbered list')}${tb('checklist', 'checkSq', 'Checklist')}${tb('formatBlock', 'quote', 'Quote', 'blockquote')}${tb('insertHorizontalRule', 'minus', 'Divider')}
-      <span class="pl-themes" id="ed-plth" hidden><span class="tb-sep"></span>${PL_THEMES.map(([k2, lbl, c]) => `<button type="button" class="pl-sw" data-plth="${k2}" title="${lbl} planner theme" aria-label="${lbl} planner theme" style="--sw:${c}"></button>`).join('')}</span>
+      <span class="pl-themes" id="ed-plth" hidden><span class="tb-sep"></span><button type="button" class="pl-colbtn" id="ed-plcol" title="Change this page's color scheme"><span class="plc-chip"><i></i></span><span>Colors</span>${icon('down', 'sm')}</button></span>
       <label class="sr-only" for="ed-template">Insert a template</label>
       <select id="ed-template"><option value="">Insert template…</option>${[nb?.kind || 'other', ...TPL_GROUPS.map(g => g[0]).filter(g => g !== (nb?.kind || 'other'))].map(g => `<optgroup label="${esc(TPL_GROUPS.find(x => x[0] === g)[1])}">${TEMPLATES.filter(t => t.kind === g).map(t => `<option value="${t.key}">${esc(t.label)}</option>`).join('')}</optgroup>`).join('')}</select>
     </div>
@@ -3999,10 +4070,11 @@ function mountEditor() {
   body.innerHTML = sanitize(note.html);
   ED.loadedHtml = note.html;
   updateWords();
-  const plSync = () => { const pl = $('.pl', body), box = $('#ed-plth', el); body.classList.toggle('has-pl', !!pl); if (!box) return; box.hidden = !pl; if (pl) $$('.pl-sw', box).forEach(b => b.classList.toggle('on', b.dataset.plth === (pl.dataset.pltheme || 'blush'))); };
+  plPaint(body);
+  const plSync = () => { const pl = $('.pl', body), box = $('#ed-plth', el); body.classList.toggle('has-pl', !!pl); if (!box) return; box.hidden = !pl; if (pl) { plPaint(body); const b = $('#ed-plcol', box); b.setAttribute('style', plSwatch(plOf(pl))); b.lastElementChild.previousElementSibling.textContent = plName(plOf(pl)); } };
   plSync(); body.addEventListener('input', plSync);
   $('#ed-plth', el).addEventListener('mousedown', e => e.preventDefault());
-  $('#ed-plth', el).addEventListener('click', e => { const b = e.target.closest('[data-plth]'); if (!b) return; $$('.pl', body).forEach(x => x.dataset.pltheme = b.dataset.plth); try { localStorage.setItem('bw-pl-theme', b.dataset.plth); } catch (er) { /* private mode */ } plSync(); markDirty(); });
+  $('#ed-plcol', el).addEventListener('click', () => { flushEditor(); plColorsModal(note.id, v => { $$('.pl', body).forEach(x => setPl(x, v)); plSync(); markDirty(); }); });
   try { document.execCommand('defaultParagraphSeparator', false, 'p'); } catch (e) { /* older browsers */ }
   $('#ed-title', el).addEventListener('input', markDirty);
   $('#ed-date', el).addEventListener('change', e => { if (isYmd(e.target.value)) { markDirty(); flushEditor(); updateNotebookSidebar(); } });
@@ -4082,6 +4154,36 @@ function mountEditor() {
     updateNotebookSidebar(); mountEditor(); toast('Page deleted');
   };
 }
+function plColorsModal(noteId, apply) {
+  const note = S.notes.find(n => n.id === noteId), nb = note && S.notebooks.find(b => b.id === note.notebookId);
+  const body = $('#ed-body'), src = body && $('.pl', body); if (!src) return;
+  const start = plOf(src); let cur = start;
+  const others = nb ? S.notes.filter(n => n.notebookId === nb.id && n.id !== noteId && n.html.includes('class="pl"')).length : 0;
+  openModal({
+    title: 'Planner colors', wide: true,
+    body: `<div class="plm"><div class="plm-prev" aria-hidden="true"><span class="tpl-thumb" data-paper="pl" data-w="760"><span class="tpl-sheet"><span class="tpl-page tpl-plpage"><span class="tpl-pbody prose"></span></span></span></span></div>
+      <div class="plm-side"><p class="muted small">Pick a color scheme for this page. Custom lets you choose any color; the paper, lines and labels are mixed from it.</p>${plChooserHTML(start)}
+      ${nb ? `<label class="check-line"><input type="checkbox" id="plm-all" ${others ? '' : 'disabled'}>Also use it on ${others ? `the other ${plural(others, 'planner page')}` : 'other planner pages'} in “${esc(nb.name)}”</label>` : ''}
+      <p class="small muted">${icon('info', 'sm')} New planner pages in this notebook will use it too.</p></div></div>`,
+    onOpen: w => {
+      const pv = $('.plm-prev .tpl-pbody', w), clone = src.cloneNode(true); pv.append(clone); plPaint(pv);
+      const t = $('.plm-prev .tpl-thumb', w); requestAnimationFrame(() => t.style.setProperty('--z', ((t.clientWidth - 24) / 760).toFixed(4)));
+      wirePlChooser(w, v => { cur = v; setPl(clone, v); });
+    },
+    actions: [{ label: 'Cancel', kind: 'ghost' }, { label: 'Use these colors', onClick: w => {
+      apply(cur); rememberPl(cur);
+      if (nb && nb.plTheme !== cur) { nb.plTheme = cur; persistNotebook(nb.id); }
+      if ($('#plm-all', w)?.checked && nb) {
+        let n = 0;
+        S.notes.filter(x => x.notebookId === nb.id && x.id !== noteId && x.html.includes('class="pl"')).forEach(x => {
+          const d = document.createElement('div'); d.innerHTML = sanitize(x.html);
+          $$('.pl', d).forEach(p => setPl(p, cur)); $$('.pl', d).forEach(p => p.style.removeProperty('--plc')); x.html = sanitize(d.innerHTML); x.updatedAt = Date.now(); persistNote(x.id); n++;
+        });
+        toast(`Colors updated on ${plural(n + 1, 'page')}`);
+      } else toast(`${plName(cur)} colors applied`);
+    } }],
+  });
+}
 function updateWords() { const b = $('#ed-body'), w = $('#ed-words'); if (b && w) w.textContent = plural(b.innerText.split(/\s+/).filter(Boolean).length, 'word'); }
 function setEdStatus(text, saving) { const st = $('#ed-status'); if (!st) return; st.classList.toggle('saving', !!saving); st.lastChild.textContent = text; }
 function markDirty() { ED.dirty = true; setEdStatus('Saving…', true); clearTimeout(ED.timer); ED.timer = setTimeout(flushEditor, 800); }
@@ -4109,7 +4211,7 @@ function syncEditor() {
     updateNotebookSidebar(); mountEditor(); return;
   }
   if (!note) { mountEditor(); return; }
-  if (!ED.dirty && document.activeElement !== body && note.html !== ED.loadedHtml) { body.innerHTML = sanitize(note.html); ED.loadedHtml = note.html; updateWords(); }
+  if (!ED.dirty && document.activeElement !== body && note.html !== ED.loadedHtml) { body.innerHTML = sanitize(note.html); ED.loadedHtml = note.html; plPaint(body); updateWords(); }
 }
 
 /* ================= PDF ================= */
