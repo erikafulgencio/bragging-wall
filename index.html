@@ -1866,6 +1866,127 @@ body.side-anim .app { transition: grid-template-columns .28s var(--ease); }
   .ed-body .pl-d2, .ed-body .pl-q3, .ed-body .pl-hcards, .ed-body .pl-vb6, .ed-body .pl-bday { grid-template-columns: 1fr; }
   .ed-body .pl-idxw { grid-template-columns: repeat(6, 1fr); } .ed-body .pl-vb, .ed-body .pl-cards { grid-template-columns: 1fr; }
 }
+/* color-in & minimalist trackers */
+.pl[data-pltheme="minimal"] { --pp: #FFFFFF; --pt: #F5F4F2; --pt2: #E6E4E0; --pi: #1E1E1E; --pm: #8A8784; --pln: #DEDBD7; --pa: #E9A6B8; }
+.pl[data-pltheme="minimal"] .pl-title { font: 300 1.7rem var(--font-body); letter-spacing: .22em; text-transform: lowercase; }
+.pl[data-pltheme="minimal"] .pl-lbl { background: transparent; text-align: left; text-transform: lowercase; letter-spacing: .1em; font-size: .78rem; border-radius: 0; border-bottom: 1px solid var(--pi); padding: 4px 0; color: var(--pi); font-weight: 400; }
+.pl[data-pltheme="minimal"] .pl-box { background: transparent; border: 1px dashed var(--pm); }
+.pl[data-pltheme="minimal"] .pl-pill { background: transparent; border: 1px solid var(--pln); }
+.pl-mstrip { display: flex; gap: 10px; justify-content: flex-end; margin: -10px 0 12px; font-size: .7rem; letter-spacing: .1em; user-select: none; }
+.pl-mstrip i { font-style: normal; width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%; color: var(--pm); }
+.pl-mstrip i.pl-on { border: 1.4px solid var(--pi); color: var(--pi); font-weight: 700; }
+.pl-ck { --k: transparent; cursor: pointer; transition: transform .15s, background .2s, filter .2s; }
+.pl-ck[data-v="1"] { --k: #E9A23B; } .pl-ck[data-v="2"] { --k: #E25C8B; } .pl-ck[data-v="3"] { --k: #9B7FD1; } .pl-ck[data-v="4"] { --k: #5DB37E; } .pl-ck[data-v="5"] { --k: #4A9FD8; } .pl-ck[data-v="6"] { --k: #8D6E63; }
+.pl-cgrid { display: grid; gap: 10px 8px; margin-bottom: 14px; user-select: none; }
+.pl-cg5 { grid-template-columns: repeat(5, 1fr); } .pl-cg6 { grid-template-columns: repeat(6, 1fr); } .pl-cg7 { grid-template-columns: repeat(7, 1fr); } .pl-cg10 { grid-template-columns: repeat(10, 1fr); } .pl-cg12 { grid-template-columns: repeat(12, 1fr); }
+.pl-cki { position: relative; display: grid; place-items: center; aspect-ratio: 1; font-size: 2rem; line-height: 1; border-radius: 50%; filter: grayscale(1) opacity(.32); }
+.pl-cki:hover { transform: scale(1.08); filter: grayscale(.4) opacity(.7); }
+.pl-cki i { position: absolute; right: 2px; bottom: -2px; font-style: normal; font-size: .58rem; color: var(--pm); filter: none; }
+.pl-cki:not([data-v="0"]) { filter: none; background: radial-gradient(circle, color-mix(in srgb, var(--k) 55%, transparent) 0 58%, transparent 60%); box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--k) 70%, transparent); }
+.pl-cgflat .pl-ck, .pl-cgstar .pl-cki { filter: none; }
+.pl-cgflat .pl-cki { font-size: 1.1rem; color: var(--pm); opacity: .6; border-radius: 50%; }
+.pl-cgflat .pl-cki:not([data-v="0"]) { opacity: 1; color: var(--k); background: color-mix(in srgb, var(--k) 25%, transparent); box-shadow: none; }
+.pl-cgstar .pl-cki { color: var(--pln); font-size: 2.2rem; -webkit-text-stroke: 1px var(--pm); }
+.pl-cgstar .pl-cki:not([data-v="0"]) { color: var(--k); background: none; box-shadow: none; -webkit-text-stroke: 0; }
+.pl-jar2 .pl-cgrid .pl-ck, .pl-pix .pl-ck { display: block; aspect-ratio: 1; border-radius: 50%; border: 1px solid var(--pm); background: var(--k); }
+.pl-ckey { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px 14px; border-top: 1px solid var(--pi); padding-top: 8px; margin-bottom: 12px; }
+.pl-keyk { display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--pln); }
+.pl-keyk > .pl-ck { width: 14px; height: 14px; flex: none; background: var(--k); cursor: default; border-radius: 3px; }
+.pl-keyk .pl-1 { font-family: var(--font-hand, inherit); font-size: .86rem; }
+.pl-quote { text-align: center; font-size: .78rem; letter-spacing: .08em; color: var(--pm); margin: 0 0 14px !important; }
+.pl-bottle { position: relative; max-width: 420px; margin: 0 auto 16px; padding: 30px 26px 24px; border: 2px solid var(--pi); border-radius: 46% 46% 50% 50% / 30% 30% 60% 60%; }
+.pl-cork { position: absolute; top: -30px; left: 50%; width: 54px; height: 34px; margin-left: -27px; border: 2px solid var(--pi); border-radius: 8px 8px 4px 4px; background: repeating-linear-gradient(45deg, transparent 0 4px, color-mix(in srgb, var(--pm) 30%, transparent) 4px 5px); }
+.pl-jar2 { max-width: 460px; margin: 6px auto 16px; } .pl-jar2 .pl-cgrid { border: 2px solid var(--pi); border-radius: 30px 30px 50px 50px; padding: 26px 20px; gap: 5px; }
+.pl-steps { border-top: 1px solid var(--pi); margin-bottom: 14px; user-select: none; overflow-x: auto; }
+.pl-sth, .pl-str { display: grid; grid-template-columns: 28px repeat(12, minmax(34px, 1fr)); min-width: 520px; }
+.pl-sth i { font-style: normal; font-size: .58rem; color: var(--pm); text-align: center; padding: 4px 0; }
+.pl-str { border-bottom: 1px solid var(--pln); } .pl-str b { font-size: .64rem; color: var(--pm); font-weight: 400; display: grid; place-items: center; }
+.pl-bars { display: contents; } .pl-bars .pl-star { font-size: 0; height: 18px; margin: 3px 0; border-left: 1px solid var(--pln); }
+.pl-bars .pl-star::before { content: none; } .pl-bars .pl-star[data-on="true"] { background: color-mix(in srgb, var(--pa) 70%, #fff); }
+.pl-pixwrap { display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: start; }
+.pl-pix { display: grid; grid-template-columns: 20px repeat(12, 18px); gap: 2px; user-select: none; }
+.pl-pix > i { font-style: normal; font-size: .54rem; color: var(--pm); display: grid; place-items: center; } .pl-pix .pl-ck { border-radius: 2px; } .pl-pixno { display: block; }
+.pl-pixwrap .pl-ckey { grid-template-columns: 1fr; border: 0; }
+.pl-ringwrap { position: relative; width: 360px; height: 360px; margin: 6px auto 16px; user-select: none; }
+.pl-ringwrap > div { position: absolute; inset: 0; pointer-events: none; } .pl-ringwrap .pl-seg { pointer-events: auto; }
+.pl-seg { position: absolute; left: 50%; border-radius: 4px 4px 2px 2px; border: 1px solid var(--pln); background: var(--pp); cursor: pointer; display: grid; place-items: start center; }
+.pl-seg b { font-size: .5rem; font-weight: 500; color: var(--pm); padding-top: 2px; }
+.pl-seg.pl-ck:not([data-v="0"]) { background: var(--k); border-color: var(--k); } .pl-seg.pl-ck:not([data-v="0"]) b { color: #fff; }
+.pl-rg1 .pl-seg[data-on="true"] { background: #F3A6C0; border-color: #F3A6C0; } .pl-rg2 .pl-seg[data-on="true"] { background: #F7D27A; border-color: #F7D27A; } .pl-rg3 .pl-seg[data-on="true"] { background: #9ED7B3; border-color: #9ED7B3; } .pl-rg4 .pl-seg[data-on="true"] { background: #A9C7F2; border-color: #A9C7F2; }
+.pl-rcenter { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 2.6rem; }
+.pl-hring { display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--pln); } .pl-hrsw { width: 14px; height: 14px; border-radius: 4px; flex: none; }
+.pl-hr1 .pl-hrsw { background: #F3A6C0; } .pl-hr2 .pl-hrsw { background: #F7D27A; } .pl-hr3 .pl-hrsw { background: #9ED7B3; } .pl-hr4 .pl-hrsw { background: #A9C7F2; }
+.pl-seg.pl-r0 { transform: rotate(0.000deg); }
+.pl-seg.pl-r1 { transform: rotate(11.613deg); }
+.pl-seg.pl-r2 { transform: rotate(23.226deg); }
+.pl-seg.pl-r3 { transform: rotate(34.839deg); }
+.pl-seg.pl-r4 { transform: rotate(46.452deg); }
+.pl-seg.pl-r5 { transform: rotate(58.065deg); }
+.pl-seg.pl-r6 { transform: rotate(69.677deg); }
+.pl-seg.pl-r7 { transform: rotate(81.290deg); }
+.pl-seg.pl-r8 { transform: rotate(92.903deg); }
+.pl-seg.pl-r9 { transform: rotate(104.516deg); }
+.pl-seg.pl-r10 { transform: rotate(116.129deg); }
+.pl-seg.pl-r11 { transform: rotate(127.742deg); }
+.pl-seg.pl-r12 { transform: rotate(139.355deg); }
+.pl-seg.pl-r13 { transform: rotate(150.968deg); }
+.pl-seg.pl-r14 { transform: rotate(162.581deg); }
+.pl-seg.pl-r15 { transform: rotate(174.194deg); }
+.pl-seg.pl-r16 { transform: rotate(185.806deg); }
+.pl-seg.pl-r17 { transform: rotate(197.419deg); }
+.pl-seg.pl-r18 { transform: rotate(209.032deg); }
+.pl-seg.pl-r19 { transform: rotate(220.645deg); }
+.pl-seg.pl-r20 { transform: rotate(232.258deg); }
+.pl-seg.pl-r21 { transform: rotate(243.871deg); }
+.pl-seg.pl-r22 { transform: rotate(255.484deg); }
+.pl-seg.pl-r23 { transform: rotate(267.097deg); }
+.pl-seg.pl-r24 { transform: rotate(278.710deg); }
+.pl-seg.pl-r25 { transform: rotate(290.323deg); }
+.pl-seg.pl-r26 { transform: rotate(301.935deg); }
+.pl-seg.pl-r27 { transform: rotate(313.548deg); }
+.pl-seg.pl-r28 { transform: rotate(325.161deg); }
+.pl-seg.pl-r29 { transform: rotate(336.774deg); }
+.pl-seg.pl-r30 { transform: rotate(348.387deg); }
+.pl-rg0 .pl-seg { top: 12px; height: 24px; width: 31.1px; margin-left: -15.5px; transform-origin: 50% 168px; }
+.pl-rg1 .pl-seg { top: 38px; height: 24px; width: 25.8px; margin-left: -12.9px; transform-origin: 50% 142px; }
+.pl-rg2 .pl-seg { top: 64px; height: 24px; width: 20.5px; margin-left: -10.3px; transform-origin: 50% 116px; }
+.pl-rg3 .pl-seg { top: 90px; height: 24px; width: 15.2px; margin-left: -7.6px; transform-origin: 50% 90px; }
+.pl-rg4 .pl-seg { top: 116px; height: 24px; width: 10.0px; margin-left: -5.0px; transform-origin: 50% 64px; }
+.pl-strips { display: flex; flex-direction: column; gap: 10px; }
+.pl-strip { border: 1px solid var(--pln); border-radius: 10px; overflow: hidden; } .pl-strip > .pl-1 { background: var(--pt); font-family: var(--font-hand, inherit); padding: 4px 10px; }
+.pl-numdots { display: grid !important; grid-template-columns: repeat(16, 1fr); gap: 0 !important; }
+.pl-num { width: auto !important; height: 22px !important; border-radius: 0 !important; border: 0 !important; border-right: 1px solid var(--pln) !important; border-top: 1px solid var(--pln) !important; display: grid; place-items: center; font-size: .6rem; color: var(--pm); }
+.pl-num[data-on="true"] { background: var(--pa) !important; color: #fff; }
+.pl-emos { display: flex; gap: 2px; justify-content: center; user-select: none; }
+.pl-day .pl-emos { flex-wrap: wrap; gap: 0 1px; overflow: hidden; max-width: 100%; } .pl-day .pl-emo { font-size: .64rem; }
+.pl-emo { font-size: .8rem; cursor: pointer; filter: grayscale(1) opacity(.3); transition: filter .15s, transform .15s; } .pl-emo:hover { transform: scale(1.2); } .pl-emo[data-on="true"] { filter: none; }
+.pl-tiny .pl-star::before { width: .55em !important; height: .55em !important; } .pl-tinycup { width: 9px !important; height: 13px !important; }
+.pl-ideal { display: grid; grid-template-columns: 110px 1fr; gap: 14px; align-items: start; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 1px solid var(--pln); }
+.pl-idl { display: flex; flex-direction: column; align-items: center; gap: 4px; padding-top: 10px; user-select: none; } .pl-idl span { font-size: 2.6rem; } .pl-idl b { font-size: .66rem; letter-spacing: .14em; font-weight: 500; color: var(--pm); text-transform: uppercase; }
+.pl-t15 { display: grid; grid-template-columns: 52px 1fr; border-top: 1px solid var(--pi); }
+.pl-t15h { font-size: .62rem; color: var(--pm); padding-top: 4px; user-select: none; } .pl-t15h b { font: 300 1.3rem var(--font-body); color: var(--pi); margin-right: 2px; }
+.pl-t15r { display: grid; grid-template-columns: 22px 1fr; align-items: center; border-bottom: 1px solid var(--pln); min-height: 1.45em; } .pl-t15r i { font-style: normal; font-size: .5rem; color: var(--pm); user-select: none; } .pl-t15r .pl-1 { font-size: .78rem; min-height: 1.3em; padding: 1px 4px; }
+.pl-mcover { display: flex; flex-direction: column; align-items: center; gap: 10px; margin: -6px 0 18px; } .pl-mcname { font: 300 1.5rem var(--font-body); letter-spacing: .2em; user-select: none; } .pl-mcover .pl-mini { width: 260px; border: 0; }
+.pl-vlab { display: grid; grid-template-columns: 22px 1fr; gap: 8px; } .pl-vtxt { writing-mode: vertical-rl; transform: rotate(180deg); text-align: center; font-size: .72rem; letter-spacing: .3em; text-transform: uppercase; color: var(--pm); user-select: none; }
+.pl-wk7s { min-width: 560px; grid-template-columns: repeat(7, minmax(70px, 1fr)); margin-bottom: 14px; } .pl-wmid { min-height: 150px; } .pl-ln .pl-n.pl-nw { width: 48px; flex: none; white-space: nowrap; }
+.pl-ref { display: grid; grid-template-columns: 34px 1fr; gap: 10px; border-bottom: 1px dotted var(--pm); padding-bottom: 8px; margin-bottom: 12px; }
+.pl-vtxt2 { writing-mode: vertical-rl; transform: rotate(180deg); text-align: center; font-size: .8rem; letter-spacing: .4em; color: var(--pm); text-transform: uppercase; user-select: none; }
+.pl-wave { display: flex; flex-direction: column; gap: 6px; align-items: center; padding: 10px 0; user-select: none; }
+.pl-wave span { width: 100%; height: 40px; background: radial-gradient(circle at 10px 40px, transparent 18px, var(--pm) 19px 20px, transparent 21px) 0 0 / 40px 40px repeat-x, radial-gradient(circle at 30px 0, transparent 18px, var(--pm) 19px 20px, transparent 21px) 0 0 / 40px 40px repeat-x; opacity: .7; }
+.pl-wave em { font-size: .7rem; color: var(--pm); }
+.pl-boxbr { display: flex; flex-direction: column; align-items: center; gap: 8px; user-select: none; }
+.pl-bbsq { position: relative; width: 150px; height: 150px; border: 2px solid var(--pa); border-radius: 10px; margin: 18px 0; }
+.pl-bbsq i { position: absolute; font-style: normal; font-size: .66rem; color: var(--pm); white-space: nowrap; } .pl-bbsq i:nth-child(1) { top: -18px; left: 50%; transform: translateX(-50%); } .pl-bbsq i:nth-child(2) { right: -44px; top: 50%; } .pl-bbsq i:nth-child(3) { bottom: -18px; left: 50%; transform: translateX(-50%); } .pl-bbsq i:nth-child(4) { left: -44px; top: 50%; }
+.pl-dz { width: 11px !important; height: 11px !important; border-radius: 2px !important; } .pl-gx .pl-cell .pl-dots { flex-wrap: wrap; justify-content: center; gap: 2px; }
+.pl-ex { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border: 1px solid var(--pln); margin-bottom: 10px; }
+.pl-excard { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 12px 8px; border-right: 1px solid var(--pln); border-bottom: 1px solid var(--pln); text-align: center; }
+.pl-exi { font-size: 2.6rem; user-select: none; } .pl-exn { font-size: .84rem; font-weight: 600; text-align: center; } .pl-exr { font-size: .66rem; letter-spacing: .08em; color: var(--pm); text-transform: uppercase; text-align: center; }
+.pl-body { display: flex; flex-direction: column; align-items: center; } .pl-body > span { font-size: 7rem; line-height: 1.1; user-select: none; filter: grayscale(1) opacity(.6); }
+.pl-pigs { grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); } .pl-pigs .pl-coin { flex-direction: column; font-size: 1.3rem; border-radius: 14px; filter: grayscale(1); opacity: .55; display: flex; align-items: center; justify-content: center; }
+.pl-pigs .pl-coin i { font-style: normal; font-size: .56rem; color: var(--pi); } .pl-pigs .pl-coin[data-on="true"] { filter: none; opacity: 1; background: color-mix(in srgb, var(--pa) 20%, var(--pp)); color: var(--pi); }
+.pl-wsg { display: grid; grid-template-columns: 34px repeat(7, minmax(60px, 1fr)); gap: 2px; min-width: 560px; margin-bottom: 10px; user-select: none; }
+.pl-wsg b { font-size: .64rem; text-align: center; letter-spacing: .08em; padding: 4px 0; background: var(--pt); border-radius: 6px; } .pl-wsg > i { font-style: normal; font-size: .6rem; color: var(--pm); display: grid; place-items: center; } .pl-wsg .pl-tb { height: 22px; }
+@media (max-width: 760px) { .ed-body .pl-cg6, .ed-body .pl-cg7 { grid-template-columns: repeat(5, 1fr); } .ed-body .pl-ckey { grid-template-columns: 1fr 1fr; } .ed-body .pl-pixwrap { grid-template-columns: 1fr; } .ed-body .pl-ringwrap { transform: scale(.85); transform-origin: top center; margin-bottom: -40px; } .ed-body .pl-ex { grid-template-columns: 1fr 1fr; } .ed-body .pl-ideal { grid-template-columns: 1fr; } }
 /* editor integration */
 .ed-body.has-pl { max-width: none; padding: 18px 18px 40px; }
 .pl-themes { display: inline-flex; align-items: center; gap: 5px; }
@@ -2661,6 +2782,17 @@ const LIB_TPL = [
   ['roadtrip', 'travel', 'Road trip planner', 'plane', 'Stops, distances, fuel and snacks'], ['tjournal', 'travel', 'Travel journal', 'pen', 'Where you went and how it felt'],
   // work
   ['inbox', 'pm', 'Inbox tracker', 'mail', 'Emails and messages to reply to or act on'], ['brainstorm', 'pm', 'Brainstorming', 'bulb', 'Ideas, the best ones and next steps'],
+  ['steps2', 'track', 'Step tracker', 'zap', 'Bars that fill up to your steps each day'], ['plants30', 'track', '30-day challenge · eat more plants', 'leaf', 'Color in a fruit or vegetable every day'], ['flowerhabit', 'track', 'Flower habit tracker', 'sparkles', 'Color a flower per habit, with your own key'],
+  ['catmood', 'track', 'Cat mood tracker', 'smile', 'A cat a day, colored by mood'], ['wildmood', 'track', 'Wildflower mood tracker', 'heart', 'A flower a day, colored by mood'], ['connect30', 'track', 'Real-world connection bottle', 'users', 'Fill the bottle with flowers as you connect'],
+  ['winsjar', 'track', 'Small wins jar', 'trophy', 'A dot for every small win; your logged wins fill in'], ['sleepstars', 'track', 'Sleep stars', 'moon', 'Color a star by how long you slept'], ['yearpixels', 'track', 'Rate my day · year in pixels', 'chart', 'One colored square for every day of the year'],
+  ['moodyear', 'track', 'Mood tracker · whole year', 'smile', 'Your year of moods in one grid'], ['ringtrack', 'track', 'Exercise ring tracker', 'target', 'A ring of days colored by workout'], ['circhabits', 'track', 'Circular habit tracker', 'refresh', 'Four habits as rings around the month'],
+  ['habitstrips', 'track', 'Habit tracker · strips', 'list', 'A numbered strip for each habit'], ['mwellcal', 'track', 'Monthly wellbeing calendar', 'calendar', 'Period, movement, goal and nature icons per day'],
+  ['wellbeing', 'well', 'Weekly wellbeing', 'heart', 'Sleep, mood, energy, water, exercise and treats'], ['idealday', 'well', 'Ideal day routine', 'sun', 'Morning, day and evening habits'], ['reflect2', 'well', 'Daily reflection · morning & evening', 'pen', 'Gratitude and intention, then what felt good'],
+  ['softpage', 'well', 'A soft page for hard days', 'heart', 'Gentle prompts for tough days'], ['calm', 'well', 'Calm page', 'leaf', 'Grounding, box breathing and finger tracing'], ['dailydozen', 'well', 'Daily dozen', 'leaf', 'Servings of the healthiest foods, ticked each day'],
+  ['workouts', 'well', 'Home workout cards', 'flame', 'Exercises with reps and sets to tick'], ['fitjourney', 'well', 'Fitness journey', 'trophy', 'Measurements from start to goal'],
+  ['time15', 'plan', '15-minute time tracker', 'clock', 'Where every quarter hour went'], ['monthcover', 'plan', 'Month cover page', 'calendar', 'Month number, mini calendar, birthdays, key dates'], ['qoverview', 'plan', 'Quarterly overview', 'calendar', 'Three mini months with space to plan'],
+  ['thisweek', 'plan', 'This week · minimal', 'calendar', 'Days, priorities, focus, habits, meals, groceries'], ['today2', 'plan', 'Today · minimal', 'clock', 'Schedule, priorities, to-dos, meals and water'], ['weeksched', 'plan', 'Weekly schedule · color blocks', 'calendar', 'Color the week by type of work'],
+  ['mealsweek', 'house', 'Weekly meals', 'leaf', 'Meals for every day plus a grocery list'], ['save52', 'money', '52-week savings challenge', 'coin', 'Save a little more each week'],
 ].map(([key, group, label, ic, desc]) => ({ key, kind: group === 'pm' ? 'work' : 'planner', group, label, icon: ic, desc }));
 const CORE_KEYS = CORE_TPL.map(t => t.key), LIB_KEYS = LIB_TPL.map(t => t.key);
 function coreDate(key, d) {
@@ -2713,6 +2845,9 @@ function libHTML(key, d0, theme) {
   const mini = (mDate, link = true, opts = {}) => { const f = startOfMonth(mDate), l = endOfMonth(f); let c = startOfWeek(f); const cells = []; while (c <= l || cells.length % 7) { const ck = ymd(c), inM = c.getMonth() === f.getMonth(); cells.push(inM ? (link ? `<span class="pl-md${winsOn(ck).length ? ' pl-won' : ''}${ck === todayKey() ? ' pl-now' : ''}" data-go="day2:${ck}">${c.getDate()}</span>` : `<span class="pl-md">${c.getDate()}</span>`) : '<span class="pl-md pl-mout"></span>'); c = addDays(c, 1); } return `<div class="pl-mini" contenteditable="false">${opts.title !== false ? `<b>${link ? go('mcal2', f, esc(up(DF({ month: 'long' }).format(f)))) : esc(up(DF({ month: 'long' }).format(f)))}</b>` : ''}<span class="pl-mh">${wk.map(x => `<i>${DF({ weekday: 'narrow' }).format(x)}</i>`).join('')}</span><span class="pl-mg2">${cells.join('')}</span></div>`; };
   const monthNav = cur => `<div class="pl-nav" contenteditable="false">${go(key, addDays(m0, -1), '‹', 'pl-arrow')}${[['mglance', 'At a glance'], ['mcal2', 'Calendar'], ['moverview', 'Overview'], ['mbudget', 'Budget'], ['mreview', 'Review'], ['habitcards', 'Habits']].map(([k, l]) => go(k, m0, l, k === cur ? 'pl-on' : '')).join('')}${go(key, addDays(m1, 1), '›', 'pl-arrow')}<span class="pl-navsp"></span>${go('qplan', m0, `Q${Math.floor(m0.getMonth() / 3) + 1}`)}${go('pindex', m0, 'Index')}</div>`;
   const winsList = (from, to, n = 6) => { const w = winsIn(from, to).slice(0, n); return w.length ? `<ul class="pl-f pl-wins">${w.map(x => `<li><strong>${esc(x.title)}</strong>${x.result ? ' — ' + esc(x.result) : ''}</li>`).join('')}<li><br></li></ul>` : `<ul class="pl-f pl-wins"><li><br></li><li><br></li><li><br></li></ul>`; };
+  const mstrip = () => `<div class="pl-mstrip" contenteditable="false">${'JFMAMJJASOND'.split('').map((m, i) => `<i${i === d.getMonth() ? ' class="pl-on"' : ''}>${m}</i>`).join('')}</div>`;
+  const cgrid = (items, cls = '', num = 1) => `<div class="pl-cgrid${cls ? ' ' + cls : ''}" contenteditable="false">${items.map((e, i) => `<span class="pl-ck pl-cki" data-v="0">${e}${num ? `<i>${i + 1}</i>` : ''}</span>`).join('')}</div>`;
+  const ckey = labels => `<div class="pl-ckey">${labels.map((l, i) => `<div class="pl-keyk"><span class="pl-ck" data-v="${i + 1}" contenteditable="false"></span><div class="pl-f pl-1">${l ? esc(l) : '<br>'}</div></div>`).join('')}</div>`;
   const faces = () => `<span class="pl-faces" contenteditable="false">${['😣', '😕', '😐', '🙂', '😄'].map(f => `<span class="pl-face" data-on="false">${f}</span>`).join('')}</span>`;
   switch (key) {
     /* ===== core planner ===== */
@@ -2872,6 +3007,48 @@ function libHTML(key, d0, theme) {
     case 'places': return page('PLACES TO VISIT', [], R(T('Sights', 'Been:c|Place:3|Area', 8, { c: 'pl-c3' }), T('Food to try', 'Tried:c|Food / restaurant:3', 8, { c: 'pl-c1' })) + B('HIDDEN GEMS TO ASK LOCALS ABOUT', 2, 'pl-c4'));
     case 'roadtrip': return page('ROAD TRIP PLANNER', [], K([['Route', 2], 'Distance', 'Days']) + T('Stops', 'Stop:2|Distance|Drive time|Stay:c', 8, { c: 'pl-c3' }) + R(T('Fuel & tolls', 'Date|Where|Cost', 5, { c: 'pl-c2' }), TD('CAR CHECK & SNACKS', 6, 'pl-c1', ['Tyres', 'Oil', 'Snacks', 'Playlist'])));
     case 'tjournal': return page('TRAVEL JOURNAL', [up(md(d))], K([['Where I am', 2], 'Weather', 'Mood', ]) + R(`<div class="pl-vtile pl-c3"><span class="pl-vhint" contenteditable="false">STICKER OR PHOTO WORD</span>${area(3)}</div>` + B('WHAT I ATE', 2, 'pl-c1'), B('TODAY’S STORY', 4, 'pl-c4') + LN('PEOPLE I MET', 3, false, 'pl-c2')) + B('DON’T WANT TO FORGET', 2, 'pl-c5'));
+/* ===== color-in & minimalist trackers ===== */
+    case 'steps2': { const bk = ['<1000', '2000', '3000', '4000', '5000', '6000', '7000', '8000', '9000', '10k', '11k', '12k+']; return page('step tracker', [], K([['Goal', 2], 'Start', 'End']) + mstrip() + H('Tap the box for how many steps you walked. The bar fills up to it.') + `<div class="pl-steps" contenteditable="false"><div class="pl-sth"><i></i>${bk.map(b => `<i>${b}</i>`).join('')}</div>${[...Array(m1.getDate())].map((_, i) => `<div class="pl-str"><b>${i + 1}</b><span class="pl-stars pl-bars">${'<span class="pl-star" data-on="false"></span>'.repeat(12)}</span></div>`).join('')}</div>`); }
+    case 'plants30': return page('30 day challenge · eat more plants', [], K([['Goal', 2, 'f'], 'Start', 'End']) + H('Tap a fruit or vegetable to color it in for every day you hit your goal.') + cgrid('🎃 🍓 🥦 🥭 🍌 🌽 🥬 🍉 🍒 🍎 🍋 🍇 🍍 🥒 🍅 🧅 🍋 🥕 🍅 🍆 🍈 🫑 🥬 🧄 🫐 🥗 🍐 🥝 🥑 🍠'.split(' '), 'pl-cg5', 1) + `<p class="pl-quote" contenteditable="false">eating well is a form of self-respect</p>` + LN('CELEBRATE', 2));
+    case 'flowerhabit': return page('habit tracker', [], mstrip() + H('Give each color a habit in the key. Tap a flower once for each habit you kept that day; tap again to change the color.') + cgrid([...Array(m1.getDate())].map(() => '🌸'), 'pl-cg6') + ckey(['No caffeine', '10 min meditation', '5 min head massage', '15 min drawing', 'Nature walk', 'Journal before bed']));
+    case 'catmood': return page('mood tracker', [], mstrip() + H('Tap a cat to color today’s mood.') + cgrid([...Array(m1.getDate())].map((_, i) => ['🐈', '🐱', '😺', '🐈‍⬛', '😸'][i % 5]), 'pl-cg5') + ckey(['Calm, content', 'Happy, enthusiastic', 'Irritable, moody', 'Tired, exhausted', 'Depressed, low', 'Stressed, anxious']));
+    case 'wildmood': return page('mood tracker', [], mstrip() + H('Tap a flower to color today’s mood. Write your own key.') + cgrid([...Array(m1.getDate())].map((_, i) => ['🌷', '🌸', '🌼', '🌺', '🌻', '🪻'][i % 6]), 'pl-cg6 pl-cgwild') + ckey(['', '', '', '', '', '']));
+    case 'connect30': return page('more real-world connection', [], K([['Goal', 2, 'f'], 'Start', 'End']) + H('Every connection you make, color a flower in the bottle using the key.') + `<div class="pl-bottle"><div class="pl-cork" contenteditable="false"></div>${cgrid([...Array(60)].map(() => '✿'), 'pl-cg10 pl-cgflat', 0)}</div>` + ckey(['No phone in bed', 'Hang with friends', 'Talk to a stranger', 'No-screens dinner', 'Ask for or offer help', 'Quality time with loved ones']));
+    case 'winsjar': { const n = winsIn(ymd(m0), ymd(m1)).length; return page('small wins tracker', [], K([['Goal', 2, 'f'], 'Start', 'End']) + H(n ? `${n} win${n > 1 ? 's' : ''} you logged this month ${n > 1 ? 'are' : 'is'} already colored in. Keep going!` : 'Color a dot for every small win. Wins you log on your wall color in automatically when you make this page.') + `<div class="pl-jar2"><div class="pl-jlid" contenteditable="false"></div><div class="pl-cgrid pl-cgflat pl-cg12" contenteditable="false">${[...Array(120)].map((_, i) => `<span class="pl-ck" data-v="${i < n ? 1 : 0}"></span>`).join('')}</div></div>` + ckey(['A win I logged', 'Laundry done', 'Made my bed', 'Watered plants', 'Took my vitamins', 'Fridge clean']) + LN('CELEBRATE', 2)); }
+    case 'sleepstars': return page('sleep tracker', [], mstrip() + H('Tap a star to color how many hours you slept.') + cgrid([...Array(m1.getDate())].map(() => '★'), 'pl-cg7 pl-cgstar', 1) + ckey(['Under 5 hours', '5–6 hours', '6–7 hours', '7–8 hours', '8–9 hours', '9+ hours']));
+    case 'yearpixels': case 'moodyear': { const y = d.getFullYear(), mood = key === 'moodyear';
+      const grid = `<div class="pl-pix" contenteditable="false"><span></span>${'JFMAMJJASOND'.split('').map(m => `<i>${m}</i>`).join('')}${[...Array(31)].map((_, r) => `<i>${r + 1}</i>${[...Array(12)].map((_, c) => new Date(y, c + 1, 0).getDate() > r ? '<span class="pl-ck" data-v="0"></span>' : '<span class="pl-pixno"></span>').join('')}`).join('')}</div>`;
+      return page(mood ? 'mood tracker' : 'rate my day', [String(y)], H('One square a day for the whole year. Tap to color it.') + `<div class="pl-pixwrap">${grid}${ckey(mood ? ['Calm, relaxed', 'Happy, enthusiastic', 'Energetic, motivated', 'Tired, stressed', 'Anxious, insecure', 'Low, sad'] : ['Off the charts good!', '★★★★', '★★★', '★★', '★', 'Off the charts bad'])}</div>`); }
+    case 'ringtrack': return page('exercise tracker', [], K([['Goal', 4, 'f']]) + mstrip() + H('Tap a day on the ring to color what you did.') + `<div class="pl-ringwrap" contenteditable="false"><span class="pl-rcenter">🏃</span><div class="pl-rg0">${[...Array(m1.getDate())].map((_, i) => `<span class="pl-seg pl-r${i} pl-ck" data-v="0"><b>${i + 1}</b></span>`).join('')}</div></div>` + ckey(['Yoga', 'Run', 'Bike ride', 'Home workout', 'Gym', 'Walk']));
+    case 'circhabits': return page('habit tracker', [], K([['Goal', 4, 'f']]) + mstrip() + H('Each ring is a habit. Tap a day to fill it in.') + `<div class="pl-cols"><div>${[1, 2, 3, 4].map(r => `<div class="pl-hring pl-hr${r}"><span class="pl-hrsw" contenteditable="false"></span>${f1}</div>`).join('')}${B('NOTES', 3)}</div><div class="pl-ringwrap" contenteditable="false"><span class="pl-rcenter">✨</span>${[1, 2, 3, 4].map(r => `<div class="pl-rg${r}">${[...Array(m1.getDate())].map((_, i) => `<span class="pl-seg pl-r${i}" data-on="false">${r === 1 ? `<b>${i + 1}</b>` : ''}</span>`).join('')}</div>`).join('')}</div></div>`);
+    case 'habitstrips': return page('habit tracker', [], mstrip() + `<div class="pl-strips">${[...Array(7)].map((_, h) => `<div class="pl-strip ${C5[h % 5]}">${f1}<span class="pl-dots pl-numdots" contenteditable="false">${[...Array(m1.getDate())].map((_, i) => `<span class="pl-dot pl-num" data-on="false">${i + 1}</span>`).join('')}</span></div>`).join('')}</div>`);
+    case 'mwellcal': { let c = startOfWeek(m0); const cells = []; while (c <= m1 || cells.length % 7) { const inM = c.getMonth() === d.getMonth(); cells.push(inM ? `<div class="pl-day"><span class="pl-dn" contenteditable="false">${c.getDate()}</span><div class="pl-f pl-dc"><br></div><span class="pl-emos" contenteditable="false">${['🩸', '🏃', '🎯', '🌿'].map(e => `<span class="pl-emo" data-on="false">${e}</span>`).join('')}</span></div>` : '<div class="pl-day pl-out" contenteditable="false"></div>'); c = addDays(c, 1); }
+      return page('monthly · personal', [], mstrip() + `<div class="pl-cols pl-cols-38"><div>${K([['Goal', 4]], 4)}${TD('ACTIONS', 8)}</div><div><div class="pl-cal"><div class="pl-calh" contenteditable="false">${wk.map(x => `<span>${up(DF({ weekday: 'short' }).format(x))}</span>`).join('')}</div><div class="pl-calg">${cells.join('')}</div></div><p class="pl-hint" contenteditable="false">Key: 🩸 period · 🏃 movement · 🎯 wellbeing goal · 🌿 time in nature. Tap an icon to light it up.</p></div></div>` + R(TD('PRIORITIES', 4, 'pl-c1'), TD('TO DO', 4, 'pl-c2'))); }
+    case 'wellbeing': { const rows = [['☀ wake up', 'f'], ['☾ bed time', 'f'], ['sleep hours', 'f'], ['mood', 'f'], ['energy', 'e'], ['water', 'w6'], ['exercise', 'f'], ['vitamins', 'o'], ['meditation', 'f'], ['a treat', 'f']];
+      const cellK = k => k === 'f' ? f1 : k === 'e' ? `<span class="pl-cell" contenteditable="false">${stars(5, 'pl-circ pl-tiny')}</span>` : k === 'w6' ? `<span class="pl-cell" contenteditable="false">${dots(6, 'pl-cup pl-tinycup')}</span>` : `<span class="pl-cell" contenteditable="false">${dots(1)}</span>`;
+      return page('weekly wellbeing', [`WEEK OF ${up(md(s0))}`], `<div class="pl-scroll"><div class="pl-tbl pl-gx" data-cols="g21111111"><div class="pl-tr pl-th" contenteditable="false"><span></span>${wk.map(x => `<span>${DF({ weekday: 'narrow' }).format(x)}</span>`).join('')}</div>${rows.map(([l, k]) => `<div class="pl-tr"><span class="pl-tm" contenteditable="false">${l}</span>${wk.map(() => cellK(k)).join('')}</div>`).join('')}</div></div>` + R(TD('ONCE A WEEK', 3, 'pl-c1', ['Bath', 'Call home', 'Clean sheets']), B('NOTES', 2))); }
+    case 'idealday': return page('ideal day · routine', [up(md(d))], [['🌅', 'morning'], ['🌞', 'day time'], ['🌙', 'evening']].map(([e, t], i) => `<div class="pl-ideal ${C5[i + 2]}"><div class="pl-idl" contenteditable="false"><span>${e}</span><b>${t}</b></div><div>${S2('HABITS', `<div class="pl-habits"><div class="pl-hab pl-habh" contenteditable="false"><span>HABIT</span><span class="pl-dots">${wk.map(x => `<i>${DF({ weekday: 'narrow' }).format(x)}</i>`).join('')}</span></div>${[...Array(6)].map(() => `<div class="pl-hab">${f1}${dots(7, 'pl-dot pl-sqr')}</div>`).join('')}</div>`)}</div></div>`).join(''));
+    case 'time15': { const col = hs => hs.map(h => `<div class="pl-t15"><span class="pl-t15h" contenteditable="false"><b>${String(h > 12 ? h - 12 : h).padStart(2, '0')}</b>${h >= 12 ? 'pm' : 'am'}</span><div class="pl-t15q">${[':00', ':15', ':30', ':45'].map(q => `<div class="pl-t15r"><i class="pl-tm" contenteditable="false">${q}</i>${f1}</div>`).join('')}</div></div>`).join('');
+      return page('15 min time tracker', [up(md(d))], `<div class="pl-cols pl-cols-even"><div>${col([5, 6, 7, 8, 9, 10, 11, 12])}</div><div>${col([13, 14, 15, 16, 17, 18, 19, 20, 21])}</div></div>`); }
+    case 'monthcover': return page(`${String(d.getMonth() + 1).padStart(2, '0')}.`, [], `<div class="pl-mcover"><b class="pl-mcname" contenteditable="false">${esc(DF({ month: 'long' }).format(d).toLowerCase())}</b>${mini(d, true, { title: false })}</div>` + R(`<div class="pl-vlab"><span class="pl-vtxt" contenteditable="false">birthdays</span>${lines(8, false)}</div>`, `<div class="pl-vlab"><span class="pl-vtxt" contenteditable="false">key dates</span>${lines(8, false)}</div>`));
+    case 'qoverview': { const q0 = new Date(d.getFullYear(), Math.floor(d.getMonth() / 3) * 3, 1); return page('quarterly overview', [`Q${Math.floor(d.getMonth() / 3) + 1} ${d.getFullYear()}`], `<div class="pl-p3">${[0, 1, 2].map(i => { const m = new Date(q0.getFullYear(), q0.getMonth() + i, 1); return `<div>${mini(m)}${lines(9, false)}</div>`; }).join('')}</div>`); }
+    case 'thisweek': return page('this week', [`${up(md(wk[0]))} – ${up(md(wk[6]))}`], `<div class="pl-scroll"><div class="pl-wk7 pl-wk7s">${wk.map(x => `<div class="pl-wcol2"><div class="pl-wh2" contenteditable="false">${go('day2', x, `<b>${esc(DF({ weekday: 'narrow' }).format(x))}</b><span>${x.getDate()}</span>`)}</div><div class="pl-f pl-area pl-wtall pl-wmid"><p><br></p></div></div>`).join('')}</div>` + `<div class="pl-cols pl-cols-38"><div>${mini(d)}${TD('PRIORITIES', 3)}</div><div>${TD('TO DO', 5)}${R(B('THIS WEEK’S FOCUS', 3), S2('HABIT TRACKER', `<div class="pl-habits">${[...Array(6)].map(() => `<div class="pl-hab">${f1}${dots(7)}</div>`).join('')}</div>`))}</div></div>` + R(S2('MEALS', `<div class="pl-lines">${wk.map(x => `<div class="pl-ln"><span class="pl-n" contenteditable="false">${DF({ weekday: 'narrow' }).format(x)}</span>${f1}</div>`).join('')}</div>`), TD('GROCERY LIST', 6) + B('NOTES', 2)));
+    case 'reflect2': return page('daily reflection', [up(md(d))], `<div class="pl-ref"><span class="pl-vtxt2" contenteditable="false">morning</span><div>${LN('I AM SO DEEPLY GRATEFUL FOR', 3)}${LN('WHAT IS THE MOST IMPORTANT THING TO ACCOMPLISH TODAY?', 2)}${LN('WHAT QUALITY DO I MOST WANT TO EMBODY TODAY?', 2)}</div></div><div class="pl-ref"><span class="pl-vtxt2" contenteditable="false">evening</span><div>${LN('WHAT FELT GOOD TODAY?', 3)}${LN('WHAT CAN I DO TO MAKE TOMORROW A GOOD DAY?', 3, true)}</div></div>`);
+    case 'softpage': return page('a soft page for hard days', [up(md(d))], B('WHAT IS MAKING TODAY FEEL SO TOUGH?', 3, 'pl-c2') + R(LN('HAVE YOU FELT THIS WAY BEFORE?', 4), LN('WHAT HELPED THEN? CAN YOU TRY THAT NOW?', 4)) + B('WHAT WORDS OF KINDNESS WOULD YOU OFFER A CHILD OR BEST FRIEND? OFFER THEM TO YOURSELF.', 3, 'pl-c3') + TD('ONE SMALL COMFORTING THING I CAN DO NOW', 3, 'pl-c4', ['Drink some water', 'Step outside for 5 minutes', 'Text someone I trust']));
+    case 'calm': return page('calm', [], R(S2('5 · 4 · 3 · 2 · 1 GROUNDING', `<div class="pl-lines">${[['5', 'things I can see'], ['4', 'things I can hear'], ['3', 'things I can feel'], ['2', 'things I can smell'], ['1', 'thing I can taste']].map(([n, t]) => `<div class="pl-ln"><span class="pl-n" contenteditable="false">${n}</span><span class="pl-cl" contenteditable="false">${t}</span>${f1}</div>`).join('')}</div>`, 'pl-c3') + S2('FINGER TRACING', `<div class="pl-wave" contenteditable="false"><span></span><em>trace the line slowly as you breathe in and out</em></div>`, 'pl-c4'),
+        S2('BOX BREATHING', `<div class="pl-boxbr" contenteditable="false"><span class="pl-bbsq"><i>in 4</i><i>hold 4</i><i>out 4</i><i>hold 4</i></span><span class="pl-cl">ROUNDS</span>${dots(8)}</div>`, 'pl-c5') + S2('WHAT I CAN CONTROL', todo(4), 'pl-c1') + S2('WHAT I CAN LET GO OF', todo(3), 'pl-c2')));
+    case 'dailydozen': { const DZ = [['🫘', 'Beans', 3], ['🫐', 'Berries', 1], ['🍎', 'Other fruits', 3], ['🥦', 'Cruciferous veg', 1], ['🥬', 'Greens', 2], ['🥕', 'Other veg', 2], ['🌾', 'Flaxseeds', 1], ['🥜', 'Nuts & seeds', 1], ['🌿', 'Herbs & spices', 1], ['🍞', 'Whole grains', 3], ['💧', 'Beverages', 5], ['🏃', 'Exercise', 1]];
+      return page('daily dozen', [`WEEK OF ${up(md(s0))}`], `<div class="pl-scroll"><div class="pl-tbl pl-gx" data-cols="g31111111"><div class="pl-tr pl-th" contenteditable="false"><span>SERVINGS</span>${wk.map(x => `<span>${DF({ weekday: 'narrow' }).format(x)}</span>`).join('')}</div>${DZ.map(([e, l, n]) => `<div class="pl-tr"><span class="pl-tm" contenteditable="false">${e} ${l} · ${n}</span>${wk.map(() => `<span class="pl-cell" contenteditable="false">${dots(n, 'pl-dot pl-sqr2 pl-dz')}</span>`).join('')}</div>`).join('')}</div></div>`); }
+    case 'mealsweek': return page('meals', [`WEEK OF ${up(md(s0))}`], `<div class="pl-scroll">${T('', 'Meal|' + wk.map(x => DF({ weekday: 'short' }).format(x)).join('|'), 0, { rows: ['Breakfast', 'Lunch', 'Dinner', 'Snacks'] })}</div>` + R(TD('GROCERY LIST', 10), B('NOTES', 4)));
+    case 'workouts': { const EX = [['🦵', 'Alternating lunges', '12 reps · 2 sets'], ['🏋️', 'Squats', '10 reps · 2 sets'], ['💪', 'Dumbbell lunges', '15 reps · 3 sets'], ['🧘', 'Hip raises', '12 reps · 4 sets'], ['🐴', 'Donkey kicks', '25 reps · 3 sets'], ['🔥', 'Fire hydrants', '15 reps · 2 sets'], ['⚡', 'Jump squats', '20 reps'], ['🐦', 'Bird dog', '12 reps each side'], ['🧱', 'Plank', '30 sec · 2 sets']];
+      return page('exercises', ['HOME WORKOUT'], `<div class="pl-ex">${EX.map(([e, n, r]) => `<div class="pl-excard"><span class="pl-exi" contenteditable="false">${e}</span><div class="pl-f pl-1 pl-exn"><p>${n}</p></div><div class="pl-f pl-1 pl-exr"><p>${r}</p></div><span class="pl-cell" contenteditable="false">${dots(4, 'pl-dot pl-sqr2')}</span></div>`).join('')}</div>` + H('Tap a box for each set you finish. Change any exercise by typing over it.')); }
+    case 'fitjourney': return page('fitness journey', [], K(['Start date', 'To date', ['Goal', 2]]) + `<div class="pl-cols pl-cols-even"><div>${T('', 'Measure|Start|Now|Goal', 0, { rows: ['Weight', 'Chest', 'Waist', 'Hips', 'Arm', 'Thigh', 'Body fat %', 'Resting heart rate'] })}</div><div class="pl-body"><span class="pl-bfig" contenteditable="false">🧍</span>${LN('HOW I FEEL', 3)}</div></div>` + R(B('NON-SCALE VICTORIES', 2, 'pl-c4'), B('CELEBRATE', 2, 'pl-c1')));
+    case 'save52': return page('52-week savings challenge', [String(d.getFullYear())], K(['Base amount', 'Goal', 'Saved so far', 'Finish by']) + H('Week 1 save 1 × your base amount, week 2 save 2 ×, and so on. Tap the pig when you’ve saved that week.') + `<div class="pl-coins pl-pigs" contenteditable="false">${[...Array(52)].map((_, i) => `<span class="pl-coin" data-on="false">🐷<i>${i + 1}</i></span>`).join('')}</div>`);
+    case 'weeksched': { const hrs = []; for (let h = 6; h <= 22; h++) hrs.push(h);
+      return page('weekly schedule', [`WEEK OF ${up(md(s0))}`], H('Tap a block to color it by type (key below).') + `<div class="pl-scroll"><div class="pl-wsg" contenteditable="false"><span></span>${wk.map(x => `<b>${esc(DF({ weekday: 'short' }).format(x))}</b>`).join('')}${hrs.map(h => `<i>${h > 12 ? h - 12 : h}${h >= 12 ? 'p' : 'a'}</i>${wk.map(() => '<span class="pl-tb" data-v="0"></span>').join('')}`).join('')}</div></div><div class="pl-tbkey" contenteditable="false">${['Deep work', 'Meetings', 'Admin', 'Break', 'Personal', 'Learning'].map((t, i) => `<span><span class="pl-tb" data-v="${i + 1}"></span>${t}</span>`).join('')}</div>` + B('NOTES', 2)); }
+    case 'today2': { const hrs = []; for (let h = 7; h <= 21; h++) hrs.push(h);
+      return page('today', [up(md(d))], `<div class="pl-cols pl-cols-even"><div>${S2('SCHEDULE', `<div class="pl-lines">${hrs.map(h => `<div class="pl-ln"><span class="pl-n pl-nw" contenteditable="false">${h > 12 ? h - 12 : h}:00${h >= 12 ? 'p' : 'a'}</span>${f1}</div>`).join('')}</div>`)}</div><div>${S2('PRIORITIES', `<ul class="checklist pl-todo pl-f pl-top3"><li data-checked="false"><br></li><li data-checked="false"><br></li><li data-checked="false"><br></li></ul>`)}${TD('TO DO', 8)}</div></div>` + R(S2('MEALS', `<div class="pl-lines">${['B', 'L', 'D', 'S'].map(x => `<div class="pl-ln"><span class="pl-n" contenteditable="false">${x}</span>${f1}</div>`).join('')}</div>`) + S2('WATER', dots(8, 'pl-cup')), B('WELLBEING', 4)));
+    }
     /* ===== work ===== */
     case 'inbox': return page('INBOX TRACKER', [up(md(d))], T('', 'From:2|Subject:3|Received|Action|Priority:pri|Done:c', 12) + R(K([['Inbox count', 2], ['Replied today', 2]], 2), B('FOLLOW UP LATER', 2, 'pl-c1')));
     case 'brainstorm': return page('BRAINSTORMING', [up(md(d))], K([['Topic', 4]]) + `<div class="pl-bstorm"><div class="pl-bcenter"><div class="pl-f pl-1"><br></div></div>${[...Array(6)].map((_, i) => `<div class="pl-bidea ${C5[i % 5]}">${area(2)}</div>`).join('')}</div>` + R(TD('BEST IDEAS', 4, 'pl-c4'), TD('NEXT STEPS', 4, 'pl-c1')));
@@ -2882,7 +3059,7 @@ function libHTML(key, d0, theme) {
 TEMPLATES.push(...XTRA_TPL, ...LIB_TPL);
 TEMPLATES.unshift(...CORE_TPL);
 const TPL = Object.fromEntries(TEMPLATES.map(t => [t.key, t]));
-const TPL_SUB = { pm: 'Project management', personal: 'Personal', well: 'Self-care & wellness', edu: 'Education', money: 'Finance', budget: 'Budget', vision: 'Vision', plan: 'Planning', house: 'Household', travel: 'Travel', logs: 'Lists & logs', mind: 'Mindset', paper: 'Note paper' };
+const TPL_SUB = { pm: 'Project management', personal: 'Personal', well: 'Self-care & wellness', track: 'Trackers', edu: 'Education', money: 'Finance', budget: 'Budget', vision: 'Vision', plan: 'Planning', house: 'Household', travel: 'Travel', logs: 'Lists & logs', mind: 'Mindset', paper: 'Note paper' };
 const TPL_CORE = { work: 'Everyday work', planner: 'Planner pages', journal: 'Journal pages', other: 'General' };
 const PROMPTS = [
   'What is one thing you did this week that past-you would be impressed by?', 'When did you feel most like yourself today?', 'What problem are you quietly proud of solving?',
@@ -4540,7 +4717,7 @@ function summaryHTML(label, list, opt) {
 /* Planner pages: structured, printable-planner layouts. Labels are locked (contenteditable=false);
    every .pl-f is a field you type into. Dots, stars and cups are tap-to-toggle. */
 // [key, name, paper, tint, accent]: paper/tint/accent are only used to draw the swatch
-const PL_THEMES = [['blush', 'Blush', '#FBF7F5', '#E7D3CD', '#B98B82'], ['rose', 'Rose', '#FDF6F7', '#F0CFD6', '#C46A82'], ['peach', 'Peach', '#FEF8F3', '#F5D7C3', '#D08A5C'], ['butter', 'Butter', '#FFFCF1', '#F2E4B5', '#BC9A35'], ['sage', 'Sage', '#F8FAF6', '#CFDFCC', '#7C9A79'], ['mint', 'Mint', '#F5FBF8', '#C7E6D8', '#4F9C7D'], ['teal', 'Teal', '#F7FBFA', '#BFDCD7', '#0F6E6A'], ['sky', 'Sky', '#F7FAFC', '#CDDEEC', '#6F94B4'], ['lavender', 'Lavender', '#F9F8FC', '#DAD1EC', '#8E7DB8'], ['sand', 'Sand', '#FBF9F5', '#DFD3C2', '#A48E6E'], ['ivory', 'Ivory', '#FFFFFF', '#E6E2DC', '#8F8880'], ['pastel', 'Pastel', '#FFFFFF', '#CDEBF5', '#F4A9C4'], ['night', 'Night', '#23272B', '#3C444A', '#D9A38F'], ['rainbow', 'Pastel rainbow', '#FFFDF9', '#F9D3E0', '#E58FB1'], ['white', 'White', '#FFFFFF', '#E7E7E7', '#555555'], ['midnight', 'Midnight', '#121316', '#2A2D33', '#8FA6FF'], ['pink', 'Pink', '#FFF8FA', '#F8CFE0', '#D9538A'], ['matcha', 'Matcha', '#FAFBF5', '#D5E3C3', '#6E8F4E'], ['boho', 'Boho', '#FBF6EF', '#E9D5C1', '#B5714B']];
+const PL_THEMES = [['blush', 'Blush', '#FBF7F5', '#E7D3CD', '#B98B82'], ['rose', 'Rose', '#FDF6F7', '#F0CFD6', '#C46A82'], ['peach', 'Peach', '#FEF8F3', '#F5D7C3', '#D08A5C'], ['butter', 'Butter', '#FFFCF1', '#F2E4B5', '#BC9A35'], ['sage', 'Sage', '#F8FAF6', '#CFDFCC', '#7C9A79'], ['mint', 'Mint', '#F5FBF8', '#C7E6D8', '#4F9C7D'], ['teal', 'Teal', '#F7FBFA', '#BFDCD7', '#0F6E6A'], ['sky', 'Sky', '#F7FAFC', '#CDDEEC', '#6F94B4'], ['lavender', 'Lavender', '#F9F8FC', '#DAD1EC', '#8E7DB8'], ['sand', 'Sand', '#FBF9F5', '#DFD3C2', '#A48E6E'], ['ivory', 'Ivory', '#FFFFFF', '#E6E2DC', '#8F8880'], ['pastel', 'Pastel', '#FFFFFF', '#CDEBF5', '#F4A9C4'], ['night', 'Night', '#23272B', '#3C444A', '#D9A38F'], ['rainbow', 'Pastel rainbow', '#FFFDF9', '#F9D3E0', '#E58FB1'], ['white', 'White', '#FFFFFF', '#E7E7E7', '#555555'], ['midnight', 'Midnight', '#121316', '#2A2D33', '#8FA6FF'], ['pink', 'Pink', '#FFF8FA', '#F8CFE0', '#D9538A'], ['matcha', 'Matcha', '#FAFBF5', '#D5E3C3', '#6E8F4E'], ['boho', 'Boho', '#FBF6EF', '#E9D5C1', '#B5714B'], ['minimal', 'Minimal', '#FFFFFF', '#EEEDEB', '#E9A6B8']];
 const isPlTheme = v => typeof v === 'string' && (PL_THEMES.some(x => x[0] === v) || /^#[0-9a-f]{6}$/i.test(v));
 const plTheme = (nbId, fallback) => { const nb = nbId && S.notebooks.find(n => n.id === nbId); if (nb && isPlTheme(nb.plTheme)) return nb.plTheme; if (fallback) return fallback; try { const t = localStorage.getItem('bw-pl-theme'); return isPlTheme(t) ? t : 'blush'; } catch (e) { return 'blush'; } };
 const plAttrs = v => v && v[0] === '#' ? `data-pltheme="custom" data-plc="${v.toLowerCase()}"` : `data-pltheme="${isPlTheme(v) ? v : 'blush'}"`;
@@ -4979,7 +5156,7 @@ const tplTitle = (key, dateKey) => {
   const d = parseYmd(dateKey || todayKey()), lbl = TPL[key] ? TPL[key].label : 'New page';
   if (key === 'pmapp') return 'New project';
   if (CORE_KEYS.includes(key)) return coreTitle(key, coreDate(key, d));
-  if (LIB_KEYS.includes(key)) { const t = { moodlog: 'm', social: 'm', bills: 'm', expense: 'm', grocery: 'm', petbud: 'm', nospend: 'm', visionref: 'm', mgoals: 'm', study: 'w', selfcheck: 'w', fitness: 'w', weekov: 'w', familycal: 'w', chores: 'w', weektravel: 'w', reflect: 'd', selfdisc: 'd', priority: 'd', timeline: 'd', lesson: 'd', inbox: 'd', brainstorm: 'd', tjournal: 'd', paycheck: 'd', swot: 'd', grolist: 'd', vboard: 'y', wordyear: 'y', fiveyear: 'y' }[key]; return t === 'w' ? `${lbl} · Week of ${DF({ month: 'short', day: 'numeric' }).format(startOfWeek(d))}` : t === 'm' ? `${lbl} · ${fmtMonthYear(d)}` : t === 'y' ? `${lbl} · ${d.getFullYear()}` : t === 'd' ? `${lbl} · ${fmtShortK(ymd(d))}` : lbl; }
+  if (LIB_KEYS.includes(key)) { const t = { moodlog: 'm', social: 'm', bills: 'm', expense: 'm', grocery: 'm', petbud: 'm', nospend: 'm', visionref: 'm', mgoals: 'm', study: 'w', selfcheck: 'w', fitness: 'w', weekov: 'w', familycal: 'w', chores: 'w', weektravel: 'w', reflect: 'd', selfdisc: 'd', priority: 'd', timeline: 'd', lesson: 'd', inbox: 'd', brainstorm: 'd', tjournal: 'd', paycheck: 'd', swot: 'd', grolist: 'd', vboard: 'y', wordyear: 'y', fiveyear: 'y', steps2: 'm', flowerhabit: 'm', catmood: 'm', wildmood: 'm', winsjar: 'm', sleepstars: 'm', ringtrack: 'm', circhabits: 'm', habitstrips: 'm', mwellcal: 'm', monthcover: 'm', yearpixels: 'y', moodyear: 'y', save52: 'y', wellbeing: 'w', dailydozen: 'w', mealsweek: 'w', thisweek: 'w', weeksched: 'w', idealday: 'w', reflect2: 'd', today2: 'd', time15: 'd', softpage: 'd', qoverview: 'q' }[key]; return t === 'w' ? `${lbl} · Week of ${DF({ month: 'short', day: 'numeric' }).format(startOfWeek(d))}` : t === 'm' ? `${lbl} · ${fmtMonthYear(d)}` : t === 'y' ? `${lbl} · ${d.getFullYear()}` : t === 'q' ? `${lbl} · Q${Math.floor(d.getMonth() / 3) + 1} ${d.getFullYear()}` : t === 'd' ? `${lbl} · ${fmtShortK(ymd(d))}` : lbl; }
   if (XTRA_KEYS.includes(key)) { const t = XTRA_TITLE[key]; return t === 'w' ? `${lbl} · Week of ${DF({ month: 'short', day: 'numeric' }).format(startOfWeek(d))}` : t === 'm' ? `${lbl} · ${fmtMonthYear(d)}` : t === 'y' ? `${lbl} · ${d.getFullYear()}` : t === 'q' ? `Q${Math.floor(d.getMonth() / 3) + 1} ${d.getFullYear()} plan` : t === 'd' ? `${lbl} · ${fmtShortK(ymd(d))}` : lbl; }
   if (['month', 'monthov', 'finance', 'monthref', 'habit'].includes(key)) return `${lbl} · ${fmtMonthYear(d)}`;
   if (['week', 'weekref', 'review'].includes(key)) return `${lbl} · Week of ${DF({ month: 'short', day: 'numeric' }).format(startOfWeek(d))}`;
@@ -5069,7 +5246,7 @@ function sanitize(html) {
       for (const a of [...child.attributes]) {
         if (a.name === 'class') { const v = a.value.split(/\s+/).filter(c => c === 'checklist' ? tag === 'UL' : /^pl(-[a-z0-9]+){0,3}$/.test(c)).join(' '); if (v) { child.setAttribute('class', v); continue; } }
         const keep = (tag === 'LI' && a.name === 'data-checked') || (tag === 'A' && a.name === 'href' && /^(https?:|mailto:)/i.test(a.value.trim()))
-          || (isPl && a.name === 'contenteditable' && (a.value === 'false' || a.value === 'true') && (tag === 'DIV' || tag === 'SPAN'))
+          || (isPl && a.name === 'contenteditable' && (a.value === 'false' || a.value === 'true') && /^(DIV|SPAN|P|I|B)$/.test(tag))
           || (isPl && tag === 'SPAN' && a.name === 'data-on' && (a.value === 'true' || a.value === 'false'))
           || (isPl && tag === 'SPAN' && (a.name === 'data-v' || a.name === 'data-dir') && /^-?\d{1,2}$/.test(a.value))
           || (isPl && tag === 'SPAN' && a.name === 'title' && a.value.length < 60)
@@ -5321,8 +5498,8 @@ function mountEditor() {
   body.addEventListener('input', () => { markDirty(); updateWords(); });
   body.addEventListener('paste', e => { e.preventDefault(); const t = (e.clipboardData || window.clipboardData).getData('text/plain'); document.execCommand('insertText', false, t); });
   body.addEventListener('click', e => {
-    const pm = e.target.closest('.pl .pl-pri, .pl .pl-st, .pl .pl-ty, .pl .pl-lv, .pl .pl-mood, .pl .pl-tb, .pl .pl-prog, .pl .pl-mv, .pl .pl-del, .pl .pl-add, .pl .pl-addrow');
-    if (pm && body.contains(pm) && !pm.closest('.pl-moodkey, .pl-tbkey')) { pmClick(pm, e); markDirty(); updateWords(); return; }
+    const pm = e.target.closest('.pl .pl-pri, .pl .pl-st, .pl .pl-ty, .pl .pl-lv, .pl .pl-mood, .pl .pl-tb, .pl .pl-ck, .pl .pl-prog, .pl .pl-mv, .pl .pl-del, .pl .pl-add, .pl .pl-addrow');
+    if (pm && body.contains(pm) && !pm.closest('.pl-moodkey, .pl-tbkey, .pl-keyk')) { pmClick(pm, e); markDirty(); updateWords(); return; }
     const lk = e.target.closest('.pl [data-go]');
     if (lk && body.contains(lk)) { e.preventDefault(); flushEditor(); plGo(note.notebookId, lk.dataset.go); return; }
     const cal = e.target.closest('.pl [data-cal]');
@@ -5401,7 +5578,7 @@ function mountEditor() {
     updateNotebookSidebar(); mountEditor(); toast('Page deleted');
   };
 }
-const PM_N = { 'pl-pri': 6, 'pl-st': 7, 'pl-ty': 7, 'pl-lv': 4, 'pl-mood': 6, 'pl-tb': 7 };
+const PM_N = { 'pl-pri': 6, 'pl-st': 7, 'pl-ty': 7, 'pl-lv': 4, 'pl-mood': 6, 'pl-tb': 7, 'pl-ck': 7 };
 function pmClick(el, e) {
   const k = Object.keys(PM_N).find(c => el.classList.contains(c));
   if (k) { el.dataset.v = String(((+el.dataset.v || 0) + 1) % PM_N[k]); return; }
@@ -5693,6 +5870,8 @@ function flattenPlanner(root) {
   $$('.pl-coins, .pl-envs', root).forEach(x => { const a = x.children.length, on = x.querySelectorAll('[data-on="true"]').length; const e = document.createElement('p'); e.textContent = `Done: ${on} of ${a}`; x.replaceWith(e); });
   $$('.pl-care', root).forEach(x => { const e = document.createElement('p'); e.textContent = 'Done: ' + ([...x.querySelectorAll('[data-on="true"]')].map(c => c.lastChild.textContent).join(', ') || 'none yet'); x.replaceWith(e); });
   $$('.pl-moodcal', root).forEach(x => { const n = ['', 'Great', 'Good', 'Okay', 'Low', 'Bad'], c = {}; x.querySelectorAll('.pl-mood').forEach(m => { const v = +m.dataset.v; if (v) c[n[v]] = (c[n[v]] || 0) + 1; }); const e = document.createElement('p'); e.textContent = Object.entries(c).map(([k, v]) => `${k}: ${v} days`).join(', ') || 'No moods logged yet'; x.replaceWith(e); });
+  $$('.pl-cgrid, .pl-pix, .pl-ringwrap, .pl-steps, .pl-wsg', root).forEach(x => { const all = x.querySelectorAll('.pl-ck, .pl-seg, .pl-star, .pl-tb').length, on = [...x.querySelectorAll('.pl-ck, .pl-seg, .pl-star, .pl-tb')].filter(c => (c.dataset.v && c.dataset.v !== '0') || c.dataset.on === 'true').length; const e = document.createElement('p'); e.textContent = `Filled in: ${on} of ${all}`; x.replaceWith(e); });
+  $$('.pl-mstrip, .pl-emos', root).forEach(x => x.remove());
   $$('.pl-moodkey, .pl-tbkey, .pl-tbq', root).forEach(x => x.remove());
   const CH = { 'pl-mood': ['', 'Great', 'Good', 'Okay', 'Low', 'Bad'], 'pl-pri': ['', 'Very high', 'High', 'Medium', 'Low', 'Very low'], 'pl-st': ['To do', 'Started', 'In progress', 'Review', 'Done', 'On hold', 'Canceled'], 'pl-ty': ['', 'Work', 'Meeting', 'Focus', 'Admin', 'Personal', 'Break'], 'pl-lv': ['', 'Low', 'Medium', 'High'] };
   $$('.pl-hint, .pl-mv, .pl-del, .pl-add, .pl-addrow, .pl-heat', root).forEach(x => x.remove());
@@ -6151,6 +6330,10 @@ const COVER_PRESETS = [
   { name: 'Seaside', c: { bg: { type: 'gradient', c1: '#7EC8E3', c2: '#C7EFCF' }, items: [{ type: 'emoji', text: '🚲', x: 60, y: 78, s: 22 }, { type: 'emoji', text: '🌊', x: 26, y: 84, s: 16 }, { type: 'text', text: 'My Planner', font: 'hand', x: 40, y: 22, s: 14, color: '#FFFFFF', shadow: true }] } },
   { name: 'Midnight gold', c: { bg: { type: 'color', c1: '#1B1B1B' }, items: [{ type: 'shape', shape: 'ring', x: 50, y: 48, s: 62, color: '#D9B76E', o: 70 }, { type: 'text', text: 'My Planner', font: 'display', x: 50, y: 48, s: 12, color: '#D9B76E' }, { type: 'emoji', text: '✨', x: 24, y: 18, s: 10 }, { type: 'emoji', text: '🌙', x: 78, y: 82, s: 12 }] } },
   { name: 'Matcha', c: { bg: { type: 'pattern', pattern: 'dots', c1: '#A9C29A', c2: '#EEF4E6' }, items: [{ type: 'emoji', text: '🍵', x: 50, y: 66, s: 24 }, { type: 'text', text: 'planner', font: 'display', x: 50, y: 36, s: 14, color: '#2F4A2A' }] } },
+  { name: 'Wildflowers', c: { bg: { type: 'color', c1: '#FBFAF7' }, items: [{ type: 'emoji', text: '🌼', x: 30, y: 30, s: 14 }, { type: 'emoji', text: '🌿', x: 22, y: 62, s: 20, r: -12 }, { type: 'emoji', text: '🌸', x: 70, y: 26, s: 14 }, { type: 'emoji', text: '🌿', x: 78, y: 66, s: 20, r: 14 }, { type: 'emoji', text: '🌷', x: 52, y: 80, s: 16 }, { type: 'text', text: 'MY LIFE planner', font: 'sans', x: 52, y: 48, s: 8, color: '#555555' }] } },
+  { name: 'Plant lover', c: { bg: { type: 'color', c1: '#F7F5F0' }, items: [{ type: 'emoji', text: '🌿', x: 22, y: 20, s: 22 }, { type: 'emoji', text: '🌿', x: 50, y: 20, s: 22 }, { type: 'emoji', text: '🌿', x: 78, y: 20, s: 22 }, { type: 'emoji', text: '🌿', x: 22, y: 80, s: 22 }, { type: 'emoji', text: '🌿', x: 50, y: 80, s: 22 }, { type: 'emoji', text: '🌿', x: 78, y: 80, s: 22 }, { type: 'text', text: 'plant lover', font: 'sans', x: 50, y: 50, s: 9, color: '#222222' }] } },
+  { name: 'Flourishing', c: { bg: { type: 'color', c1: '#FFFFFF' }, items: [{ type: 'text', text: '20', font: 'sans', x: 50, y: 34, s: 22, color: '#9A9A9A' }, { type: 'text', text: '27', font: 'sans', x: 50, y: 56, s: 22, color: '#9A9A9A' }, { type: 'text', text: 'a year of flourishing', font: 'hand', x: 50, y: 76, s: 7, color: '#555555' }] } },
+  { name: 'Explore', c: { bg: { type: 'color', c1: '#F4F1EA' }, items: [{ type: 'emoji', text: '🗺️', x: 50, y: 40, s: 40, o: 45 }, { type: 'text', text: 'explore', font: 'sans', x: 50, y: 72, s: 11, color: '#333333' }, { type: 'emoji', text: '✈️', x: 78, y: 18, s: 12 }] } },
   { name: 'Boho', c: { bg: { type: 'gradient', c1: '#E9C9A8', c2: '#B5714B' }, items: [{ type: 'shape', shape: 'circle', x: 70, y: 30, s: 30, color: '#F6E3CF', o: 80 }, { type: 'emoji', text: '🌾', x: 26, y: 74, s: 24, r: -10 }, { type: 'text', text: 'My Planner', font: 'hand', x: 46, y: 50, s: 15, color: '#3E2A1F' }] } },
 ];
 const COVER_PATTERNS = ['dots', 'grid', 'lines', 'stripes', 'bricks', 'waves', 'checks', 'hearts'];

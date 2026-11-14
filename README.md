@@ -45,6 +45,10 @@ In a Planner notebook, start from **Planner index**. Every link opens that page 
 
 Template library categories: Personal, Self-care, Education, Finance, Budget, Vision, Planning, Household, Work and Travel, plus note paper. Six more page themes: Pastel rainbow, White, Midnight, Pink, Matcha and Boho. Add emoji stickers to any page from the toolbar, and start a notebook cover from one of ten ready-made covers.
 
+### Color-in trackers and minimalist pages
+A **Trackers** group of hand-drawn-style pages you colour in by tapping: step bars, eat-more-plants, flower habits, cat and wildflower moods, a real-world connection bottle, a small wins jar (wins you logged this month fill in on their own), sleep stars, year in pixels, a whole-year mood grid, exercise and habit rings, habit strips, and a monthly wellbeing calendar. Tap a cell again to move to the next colour, and type your own labels in the key.
+There are also minimalist pages: weekly wellbeing, ideal day routine, morning and evening reflection, a soft page for hard days, a calm page, daily dozen, home workout cards, fitness journey, 15-minute time tracker, month cover, quarterly overview, this week, today, colour-block weekly schedule, weekly meals and a 52-week savings challenge. Pick the **Minimal** page theme for the airy white look, and try the new Wildflowers, Plant lover, Flourishing and Explore covers.
+
 ### Project manager (Work notebook template)
 In a Work notebook, pick **Project manager (automated)** under Project management. The page is the project: enter each task once (owner, phase, status, priority, start, due, progress, cost, repeat) and the page's tabs update by themselves:
 - **Dashboard:** progress ring, tasks done, overdue, due this week, days left, status donut, priority and person-in-charge charts, budget vs expenses, overdue / today / coming up lists, a month calendar and a tasks-per-day chart.
