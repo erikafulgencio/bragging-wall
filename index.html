@@ -2214,7 +2214,10 @@ body.side-anim .app { transition: grid-template-columns .28s var(--ease); }
 @media (max-width: 700px) { .pj-kpis, .pj-grid, .pj-grid-cal, .pj-matrix { grid-template-columns: 1fr; } .pj-gantt { grid-template-columns: 150px minmax(0, 1fr); } .pj-glh, .pj-gl { grid-template-columns: 1fr; } .pj-glh span, .pj-gl em { display: none; } .pj-calh, .pj-calg { grid-template-columns: repeat(7, minmax(0, 1fr)); } .pj-wk, .pj-wkh { display: none; } .pj-cd { min-height: 64px; padding: 2px; } .pj-chip { font-size: .58rem; padding: 1px 3px; } }
 /* Template picker */
 .tpl-pick { display: flex; flex-direction: column; gap: 12px; }
-.tpl-sub { margin-top: 10px; }
+.tpl-sub { margin-top: 10px; scroll-margin-top: 8px; }
+.tpl-find { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 12px; padding: 0 12px; background: var(--card, #fff); } .tpl-find input { flex: 1; border: 0; background: transparent; padding: 10px 0; font: inherit; outline: none; min-width: 0; color: inherit; }
+.tpl-find:focus-within { border-color: var(--accent, #0f766e); } .tpl-none { color: var(--muted); text-align: center; padding: 20px 0; }
+.tpl-jump { display: flex; flex-wrap: wrap; gap: 6px; } .tpl-jb { cursor: pointer; padding: 5px 11px; border: 1px solid var(--line); border-radius: 99px; font: inherit; font-size: .8rem; background: var(--surface-solid); color: inherit; } .tpl-jb:hover { border-color: var(--accent, #0f766e); }
 .tpl-group { display: flex; align-items: center; gap: 6px; font: 600 .78rem var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-top: 4px; }
 .tpl-hint { display: flex; gap: 8px; align-items: center; font-size: .85rem; color: var(--muted); margin: -2px 0 0; }
 .tpl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; }
@@ -5197,11 +5200,22 @@ function templatePicker(src, onPick, first = false) {
     body: `<div class="tpl-pick">
       ${creating ? `<p class="tpl-hint">${icon('info', 'sm')}Your notebook is created when you pick a page. Cancel and nothing is saved.</p>` : ''}
       <div class="tpl-colors"><span class="tpl-colors-l">${icon('palette', 'sm')}Page colors<small>For planner and project pages</small></span>${plChooserHTML(theme, true)}</div>
+      <label class="tpl-find">${icon('search', 'sm')}<input type="search" placeholder="Search ${TEMPLATES.length} templates — try “mood”, “habit”, “savings”" aria-label="Search templates"></label>
+      <p class="tpl-none" hidden>No templates match. Try another word.</p>
+      ${(() => { const gs = [...new Set(mine.map(t => t.group || ''))]; if (gs.length < 2) return ''; const ORD = ['', ...Object.keys(TPL_SUB)]; gs.sort((a, b) => kind === 'work' ? (a ? 0 : 1) - (b ? 0 : 1) : ORD.indexOf(a) - ORD.indexOf(b)); return `<div class="tpl-jump">${gs.map(g => `<button type="button" class="tpl-jb" data-jump="${g || 'core'}">${esc(g ? TPL_SUB[g] : TPL_CORE[kind])}</button>`).join('')}</div>`; })()}
       ${mine.length ? `<p class="tpl-group">${icon(KINDS[kind].icon, 'sm')}For your ${esc(KINDS[kind].label.toLowerCase())}</p>` : ''}
-      ${(() => { const ORD = ['', ...Object.keys(TPL_SUB)], subs = [...new Set(mine.map(t => t.group || ''))].sort((a, b) => kind === 'work' ? (a ? 0 : 1) - (b ? 0 : 1) : ORD.indexOf(a) - ORD.indexOf(b)); if (subs.length < 2) return `<div class="tpl-grid">${blank}${mine.map(card).join('')}</div>`; return subs.map((g, i) => `<p class="tpl-group tpl-sub">${esc(g ? TPL_SUB[g] : TPL_CORE[kind])} <span class="mono small muted">${mine.filter(t => (t.group || '') === g).length}</span></p><div class="tpl-grid">${i ? '' : blank}${mine.filter(t => (t.group || '') === g).map(card).join('')}</div>`).join(''); })()}
+      ${(() => { const ORD = ['', ...Object.keys(TPL_SUB)], subs = [...new Set(mine.map(t => t.group || ''))].sort((a, b) => kind === 'work' ? (a ? 0 : 1) - (b ? 0 : 1) : ORD.indexOf(a) - ORD.indexOf(b)); if (subs.length < 2) return `<div class="tpl-grid">${blank}${mine.map(card).join('')}</div>`; return subs.map((g, i) => `<p class="tpl-group tpl-sub" data-g="${g || 'core'}">${esc(g ? TPL_SUB[g] : TPL_CORE[kind])} <span class="mono small muted">${mine.filter(t => (t.group || '') === g).length}</span></p><div class="tpl-grid">${i ? '' : blank}${mine.filter(t => (t.group || '') === g).map(card).join('')}</div>`).join(''); })()}
       ${others.map(([g, lbl]) => `<details class="tpl-more" ${kind === 'other' ? 'open' : ''}><summary>${icon(KINDS[g].icon, 'sm')}${esc(lbl)} templates <span class="mono small muted">${TEMPLATES.filter(t => t.kind === g).length}</span></summary>${[...new Set(TEMPLATES.filter(t => t.kind === g).map(t => t.group || ''))].map(sg => `${sg ? `<p class="tpl-group tpl-sub">${esc(TPL_SUB[sg])}</p>` : ''}<div class="tpl-grid">${TEMPLATES.filter(t => t.kind === g && (t.group || '') === sg).map(card).join('')}</div>`).join('')}</details>`).join('')}
     </div>`,
-    onOpen: w => { plPaint(w); wirePlChooser($('.tpl-colors', w), v => { theme = v; $$('.tpl-thumb .pl', w).forEach(x => setPl(x, v)); }); ro = fitTplThumbs($('.tpl-pick', w)); $$('.tpl-more', w).forEach(d => d.addEventListener('toggle', () => $$('.tpl-thumb', d).forEach(t => { const x = t.clientWidth; if (x) t.style.setProperty('--z', ((x - 24) / (+t.dataset.w || 520)).toFixed(4)); }))); },
+    onOpen: w => { plPaint(w);
+      const q = $('.tpl-find input', w), none = $('.tpl-none', w);
+      q.addEventListener('input', () => { const v = q.value.trim().toLowerCase(); let any = false;
+        $$('.tpl-card', w).forEach(c => { const hit = !v || (!c.classList.contains('tpl-blank') && ((c.getAttribute('aria-label') || '') + ' ' + c.dataset.tpl).toLowerCase().includes(v)); c.hidden = !hit; if (hit) any = true; });
+        $$('.tpl-grid', w).forEach(g => { const vis = !!g.querySelector('.tpl-card:not([hidden])'); g.hidden = !vis; const h = g.previousElementSibling; if (h && h.classList.contains('tpl-sub')) h.hidden = !vis; });
+        $$('.tpl-more', w).forEach(d => { const vis = !!d.querySelector('.tpl-card:not([hidden])'); d.hidden = !vis; if (v && vis && !d.open) d.open = true; });
+        none.hidden = any; const j = $('.tpl-jump', w); if (j) j.hidden = !!v; });
+      $$('[data-jump]', w).forEach(b => b.addEventListener('click', () => { const h = $(`.tpl-sub[data-g="${b.dataset.jump}"]`, w); if (h) h.scrollIntoView({ behavior: 'smooth', block: 'start' }); }));
+      wirePlChooser($('.tpl-colors', w), v => { theme = v; $$('.tpl-thumb .pl', w).forEach(x => setPl(x, v)); }); ro = fitTplThumbs($('.tpl-pick', w)); $$('.tpl-more', w).forEach(d => d.addEventListener('toggle', () => $$('.tpl-thumb', d).forEach(t => { const x = t.clientWidth; if (x) t.style.setProperty('--z', ((x - 24) / (+t.dataset.w || 520)).toFixed(4)); }))); },
     onClose: () => { if (ro) ro.disconnect(); },
     actions: [{ label: 'Cancel', kind: 'ghost' }],
   });
