@@ -1804,6 +1804,172 @@ body.side-anim .app { transition: grid-template-columns .28s var(--ease); }
   .ed-body .pl-tbr { grid-template-columns: 54px 110px 1fr; } .ed-body .pl-book { grid-template-columns: 70px 1fr; }
 }
 @media print { .pl { box-shadow: none; } }
+/* Project manager */
+.pj .view-head { flex-wrap: wrap; align-items: flex-end; gap: 12px; }
+.pj .view-head > div:first-child { flex: 1 1 320px; min-width: 0; }
+.pj-headact { gap: 8px; flex-wrap: nowrap; align-items: center; margin-left: auto; }
+.pj-headact select { min-width: 200px; max-width: 280px; }
+.pj-tabs { display: flex; gap: 6px; flex-wrap: wrap; padding: 4px; border-radius: 16px; background: var(--surface-2); border: 1px solid var(--line); width: fit-content; max-width: 100%; }
+.pj-tabs:empty { display: none; }
+.pj-tabs button { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 12px; border: 0; background: none; color: var(--muted); font: 600 .86rem var(--font-body); cursor: pointer; transition: background .15s, color .15s; }
+.pj-tabs button:hover { color: var(--ink); }
+.pj-tabs button[aria-selected="true"] { background: var(--surface-solid); color: var(--ink); box-shadow: var(--shadow); }
+.pj-empty { text-align: center; padding: 34px 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.pj-empty p { max-width: 520px; }
+.pj-kpis { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.pj-kpi { display: flex; align-items: center; gap: 12px; padding: 14px 16px; min-width: 0; }
+.pj-kpi em { font: 600 2rem/1 var(--font-display); font-style: normal; color: var(--ink); }
+.pj-kpi em small { font-size: .9rem; color: var(--muted); }
+.pj-kpi div { display: flex; flex-direction: column; min-width: 0; }
+.pj-kpi b { font-size: .86rem; } .pj-kpi span { font-size: .76rem; color: var(--muted); }
+.pj-kpi.bad em { color: #D2416E; }
+.neg { color: #D2416E !important; }
+.pj-ring { width: 64px; height: 64px; flex: none; } .pj-ring text { font: 700 15px var(--font-body); fill: var(--ink); }
+.pj-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.pj-grid3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.pj-grid-cal { grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); }
+.pj-card { padding: 14px 16px; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+.pj-card h3 { display: flex; align-items: center; gap: 7px; font: 650 .92rem var(--font-body); margin: 0; }
+.pj-wide { grid-column: 1 / -1; }
+.pj-donut { display: flex; align-items: center; gap: 12px; }
+.pj-donut svg { width: 120px; height: 120px; flex: none; }
+.pj-donut circle { transition: stroke-dasharray .5s; }
+.pj-dn-v { font: 700 22px var(--font-display); fill: var(--ink); } .pj-dn-s { font: 500 10px var(--font-body); fill: var(--muted); }
+.pj-legend { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px; font-size: .76rem; min-width: 0; }
+.pj-legend li { display: flex; align-items: center; gap: 6px; } .pj-legend i, .pj-key i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; flex: none; }
+.pj-legend b { margin-left: auto; padding-left: 8px; }
+.pj-bars { display: flex; flex-direction: column; gap: 7px; }
+.pj-bar { display: grid; grid-template-columns: 82px 1fr auto; align-items: center; gap: 8px; font-size: .78rem; }
+.pj-bl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); }
+.pj-bt { display: flex; height: 12px; border-radius: 6px; background: var(--surface-2); overflow: hidden; }
+.pj-bt i { display: block; height: 100%; transition: width .5s var(--ease); }
+.pj-key { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: .74rem; color: var(--muted); margin: 0; }
+.pj-key i.has { background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); } .pj-key i.now { background: var(--accent); }
+.pj-list { display: flex; flex-direction: column; gap: 4px; }
+.pj-li { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 7px 8px; border-radius: 10px; border: 1px solid transparent; background: var(--surface-2); color: inherit; font: inherit; font-size: .84rem; cursor: pointer; min-width: 0; transition: border-color .15s, background .15s; }
+.pj-li:hover { border-color: var(--line-strong); background: var(--surface-solid); }
+.pj-li > i { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.pj-lin { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pj-lin small { display: block; font-size: .7rem; color: var(--muted); }
+.pj-lio { color: var(--muted); font-size: .76rem; max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pj-lid { font-size: .74rem; color: var(--muted); white-space: nowrap; }
+.pj-st, .pj-pri { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 99px; font-size: .68rem; font-weight: 650; white-space: nowrap; background: color-mix(in srgb, var(--c) 30%, transparent); color: color-mix(in srgb, var(--c) 45%, var(--ink)); }
+.pj-tick { width: 16px; height: 16px; border-radius: 5px; border: 1.5px solid var(--line-strong); flex: none; }
+.pj-tick.on { background: var(--accent); border-color: var(--accent); box-shadow: inset 0 0 0 2px var(--surface-solid); }
+.pj-mini { display: flex; flex-direction: column; gap: 3px; }
+.pj-mh, .pj-mg { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; gap: 2px; }
+.pj-mh i { font-style: normal; font-size: .64rem; color: var(--muted); }
+.pj-mg i { font-style: normal; font-size: .74rem; line-height: 1.95; border-radius: 8px; }
+.pj-mg i.out { opacity: .3; } .pj-mg i.has { background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); font-weight: 700; } .pj-mg i.now { background: var(--accent); color: var(--accent-ink, #fff); }
+.pj-cols { display: flex; align-items: flex-end; gap: 3px; height: 150px; padding-top: 6px; }
+.pj-col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; gap: 4px; min-width: 0; }
+.pj-col i { display: block; width: 100%; max-width: 18px; border-radius: 4px 4px 2px 2px; min-height: 2px; opacity: .85; transition: height .5s var(--ease); }
+.pj-col em { font-style: normal; font-size: .56rem; color: var(--muted); }
+.pj-col.today em { color: var(--ink); font-weight: 700; } .pj-col.today i { opacity: 1; box-shadow: 0 0 0 2px var(--surface-solid), 0 0 0 3px var(--ink); }
+.pj-ptable { display: flex; flex-direction: column; gap: 3px; overflow-x: auto; }
+.pj-pr { display: grid; grid-template-columns: 2fr .9fr .7fr 1.4fr 1fr 1fr 1fr; gap: 10px; align-items: center; padding: 7px 8px; border-radius: 10px; border: 0; background: none; text-align: left; color: inherit; font: inherit; font-size: .84rem; min-width: 760px; cursor: pointer; }
+.pj-pr:not(.pj-ph):hover { background: var(--surface-2); }
+.pj-ph { font-size: .7rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); cursor: default; background: var(--surface-2); }
+.pj-pr span:first-child { display: flex; align-items: center; gap: 8px; font-weight: 600; } .pj-pr span:first-child i { width: 10px; height: 10px; border-radius: 3px; }
+.pj-pbar { position: relative; height: 16px; border-radius: 8px; background: var(--surface-2); overflow: hidden; } .pj-pbar i { display: block; height: 100%; } .pj-pbar b { position: absolute; right: 6px; top: 0; font-size: .66rem; line-height: 16px; }
+/* tasks table */
+.pj-filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 12px; }
+.pj-filters select { width: auto; min-width: 120px; }
+.pj-search { display: flex; align-items: center; gap: 6px; padding: 0 10px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-solid); flex: 1 1 200px; }
+.pj-search input { border: 0; background: none; padding: 9px 0; width: 100%; outline: none; box-shadow: none; }
+.pj-tablecard { padding: 0; overflow-x: auto; }
+.pj-table { min-width: 1500px; } .pj-table:has(.pj-pjn) { min-width: 1620px; }
+.pj-tr { display: grid; grid-template-columns: 38px minmax(220px, 2.4fr) minmax(100px, 1fr) minmax(100px, 1fr) 136px 120px 140px 140px 140px 150px 84px 70px; align-items: center; gap: 0; border-bottom: 1px solid var(--line); }
+.pj-table:has(.pj-pjn) .pj-tr { grid-template-columns: 38px minmax(220px, 2.4fr) minmax(120px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) 136px 120px 140px 140px 140px 150px 84px 70px; }
+.pj-tr > * { min-width: 0; }
+.pj-thead { position: sticky; top: 0; background: var(--surface-2); z-index: 1; }
+.pj-thead > * { font: 650 .7rem var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding: 10px 8px; text-align: left; }
+.pj-sort { border: 0; background: none; cursor: pointer; } .pj-sort:hover, .pj-sort.on { color: var(--ink); }
+.pj-tr input:not([type="checkbox"]):not([type="range"]), .pj-tr select { border: 0; border-radius: 0; background: transparent; padding: 10px 8px; font-size: .84rem; width: 100%; box-shadow: none; min-height: 40px; }
+.pj-tr input:focus, .pj-tr select:focus { background: var(--accent-soft); outline: none; }
+.pj-tr:hover:not(.pj-thead) { background: color-mix(in srgb, var(--surface-2) 60%, transparent); }
+.pj-tr.over { box-shadow: inset 3px 0 0 #E9719C; } .pj-tr.over input[data-f="due"] { color: #D2416E; font-weight: 600; }
+.pj-tr.done input[data-f="name"] { text-decoration: line-through; color: var(--muted); }
+.pj-stsel, .pj-prsel { font-weight: 650 !important; color: color-mix(in srgb, var(--c) 45%, var(--ink)) !important; background: color-mix(in srgb, var(--c) 18%, transparent) !important; }
+.pj-chk { display: grid; place-items: center; cursor: pointer; } .pj-chk input { position: absolute; opacity: 0; width: 0; height: 0; }
+.pj-chk span { width: 18px; height: 18px; border-radius: 6px; border: 1.6px solid var(--line-strong); display: grid; place-items: center; transition: background .15s; }
+.pj-chk input:checked + span { background: var(--accent); border-color: var(--accent); } .pj-chk input:checked + span::after { content: ""; width: 4px; height: 8px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg) translate(-1px, -1px); }
+.pj-chk input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pj-prog { display: flex; align-items: center; gap: 6px; padding: 0 8px; } .pj-prog b { font-size: .72rem; width: 34px; text-align: right; }
+.pj-prog input[type="range"] { flex: 1; min-width: 0; accent-color: var(--accent); }
+.pj-pjn { display: flex; align-items: center; gap: 6px; font-size: .8rem; padding: 0 8px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; } .pj-pjn i { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.pj-ract { display: flex; justify-content: center; } .pj-ract .icon-btn { width: 30px; height: 30px; }
+.pj-none { padding: 20px; text-align: center; }
+/* kanban */
+.pj-kan { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(230px, 1fr); gap: 12px; overflow-x: auto; padding-bottom: 6px; align-items: start; }
+.pj-kcol { background: color-mix(in srgb, var(--c) 12%, var(--surface-2)); border: 1px solid var(--line); border-radius: 16px; padding: 10px; display: flex; flex-direction: column; gap: 8px; min-height: 160px; transition: box-shadow .15s, background .15s; }
+.pj-kcol.over { box-shadow: 0 0 0 2px var(--c); background: color-mix(in srgb, var(--c) 22%, var(--surface-2)); }
+.pj-kcol header { display: flex; align-items: center; justify-content: space-between; font: 700 .76rem var(--font-body); letter-spacing: .08em; text-transform: uppercase; padding: 6px 8px; border-radius: 10px; background: color-mix(in srgb, var(--c) 40%, var(--surface-solid)); }
+.pj-kcol header b { font-size: .72rem; background: var(--surface-solid); border-radius: 99px; padding: 1px 8px; }
+.pj-kcards { display: flex; flex-direction: column; gap: 8px; min-height: 30px; }
+.pj-kcard { background: var(--surface-solid); border: 1px solid var(--line); border-left: 4px solid var(--pc); border-radius: 12px; padding: 9px 10px; display: flex; flex-direction: column; gap: 5px; cursor: grab; box-shadow: 0 6px 16px -14px rgba(0,0,0,.4); transition: transform .15s, box-shadow .15s, opacity .15s; }
+.pj-kcard:hover { transform: translateY(-2px); box-shadow: var(--shadow); } .pj-kcard.dragging { opacity: .4; }
+.pj-kcard.over { box-shadow: inset 0 0 0 1px #E9719C; }
+.pj-kcard > b { font-size: .88rem; line-height: 1.3; } .pj-kcard p { font-size: .76rem; color: var(--muted); margin: 0; }
+.pj-kt { display: flex; gap: 5px; flex-wrap: wrap; } .pj-kt:empty { display: none; }
+.pj-kp { font-size: .66rem; padding: 2px 7px; border-radius: 99px; background: color-mix(in srgb, var(--pc2) 20%, transparent); }
+.pj-kmeta { display: flex; justify-content: space-between; gap: 6px; font-size: .72rem; color: var(--muted); } .pj-kmeta span { display: inline-flex; align-items: center; gap: 3px; min-width: 0; }
+.pj-kbar { height: 5px; border-radius: 3px; background: var(--surface-2); overflow: hidden; } .pj-kbar i { display: block; height: 100%; background: var(--accent); }
+.pj-kadd { border: 1px dashed var(--line-strong); background: none; border-radius: 10px; padding: 7px; color: var(--muted); font: 500 .8rem var(--font-body); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
+.pj-kadd:hover { color: var(--ink); background: var(--surface-solid); }
+/* gantt */
+.pj-gtools { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.pj-zoom { width: auto; } .pj-zoom button { padding: 6px 14px; border: 0; background: none; border-radius: 10px; font: 600 .8rem var(--font-body); color: var(--muted); cursor: pointer; } .pj-zoom button[aria-pressed="true"] { background: var(--surface-solid); color: var(--ink); box-shadow: var(--shadow); }
+.pj-gantt { display: grid; grid-template-columns: 300px minmax(0, 1fr); padding: 0; overflow: hidden; }
+.pj-gleft { border-right: 1px solid var(--line); background: var(--surface-solid); z-index: 1; }
+.pj-glh { height: 56px; display: grid; grid-template-columns: 1fr 70px 40px; align-items: end; padding: 0 10px 8px; font: 650 .7rem var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); border-bottom: 1px solid var(--line); background: var(--surface-2); }
+.pj-gl { display: grid; grid-template-columns: 1fr 70px 40px; align-items: center; gap: 4px; width: 100%; height: 34px; padding: 0 10px 0 18px; border: 0; border-bottom: 1px solid var(--line); background: none; text-align: left; color: inherit; font: inherit; font-size: .8rem; cursor: pointer; }
+.pj-gl:hover { background: var(--surface-2); } .pj-gl span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .pj-gl em { font-style: normal; color: var(--muted); font-size: .72rem; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.pj-gl.pj-gph { display: flex; gap: 6px; padding-left: 8px; background: var(--surface-2); font-weight: 650; } .pj-gl.pj-gph b { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .pj-gl.pj-gph span { font-size: .72rem; color: var(--muted); }
+.pj-gright { min-width: 0; }
+.pj-gscroll { overflow-x: auto; }
+.pj-ghead { position: relative; height: 56px; border-bottom: 1px solid var(--line); background: var(--surface-2); }
+.pj-gmonths { position: relative; height: 24px; } .pj-gmonths span { position: absolute; top: 0; height: 24px; padding: 5px 8px; font: 650 .72rem var(--font-body); border-left: 1px solid var(--line); white-space: nowrap; overflow: hidden; }
+.pj-gdays { display: flex; height: 32px; } .pj-gdays span { flex: none; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: .66rem; line-height: 1.1; color: var(--muted); border-left: 1px solid color-mix(in srgb, var(--line) 50%, transparent); }
+.pj-gdays span i { font-style: normal; font-size: .54rem; } .pj-gdays .we { background: color-mix(in srgb, var(--line) 35%, transparent); } .pj-gdays .now { background: var(--accent); color: #fff; border-radius: 6px; }
+.pj-gbody { position: relative; }
+.pj-grow { position: relative; height: 34px; border-bottom: 1px solid var(--line); }
+.pj-grow.pj-gph { background-color: color-mix(in srgb, var(--surface-2) 70%, transparent); }
+.pj-gsum { position: absolute; top: 13px; height: 8px; border-radius: 4px; background: color-mix(in srgb, var(--ink) 18%, transparent); overflow: hidden; } .pj-gsum i { display: block; height: 100%; background: color-mix(in srgb, var(--ink) 55%, transparent); }
+.pj-gbar { position: absolute; top: 6px; height: 22px; border-radius: 7px; background: color-mix(in srgb, var(--bc) 45%, var(--surface-solid)); cursor: grab; overflow: hidden; display: flex; align-items: center; touch-action: none; box-shadow: 0 2px 6px -3px rgba(0,0,0,.3); transition: box-shadow .15s; }
+.pj-gbar:hover { box-shadow: 0 0 0 2px color-mix(in srgb, var(--bc) 60%, transparent); } .pj-gbar.drag { cursor: grabbing; opacity: .85; z-index: 2; }
+.pj-gbar > i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--bc); }
+.pj-gbar span { position: relative; padding: 0 8px; font-size: .7rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: color-mix(in srgb, var(--bc) 25%, #1d2329); }
+.pj-gbar.over { box-shadow: 0 0 0 2px #E9719C; } .pj-gbar.done { opacity: .6; }
+.pj-grs { position: absolute; right: 0; top: 0; bottom: 0; width: 8px; cursor: ew-resize; background: linear-gradient(90deg, transparent 3px, rgba(0,0,0,.18) 3px 4px, transparent 4px 5px, rgba(0,0,0,.18) 5px 6px, transparent 6px); }
+.pj-gnow { position: absolute; top: 0; bottom: 0; width: 2px; background: #E9719C; pointer-events: none; }
+/* calendar */
+.pj-calbar { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.pj-calbar h2 { margin: 0 6px; font-size: 1.2rem; min-width: 170px; text-align: center; }
+.pj-cal { padding: 0; overflow: hidden; }
+.pj-calh, .pj-calg { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)) 64px; }
+.pj-calh span { padding: 8px; font: 650 .72rem var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); background: var(--surface-2); border-bottom: 1px solid var(--line); }
+.pj-cd { min-height: 112px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 5px; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.pj-cd.out { background: color-mix(in srgb, var(--surface-2) 60%, transparent); } .pj-cd.out .pj-cdn { opacity: .45; }
+.pj-cdn { font-size: .78rem; font-weight: 650; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 8px; }
+.pj-cd.now .pj-cdn { background: var(--accent); color: #fff; }
+.pj-chip { display: flex; align-items: center; gap: 4px; width: 100%; padding: 2px 6px; border-radius: 6px; border: 0; border-left: 3px solid var(--c); background: color-mix(in srgb, var(--c) 22%, var(--surface-solid)); font: 500 .7rem var(--font-body); color: inherit; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+.pj-chip svg { flex: none; width: 11px; height: 11px; } .pj-chip.dn { text-decoration: line-through; opacity: .55; } .pj-chip.over { box-shadow: inset 0 0 0 1px #E9719C; }
+.pj-more { border: 0; background: none; font-size: .68rem; color: var(--muted); text-align: left; cursor: pointer; padding: 0 6px; }
+.pj-wk { display: flex; flex-direction: column; align-items: center; justify-content: center; border-bottom: 1px solid var(--line); background: var(--surface-2); font-size: .66rem; color: var(--muted); } .pj-wk b { font: 600 1.1rem var(--font-display); color: var(--ink); }
+.pj-wkh { text-align: center; }
+/* matrix */
+.pj-matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pj-q { padding: 12px; display: flex; flex-direction: column; gap: 8px; background: color-mix(in srgb, var(--qc) 35%, var(--surface-solid)); min-height: 200px; }
+.pj-q header { display: flex; align-items: baseline; gap: 8px; } .pj-q header b { font: 650 1rem var(--font-display); } .pj-q header span { font-size: .76rem; color: var(--muted); } .pj-q header em { margin-left: auto; font-style: normal; font-weight: 700; background: var(--surface-solid); border-radius: 99px; padding: 1px 9px; font-size: .78rem; }
+.pj-q .pj-li { background: var(--surface-solid); }
+.pj-toast { gap: 10px; } .pj-toast .btn { margin-left: 6px; }
+.tpl-pmlink { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 12px 14px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line)); background: color-mix(in srgb, var(--accent) 8%, var(--surface-solid)); color: inherit; font: inherit; cursor: pointer; transition: transform .15s, box-shadow .15s; }
+.tpl-pmlink:hover { transform: translateY(-1px); box-shadow: var(--shadow); } .tpl-pmlink > svg:first-child { color: var(--accent); width: 26px; height: 26px; flex: none; }
+.tpl-pmlink span { flex: 1; display: flex; flex-direction: column; gap: 2px; } .tpl-pmlink small { color: var(--muted); font-size: .8rem; }
+@media (max-width: 1100px) { .pj-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); } .pj-grid { grid-template-columns: 1fr 1fr; } .pj-grid3 { grid-template-columns: 1fr; } }
+@media (max-width: 860px) { .pj-headact { flex-wrap: wrap; margin-left: 0; width: 100%; } .pj-headact select { flex: 1 1 100%; max-width: none; } .nav a { white-space: nowrap; } }
+@media (max-width: 700px) { .pj-kpis, .pj-grid, .pj-grid-cal, .pj-matrix { grid-template-columns: 1fr; } .pj-gantt { grid-template-columns: 150px minmax(0, 1fr); } .pj-glh, .pj-gl { grid-template-columns: 1fr; } .pj-glh span, .pj-gl em { display: none; } .pj-calh, .pj-calg { grid-template-columns: repeat(7, minmax(0, 1fr)); } .pj-wk, .pj-wkh { display: none; } .pj-cd { min-height: 64px; padding: 2px; } .pj-chip { font-size: .58rem; padding: 1px 3px; } }
 /* Template picker */
 .tpl-pick { display: flex; flex-direction: column; gap: 12px; }
 .tpl-sub { margin-top: 10px; }
@@ -2337,7 +2503,7 @@ const PROMPTS = [
 ];
 const NAV = [
   { view: 'today', label: 'My wall', icon: 'home' }, { view: 'walls', label: 'Freedom Wall', short: 'Freedom', icon: 'wall' }, { view: 'calendar', label: 'Calendar', icon: 'calendar' },
-  { view: 'notebooks', label: 'Notebooks', icon: 'book' }, { view: 'report', label: 'Report', icon: 'chart' },
+  { view: 'notebooks', label: 'Notebooks', icon: 'book' }, { view: 'projects', label: 'Projects', icon: 'kanban' }, { view: 'report', label: 'Report', icon: 'chart' },
   { view: 'account', label: 'Settings', icon: 'settings' },
 ];
 const VIEWS = [...NAV.map(n => n.view), 'win'];
@@ -2557,8 +2723,8 @@ const stagger = (html, i) => html.replace(/^<(\w+)/, `<$1 style="--i:${Math.min(
 /* ================= State ================= */
 const S = {
   mode: 'loading', db: null, refs: null, view: null, started: false, lock: null, unsubs: [],
-  days: new Map(), notebooks: [], notes: [], walls: [], profile: {},
-  loaded: { wins: false, notebooks: false, notes: false, profile: false, walls: false },
+  days: new Map(), notebooks: [], notes: [], walls: [], projects: [], profile: {},
+  loaded: { wins: false, notebooks: false, notes: false, profile: false, walls: false, projects: false },
 };
 const UI = {
   selDate: todayKey(),
@@ -2763,7 +2929,7 @@ let lsTimer = null;
 function saveLocal() { clearTimeout(lsTimer); lsTimer = setTimeout(writeLocalNow, 250); if (S.started && typeof gdSchedule === 'function' && gdLinked()) { GD.pending = true; gdSchedule(); } return Promise.resolve(); }
 async function writeLocalNow() {
   lsTimer = null;
-  const data = { days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes.map(n => ({ id: n.id, ...noteBody(n) })), walls: S.walls, profile: S.profile };
+  const data = { days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes.map(n => ({ id: n.id, ...noteBody(n) })), walls: S.walls, projects: S.projects, profile: S.profile };
   const body = await encodeBody(CRYPTO.key, data);
   if (!(await kvSet(LS_KEY, JSON.stringify(body)))) onLocalSaveFailed();
 }
@@ -2777,6 +2943,7 @@ async function loadLocal() {
     S.notebooks = (v.notebooks || []).map(n => normNb(n.id, n));
     S.notes = (v.notes || []).map(n => normNote(n.id, n));
     S.walls = (v.walls || []).filter(w => w && w.id).map(w => normWall(w.id, w));
+    S.projects = (v.projects || []).filter(w => w && w.id).map(w => normProject(w.id, w));
     S.profile = normProfile(v.profile || {}); applyCategories();
     if (CRYPTO.key && !JSON.parse(raw).enc) saveLocal();
   } catch (e) { console.error(e); }
@@ -2827,7 +2994,7 @@ function persistProfile() {
 async function persistAll(onProgress) {
   for (const f of allFileRefs()) { try { const { bytes, meta } = await loadFileBytes(f.id); await storeFileBytes(f.id, bytes, meta); } catch (e) { console.error('file re-encrypt', e); } }
   if (S.mode !== 'cloud') { await writeLocalNow(); return; }
-  const jobs = [...[...S.days.keys()].map(k => () => persistDay(k)), ...S.notebooks.map(n => () => persistNotebook(n.id)), ...S.notes.map(n => () => persistNote(n.id)), ...S.walls.map(w => () => persistWall(w.id)), () => persistProfile()];
+  const jobs = [...[...S.days.keys()].map(k => () => persistDay(k)), ...S.notebooks.map(n => () => persistNotebook(n.id)), ...S.notes.map(n => () => persistNote(n.id)), ...S.walls.map(w => () => persistWall(w.id)), ...S.projects.map(w => () => persistProject(w.id)), () => persistProfile()];
   for (let i = 0; i < jobs.length; i++) { await jobs[i](); if (onProgress) onProgress(i + 1, jobs.length); await sleep(40); }
   await drainQueues();
 }
@@ -2947,11 +3114,11 @@ function migrate(kind, id) {
   const key = kind + '/' + id;
   if (migrating.has(key)) return;
   migrating.add(key);
-  const p = kind === 'w' ? persistDay(id) : kind === 'nb' ? persistNotebook(id) : kind === 'n' ? persistNote(id) : kind === 'wl' ? persistWall(id) : persistProfile();
+  const p = kind === 'w' ? persistDay(id) : kind === 'nb' ? persistNotebook(id) : kind === 'n' ? persistNote(id) : kind === 'wl' ? persistWall(id) : kind === 'pj' ? persistProject(id) : persistProfile();
   Promise.resolve(p).finally(() => migrating.delete(key));
 }
 function subscribeCloud() {
-  const pending = new Set(['wins', 'notebooks', 'notes', 'profile', 'walls']);
+  const pending = new Set(['wins', 'notebooks', 'notes', 'profile', 'walls', 'projects']);
   const timer = setTimeout(() => { if (pending.size) setBanner("Your saved entries are taking longer than usual to load. What you see may be incomplete; new changes will still be saved."); }, 10000);
   const done = (k, snap) => { S.loaded[k] = true; if (!snap.metadata.fromCache && pending.has(k)) { pending.delete(k); if (!pending.size) { clearTimeout(timer); setBanner(null); } } };
   const fail = k => () => { S.loaded[k] = true; clearTimeout(timer); pending.delete(k); setBanner("Couldn't load your saved entries right now. Reload the page to try again."); onData(k); };
@@ -2995,6 +3162,12 @@ function subscribeCloud() {
     rows.forEach(r => { if (r.plain) mig.push(['wl', r.id]); });
     return mig;
   }), fail('walls')));
+  S.unsubs.push(S.refs.projects.onSnapshot(handle('projects', rows => {
+    const prev = new Map(S.projects.map(n => [n.id, n])), mig = [];
+    S.projects = rows.filter(r => !TOMB.has(r.id)).map(r => r.v === undefined ? prev.get(r.id) : (PJT.has(r.id) && prev.get(r.id)) || normProject(r.id, r.v)).filter(Boolean);
+    rows.forEach(r => { if (r.plain) mig.push(['pj', r.id]); });
+    return mig;
+  }), fail('projects')));
   let pseq = 0;
   S.unsubs.push(S.refs.profile.onSnapshot(d => {
     const my = ++pseq;
@@ -3241,7 +3414,7 @@ function route() {
   const mount = () => {
     S.view = v;
     $$('.nav a').forEach(a => { if (a.dataset.view === v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
-    ({ today: mountToday, walls: mountWalls, calendar: mountCalendar, notebooks: mountNotebooks, report: mountReport, account: mountAccount, win: mountWin })[v]();
+    ({ today: mountToday, walls: mountWalls, calendar: mountCalendar, notebooks: mountNotebooks, projects: mountProjects, report: mountReport, account: mountAccount, win: mountWin })[v]();
     $('#main').scrollTop = 0;
   };
   if (first) { mount(); const el = $('#view'); el.classList.remove('view-enter'); void el.offsetWidth; el.classList.add('view-enter'); }
@@ -3258,7 +3431,8 @@ function onData(kind) {
     case 'report': updateReport(); break;
     case 'account': if (kind === 'profile' || kind === 'all') fillProfile(); updateStorageInfo(); renderAreasCard(); break;
     case 'win': if (kind === 'wins' || kind === 'all') updateWinView(); break;
-    case 'walls': if (kind !== 'notes' && kind !== 'notebooks') updateWallsView(); break;
+    case 'walls': if (kind !== 'notes' && kind !== 'notebooks' && kind !== 'projects') updateWallsView(); break;
+    case 'projects': if (kind === 'projects' || kind === 'all' || kind === 'profile') updateProjects(); break;
   }
 }
 function weekCount() { const s = startOfWeek(new Date()); return winsIn(ymd(s), ymd(addDays(s, 6))).length; }
@@ -4457,6 +4631,7 @@ function templatePicker(src, onPick, first = false) {
       ${creating ? `<p class="tpl-hint">${icon('info', 'sm')}Your notebook is created when you pick a page. Cancel and nothing is saved.</p>` : ''}
       <div class="tpl-colors"><span class="tpl-colors-l">${icon('palette', 'sm')}Page colors<small>For planner and project pages</small></span>${plChooserHTML(theme, true)}</div>
       ${mine.length ? `<p class="tpl-group">${icon(KINDS[kind].icon, 'sm')}For your ${esc(KINDS[kind].label.toLowerCase())}</p>` : ''}
+      ${kind === 'work' ? `<button type="button" class="tpl-pmlink" data-goprojects>${icon('kanban')}<span><b>Want it all to update automatically?</b><small>Open the Project manager: add tasks once and get a live dashboard, Kanban, Gantt chart and calendar.</small></span>${icon('arrowRight', 'sm')}</button>` : ''}
       ${(() => { const subs = [...new Set(mine.map(t => t.group || ''))].sort((a, b) => kind === 'work' ? (a ? 0 : 1) - (b ? 0 : 1) : (a ? 1 : 0) - (b ? 1 : 0)); if (subs.length < 2) return `<div class="tpl-grid">${blank}${mine.map(card).join('')}</div>`; return subs.map((g, i) => `<p class="tpl-group tpl-sub">${esc(g ? TPL_SUB[g] : TPL_CORE[kind])} <span class="mono small muted">${mine.filter(t => (t.group || '') === g).length}</span></p><div class="tpl-grid">${i ? '' : blank}${mine.filter(t => (t.group || '') === g).map(card).join('')}</div>`).join(''); })()}
       ${others.map(([g, lbl]) => `<details class="tpl-more" ${kind === 'other' ? 'open' : ''}><summary>${icon(KINDS[g].icon, 'sm')}${esc(lbl)} templates <span class="mono small muted">${TEMPLATES.filter(t => t.kind === g).length}</span></summary>${[...new Set(TEMPLATES.filter(t => t.kind === g).map(t => t.group || ''))].map(sg => `${sg ? `<p class="tpl-group tpl-sub">${esc(TPL_SUB[sg])}</p>` : ''}<div class="tpl-grid">${TEMPLATES.filter(t => t.kind === g && (t.group || '') === sg).map(card).join('')}</div>`).join('')}</details>`).join('')}
     </div>`,
@@ -4464,7 +4639,7 @@ function templatePicker(src, onPick, first = false) {
     onClose: () => { if (ro) ro.disconnect(); },
     actions: [{ label: 'Cancel', kind: 'ghost' }],
   });
-  m.wrap.addEventListener('click', e => { const c = e.target.closest('[data-tpl]'); if (!c || picked) return; picked = true; m.close(); if (PL_KEYS.includes(c.dataset.tpl)) rememberPl(theme); onPick(c.dataset.tpl || null, isLayoutKey(c.dataset.tpl) ? theme : null); });
+  m.wrap.addEventListener('click', e => { if (e.target.closest('[data-goprojects]')) { m.close(); go('projects'); return; } const c = e.target.closest('[data-tpl]'); if (!c || picked) return; picked = true; m.close(); if (PL_KEYS.includes(c.dataset.tpl)) rememberPl(theme); onPick(c.dataset.tpl || null, isLayoutKey(c.dataset.tpl) ? theme : null); });
 }
 function newPageFlow(nbId, first = false) {
   templatePicker(nbId, (tpl, theme) => {
@@ -6315,6 +6490,380 @@ async function wallPdf(w, blob, format) {
   } catch (e) { console.error(e); toast("Couldn't create the PDF.", 'warn'); }
 }
 
+const pjDebounce = (f, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => f(...a), ms); }; };
+/* ================= Project manager (automated) =================
+   Enter each task once; the dashboard, Kanban, Gantt, calendar and matrix all read the same data. */
+const PJ_ST = ['Backlog', 'To do', 'In progress', 'Review', 'Done', 'On hold', 'Canceled'];
+const PJ_STC = ['#B8C1CC', '#F29C9C', '#7FA7EE', '#B79BEA', '#7CC878', '#EFC75E', '#D4A3A3'];
+const PJ_PRI = ['No priority', 'Very high', 'High', 'Medium', 'Low', 'Very low'];
+const PJ_PRC = ['#CBD2DA', '#E9719C', '#F09A5B', '#E2BC3C', '#6AAEE0', '#74BE68'];
+const PJ_REC = [['', 'Does not repeat'], ['daily', 'Every day'], ['weekdays', 'Every weekday'], ['weekly', 'Every week'], ['biweekly', 'Every 2 weeks'], ['monthly', 'Every month']];
+const PJ_COLORS = ['#6C8EF5', '#E27AA5', '#5AAED0', '#6DB35F', '#E8925C', '#8E7DB8', '#D6AE2E', '#0F6E6A'];
+const pjStr = (v, n) => String(v ?? '').slice(0, n);
+const pjInt = (v, lo, hi, d) => { const n = Math.round(Number(v)); return Number.isFinite(n) ? Math.min(hi, Math.max(lo, n)) : d; };
+function normTask(t) {
+  if (!t || typeof t !== 'object') return null;
+  return { id: /^[A-Za-z0-9_-]{1,40}$/.test(t.id || '') ? t.id : newId(), name: pjStr(t.name, 200), phase: pjStr(t.phase, 60), owner: pjStr(t.owner, 60), status: pjInt(t.status, 0, 6, 1), priority: pjInt(t.priority, 0, 5, 0), start: isYmd(t.start) ? t.start : '', due: isYmd(t.due) ? t.due : '', progress: pjInt(t.progress, 0, 100, 0), rec: PJ_REC.some(r => r[0] === t.rec) ? t.rec : '', cost: Math.max(0, Number(t.cost) || 0), notes: pjStr(t.notes, 2000), done: Array.isArray(t.done) ? t.done.filter(isYmd).slice(-400) : [], createdAt: Number(t.createdAt) || 0 };
+}
+function normProject(id, v) {
+  return { id, name: pjStr(v?.name || 'Untitled project', 80), manager: pjStr(v?.manager, 60), category: pjStr(v?.category, 60), desc: pjStr(v?.desc, 1000), start: isYmd(v?.start) ? v.start : '', end: isYmd(v?.end) ? v.end : '', budget: Math.max(0, Number(v?.budget) || 0), revenue: Math.max(0, Number(v?.revenue) || 0), color: /^#[0-9a-f]{6}$/i.test(v?.color || '') ? v.color : PJ_COLORS[0], members: (Array.isArray(v?.members) ? v.members : []).map(m => pjStr(m, 60).trim()).filter(Boolean).slice(0, 40), createdAt: Number(v?.createdAt) || 0, tasks: (Array.isArray(v?.tasks) ? v.tasks : []).map(normTask).filter(Boolean).slice(0, 3000) };
+}
+function persistProject(id) {
+  if (S.mode !== 'cloud') return saveLocal();
+  const pj = S.projects.find(n => n.id === id);
+  const body = pj ? (({ id: _, ...b }) => b)(pj) : null;
+  const key = CRYPTO.key, ref = S.refs.projects.doc(id);
+  return enqueue('pj/' + id, async () => { if (body) await ref.set(await encodeBody(key, body)); else await ref.delete(); });
+}
+const PJT = new Map();
+const pjSave = id => { clearTimeout(PJT.get(id)); PJT.set(id, setTimeout(() => { PJT.delete(id); persistProject(id); }, 500)); };
+const UI_PJ = { id: null, tab: 'dash', q: '', st: 'open', pri: '', owner: '', phase: '', sort: 'due', dir: 1, month: '', zoom: 'day', collapsed: new Set() };
+const pjCur = () => UI_PJ.id === 'all' ? null : (S.projects.find(p => p.id === UI_PJ.id) || null);
+const pjOpen = t => t.status !== 4 && t.status !== 6;
+const pjOverdue = (t, today = todayKey()) => pjOpen(t) && !t.rec && t.due && t.due < today;
+const pjDaysBetween = (a, b) => Math.round((parseYmd(b) - parseYmd(a)) / 864e5);
+function pjScope() { const p = pjCur(); return (p ? [p] : S.projects).flatMap(pj => pj.tasks.map(t => ({ t, pj }))); }
+function pjOcc(t, pj, from, to) {
+  if (!t.rec) return t.due && t.due >= from && t.due <= to ? [t.due] : [];
+  const s0 = t.start || t.due || (t.createdAt ? ymd(new Date(t.createdAt)) : todayKey()), end = pj.end && pj.end < to ? pj.end : to, out = [];
+  let d = parseYmd(s0); const dEnd = parseYmd(end), base = parseYmd(s0);
+  for (let i = 0; i < 800 && d <= dEnd; i++) {
+    const k = ymd(d), ok = t.rec === 'weekdays' ? d.getDay() % 6 !== 0 : true;
+    if (ok && k >= from) out.push(k);
+    if (t.rec === 'monthly') { d = new Date(base.getFullYear(), base.getMonth() + i + 1, Math.min(base.getDate(), 28)); }
+    else d = addDays(d, t.rec === 'weekly' ? 7 : t.rec === 'biweekly' ? 14 : 1);
+  }
+  return out;
+}
+const pjProgress = tasks => { const live = tasks.filter(t => t.status !== 6); return live.length ? Math.round(live.reduce((a, t) => a + (t.status === 4 ? 100 : t.progress), 0) / live.length) : 0; };
+const pjMoney = n => (Number(n) || 0).toLocaleString('en-US', { maximumFractionDigits: 2 });
+/* ---- tiny charts ---- */
+function pjDonut(parts, label, sub) {
+  const total = parts.reduce((a, p) => a + p.value, 0), R = 52, C = 2 * Math.PI * R; let off = 0;
+  const arcs = total ? parts.filter(p => p.value).map(p => { const len = p.value / total * C, a = `<circle r="${R}" cx="70" cy="70" fill="none" stroke="${p.color}" stroke-width="20" stroke-dasharray="${len} ${C - len}" stroke-dashoffset="${-off}"><title>${esc(p.label)}: ${p.value}</title></circle>`; off += len; return a; }).join('') : `<circle r="${R}" cx="70" cy="70" fill="none" stroke="var(--line)" stroke-width="20"/>`;
+  return `<div class="pj-donut"><svg viewBox="0 0 140 140" role="img" aria-label="${esc(parts.map(p => `${p.label} ${p.value}`).join(', '))}"><g transform="rotate(-90 70 70)">${arcs}</g><text x="70" y="68" text-anchor="middle" class="pj-dn-v">${esc(label)}</text><text x="70" y="86" text-anchor="middle" class="pj-dn-s">${esc(sub || '')}</text></svg><ul class="pj-legend">${parts.map(p => `<li><i style="background:${p.color}"></i>${esc(p.label)}<b>${p.value}</b></li>`).join('')}</ul></div>`;
+}
+function pjBars(rows, empty = 'Nothing yet') {
+  const max = Math.max(1, ...rows.map(r => r.total ?? r.value));
+  return rows.length ? `<div class="pj-bars">${rows.map(r => `<div class="pj-bar"><span class="pj-bl" title="${esc(r.label)}">${esc(r.label)}</span><span class="pj-bt">${r.parts ? r.parts.map(p => `<i style="width:${p.value / max * 100}%;background:${p.color}" title="${esc(p.label)}: ${p.value}"></i>`).join('') : `<i style="width:${r.value / max * 100}%;background:${r.color}"></i>`}</span><b>${r.total ?? r.value}</b></div>`).join('')}</div>` : `<p class="small muted">${empty}</p>`;
+}
+function pjCols(vals, color, todayIdx = -1) {
+  const max = Math.max(1, ...vals.map(v => v.value));
+  return `<div class="pj-cols">${vals.map((v, i) => `<span class="pj-col${i === todayIdx ? ' today' : ''}" title="${esc(v.title || v.label)}: ${v.value}"><i style="height:${v.value / max * 100}%;background:${color}"></i><em>${esc(v.label)}</em></span>`).join('')}</div>`;
+}
+const pjRing = (pct, color = 'var(--accent)') => { const R = 30, C = 2 * Math.PI * R; return `<svg class="pj-ring" viewBox="0 0 76 76"><circle r="${R}" cx="38" cy="38" fill="none" stroke="var(--line)" stroke-width="8"/><circle r="${R}" cx="38" cy="38" fill="none" stroke="${color}" stroke-width="8" stroke-linecap="round" stroke-dasharray="${C * pct / 100} ${C}" transform="rotate(-90 38 38)"/><text x="38" y="43" text-anchor="middle">${pct}%</text></svg>`; };
+const pjStChip = s => `<span class="pj-st" style="--c:${PJ_STC[s]}">${esc(PJ_ST[s])}</span>`;
+const pjPriChip = p => p ? `<span class="pj-pri" style="--c:${PJ_PRC[p]}">${esc(PJ_PRI[p])}</span>` : '';
+/* ---- sample project so the dashboards make sense right away ---- */
+function pjSample() {
+  const t0 = new Date(), k = n => ymd(addDays(t0, n)), me = (S.profile.nickname || S.profile.name || 'Me').split(' ')[0];
+  const T = (name, phase, owner, status, priority, s, d, progress, extra = {}) => normTask({ id: newId(), name, phase, owner, status, priority, start: k(s), due: k(d), progress, createdAt: Date.now(), ...extra });
+  return normProject(newId(), { name: 'Android app release 2.4', manager: me, category: 'QA', desc: 'Test and ship the 2.4 release of the Android app.', start: k(-10), end: k(30), budget: 50000, revenue: 0, color: PJ_COLORS[0], members: [me, 'Dev team', 'Product'], createdAt: Date.now(), tasks: [
+    T('Review release scope and stories', 'Planning', me, 4, 2, -10, -8, 100), T('Write test plan', 'Planning', me, 4, 1, -8, -4, 100, { cost: 0 }), T('Set up test devices', 'Planning', 'Dev team', 3, 3, -5, -1, 80, { cost: 12000 }),
+    T('Test payments flow', 'Testing', me, 2, 1, -2, 4, 40), T('Regression suite', 'Testing', me, 1, 2, 3, 12, 0), T('Exploratory testing on Android 14', 'Testing', me, 1, 3, 5, 9, 0), T('Fix verification', 'Testing', 'Dev team', 0, 3, 10, 18, 0),
+    T('Release notes', 'Release', 'Product', 0, 4, 18, 22, 0), T('Smoke test production build', 'Release', me, 0, 1, 23, 24, 0), T('Crash dashboard check', 'Release', me, 0, 3, 24, 30, 0),
+    T('Daily stand-up', 'Routine', me, 2, 4, -10, 30, 0, { rec: 'weekdays', due: '' }), T('Update stakeholders', 'Routine', me, 2, 3, -7, 30, 0, { rec: 'weekly', due: '' }),
+  ] });
+}
+/* ---- view ---- */
+function mountProjects() {
+  $('#view').innerHTML = `<div class="stack pj" style="gap:16px">
+    <header class="view-head"><div><p class="eyebrow">${icon('kanban', 'sm')}Projects</p><h1>Project manager</h1><p class="muted small">Add each task once. The dashboard, board, timeline, calendar and matrix update themselves.</p></div>
+      <div class="row pj-headact"><label class="sr-only" for="pj-sel">Project</label><select id="pj-sel"></select><button type="button" class="btn ghost" id="pj-edit">${icon('edit', 'sm')}Project details</button><button type="button" class="btn" id="pj-new">${icon('plus')}New project</button></div></header>
+    <div class="pj-tabs" role="tablist" id="pj-tabs"></div>
+    <div id="pj-body"></div></div>`;
+  $('#pj-new').onclick = () => projectModal();
+  $('#pj-edit').onclick = () => { const p = pjCur(); if (p) projectModal(p.id); };
+  $('#pj-sel').onchange = e => { UI_PJ.id = e.target.value; lsSet('bw-pj-cur', UI_PJ.id); updateProjects(); };
+  $('#pj-tabs').onclick = e => { const b = e.target.closest('[data-pjtab]'); if (!b) return; UI_PJ.tab = b.dataset.pjtab; updateProjects(); };
+  updateProjects();
+}
+function updateProjects() {
+  const body = $('#pj-body'); if (!body) return;
+  if (!S.loaded.projects) { body.innerHTML = '<div class="skel" style="height:320px"></div>'; return; }
+  if (!UI_PJ.id) UI_PJ.id = lsGet('bw-pj-cur') || '';
+  if (UI_PJ.id !== 'all' && !S.projects.some(p => p.id === UI_PJ.id)) UI_PJ.id = S.projects[0] ? S.projects[0].id : null;
+  const sel = $('#pj-sel'), cur = pjCur();
+  sel.innerHTML = S.projects.length ? `${S.projects.length > 1 ? `<option value="all" ${UI_PJ.id === 'all' ? 'selected' : ''}>All projects (${S.projects.length})</option>` : ''}${S.projects.map(p => `<option value="${p.id}" ${p.id === UI_PJ.id ? 'selected' : ''}>${esc(p.name)}</option>`).join('')}` : '<option>No projects yet</option>';
+  sel.disabled = !S.projects.length; $('#pj-edit').hidden = !cur;
+  const tabs = [['dash', 'Dashboard', 'chart'], ['tasks', 'Tasks', 'list'], ['kanban', 'Kanban', 'kanban'], ['gantt', 'Gantt', 'gantt'], ['cal', 'Calendar', 'calendar'], ['matrix', 'Matrix', 'zap']];
+  $('#pj-tabs').innerHTML = S.projects.length ? tabs.map(([k, l, ic]) => `<button type="button" role="tab" data-pjtab="${k}" aria-selected="${UI_PJ.tab === k}">${icon(ic, 'sm')}${l}</button>`).join('') : '';
+  if (!S.projects.length) {
+    body.innerHTML = `<div class="card pj-empty">${ART.notebook ? ART.notebook() : ''}<h2>Plan a project in one place</h2><p class="muted">Add your tasks once with an owner, dates, status and priority. Bragging Wall draws the dashboard, Kanban board, Gantt chart, calendar and priority matrix for you.</p><div class="row" style="justify-content:center"><button type="button" class="btn" id="pj-first">${icon('plus')}Create a project</button><button type="button" class="btn ghost" id="pj-sample">${icon('sparkles', 'sm')}Try a sample project</button></div></div>`;
+    $('#pj-first').onclick = () => projectModal();
+    $('#pj-sample').onclick = () => { const p = pjSample(); S.projects.push(p); persistProject(p.id); UI_PJ.id = p.id; lsSet('bw-pj-cur', p.id); updateProjects(); toast('Sample project added. Change or delete anything.'); };
+    return;
+  }
+  ({ dash: pjDash, tasks: pjTasks, kanban: pjKanban, gantt: pjGantt, cal: pjCal, matrix: pjMatrix })[UI_PJ.tab](body);
+}
+function pjDash(el) {
+  const today = todayKey(), scope = pjScope(), tasks = scope.map(x => x.t), cur = pjCur(), live = tasks.filter(t => t.status !== 6);
+  const done = tasks.filter(t => t.status === 4).length, over = scope.filter(x => pjOverdue(x.t, today));
+  const s0 = startOfWeek(new Date()), wkEnd = ymd(addDays(s0, 6)), m0 = startOfMonth(new Date()), m1 = endOfMonth(new Date());
+  const dueWeek = scope.filter(x => pjOpen(x.t) && !x.t.rec && x.t.due >= today && x.t.due <= wkEnd).length;
+  const todayList = scope.flatMap(x => pjOcc(x.t, x.pj, today, today).map(() => x)).filter(x => x.t.rec ? !x.t.done.includes(today) || true : pjOpen(x.t));
+  const upcoming = scope.filter(x => pjOpen(x.t) && !x.t.rec && x.t.due > today && x.t.due <= ymd(addDays(new Date(), 21))).sort((a, b) => a.t.due < b.t.due ? -1 : 1).slice(0, 8);
+  const prog = pjProgress(tasks);
+  const stParts = PJ_ST.map((l, i) => ({ label: l, value: tasks.filter(t => t.status === i).length, color: PJ_STC[i] })).filter(p => p.value);
+  const priRows = PJ_PRI.map((l, i) => ({ label: l, value: tasks.filter(t => t.priority === i && pjOpen(t)).length, color: PJ_PRC[i] })).filter(r => r.value);
+  const owners = [...new Set(tasks.map(t => t.owner.trim() || 'Unassigned'))];
+  const ownRows = owners.map(o => { const mine = tasks.filter(t => (t.owner.trim() || 'Unassigned') === o && t.status !== 6), d = mine.filter(t => t.status === 4).length; return { label: o, total: mine.length, parts: [{ label: 'Done', value: d, color: PJ_STC[4] }, { label: 'Open', value: mine.length - d, color: PJ_STC[2] }] }; }).sort((a, b) => b.total - a.total).slice(0, 8);
+  const days = [...Array(m1.getDate())].map((_, i) => { const k = ymd(new Date(m0.getFullYear(), m0.getMonth(), i + 1)); return { label: String(i + 1), title: fmtShortK(k), value: scope.reduce((a, x) => a + pjOcc(x.t, x.pj, k, k).length, 0) }; });
+  const row = x => `<button type="button" class="pj-li" data-pjtask="${x.pj.id}:${x.t.id}"><i style="background:${x.pj.color}"></i><span class="pj-lin">${esc(x.t.name || 'Untitled task')}${UI_PJ.id === 'all' ? `<small>${esc(x.pj.name)}</small>` : ''}</span><span class="pj-lio">${esc(x.t.owner)}</span>${x.t.due ? `<span class="pj-lid">${fmtShortK(x.t.due)}</span>` : ''}${pjStChip(x.t.status)}</button>`;
+  const spent = (cur ? cur.tasks : tasks).reduce((a, t) => a + t.cost, 0), budget = cur ? cur.budget : S.projects.reduce((a, p) => a + p.budget, 0), revenue = cur ? cur.revenue : S.projects.reduce((a, p) => a + p.revenue, 0);
+  const daysLeft = cur && cur.end ? pjDaysBetween(today, cur.end) : null;
+  // mini calendar
+  let c = startOfWeek(m0); const mc = []; while (c <= m1 || mc.length % 7) { const k = ymd(c), n = c.getMonth() === m0.getMonth() ? days[c.getDate() - 1].value : 0; mc.push(`<i class="${c.getMonth() !== m0.getMonth() ? 'out' : ''}${n ? ' has' : ''}${k === today ? ' now' : ''}" title="${n ? n + ' due' : ''}">${c.getDate()}</i>`); c = addDays(c, 1); }
+  const projTable = UI_PJ.id === 'all' ? `<section class="card pj-card pj-wide"><h3>${icon('list', 'sm')}All projects</h3><div class="pj-ptable"><div class="pj-pr pj-ph"><span>Project</span><span>End date</span><span>Days left</span><span>Progress</span><span>Status</span><span>Manager</span><span>Category</span></div>${S.projects.map(p => { const pr = pjProgress(p.tasks), dl = p.end ? pjDaysBetween(today, p.end) : null, st = p.tasks.length && p.tasks.every(t => t.status === 4 || t.status === 6) ? 4 : dl !== null && dl < 0 ? 6 : p.tasks.some(t => t.status >= 1 && t.status <= 3) ? 2 : 1; return `<button type="button" class="pj-pr" data-pjgo="${p.id}"><span><i style="background:${p.color}"></i>${esc(p.name)}</span><span>${p.end ? fmtShortK(p.end) : '—'}</span><span class="${dl !== null && dl < 0 ? 'neg' : ''}">${dl === null ? '—' : dl}</span><span class="pj-pbar"><i style="width:${pr}%;background:${p.color}"></i><b>${pr}%</b></span><span>${st === 6 ? '<span class="pj-st" style="--c:#E9719C">Overdue</span>' : pjStChip(st)}</span><span>${esc(p.manager)}</span><span>${esc(p.category)}</span></button>`; }).join('')}</div></section>` : '';
+  el.innerHTML = `<div class="pj-kpis">
+      <div class="card pj-kpi">${pjRing(prog, cur ? cur.color : 'var(--accent)')}<div><b>Overall progress</b><span>${live.length} active tasks</span></div></div>
+      <div class="card pj-kpi"><em>${done}<small>/${tasks.length}</small></em><div><b>Tasks done</b><span>${tasks.length ? Math.round(done / tasks.length * 100) : 0}% complete</span></div></div>
+      <div class="card pj-kpi ${over.length ? 'bad' : ''}"><em>${over.length}</em><div><b>Overdue</b><span>${over.length ? 'Needs attention' : 'All on track'}</span></div></div>
+      <div class="card pj-kpi"><em>${dueWeek}</em><div><b>Due this week</b><span>Not done yet</span></div></div>
+      <div class="card pj-kpi">${UI_PJ.id === 'all' ? `<em>${S.projects.filter(p => p.end && p.end >= ymd(m0) && p.end <= ymd(m1) && pjProgress(p.tasks) < 100).length}</em><div><b>Projects due this month</b><span>Not finished</span></div>` : `<em class="${daysLeft !== null && daysLeft < 0 ? 'neg' : ''}">${daysLeft === null ? '—' : daysLeft}</em><div><b>Days left</b><span>${cur.end ? 'Ends ' + fmtShortK(cur.end) : 'Add an end date'}</span></div>`}</div>
+    </div>
+    ${projTable}
+    <div class="pj-grid">
+      <section class="card pj-card"><h3>${icon('target', 'sm')}Status</h3>${pjDonut(stParts.length ? stParts : [{ label: 'No tasks', value: 0, color: 'var(--line)' }], String(tasks.length), tasks.length === 1 ? 'task' : 'tasks')}</section>
+      <section class="card pj-card"><h3>${icon('flame', 'sm')}Open tasks by priority</h3>${pjBars(priRows, 'No open tasks.')}</section>
+      <section class="card pj-card"><h3>${icon('users', 'sm')}Person in charge</h3>${pjBars(ownRows, 'Add owners to your tasks.')}<p class="pj-key"><i style="background:${PJ_STC[4]}"></i>Done <i style="background:${PJ_STC[2]}"></i>Open</p></section>
+      <section class="card pj-card"><h3>${icon('coin', 'sm')}Budget vs expenses</h3>${pjBars([{ label: 'Budget', value: budget, color: '#9CC9E8' }, { label: 'Expenses', value: spent, color: spent > budget && budget ? '#E9719C' : '#F3B2C9' }, ...(revenue ? [{ label: 'Revenue', value: revenue, color: '#A6D79C' }] : [])].map(r => ({ ...r, total: r.value, parts: [{ label: r.label, value: r.value, color: r.color }] })), '')}<p class="small muted">${budget ? `${pjMoney(Math.max(0, budget - spent))} left of ${pjMoney(budget)}` : 'Set a budget in Project details. Expenses come from task costs.'}${revenue ? ` · Profit margin ${Math.round((revenue - spent) / revenue * 100)}%` : ''}</p></section>
+    </div>
+    <div class="pj-grid pj-grid3">
+      <section class="card pj-card"><h3 class="${over.length ? 'neg' : ''}">${icon('alert', 'sm')}Overdue tasks</h3>${over.length ? `<div class="pj-list">${over.sort((a, b) => a.t.due < b.t.due ? -1 : 1).slice(0, 8).map(row).join('')}</div>` : '<p class="small muted">Nothing overdue. Nice.</p>'}</section>
+      <section class="card pj-card"><h3>${icon('clock', 'sm')}Today</h3>${todayList.length ? `<div class="pj-list">${todayList.slice(0, 10).map(x => x.t.rec ? `<button type="button" class="pj-li" data-pjocc="${x.pj.id}:${x.t.id}:${today}"><span class="pj-tick ${x.t.done.includes(today) ? 'on' : ''}"></span><span class="pj-lin">${esc(x.t.name)}<small>${esc(PJ_REC.find(r => r[0] === x.t.rec)[1])}</small></span><span class="pj-lio">${esc(x.t.owner)}</span></button>` : row(x)).join('')}</div>` : '<p class="small muted">Nothing due today.</p>'}</section>
+      <section class="card pj-card"><h3>${icon('calendar', 'sm')}Coming up</h3>${upcoming.length ? `<div class="pj-list">${upcoming.map(row).join('')}</div>` : '<p class="small muted">No due dates in the next three weeks.</p>'}</section>
+    </div>
+    <div class="pj-grid pj-grid-cal">
+      <section class="card pj-card"><h3>${icon('calendar', 'sm')}${esc(fmtMonthYear(m0))}</h3><div class="pj-mini"><span class="pj-mh">${[...Array(7)].map((_, i) => `<i>${DF({ weekday: 'narrow' }).format(addDays(startOfWeek(m0), i))}</i>`).join('')}</span><span class="pj-mg">${mc.join('')}</span></div><p class="pj-key"><i class="has"></i>Days with tasks due <i class="now"></i>Today</p></section>
+      <section class="card pj-card"><h3>${icon('chart', 'sm')}Tasks due each day this month</h3>${pjCols(days, cur ? cur.color : 'var(--accent)', new Date().getDate() - 1)}</section>
+    </div>`;
+  pjWireLists(el);
+}
+function pjWireLists(el) {
+  el.onclick = e => {
+    const t = e.target.closest('[data-pjtask]'); if (t) { const [p, id] = t.dataset.pjtask.split(':'); taskModal(p, id); return; }
+    const o = e.target.closest('[data-pjocc]'); if (o) { const [p, id, k] = o.dataset.pjocc.split(':'); pjToggleOcc(p, id, k); return; }
+    const g = e.target.closest('[data-pjgo]'); if (g) { UI_PJ.id = g.dataset.pjgo; lsSet('bw-pj-cur', UI_PJ.id); updateProjects(); }
+  };
+}
+function pjToggleOcc(pid, tid, k) {
+  const pj = S.projects.find(p => p.id === pid), t = pj && pj.tasks.find(x => x.id === tid); if (!t) return;
+  t.done = t.done.includes(k) ? t.done.filter(x => x !== k) : [...t.done, k];
+  pjSave(pj.id); updateProjects();
+}
+function pjSetStatus(pj, t, s) {
+  const was = t.status; t.status = s;
+  if (s === 4) t.progress = 100; else if (was === 4 && t.progress === 100) t.progress = 90;
+  pjSave(pj.id);
+  if (s === 4 && was !== 4 && t.name.trim()) pjBragToast(pj, t);
+}
+function pjBragToast(pj, t) {
+  const el = document.createElement('div'); el.className = 'toast pj-toast';
+  el.innerHTML = `${icon('trophy')}<span>Done! Add “${esc(t.name.slice(0, 40))}” to your wall?</span><button type="button" class="btn sm">Brag it</button>`;
+  $('button', el).onclick = () => { el.remove(); const date = todayKey(), item = normItem({ id: newId(), title: t.name, category: CATS && CATS.some && CATS.some(c => c.key === 'delivery') ? 'delivery' : 'personal', project: pj.name, impact: t.priority && t.priority <= 2 ? 3 : 2, createdAt: Date.now(), updatedAt: Date.now() }); if (item) { addWin(date, item); editWinModal(date, item.id); } };
+  $('#toasts').append(el); setTimeout(() => el.remove(), 7000);
+}
+/* ---- tasks table ---- */
+function pjTasks(el) {
+  const cur = pjCur(), today = todayKey(), q = UI_PJ.q.trim().toLowerCase();
+  let rows = pjScope().filter(({ t }) => (!q || (t.name + ' ' + t.notes + ' ' + t.owner + ' ' + t.phase).toLowerCase().includes(q)) && (UI_PJ.st === 'all' || (UI_PJ.st === 'open' ? pjOpen(t) : UI_PJ.st === 'overdue' ? pjOverdue(t, today) : t.status === +UI_PJ.st)) && (!UI_PJ.pri || t.priority === +UI_PJ.pri) && (!UI_PJ.owner || t.owner === UI_PJ.owner) && (!UI_PJ.phase || t.phase === UI_PJ.phase));
+  const key = UI_PJ.sort, dir = UI_PJ.dir, val = ({ t }) => key === 'priority' ? (t.priority || 9) : key === 'status' ? t.status : key === 'progress' ? t.progress : key === 'cost' ? t.cost : (t[key] || (key === 'due' || key === 'start' ? '9999' : '')).toString().toLowerCase();
+  rows.sort((a, b) => { const x = val(a), y = val(b); return (x < y ? -1 : x > y ? 1 : 0) * dir; });
+  const all = pjScope().map(x => x.t), owners = [...new Set(all.map(t => t.owner).filter(Boolean))].sort(), phases = [...new Set(all.map(t => t.phase).filter(Boolean))].sort();
+  const members = cur ? [...new Set([...cur.members, ...owners])] : owners;
+  const H = (k, l) => `<button type="button" class="pj-sort ${key === k ? 'on' : ''}" data-sort="${k}">${l}${key === k ? (dir > 0 ? ' ↑' : ' ↓') : ''}</button>`;
+  const opt = (arr, v) => arr.map(([a, b]) => `<option value="${a}" ${String(a) === String(v) ? 'selected' : ''}>${esc(b)}</option>`).join('');
+  el.innerHTML = `<div class="card pj-filters">
+      <label class="pj-search">${icon('search', 'sm')}<input type="search" id="pjf-q" placeholder="Search tasks" value="${esc(UI_PJ.q)}"></label>
+      <select id="pjf-st" aria-label="Status">${opt([['open', 'Open tasks'], ['all', 'All tasks'], ['overdue', 'Overdue'], ...PJ_ST.map((s, i) => [i, s])], UI_PJ.st)}</select>
+      <select id="pjf-pri" aria-label="Priority">${opt([['', 'Any priority'], ...PJ_PRI.map((s, i) => [i, s])], UI_PJ.pri)}</select>
+      <select id="pjf-owner" aria-label="Person in charge">${opt([['', 'Anyone'], ...owners.map(o => [o, o])], UI_PJ.owner)}</select>
+      <select id="pjf-phase" aria-label="Phase">${opt([['', 'Any phase'], ...phases.map(o => [o, o])], UI_PJ.phase)}</select>
+      ${cur ? `<button type="button" class="btn sm" id="pj-add">${icon('plus', 'sm')}Add task</button>` : '<span class="small muted">Pick one project to add tasks.</span>'}
+    </div>
+    <datalist id="pj-dl-owner">${members.map(o => `<option value="${esc(o)}">`).join('')}</datalist><datalist id="pj-dl-phase">${phases.map(o => `<option value="${esc(o)}">`).join('')}</datalist>
+    <div class="card pj-tablecard"><div class="pj-table" role="table">
+      <div class="pj-tr pj-thead" role="row"><span></span>${H('name', 'Task')}${UI_PJ.id === 'all' ? '<span>Project</span>' : ''}${H('phase', 'Phase')}${H('owner', 'Owner')}${H('status', 'Status')}${H('priority', 'Priority')}${H('start', 'Start')}${H('due', 'Due')}${H('progress', 'Progress')}<span>Repeats</span>${H('cost', 'Cost')}<span></span></div>
+      ${rows.map(({ t, pj }) => `<div class="pj-tr ${pjOverdue(t, today) ? 'over' : ''} ${t.status === 4 ? 'done' : ''}" role="row" data-row="${pj.id}:${t.id}">
+        <label class="pj-chk"><input type="checkbox" data-f="done" ${t.status === 4 ? 'checked' : ''} aria-label="Done"><span></span></label>
+        <input type="text" data-f="name" value="${esc(t.name)}" placeholder="Task name" aria-label="Task name">
+        ${UI_PJ.id === 'all' ? `<span class="pj-pjn"><i style="background:${pj.color}"></i>${esc(pj.name)}</span>` : ''}
+        <input type="text" data-f="phase" value="${esc(t.phase)}" list="pj-dl-phase" placeholder="Phase" aria-label="Phase">
+        <input type="text" data-f="owner" value="${esc(t.owner)}" list="pj-dl-owner" placeholder="Owner" aria-label="Owner">
+        <select data-f="status" style="--c:${PJ_STC[t.status]}" class="pj-stsel" aria-label="Status">${opt(PJ_ST.map((s, i) => [i, s]), t.status)}</select>
+        <select data-f="priority" style="--c:${PJ_PRC[t.priority]}" class="pj-prsel" aria-label="Priority">${opt(PJ_PRI.map((s, i) => [i, i ? s : '—']), t.priority)}</select>
+        <input type="date" data-f="start" value="${t.start}" aria-label="Start date">
+        <input type="date" data-f="due" value="${t.due}" aria-label="Due date">
+        <span class="pj-prog"><input type="range" min="0" max="100" step="5" data-f="progress" value="${t.status === 4 ? 100 : t.progress}" aria-label="Progress" style="--p:${t.status === 4 ? 100 : t.progress}%"><b>${t.status === 4 ? 100 : t.progress}%</b></span>
+        <select data-f="rec" aria-label="Repeats">${opt(PJ_REC, t.rec)}</select>
+        <input type="number" min="0" step="any" data-f="cost" value="${t.cost || ''}" placeholder="0" aria-label="Cost">
+        <span class="pj-ract"><button type="button" class="icon-btn" data-open title="Open task" aria-label="Open task">${icon('edit', 'sm')}</button><button type="button" class="icon-btn" data-del title="Delete task" aria-label="Delete task">${icon('trash', 'sm')}</button></span>
+      </div>`).join('') || `<p class="pj-none small muted">${pjScope().length ? 'No tasks match these filters.' : 'No tasks yet. Add your first one.'}</p>`}
+    </div></div>
+    <p class="small muted">${rows.length} of ${pjScope().length} tasks · Tip: set Repeats for routine work like stand-ups; they show up on the calendar automatically.</p>`;
+  const refilter = () => { UI_PJ.q = $('#pjf-q', el).value; UI_PJ.st = $('#pjf-st', el).value; UI_PJ.pri = $('#pjf-pri', el).value; UI_PJ.owner = $('#pjf-owner', el).value; UI_PJ.phase = $('#pjf-phase', el).value; };
+  $('#pjf-q', el).addEventListener('input', pjDebounce(() => { refilter(); pjTasks(el); const i = $('#pjf-q', el); i.focus(); i.setSelectionRange(i.value.length, i.value.length); }, 250));
+  $$('.pj-filters select', el).forEach(s => s.onchange = () => { refilter(); pjTasks(el); });
+  const add = $('#pj-add', el); if (add) add.onclick = () => { const t = normTask({ id: newId(), status: 1, createdAt: Date.now(), owner: cur.manager }); cur.tasks.push(t); pjSave(cur.id); if (UI_PJ.st !== 'all' && UI_PJ.st !== 'open') UI_PJ.st = 'open'; UI_PJ.q = ''; pjTasks(el); const r = $(`[data-row="${cur.id}:${t.id}"] [data-f="name"]`, el); if (r) r.focus(); };
+  $$('.pj-sort', el).forEach(b => b.onclick = () => { if (UI_PJ.sort === b.dataset.sort) UI_PJ.dir *= -1; else { UI_PJ.sort = b.dataset.sort; UI_PJ.dir = 1; } pjTasks(el); });
+  const find = n => { const r = n.closest('[data-row]'); if (!r) return []; const [p, id] = r.dataset.row.split(':'), pj = S.projects.find(x => x.id === p); return [pj, pj && pj.tasks.find(x => x.id === id), r]; };
+  el.oninput = e => { const f = e.target.dataset.f; if (!f) return; const [pj, t] = find(e.target); if (!t) return; if (f === 'name' || f === 'phase' || f === 'owner') t[f] = e.target.value.slice(0, f === 'name' ? 200 : 60); else if (f === 'progress') { t.progress = +e.target.value; e.target.style.setProperty('--p', t.progress + '%'); e.target.nextElementSibling.textContent = t.progress + '%'; } else if (f === 'cost') t.cost = Math.max(0, Number(e.target.value) || 0); else return; pjSave(pj.id); };
+  el.onchange = e => {
+    const f = e.target.dataset.f; if (!f) return; const [pj, t] = find(e.target); if (!t) return;
+    if (f === 'done') pjSetStatus(pj, t, e.target.checked ? 4 : 1);
+    else if (f === 'status') pjSetStatus(pj, t, +e.target.value);
+    else if (f === 'priority') t.priority = +e.target.value;
+    else if (f === 'start' || f === 'due') { t[f] = isYmd(e.target.value) ? e.target.value : ''; if (t.start && t.due && t.due < t.start) { if (f === 'start') t.due = t.start; else t.start = t.due; } }
+    else if (f === 'progress') { if (t.progress === 100 && t.status !== 4) pjSetStatus(pj, t, 4); else if (t.status === 4 && t.progress < 100) t.status = 2; else if (t.progress > 0 && t.status <= 1) t.status = 2; }
+    else if (f === 'rec') t.rec = e.target.value;
+    else return;
+    pjSave(pj.id); if (['done', 'status', 'priority', 'start', 'due', 'progress', 'rec'].includes(f)) pjTasks(el);
+  };
+  el.onclick = async e => {
+    const [pj, t] = find(e.target); if (!t) return;
+    if (e.target.closest('[data-open]')) taskModal(pj.id, t.id);
+    else if (e.target.closest('[data-del]')) { if (t.name.trim() && !(await confirmModal(`Delete the task “${t.name}”?`))) return; pj.tasks = pj.tasks.filter(x => x.id !== t.id); pjSave(pj.id); pjTasks(el); }
+  };
+}
+/* ---- kanban ---- */
+function pjKanban(el) {
+  const cur = pjCur(), scope = pjScope().filter(x => x.t.status !== 6), today = todayKey();
+  const cols = [0, 1, 2, 3, 4].concat(scope.some(x => x.t.status === 5) ? [5] : []);
+  el.innerHTML = `<p class="small muted">${icon('info', 'sm')} Drag cards between columns, or open a card to change it. Moving a card to Done sets it to 100%.</p><div class="pj-kan">${cols.map(s => { const cards = scope.filter(x => x.t.status === s).sort((a, b) => (a.t.priority || 9) - (b.t.priority || 9) || (a.t.due || '9') < (b.t.due || '9') ? -1 : 1); return `<section class="pj-kcol" data-kst="${s}" style="--c:${PJ_STC[s]}"><header><span>${esc(PJ_ST[s])}</span><b>${cards.length}</b></header><div class="pj-kcards">${cards.map(({ t, pj }) => `<article class="pj-kcard ${pjOverdue(t, today) ? 'over' : ''}" draggable="true" data-pjtask="${pj.id}:${t.id}" tabindex="0" style="--pc:${PJ_PRC[t.priority]}"><div class="pj-kt">${pjPriChip(t.priority)}${UI_PJ.id === 'all' ? `<span class="pj-kp" style="--pc2:${pj.color}">${esc(pj.name)}</span>` : ''}</div><b>${esc(t.name || 'Untitled task')}</b>${t.notes ? `<p>${esc(t.notes.slice(0, 90))}</p>` : ''}<div class="pj-kmeta"><span>${icon('user', 'sm')}${esc(t.owner || '—')}</span>${t.due ? `<span class="${pjOverdue(t, today) ? 'neg' : ''}">${icon('calendar', 'sm')}${fmtShortK(t.due)}</span>` : t.rec ? `<span>${icon('refresh', 'sm')}${esc(PJ_REC.find(r => r[0] === t.rec)[1])}</span>` : ''}</div><span class="pj-kbar"><i style="width:${t.status === 4 ? 100 : t.progress}%"></i></span></article>`).join('')}</div>${cur ? `<button type="button" class="pj-kadd" data-kadd="${s}">${icon('plus', 'sm')}Add a card</button>` : ''}</section>`; }).join('')}</div>`;
+  let drag = null;
+  el.ondragstart = e => { const c = e.target.closest('.pj-kcard'); if (!c) return; drag = c.dataset.pjtask; c.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; try { e.dataTransfer.setData('text/plain', drag); } catch (er) { /* old browsers */ } };
+  el.ondragend = e => { const c = e.target.closest('.pj-kcard'); if (c) c.classList.remove('dragging'); $$('.pj-kcol.over', el).forEach(x => x.classList.remove('over')); };
+  el.ondragover = e => { const col = e.target.closest('.pj-kcol'); if (!col || !drag) return; e.preventDefault(); $$('.pj-kcol.over', el).forEach(x => x !== col && x.classList.remove('over')); col.classList.add('over'); };
+  el.ondrop = e => { const col = e.target.closest('.pj-kcol'); if (!col || !drag) return; e.preventDefault(); const [p, id] = drag.split(':'), pj = S.projects.find(x => x.id === p), t = pj && pj.tasks.find(x => x.id === id); drag = null; if (!t) return; const s = +col.dataset.kst; if (t.status !== s) { pjSetStatus(pj, t, s); pjKanban(el); } };
+  el.onclick = e => { const a = e.target.closest('[data-kadd]'); if (a && cur) { const t = normTask({ id: newId(), status: +a.dataset.kadd, createdAt: Date.now(), owner: cur.manager }); cur.tasks.push(t); pjSave(cur.id); taskModal(cur.id, t.id, true); return; } const c = e.target.closest('[data-pjtask]'); if (c) { const [p, id] = c.dataset.pjtask.split(':'); taskModal(p, id); } };
+  el.onkeydown = e => { const c = e.target.closest('.pj-kcard'); if (c && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); c.click(); } };
+}
+/* ---- gantt ---- */
+function pjGantt(el) {
+  const scope = pjScope().filter(x => x.t.status !== 6), today = todayKey(), dated = scope.filter(x => x.t.start || x.t.due);
+  if (!dated.length) { el.innerHTML = `<div class="card pj-empty"><h2>No dates yet</h2><p class="muted">Give tasks a start and due date in the Tasks tab and they’ll appear on the timeline.</p></div>`; return; }
+  const cur = pjCur(), ks = dated.flatMap(x => [x.t.start || x.t.due, x.t.due || x.t.start]).concat(cur ? [cur.start, cur.end].filter(Boolean) : []).concat([today]).sort();
+  const r0 = startOfWeek(addDays(parseYmd(ks[0]), -2)), r1 = addDays(parseYmd(ks[ks.length - 1]), 6), n = Math.max(28, pjDaysBetween(ymd(r0), ymd(r1)) + 1), W = UI_PJ.zoom === 'day' ? 30 : 12;
+  const off = k => pjDaysBetween(ymd(r0), k);
+  const groups = [...new Set(dated.map(x => (UI_PJ.id === 'all' ? x.pj.name + ' · ' : '') + (x.t.phase || 'No phase')))];
+  const months = []; for (let i = 0; i < n; i++) { const d = addDays(r0, i); if (i === 0 || d.getDate() === 1) months.push([i, d]); }
+  const head = `<div class="pj-gmonths" style="width:${n * W}px">${months.map(([i, d], j) => `<span style="left:${i * W}px;width:${((months[j + 1] ? months[j + 1][0] : n) - i) * W}px">${esc(DF({ month: 'long', year: 'numeric' }).format(d))}</span>`).join('')}</div><div class="pj-gdays" style="width:${n * W}px">${[...Array(n)].map((_, i) => { const d = addDays(r0, i), we = d.getDay() % 6 === 0; return `<span class="${we ? 'we' : ''}${ymd(d) === today ? ' now' : ''}" style="width:${W}px">${UI_PJ.zoom === 'day' ? `${d.getDate()}<i>${DF({ weekday: 'narrow' }).format(d)}</i>` : d.getDay() === weekStartDay() ? d.getDate() : ''}</span>`; }).join('')}</div>`;
+  const bar = ({ t, pj }) => { const s = t.start || t.due, e = t.due || t.start, x = off(s) * W, w = (pjDaysBetween(s, e) + 1) * W, p = t.status === 4 ? 100 : t.progress; return `<div class="pj-gbar ${pjOverdue(t, today) ? 'over' : ''} ${t.status === 4 ? 'done' : ''}" data-gtask="${pj.id}:${t.id}" style="left:${x}px;width:${w}px;--bc:${UI_PJ.id === 'all' ? pj.color : PJ_PRC[t.priority] === PJ_PRC[0] ? pj.color : PJ_PRC[t.priority]}" title="${esc(t.name)} · ${fmtShortK(s)} – ${fmtShortK(e)} · ${p}%"><i style="width:${p}%"></i><span>${esc(t.name || 'Untitled')}</span><b class="pj-grs" data-resize></b></div>`; };
+  const bg = `background-image:linear-gradient(90deg, var(--line) 1px, transparent 1px);background-size:${W * 7}px 100%;background-position:${((7 - ((r0.getDay() - weekStartDay() + 7) % 7)) % 7) * W}px 0`;
+  let rows = '', left = '';
+  groups.forEach(g => {
+    const items = dated.filter(x => ((UI_PJ.id === 'all' ? x.pj.name + ' · ' : '') + (x.t.phase || 'No phase')) === g).sort((a, b) => (a.t.start || a.t.due) < (b.t.start || b.t.due) ? -1 : 1);
+    const gs = items.map(x => x.t.start || x.t.due).sort()[0], ge = items.map(x => x.t.due || x.t.start).sort().pop(), gp = pjProgress(items.map(x => x.t)), closed = UI_PJ.collapsed.has(g);
+    left += `<button type="button" class="pj-gl pj-gph" data-gtoggle="${esc(g)}">${icon(closed ? 'right' : 'down', 'sm')}<b>${esc(g)}</b><span>${gp}%</span></button>`;
+    rows += `<div class="pj-grow pj-gph" style="${bg}"><div class="pj-gsum" style="left:${off(gs) * W}px;width:${(pjDaysBetween(gs, ge) + 1) * W}px"><i style="width:${gp}%"></i></div></div>`;
+    if (!closed) items.forEach(x => { const d = x.t.start && x.t.due ? pjDaysBetween(x.t.start, x.t.due) + 1 : 1; left += `<button type="button" class="pj-gl ${pjOverdue(x.t, today) ? 'neg' : ''}" data-pjtask="${x.pj.id}:${x.t.id}"><span>${esc(x.t.name || 'Untitled task')}</span><em>${esc(x.t.owner)}</em><em>${d}d</em></button>`; rows += `<div class="pj-grow" style="${bg}">${bar(x)}</div>`; });
+  });
+  const undated = scope.filter(x => !x.t.start && !x.t.due && !x.t.rec).length;
+  el.innerHTML = `<div class="pj-gtools"><div class="seg pj-zoom"><button type="button" data-zoom="day" aria-pressed="${UI_PJ.zoom === 'day'}">Days</button><button type="button" data-zoom="week" aria-pressed="${UI_PJ.zoom === 'week'}">Weeks</button></div><span class="small muted">${icon('info', 'sm')} Drag a bar to move it, drag its right edge to change the due date, click it to edit.${undated ? ` ${undated} task${undated > 1 ? 's have' : ' has'} no dates.` : ''}</span></div>
+    <div class="card pj-gantt"><div class="pj-gleft"><div class="pj-glh">Task<span>Owner</span><span>Days</span></div>${left}</div><div class="pj-gright"><div class="pj-gscroll"><div class="pj-ghead">${head}</div><div class="pj-gbody" style="width:${n * W}px">${rows}<i class="pj-gnow" style="left:${(off(today) + .5) * W}px"></i></div></div></div></div>
+    <p class="pj-key small"><i style="background:${PJ_PRC[1]}"></i>Very high <i style="background:${PJ_PRC[2]}"></i>High <i style="background:${PJ_PRC[3]}"></i>Medium <i style="background:${PJ_PRC[4]}"></i>Low <i style="background:${PJ_PRC[5]}"></i>Very low · The darker part of a bar is its progress. Red outline = overdue.</p>`;
+  const sc = $('.pj-gscroll', el); sc.scrollLeft = Math.max(0, (off(today) - 5) * W);
+  el.onclick = e => {
+    const z = e.target.closest('[data-zoom]'); if (z) { UI_PJ.zoom = z.dataset.zoom; pjGantt(el); return; }
+    const g = e.target.closest('[data-gtoggle]'); if (g) { const k = g.dataset.gtoggle; UI_PJ.collapsed.has(k) ? UI_PJ.collapsed.delete(k) : UI_PJ.collapsed.add(k); pjGantt(el); return; }
+    const t = e.target.closest('[data-pjtask]'); if (t) { const [p, id] = t.dataset.pjtask.split(':'); taskModal(p, id); }
+  };
+  // drag to move / resize
+  el.onpointerdown = e => {
+    const b = e.target.closest('.pj-gbar'); if (!b || e.button !== 0) return;
+    const [p, id] = b.dataset.gtask.split(':'), pj = S.projects.find(x => x.id === p), t = pj && pj.tasks.find(x => x.id === id); if (!t) return;
+    const resize = !!e.target.closest('[data-resize]'), x0 = e.clientX, L0 = parseFloat(b.style.left), W0 = parseFloat(b.style.width); let moved = 0;
+    b.setPointerCapture(e.pointerId); b.classList.add('drag');
+    const mv = ev => { const dx = ev.clientX - x0; moved = Math.round(dx / W); if (resize) b.style.width = Math.max(W, W0 + moved * W) + 'px'; else b.style.left = (L0 + moved * W) + 'px'; };
+    const up = () => { b.removeEventListener('pointermove', mv); b.removeEventListener('pointerup', up); b.removeEventListener('pointercancel', up); b.classList.remove('drag');
+      if (!moved) { taskModal(p, id); return; }
+      const s = t.start || t.due, en = t.due || t.start;
+      if (resize) { const ne = ymd(addDays(parseYmd(en), moved)); t.due = ne < s ? s : ne; if (!t.start) t.start = s; }
+      else { t.start = ymd(addDays(parseYmd(s), moved)); t.due = ymd(addDays(parseYmd(en), moved)); }
+      pjSave(pj.id); const keep = $('.pj-gscroll', el).scrollLeft; pjGantt(el); $('.pj-gscroll', el).scrollLeft = keep; toast(resize ? `Due date moved to ${fmtShortK(t.due)}` : `Moved to ${fmtShortK(t.start)} – ${fmtShortK(t.due)}`); };
+    b.addEventListener('pointermove', mv); b.addEventListener('pointerup', up); b.addEventListener('pointercancel', up);
+    e.preventDefault();
+  };
+}
+/* ---- calendar ---- */
+function pjCal(el) {
+  if (!UI_PJ.month) UI_PJ.month = ymd(startOfMonth(new Date()));
+  const m0 = parseYmd(UI_PJ.month), m1 = endOfMonth(m0), today = todayKey(), scope = pjScope().filter(x => x.t.status !== 6);
+  const g0 = startOfWeek(m0), cells = []; let c = g0; while (c <= m1 || cells.length % 7) { cells.push(ymd(c)); c = addDays(c, 1); }
+  const from = cells[0], to = cells[cells.length - 1], byDay = {};
+  scope.forEach(x => pjOcc(x.t, x.pj, from, to).forEach(k => (byDay[k] = byDay[k] || []).push(x)));
+  const wkTotal = (i) => cells.slice(i, i + 7).reduce((a, k) => a + (byDay[k] || []).length, 0);
+  el.innerHTML = `<div class="pj-calbar"><div class="row"><button type="button" class="icon-btn" data-cm="-1" aria-label="Previous month">${icon('left')}</button><h2>${esc(fmtMonthYear(m0))}</h2><button type="button" class="icon-btn" data-cm="1" aria-label="Next month">${icon('right')}</button><button type="button" class="btn ghost sm" data-cm="0">Today</button></div><p class="pj-key small"><i style="background:${PJ_STC[1]}"></i>To do <i style="background:${PJ_STC[2]}"></i>In progress <i style="background:${PJ_STC[3]}"></i>Review <i style="background:${PJ_STC[4]}"></i>Done · ${icon('refresh', 'sm')} repeating: click to tick it off for that day</p></div>
+    <div class="card pj-cal"><div class="pj-calh">${[...Array(7)].map((_, i) => `<span>${DF({ weekday: 'short' }).format(addDays(g0, i))}</span>`).join('')}<span class="pj-wkh">Week</span></div>
+    <div class="pj-calg">${cells.map((k, i) => { const items = byDay[k] || [], inM = k.slice(0, 7) === UI_PJ.month.slice(0, 7); return `<div class="pj-cd ${inM ? '' : 'out'} ${k === today ? 'now' : ''}"><span class="pj-cdn">${parseYmd(k).getDate()}</span>${items.slice(0, 4).map(x => { const dn = x.t.rec ? x.t.done.includes(k) : x.t.status === 4; return `<button type="button" class="pj-chip ${dn ? 'dn' : ''} ${!x.t.rec && pjOverdue(x.t, today) ? 'over' : ''}" style="--c:${x.t.rec ? x.pj.color : PJ_STC[x.t.status]}" ${x.t.rec ? `data-pjocc="${x.pj.id}:${x.t.id}:${k}"` : `data-pjtask="${x.pj.id}:${x.t.id}"`} title="${esc(x.t.name)}${x.t.owner ? ' · ' + esc(x.t.owner) : ''}">${x.t.rec ? icon('refresh', 'sm') : ''}${esc(x.t.name || 'Untitled')}</button>`; }).join('')}${items.length > 4 ? `<button type="button" class="pj-more" data-day="${k}">+${items.length - 4} more</button>` : ''}</div>${i % 7 === 6 ? `<div class="pj-wk"><b>${wkTotal(i - 6)}</b><span>tasks</span></div>` : ''}`; }).join('')}</div></div>`;
+  el.onclick = e => {
+    const m = e.target.closest('[data-cm]'); if (m) { const v = +m.dataset.cm; UI_PJ.month = v ? ymd(new Date(m0.getFullYear(), m0.getMonth() + v, 1)) : ymd(startOfMonth(new Date())); pjCal(el); return; }
+    const o = e.target.closest('[data-pjocc]'); if (o) { const [p, id, k] = o.dataset.pjocc.split(':'); pjToggleOcc(p, id, k); return; }
+    const t = e.target.closest('[data-pjtask]'); if (t) { const [p, id] = t.dataset.pjtask.split(':'); taskModal(p, id); return; }
+    const d = e.target.closest('[data-day]'); if (d) { const k = d.dataset.day; openModal({ title: fmtLong(parseYmd(k)), body: `<div class="pj-list">${(byDay[k] || []).map(x => `<button type="button" class="pj-li" data-pjtask="${x.pj.id}:${x.t.id}"><i style="background:${x.pj.color}"></i><span class="pj-lin">${esc(x.t.name)}</span><span class="pj-lio">${esc(x.t.owner)}</span>${pjStChip(x.t.status)}</button>`).join('')}</div>`, onOpen: w => pjWireLists($('.pj-list', w)), actions: [{ label: 'Close', kind: 'ghost' }] }); }
+  };
+}
+/* ---- decision matrix ---- */
+function pjMatrix(el) {
+  const today = todayKey(), soon = ymd(addDays(new Date(), 3)), open = pjScope().filter(x => pjOpen(x.t) && !x.t.rec);
+  const imp = t => t.priority === 1 || t.priority === 2, urg = t => !!t.due && t.due <= soon;
+  const q = [['Do now', 'Important and urgent', x => imp(x.t) && urg(x.t), '#F9CFE0'], ['Schedule', 'Important, not urgent', x => imp(x.t) && !urg(x.t), '#CFEAF5'], ['Delegate', 'Urgent, not important', x => !imp(x.t) && urg(x.t), '#FBEEBF'], ['Drop or later', 'Neither', x => !imp(x.t) && !urg(x.t), '#E3E8EE']];
+  el.innerHTML = `<p class="small muted">${icon('info', 'sm')} Sorted for you: <b>important</b> means Very high or High priority, <b>urgent</b> means due within 3 days or overdue. Change a task’s priority or due date and it moves.</p><div class="pj-matrix">${q.map(([t, sub, f, c]) => { const items = open.filter(f).sort((a, b) => (a.t.due || '9') < (b.t.due || '9') ? -1 : 1); return `<section class="card pj-q" style="--qc:${c}"><header><b>${t}</b><span>${sub}</span><em>${items.length}</em></header><div class="pj-list">${items.map(x => `<button type="button" class="pj-li" data-pjtask="${x.pj.id}:${x.t.id}"><i style="background:${PJ_PRC[x.t.priority]}"></i><span class="pj-lin">${esc(x.t.name || 'Untitled task')}</span><span class="pj-lio">${esc(x.t.owner)}</span>${x.t.due ? `<span class="pj-lid ${x.t.due < today ? 'neg' : ''}">${fmtShortK(x.t.due)}</span>` : ''}</button>`).join('') || '<p class="small muted">Nothing here.</p>'}</div></section>`; }).join('')}</div>`;
+  pjWireLists(el);
+}
+/* ---- modals ---- */
+function taskModal(pid, tid, isNew = false) {
+  const pj = S.projects.find(p => p.id === pid), t = pj && pj.tasks.find(x => x.id === tid); if (!pj || !t) return;
+  const opt = (arr, v) => arr.map(([a, b]) => `<option value="${a}" ${String(a) === String(v) ? 'selected' : ''}>${esc(b)}</option>`).join('');
+  const owners = [...new Set([...pj.members, ...pj.tasks.map(x => x.owner).filter(Boolean)])], phases = [...new Set(pj.tasks.map(x => x.phase).filter(Boolean))];
+  let saved = false;
+  openModal({
+    title: isNew ? 'New task' : 'Task', wide: true,
+    body: `<div class="stack pj-tform"><div class="field"><label for="tk-name">Task</label><input id="tk-name" type="text" maxlength="200" value="${esc(t.name)}" placeholder="What needs to happen?"></div>
+      <div class="field-row"><div class="field"><label for="tk-owner">Person in charge</label><input id="tk-owner" list="tk-dl-o" maxlength="60" value="${esc(t.owner)}"><datalist id="tk-dl-o">${owners.map(o => `<option value="${esc(o)}">`).join('')}</datalist></div><div class="field"><label for="tk-phase">Phase</label><input id="tk-phase" list="tk-dl-p" maxlength="60" value="${esc(t.phase)}" placeholder="e.g. Planning, Testing"><datalist id="tk-dl-p">${phases.map(o => `<option value="${esc(o)}">`).join('')}</datalist></div></div>
+      <div class="field-row"><div class="field"><label for="tk-st">Status</label><select id="tk-st">${opt(PJ_ST.map((s, i) => [i, s]), t.status)}</select></div><div class="field"><label for="tk-pri">Priority</label><select id="tk-pri">${opt(PJ_PRI.map((s, i) => [i, s]), t.priority)}</select></div><div class="field"><label for="tk-prog">Progress <span class="opt" id="tk-pv">${t.progress}%</span></label><input id="tk-prog" type="range" min="0" max="100" step="5" value="${t.status === 4 ? 100 : t.progress}"></div></div>
+      <div class="field-row"><div class="field"><label for="tk-start">Start</label><input id="tk-start" type="date" value="${t.start}"></div><div class="field"><label for="tk-due">Due</label><input id="tk-due" type="date" value="${t.due}"></div><div class="field"><label for="tk-rec">Repeats</label><select id="tk-rec">${opt(PJ_REC, t.rec)}</select></div><div class="field"><label for="tk-cost">Cost</label><input id="tk-cost" type="number" min="0" step="any" value="${t.cost || ''}" placeholder="0"></div></div>
+      <div class="field"><label for="tk-notes">Notes <span class="opt">optional</span></label><textarea id="tk-notes" rows="3" maxlength="2000">${esc(t.notes)}</textarea></div>
+      <p class="small muted">${icon('info', 'sm')} Repeating tasks show on the calendar from the start date on${pj.end ? ` until the project ends (${fmtShortK(pj.end)})` : ''}. Tick each day off there or on the dashboard.</p></div>`,
+    onOpen: w => { const r = $('#tk-prog', w); r.oninput = () => $('#tk-pv', w).textContent = r.value + '%'; setTimeout(() => $('#tk-name', w).focus(), 40); },
+    onClose: () => { if (isNew && !saved && !t.name.trim()) { pj.tasks = pj.tasks.filter(x => x.id !== t.id); pjSave(pj.id); } updateProjects(); },
+    actions: [
+      ...(isNew ? [] : [{ label: 'Delete', kind: 'ghost danger', onClick: async () => { if (!(await confirmModal(`Delete the task “${t.name || 'Untitled task'}”?`))) return false; pj.tasks = pj.tasks.filter(x => x.id !== t.id); pjSave(pj.id); saved = true; toast('Task deleted'); } }]),
+      { label: 'Cancel', kind: 'ghost' },
+      { label: isNew ? 'Add task' : 'Save', onClick: w => {
+        const name = $('#tk-name', w).value.trim(); if (!name) { toast('Give the task a name.', 'warn'); $('#tk-name', w).focus(); return false; }
+        Object.assign(t, normTask({ ...t, name, owner: $('#tk-owner', w).value.trim(), phase: $('#tk-phase', w).value.trim(), priority: +$('#tk-pri', w).value, progress: +$('#tk-prog', w).value, start: $('#tk-start', w).value, due: $('#tk-due', w).value, rec: $('#tk-rec', w).value, cost: $('#tk-cost', w).value, notes: $('#tk-notes', w).value }));
+        if (t.start && t.due && t.due < t.start) t.due = t.start;
+        const ns = +$('#tk-st', w).value; if (ns !== t.status) pjSetStatus(pj, t, ns); else if (t.progress === 100 && t.status !== 4) pjSetStatus(pj, t, 4);
+        saved = true; pjSave(pj.id);
+      } }],
+  });
+}
+function projectModal(pid) {
+  const pj = pid ? S.projects.find(p => p.id === pid) : null;
+  let color = pj ? pj.color : PJ_COLORS[S.projects.length % PJ_COLORS.length];
+  openModal({
+    title: pj ? 'Project details' : 'New project', wide: true,
+    body: `<div class="stack"><div class="field"><label for="pm-name">Project name</label><input id="pm-name" type="text" maxlength="80" value="${esc(pj ? pj.name : '')}" placeholder="e.g. Android app release 2.4"></div>
+      <div class="field-row"><div class="field"><label for="pm-mgr">Project manager</label><input id="pm-mgr" maxlength="60" value="${esc(pj ? pj.manager : (S.profile.nickname || S.profile.name || ''))}"></div><div class="field"><label for="pm-cat">Category</label><input id="pm-cat" maxlength="60" value="${esc(pj ? pj.category : '')}" placeholder="e.g. QA, Product, Personal"></div></div>
+      <div class="field-row"><div class="field"><label for="pm-start">Start date</label><input id="pm-start" type="date" value="${pj ? pj.start : todayKey()}"></div><div class="field"><label for="pm-end">End date</label><input id="pm-end" type="date" value="${pj ? pj.end : ''}"></div><div class="field"><label for="pm-bud">Budget</label><input id="pm-bud" type="number" min="0" step="any" value="${pj && pj.budget ? pj.budget : ''}" placeholder="0"></div><div class="field"><label for="pm-rev">Revenue</label><input id="pm-rev" type="number" min="0" step="any" value="${pj && pj.revenue ? pj.revenue : ''}" placeholder="0"></div></div>
+      <div class="field"><label for="pm-team">Team members <span class="opt">comma separated</span></label><input id="pm-team" maxlength="600" value="${esc(pj ? pj.members.join(', ') : '')}" placeholder="e.g. Ana, Dev team, Product"></div>
+      <div class="field"><label for="pm-desc">Description <span class="opt">optional</span></label><textarea id="pm-desc" rows="2" maxlength="1000">${esc(pj ? pj.desc : '')}</textarea></div>
+      <fieldset class="field"><legend>Color</legend><div class="swatches">${PJ_COLORS.map(c => `<label class="swatch"><input type="radio" name="pm-color" value="${c}" ${c === color ? 'checked' : ''} aria-label="Color ${c}"><span style="--sw:${c}"></span></label>`).join('')}</div></fieldset></div>`,
+    actions: [
+      ...(pj ? [{ label: 'Delete project', kind: 'ghost danger', onClick: async () => { if (!(await confirmModal(`Delete “${pj.name}” and its ${plural(pj.tasks.length, 'task')}? This can’t be undone.`))) return false; TOMB.add(pj.id); S.projects = S.projects.filter(p => p.id !== pj.id); persistProject(pj.id); UI_PJ.id = S.projects[0] ? S.projects[0].id : null; updateProjects(); toast('Project deleted'); } }] : []),
+      { label: 'Cancel', kind: 'ghost' },
+      { label: pj ? 'Save' : 'Create project', onClick: w => {
+        const v = { name: $('#pm-name', w).value.trim() || 'Untitled project', manager: $('#pm-mgr', w).value.trim(), category: $('#pm-cat', w).value.trim(), start: $('#pm-start', w).value, end: $('#pm-end', w).value, budget: $('#pm-bud', w).value, revenue: $('#pm-rev', w).value, members: $('#pm-team', w).value.split(','), desc: $('#pm-desc', w).value, color: $('input[name="pm-color"]:checked', w).value };
+        if (v.start && v.end && v.end < v.start) { toast('The end date is before the start date.', 'warn'); return false; }
+        if (pj) { Object.assign(pj, normProject(pj.id, { ...pj, ...v })); persistProject(pj.id); }
+        else { const n = normProject(newId(), { ...v, createdAt: Date.now(), tasks: [] }); S.projects.push(n); persistProject(n.id); UI_PJ.id = n.id; lsSet('bw-pj-cur', n.id); UI_PJ.tab = 'tasks'; toast('Project created. Add your first tasks.'); }
+        if (S.view === 'projects') updateProjects(); else go('projects');
+      } }],
+  });
+}
+
 /* ================= Freedom walls ================= */
 const WALL_NOTE_COLORS = ['#FFE27A', '#FFC4D2', '#B9EAD2', '#BFDDF7', '#FFD2A3', '#D9CBF6'];
 const WALL_DEFAULT_BG = { type: 'pattern', c1: '#F3EFE6', c2: '#B9AE96', pattern: 'bricks', file: null, dim: 0 };
@@ -7584,7 +8133,7 @@ async function restoreFromText(text) {
     else if (!(await confirmModal('This is an older backup that was saved without encryption. Restore it anyway? Consider deleting the old file afterwards.', 'Continue', ''))) return;
     const idOk = s => typeof s === 'string' && /^[A-Za-z0-9_\-.~:@+]{1,100}$/.test(s) && s !== '.' && s !== '..';
     const days = Object.entries(data.days || {}).filter(([k, v]) => isYmd(k) && Array.isArray(v));
-    const nbs = (data.notebooks || []).filter(n => idOk(n && n.id)), notes = (data.notes || []).filter(n => idOk(n && n.id)), walls = (data.walls || []).filter(n => idOk(n && n.id));
+    const nbs = (data.notebooks || []).filter(n => idOk(n && n.id)), notes = (data.notes || []).filter(n => idOk(n && n.id)), walls = (data.walls || []).filter(n => idOk(n && n.id)), projects = (data.projects || []).filter(n => idOk(n && n.id));
     const nWins = days.reduce((a, [, v]) => a + v.length, 0);
     if (!(await confirmModal(`Import ${plural(nWins, 'win')}, ${plural(nbs.length, 'notebook')}, ${plural(notes.length, 'page')} and ${plural(Object.keys(data.files || {}).length, 'attachment and cover file', 'attachment and cover files')} from this backup? Entries with the same ID are replaced; everything else is kept.`, 'Import', ''))) return;
     toast('Importing…');
@@ -7593,6 +8142,7 @@ async function restoreFromText(text) {
     for (const n of nbs) { const v = normNb(n.id, n); TOMB.delete(v.id); S.notebooks = S.notebooks.filter(x => x.id !== v.id).concat(v); touched.push(['nb', v.id]); }
     for (const n of notes) { const v = normNote(n.id, n); TOMB.delete(v.id); v.html = sanitize(v.html); S.notes = S.notes.filter(x => x.id !== v.id).concat(v); touched.push(['n', v.id]); }
     for (const n of walls) { const v = normWall(n.id, n); TOMB.delete(v.id); S.walls = S.walls.filter(x => x.id !== v.id).concat(v); touched.push(['wl', v.id]); }
+    for (const n of projects) { const v = normProject(n.id, n); TOMB.delete(v.id); S.projects = S.projects.filter(x => x.id !== v.id).concat(v); touched.push(['pj', v.id]); }
     if (data.profile) {
       const inc = normProfile(data.profile);
       const have = new Set(S.profile.customCats.map(c => c.key));
@@ -7602,14 +8152,14 @@ async function restoreFromText(text) {
       applyCategories(); touched.push(['p']);
     }
     invalidate(); onData('all');
-    for (const [t, id] of touched) { if (t === 'd') await persistDay(id); else if (t === 'nb') await persistNotebook(id); else if (t === 'n') await persistNote(id); else if (t === 'wl') await persistWall(id); else await persistProfile(); if (S.mode === 'cloud') await sleep(60); }
+    for (const [t, id] of touched) { if (t === 'd') await persistDay(id); else if (t === 'nb') await persistNotebook(id); else if (t === 'n') await persistNote(id); else if (t === 'wl') await persistWall(id); else if (t === 'pj') await persistProject(id); else await persistProfile(); if (S.mode === 'cloud') await sleep(60); }
     for (const [fid, f] of Object.entries(data.files || {})) { if (!/^[A-Za-z0-9_-]{1,60}$/.test(fid) || !f || !f.b64) continue; try { await storeFileBytes(fid, b64ToBuf(f.b64), { name: String(f.name || 'file'), type: String(f.type || '') }); } catch (e) { console.error(e); } }
     toast(`Backup imported: ${plural(nWins, 'win')}, ${plural(nbs.length, 'notebook')}, ${plural(notes.length, 'page')} and ${plural(Object.keys(data.files || {}).length, 'file')}.`);
   }
 }
 async function buildBackupFile(key, keys, protectedBy, quiet, hint) {
   await Promise.all([...SEALING.values()]).catch(() => {});
-  const payload = { profile: S.profile, days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes.map(n => ({ id: n.id, ...noteBody(n) })), walls: S.walls, files: {} };
+  const payload = { profile: S.profile, days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes.map(n => ({ id: n.id, ...noteBody(n) })), walls: S.walls, projects: S.projects, files: {} };
   const refs = allFileRefs(); let missing = 0;
   if (refs.length && !quiet) toast(`Packing ${plural(refs.length, 'attachment')}…`);
   for (const f of refs) { try { const { bytes, meta } = await loadFileBytes(f.id); payload.files[f.id] = { name: meta.name, type: meta.type, b64: bufToB64(bytes) }; } catch (e) { console.error(e); missing++; } }
@@ -8177,7 +8727,7 @@ async function lockNow(auto) {
   NBK.clear(); PLAIN.clear();
   S.unsubs.forEach(u => { try { u(); } catch (e) { /* ignore */ } });
   S.unsubs = [];
-  S.days = new Map(); S.notebooks = []; S.notes = []; S.walls = []; S.profile = normProfile({}); applyCategories(); invalidate();
+  S.days = new Map(); S.notebooks = []; S.notes = []; S.walls = []; S.projects = []; S.profile = normProfile({}); applyCategories(); invalidate();
   CRYPTO.key = CRYPTO.readKey = null; decCache = new WeakMap(); shownCounts.clear(); fileURLs.forEach(u => URL.revokeObjectURL(u)); fileURLs.clear();
   UI.report.ai = null; UI.report.edits = null;
   S.view = null; $('#view').innerHTML = ''; setBanner(null);
@@ -8191,7 +8741,7 @@ async function boot() {
   if (db && uid) {
     S.mode = 'cloud'; S.db = db;
     const profile = db.doc(`data/users/${uid}/profile`);
-    S.refs = { profile, wins: profile.collection('wins'), notebooks: profile.collection('notebooks'), notes: profile.collection('notes'), walls: profile.collection('walls'), files: profile.collection('files'), lock: profile.collection('meta').doc('lock') };
+    S.refs = { profile, wins: profile.collection('wins'), notebooks: profile.collection('notebooks'), notes: profile.collection('notes'), walls: profile.collection('walls'), projects: profile.collection('projects'), files: profile.collection('files'), lock: profile.collection('meta').doc('lock') };
   } else S.mode = 'local';
   if (!window.crypto || !crypto.subtle) { S.lock = null; startApp(); return; }
   try { S.lock = await readLock(); } catch (e) { console.error(e); showGate('error'); return; }
@@ -8225,6 +8775,8 @@ function openPalette() {
     { g: 'Actions', label: 'Brag your win', icon: 'megaphone', run: () => { UI.selDate = todayKey(); go('today'); setTimeout(() => $('#t-title')?.focus(), 350); } },
     { g: 'Actions', label: 'New journal entry for today', icon: 'pen', run: () => { const nb = S.notebooks.find(n => n.kind === 'journal') || S.notebooks[0]; if (!nb) { go('notebooks'); return; } openNote(createPage(nb.id, todayKey(), nb.kind === 'journal' ? 'journal' : KINDS[nb.kind].tpl)); } },
     { g: 'Actions', label: 'Open my Freedom Wall', icon: 'wall', run: () => go('walls') },
+    { g: 'Actions', label: 'Open the Project manager', icon: 'kanban', run: () => go('projects') },
+    { g: 'Actions', label: 'New project', icon: 'plus', run: () => projectModal() },
     { g: 'Actions', label: 'Collapse or expand the side menu', icon: 'panelL', run: () => toggleSide() },
     { g: 'Actions', label: 'Email my brags as PDF', icon: 'mail', run: () => openEmailDialog({ scope: 'week', anchor: todayKey() }) },
     { g: 'Actions', label: 'Cheer me up', icon: 'sparkles', run: cheer },
