@@ -1759,6 +1759,113 @@ body.side-anim .app { transition: grid-template-columns .28s var(--ease); }
 .pl-xmg > .pl-gw { font-size: .54rem; } .pl-mg .pl-tr > .pl-gc + .pl-gc { border-left-color: color-mix(in srgb, var(--pln) 60%, transparent); }
 .pl-xskin .pl-dots, .pl-xclean .pl-dots { justify-content: space-around; width: 100%; } .pl-th.pl-xskin .pl-dots i, .pl-th.pl-xclean .pl-dots i { width: 14px; font-style: normal; text-align: center; }
 .pl-gx .pl-cell .pl-stars .pl-star { font-size: .85rem; }
+/* linked planner */
+.pl[data-pltheme="rainbow"] { --pp: #FFFDF9; --pt: #F7E9EE; --pt2: #EBD5DE; --pi: #3F3540; --pm: #8A7A88; --pln: #ECDDE3; --pa: #E58FB1; }
+.pl[data-pltheme="rainbow"] .pl-c1, .pl[data-pltheme="rainbow"] :is(.pl-sec, .pl-box, .pl-wcol2, .pl-idxr):nth-child(5n+1) { --pt: #FBD3DF; --pa: #E27AA5; }
+.pl[data-pltheme="rainbow"] .pl-c2, .pl[data-pltheme="rainbow"] :is(.pl-sec, .pl-box, .pl-wcol2, .pl-idxr):nth-child(5n+2) { --pt: #FCE1C6; --pa: #E8925C; }
+.pl[data-pltheme="rainbow"] .pl-c3, .pl[data-pltheme="rainbow"] :is(.pl-sec, .pl-box, .pl-wcol2, .pl-idxr):nth-child(5n+3) { --pt: #FBF0BE; --pa: #D6AE2E; }
+.pl[data-pltheme="rainbow"] .pl-c4, .pl[data-pltheme="rainbow"] :is(.pl-sec, .pl-box, .pl-wcol2, .pl-idxr):nth-child(5n+4) { --pt: #D8F0D2; --pa: #6DB35F; }
+.pl[data-pltheme="rainbow"] .pl-c5, .pl[data-pltheme="rainbow"] :is(.pl-sec, .pl-box, .pl-wcol2, .pl-idxr):nth-child(5n) { --pt: #D6E6FA; --pa: #6C8EF5; }
+.pl[data-pltheme="white"] { --pp: #FFFFFF; --pt: #F1F1F1; --pt2: #E2E2E2; --pi: #222222; --pm: #777777; --pln: #E4E4E4; --pa: #555555; }
+.pl[data-pltheme="midnight"] { --pp: #121316; --pt: #20232A; --pt2: #2E323B; --pi: #EDEFF5; --pm: #9BA2B3; --pln: #2A2E36; --pa: #8FA6FF; }
+.pl[data-pltheme="pink"] { --pp: #FFF8FA; --pt: #FCE3ED; --pt2: #F8CFE0; --pi: #4A2A38; --pm: #A0718A; --pln: #F3D3E1; --pa: #D9538A; }
+.pl[data-pltheme="matcha"] { --pp: #FAFBF5; --pt: #E7EFDC; --pt2: #D5E3C3; --pi: #2F3A26; --pm: #73866A; --pln: #D8E3CC; --pa: #6E8F4E; }
+.pl[data-pltheme="boho"] { --pp: #FBF6EF; --pt: #F2E4D4; --pt2: #E9D5C1; --pi: #3E2E24; --pm: #8F7564; --pln: #E7D6C5; --pa: #B5714B; }
+.pl[data-pltheme="midnight"] .pl-dn.pl-won, .pl[data-pltheme="midnight"] .pl-md.pl-won { color: #121316; }
+.pl-link { cursor: pointer; border-radius: 8px; transition: background .15s, color .15s, transform .15s; }
+.pl-link:hover { background: color-mix(in srgb, var(--pa) 18%, transparent); color: var(--pi); }
+.pl-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: -8px 0 16px; user-select: none; }
+.pl-nav .pl-link { display: inline-flex; align-items: center; gap: 4px; padding: 5px 12px; border-radius: 99px; background: var(--pt); font-size: .74rem; font-weight: 600; letter-spacing: .03em; color: var(--pi); }
+.pl-nav .pl-link.pl-on { background: var(--pa); color: #fff; }
+.pl-nav .pl-arrow { background: transparent; border: 1px solid var(--pln); }
+.pl-navsp { flex: 1; }
+.pl-navbig .pl-link { padding: 8px 16px; font-size: .82rem; }
+.pl-nav .pl-q { flex-direction: column; gap: 0; padding: 8px 18px; border-radius: 14px; font-size: 1.1rem; } .pl-q .pl-mut { font-size: .62rem; font-weight: 500; color: var(--pm); }
+.pl-mini { user-select: none; padding: 8px; border-radius: 12px; border: 1px solid var(--pln); margin-bottom: 12px; }
+.pl-mini > b { display: block; font-size: .7rem; letter-spacing: .12em; margin-bottom: 4px; } .pl-mini > b .pl-link { padding: 2px 6px; margin-left: -6px; }
+.pl-mh, .pl-mg2 { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; }
+.pl-mh i { font-style: normal; font-size: .58rem; color: var(--pm); }
+.pl-md { font-size: .7rem; line-height: 1.9; border-radius: 50%; cursor: pointer; color: var(--pi); }
+.pl-md:hover { background: var(--pt); } .pl-md.pl-mout { cursor: default; } .pl-md.pl-won { background: var(--pa); color: #fff; } .pl-md.pl-now { box-shadow: inset 0 0 0 1.5px var(--pa); font-weight: 700; }
+.pl-q3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
+.pl-q3 .pl-mini { background: var(--pt); border: 0; margin: 0; }
+.pl-qfor { display: flex; flex-direction: column; gap: 8px; } .pl-qfor .pl-box { display: flex; gap: 8px; margin: 0; } .pl-qfor .pl-area { flex: 1; }
+.pl-circ .pl-star::before { content: ""; display: inline-block; width: .8em; height: .8em; border-radius: 50%; border: 1.4px solid var(--pm); vertical-align: middle; }
+.pl-circ .pl-star[data-on="true"]::before { background: var(--pa); border-color: var(--pa); }
+.pl-circ { gap: 3px; display: inline-flex; }
+.pl-faces { display: flex; gap: 10px; justify-content: space-around; user-select: none; padding: 4px 0; }
+.pl-face { font-size: 1.5rem; cursor: pointer; filter: grayscale(1) opacity(.45); transition: filter .2s, transform .2s; line-height: 1; }
+.pl-face:hover { transform: scale(1.12); } .pl-face[data-on="true"] { filter: none; transform: scale(1.25); }
+.pl-glance { display: flex; flex-direction: column; }
+.pl-gl { display: grid; grid-template-columns: 74px 1fr; align-items: center; border-bottom: 1px solid var(--pln); min-height: 1.95em; }
+.pl-gl.pl-we { background: color-mix(in srgb, var(--pt) 45%, transparent); } .pl-gl.pl-now .pl-gd b { background: var(--pa); color: #fff; }
+.pl-gd { font-size: .7rem; color: var(--pm); user-select: none; } .pl-gd .pl-link { display: inline-flex; gap: 6px; align-items: center; padding: 2px 6px; } .pl-gd b { display: inline-grid; place-items: center; min-width: 22px; height: 22px; border-radius: 6px; color: var(--pi); }
+.pl-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; user-select: none; }
+.pl-card2 { display: flex !important; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 12px !important; border: 1px solid var(--pln); background: var(--pp); }
+.pl-card2 b { font-size: .9rem; } .pl-card2 .pl-mut { font-size: .72rem; color: var(--pm); } .pl-card2 em { font-style: normal; font-size: .68rem; color: var(--pa); font-weight: 700; margin-top: 2px; }
+.pl-nextm .pl-mini { background: var(--pt); border: 0; }
+.pl-area3 > .pl-1 { font-weight: 700; text-align: center; border-bottom: 1px solid color-mix(in srgb, var(--pm) 30%, transparent); }
+.pl-hcards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+.pl-hcard { background: var(--pt); border-radius: 14px; padding: 10px 12px; }
+.pl-hctop { display: flex; align-items: center; gap: 6px; border-bottom: 1px solid color-mix(in srgb, var(--pm) 30%, transparent); margin-bottom: 8px; }
+.pl-hctop > .pl-1:first-child { font-weight: 700; } .pl-hgoal { flex: 0 0 52px !important; text-align: center; }
+.pl-hcdots { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; justify-items: center; user-select: none; }
+.pl-hcdots .pl-dot { width: 16px; height: 16px; background: var(--pp); }
+.pl-wk7 { display: grid; grid-template-columns: repeat(7, minmax(110px, 1fr)); gap: 6px; min-width: 820px; margin-bottom: 16px; }
+.pl-wcol2 { display: flex; flex-direction: column; border-radius: 10px; overflow: hidden; border: 1px solid var(--pln); }
+.pl-wh2 { background: var(--pt); text-align: center; user-select: none; } .pl-wh2 .pl-link { display: flex; flex-direction: column; padding: 6px 4px; border-radius: 0; } .pl-wh2 b { font-size: .74rem; letter-spacing: .1em; } .pl-wh2 span { font-size: .66rem; color: var(--pm); }
+.pl-wen { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px; font-size: .5rem; letter-spacing: .1em; color: var(--pm); border-bottom: 1px solid var(--pln); user-select: none; }
+.pl-wen .pl-star { font-size: .7rem; }
+.pl-wtall { min-height: 320px; padding: 6px 8px; font-size: .82rem; background-image: repeating-linear-gradient(transparent 0 23px, var(--pln) 23px 24px); line-height: 24px; }
+.pl-d2 { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 22px; margin-bottom: 4px; }
+.pl-sched2 { border-top: 1px solid var(--pi); }
+.pl-sr { display: grid; grid-template-columns: 46px 1fr 26px; align-items: center; border-bottom: 1px solid var(--pln); min-height: 1.85em; }
+.pl-sr.pl-half { border-bottom-style: dashed; } .pl-sr .pl-t { width: auto; height: 100%; font-size: .64rem; }
+.pl-sr .pl-1 { padding: 2px 8px; font-size: .84rem; }
+.pl-plus { width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--pln); display: grid; place-items: center; font-size: .8rem; line-height: 1; color: var(--pm); cursor: pointer; user-select: none; opacity: .55; transition: opacity .15s, background .15s, color .15s; }
+.pl-sr:hover .pl-plus { opacity: 1; } .pl-plus:hover { background: var(--pa); color: #fff; border-color: var(--pa); }
+.pl-top3 > li { background: var(--pt); border-radius: 8px; border: 0 !important; margin-bottom: 4px; }
+.pl-idxm { display: flex; flex-direction: column; gap: 4px; user-select: none; }
+.pl-idxr { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; background: var(--pt); border-radius: 10px; padding: 4px 6px; }
+.pl-idxr .pl-link { font-size: .64rem; padding: 3px 6px; background: var(--pp); color: var(--pi); }
+.pl-idxr .pl-mname { flex: 1 1 64px; background: transparent; font-weight: 700; font-size: .84rem; }
+.pl-idxw { display: grid; grid-template-columns: repeat(9, 1fr); gap: 4px; user-select: none; }
+.pl-idxw .pl-link { text-align: center; font-size: .7rem; padding: 5px 0; background: var(--pt); }
+.pl-idxlib { display: flex; flex-direction: column; gap: 5px; user-select: none; }
+.pl-idxcat { background: var(--pt); border-radius: 10px; padding: 6px 10px; }
+.pl-idxcat summary { cursor: pointer; font-weight: 700; font-size: .82rem; list-style: none; display: flex; justify-content: space-between; } .pl-idxcat summary::-webkit-details-marker { display: none; } .pl-idxcat summary i { font-style: normal; color: var(--pm); font-weight: 500; }
+.pl-idxcat > span { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; } .pl-idxcat .pl-link { font-size: .7rem; padding: 3px 8px; background: var(--pp); }
+.pl-vb { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; } .pl-vb6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.pl-vtile { position: relative; background: var(--pt); border-radius: 14px; padding: 22px 12px 10px; min-height: 150px; border: 2px dashed color-mix(in srgb, var(--pm) 35%, transparent); }
+.pl-vhint { position: absolute; top: 6px; left: 12px; font-size: .58rem; letter-spacing: .12em; color: var(--pm); user-select: none; }
+.pl-vtile .pl-area { min-height: 110px; text-align: center; }
+.pl-manq { font: italic 400 1.1rem/1.7 var(--font-display); text-align: center; background: var(--pt); border-radius: 16px; padding: 20px !important; margin-bottom: 14px; }
+.pl-bday { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; } .pl-bday .pl-box { margin: 0; }
+.pl-word { position: relative; text-align: center; margin: 6px 0 18px; padding: 28px 10px 18px; border-radius: 20px; background: var(--pt); }
+.pl-word span { position: absolute; top: 8px; left: 0; right: 0; font-size: .6rem; letter-spacing: .16em; color: var(--pm); user-select: none; }
+.pl-wordin { font: 400 2.6rem/1.2 var(--font-display); text-align: center; letter-spacing: .04em; color: var(--pa); }
+.pl-tline { border-left: 2px solid var(--pa); margin: 0 0 16px 60px; }
+.pl-tlr { position: relative; display: flex; align-items: center; min-height: 2.2em; border-bottom: 1px dashed var(--pln); padding-left: 14px; }
+.pl-tlr::before { content: ""; position: absolute; left: -6px; width: 10px; height: 10px; border-radius: 50%; background: var(--pp); border: 2px solid var(--pa); }
+.pl-tld { position: absolute; left: -62px; width: 50px; text-align: right; font-size: .66rem; color: var(--pm); user-select: none; }
+.pl-bstorm { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: auto auto auto; gap: 10px; margin-bottom: 14px; }
+.pl-bcenter { grid-column: 2; grid-row: 2; display: grid; place-items: center; border-radius: 50%; aspect-ratio: 1; max-width: 200px; justify-self: center; width: 100%; background: var(--pa); color: #fff; padding: 20px; text-align: center; font-weight: 700; }
+.pl-bcenter .pl-1 { width: 100%; text-align: center; }
+.pl-bidea { background: var(--pt); border-radius: 18px; padding: 8px; } .pl-bidea:nth-of-type(2) { grid-column: 1; grid-row: 1; } .pl-bidea:nth-of-type(3) { grid-column: 2; grid-row: 1; } .pl-bidea:nth-of-type(4) { grid-column: 3; grid-row: 1; } .pl-bidea:nth-of-type(5) { grid-column: 1; grid-row: 3; } .pl-bidea:nth-of-type(6) { grid-column: 2; grid-row: 3; } .pl-bidea:nth-of-type(7) { grid-column: 3; grid-row: 3; }
+.pl-jars .pl-coin { border-radius: 8px 8px 12px 12px; aspect-ratio: .85; position: relative; } .pl-jars .pl-coin::before { content: ""; position: absolute; top: -5px; left: 18%; right: 18%; height: 5px; border-radius: 3px; background: var(--pm); opacity: .5; }
+.pl-val { min-height: 54px; }
+.pl-stk { display: inline-block; font-size: 2.4em; line-height: 1.1; vertical-align: middle; filter: drop-shadow(0 2px 3px rgba(0,0,0,.15)); }
+.stk-pick .stk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(46px, 1fr)); gap: 6px; margin-bottom: 8px; }
+.stk-grid button { font-size: 1.6rem; aspect-ratio: 1; border-radius: 12px; border: 1px solid var(--line); background: var(--surface-solid); cursor: pointer; transition: transform .15s, background .15s; }
+.stk-grid button:hover { transform: scale(1.12); background: var(--surface-2); } .stk-grid button.on { background: var(--accent-soft); transform: scale(.92); }
+.cvd-presets { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 8px; margin-bottom: 6px; }
+.cvd-presets button { border: 0; background: none; padding: 0; cursor: pointer; display: flex; flex-direction: column; gap: 3px; align-items: center; font: 500 .66rem var(--font-body); color: var(--muted); }
+.cvd-presets .cover { width: 100%; aspect-ratio: 3 / 4; border-radius: 4px 10px 10px 4px; box-shadow: 0 4px 10px -6px rgba(0,0,0,.4); transition: transform .15s; }
+.cvd-presets button:hover .cover { transform: translateY(-2px) rotate(-1deg); }
+@media (max-width: 760px) {
+  .ed-body .pl-d2, .ed-body .pl-q3, .ed-body .pl-hcards, .ed-body .pl-vb6, .ed-body .pl-bday { grid-template-columns: 1fr; }
+  .ed-body .pl-idxw { grid-template-columns: repeat(6, 1fr); } .ed-body .pl-vb, .ed-body .pl-cards { grid-template-columns: 1fr; }
+}
 /* editor integration */
 .ed-body.has-pl { max-width: none; padding: 18px 18px 40px; }
 .pl-themes { display: inline-flex; align-items: center; gap: 5px; }
@@ -2473,10 +2580,10 @@ const XTRA_TPL = [
   { key: 'booklog', kind: 'planner', group: 'logs', label: 'Book log', icon: 'book', desc: 'Title, author, dates, rating and review' },
   { key: 'movielog', kind: 'planner', group: 'logs', label: 'Movie log', icon: 'camera', desc: 'What you watched and how you rated it' },
   { key: 'watchlist', kind: 'planner', group: 'logs', label: 'Watchlist', icon: 'eye', desc: 'Shows and movies to watch next' },
-  { key: 'recipe', kind: 'planner', group: 'logs', label: 'Recipe', icon: 'coffee', desc: 'Ingredients, times and steps' },
-  { key: 'mealplan', kind: 'planner', group: 'logs', label: 'Meal planner', icon: 'leaf', desc: 'A week of meals plus a grocery list' },
-  { key: 'cleaning', kind: 'planner', group: 'logs', label: 'Cleaning log', icon: 'home', desc: 'Daily, weekly and monthly chores' },
-  { key: 'trip', kind: 'planner', group: 'logs', label: 'Trip itinerary', icon: 'plane', desc: 'Bookings, day plans, packing and budget' },
+  { key: 'recipe', kind: 'planner', group: 'house', label: 'Recipe', icon: 'coffee', desc: 'Ingredients, times and steps' },
+  { key: 'mealplan', kind: 'planner', group: 'house', label: 'Meal planner', icon: 'leaf', desc: 'A week of meals plus a grocery list' },
+  { key: 'cleaning', kind: 'planner', group: 'house', label: 'Cleaning log', icon: 'home', desc: 'Daily, weekly and monthly chores' },
+  { key: 'trip', kind: 'planner', group: 'travel', label: 'Trip itinerary', icon: 'plane', desc: 'Bookings, day plans, packing and budget' },
   { key: 'yearplan', kind: 'planner', group: 'plan', label: 'Yearly calendar', icon: 'calendar', desc: 'Twelve months at a glance with your win days' },
   { key: 'quarter', kind: 'planner', group: 'plan', label: 'Quarterly plan', icon: 'target', desc: 'Goals and key dates for three months' },
   { key: 'longterm', kind: 'planner', group: 'plan', label: 'Long-term goals', icon: 'rocket', desc: 'Where you want to be in 1, 3, 5 and 10 years' },
@@ -2504,9 +2611,278 @@ const XTRA_TPL = [
 const XTRA_KEYS = XTRA_TPL.map(t => t.key);
 const XTRA_TITLE = { wbudget: 'w', mealplan: 'w', hydration: 'm', steps: 'm', energy: 'm', moodtrack: 'm', sleep: 'm', monthgantt: 'm', yearfin: 'y', yearplan: 'y', quarter: 'q', fivemin: 'd', dream: 'd', timeblock: 'd', distraction: 'd' };
 const SELFCARE = ['Take a long bath', 'Drink 8 glasses of water', 'Go for a walk in nature', 'Call a friend', 'Read for 20 minutes', 'Stretch for 10 minutes', 'Cook a healthy meal', 'Sleep 8 hours', 'Write 3 things you love about yourself', 'Declutter one drawer', 'No screens for 1 hour before bed', 'Listen to your favorite album', 'Try a new recipe', 'Do a face mask', 'Journal for 10 minutes', 'Have a solo coffee date', 'Unfollow accounts that drain you', 'Dance to one song', 'Say no to something', 'Watch the sunset', 'Meditate for 5 minutes', 'Buy yourself flowers', 'Do something creative', 'Take a nap', 'Write a letter to future you', 'Spend time with a pet or plant', 'Wear your favorite outfit', 'Celebrate a small win', 'Plan something fun', 'Rest. Do nothing at all'];
-TEMPLATES.push(...XTRA_TPL);
+/* ---------- Linked digital planner + template library (10 categories) ---------- */
+const CORE_TPL = [
+  { key: 'pindex', kind: 'planner', label: 'Planner index', icon: 'list', desc: 'Every quarter, month, week and template, one tap away' },
+  { key: 'qplan', kind: 'planner', label: 'Quarter planner', icon: 'target', desc: 'Three mini months, focus by month, fixed dates, how it went' },
+  { key: 'mglance', kind: 'planner', label: 'Month at a glance', icon: 'calendar', desc: 'A line for every day, key dates and the month’s pages' },
+  { key: 'mcal2', kind: 'planner', label: 'Month calendar & to-dos', icon: 'calendar', desc: 'Calendar, important dates, to-dos, notes and next month' },
+  { key: 'moverview', kind: 'planner', label: 'Month overview', icon: 'sparkles', desc: 'Focus, priorities, wins, goals, projects and people' },
+  { key: 'mbudget', kind: 'planner', label: 'Month budget', icon: 'coin', desc: 'Income, fixed and variable spending, savings and debt' },
+  { key: 'mreview', kind: 'planner', label: 'Month review', icon: 'refresh', desc: 'What went well, what was hard, rate the month' },
+  { key: 'habitcards', kind: 'planner', label: 'Habit cards', icon: 'flame', desc: 'A card per habit with a dot for every day' },
+  { key: 'wkcols', kind: 'planner', label: 'Week in columns', icon: 'list', desc: 'The one thing, seven tall columns, anchors, habits, wins' },
+  { key: 'day2', kind: 'planner', label: 'Day, hour by hour', icon: 'clock', desc: 'Half-hour schedule with calendar links, top 3, water, sleep, mood' },
+];
+const LIB_TPL = [
+  // personal
+  ['goaltrack', 'personal', 'Goal tracker', 'target', 'Goals, steps, progress and rewards'], ['selfdisc', 'personal', 'Self-discovery journal', 'pen', 'Questions to know yourself better'], ['motivation', 'personal', 'Motivation board', 'sparkles', 'Quotes, reasons and reminders that push you'],
+  ['hobbies', 'personal', 'Hobbies & interests tracker', 'heart', 'What you love doing and want to try'], ['milestones', 'personal', 'Life milestones tracker', 'trophy', 'The big moments, in order'], ['values', 'personal', 'Personal values list', 'heart', 'Pick your values and live by them'],
+  ['swot', 'personal', 'Personal SWOT analysis', 'chart', 'Strengths, weaknesses, opportunities, threats'], ['social', 'personal', 'Social tracker', 'users', 'Who you saw, how often, and who to call'], ['manifesto', 'personal', 'Personal manifesto', 'quote', 'What you stand for, in your own words'],
+  ['petcare', 'personal', 'Pet care planner', 'heart', 'Feeding, vet visits, meds and grooming'], ['moodlog', 'personal', 'Mood log', 'smile', 'Mood, triggers and what helped'], ['bucket', 'personal', 'Bucket list tracker', 'rocket', 'Everything you want to do, ticked off'],
+  ['friends', 'personal', 'Friendship tracker', 'users', 'Keep in touch with the people who matter'], ['birthdays', 'personal', 'Birthday list', 'gift', 'Birthdays by month with gift ideas'],
+  // self-care
+  ['selfcheck', 'well', 'Self-care checklist', 'checkSq', 'Daily and weekly care, checked each day'], ['reflect', 'well', 'Daily reflection', 'pen', 'How today went and what you learned'], ['fitness', 'well', 'Fitness tracker', 'flame', 'Workouts, sets, minutes and how you felt'],
+  // education
+  ['study', 'edu', 'Study schedule', 'clock', 'Subjects and study blocks for the week'], ['assign', 'edu', 'Assignment planner', 'checkSq', 'Due dates, status and marks'], ['classinfo', 'edu', 'Class information', 'grad', 'Teachers, rooms, times and contacts'],
+  ['revision', 'edu', 'Revision tracker', 'refresh', 'Topics, confidence and review rounds'], ['research', 'edu', 'Research project', 'search', 'Question, sources, findings and plan'], ['grades', 'edu', 'Grade tracker', 'chart', 'Scores and averages by subject'],
+  ['readlist', 'edu', 'Reading list', 'book', 'Books and papers to read, with status'], ['lesson', 'edu', 'Lesson planner', 'clipboard', 'Objectives, activities and materials'], ['timetable', 'edu', 'Weekly timetable', 'calendar', 'Your week of classes in a grid'],
+  ['vocab', 'edu', 'Vocabulary log', 'chat', 'New words, meanings and examples'],
+  // finance
+  ['debt', 'money', 'Debt tracker', 'chart', 'Balances, payments and payoff progress'], ['bills', 'money', 'Bill payment tracker', 'calendar', 'Every bill with due date and paid box'], ['savegoal', 'money', 'Savings goal tracker', 'target', 'One goal, deposits and a fill-up tracker'],
+  ['expense', 'money', 'Expense tracker', 'coin', 'Every expense by date and category'], ['invest', 'money', 'Investment tracker', 'chart', 'Holdings, amounts and returns'], ['subs', 'money', 'Subscription tracker', 'refresh', 'Services, cost, renewal date and keep or cancel'],
+  ['emergency', 'money', 'Emergency fund planner', 'shield', 'Target, monthly saving and progress'], ['nospend', 'money', 'No-spend challenge', 'coin', 'Tap every day you spend nothing extra'],
+  // budget
+  ['grocery', 'budget', 'Grocery budget', 'leaf', 'Planned vs spent per shop'], ['holiday', 'budget', 'Holiday / travel budget', 'plane', 'Trip costs, saved and spent'], ['eventbud', 'budget', 'Event budget', 'gift', 'Budget for a party, wedding or celebration'],
+  ['giftbud', 'budget', 'Gift budget', 'gift', 'Who, what, budget and bought'], ['petbud', 'budget', 'Pet care budget', 'heart', 'Food, vet, toys and grooming costs'], ['clothes', 'budget', 'Clothing budget tracker', 'sparkles', 'Wishlist, budget and what you bought'],
+  ['paycheck', 'budget', 'Paycheck plan', 'coin', 'Give every peso of a paycheck a job'],
+  // vision
+  ['vboard', 'vision', 'Vision board', 'image', 'Your dream life in stickers and words'], ['fiveyear', 'vision', '5-year plan', 'rocket', 'Year by year, in every area of life'], ['visionref', 'vision', 'Monthly vision reflection', 'refresh', 'Are you moving toward your vision?'],
+  ['career', 'vision', 'Career vision', 'briefcase', 'The work you want, skills and next steps'], ['relvision', 'vision', 'Relationship vision', 'heart', 'The relationships you want to build'], ['wordyear', 'vision', 'Word of the year', 'sparkles', 'One word to guide your year'],
+  // planning
+  ['priority', 'plan', 'Priority planner', 'zap', 'Must, should and could do'], ['eventplan', 'plan', 'Event planner', 'calendar', 'Guests, venue, schedule and checklist'], ['weekov', 'plan', 'Weekly overview', 'calendar', 'The week at a glance with focus and notes'],
+  ['timeline', 'plan', 'Daily timeline', 'clock', 'Your day on a timeline'], ['goalaction', 'plan', 'Goal action plan', 'target', 'Actions, owners, deadlines and status'], ['mgoals', 'plan', 'Monthly goals', 'trophy', 'Goals for the month and how you’ll get there'],
+  // household
+  ['chores', 'house', 'Chore chart', 'home', 'Who does what, every day of the week'], ['appts', 'house', 'Appointments', 'calendar', 'Doctor, dentist and other appointments'], ['maint', 'house', 'Maintenance jobs', 'wrench', 'Home and car jobs, costs and when done'],
+  ['familycal', 'house', 'Family calendar', 'users', 'Everyone’s week in one grid'], ['grolist', 'house', 'Grocery list', 'leaf', 'Shopping list by aisle'], ['plants', 'house', 'Plant care', 'leaf', 'Watering, sunlight and feeding for each plant'],
+  // travel
+  ['packing', 'travel', 'Packing checklist', 'checkSq', 'Clothes, toiletries, documents and tech'], ['travelbud', 'travel', 'Budget travel planner', 'coin', 'Daily costs and a budget for the trip'], ['tripov', 'travel', 'Trip overview', 'plane', 'Dates, bookings, contacts and documents'],
+  ['weektravel', 'travel', 'Weekly travel planner', 'calendar', 'Seven days of plans on the road'], ['accom', 'travel', 'Accommodation planner', 'home', 'Places to stay, prices and booking info'], ['places', 'travel', 'Places to visit', 'globe', 'Sights, food and places with a tick box'],
+  ['roadtrip', 'travel', 'Road trip planner', 'plane', 'Stops, distances, fuel and snacks'], ['tjournal', 'travel', 'Travel journal', 'pen', 'Where you went and how it felt'],
+  // work
+  ['inbox', 'pm', 'Inbox tracker', 'mail', 'Emails and messages to reply to or act on'], ['brainstorm', 'pm', 'Brainstorming', 'bulb', 'Ideas, the best ones and next steps'],
+].map(([key, group, label, ic, desc]) => ({ key, kind: group === 'pm' ? 'work' : 'planner', group, label, icon: ic, desc }));
+const CORE_KEYS = CORE_TPL.map(t => t.key), LIB_KEYS = LIB_TPL.map(t => t.key);
+function coreDate(key, d) {
+  if (key === 'pindex') return new Date(d.getFullYear(), 0, 1);
+  if (key === 'qplan') return new Date(d.getFullYear(), Math.floor(d.getMonth() / 3) * 3, 1);
+  if (['mglance', 'mcal2', 'moverview', 'mbudget', 'mreview', 'habitcards'].includes(key)) return startOfMonth(d);
+  if (key === 'wkcols') return startOfWeek(d);
+  return d;
+}
+const weekNo = d => { const s = startOfWeek(d), j = startOfWeek(new Date(s.getFullYear(), 0, 1)); return Math.floor(Math.round((s - j) / 864e5) / 7) + 1; };
+function coreTitle(key, d) {
+  const MY = fmtMonthYear(d);
+  return { pindex: `Planner index · ${d.getFullYear()}`, qplan: `Quarter planner · Q${Math.floor(d.getMonth() / 3) + 1} ${d.getFullYear()}`, mglance: `${MY} · At a glance`, mcal2: `${MY} · Calendar`, moverview: `${MY} · Overview`, mbudget: `${MY} · Budget`, mreview: `${MY} · Review`, habitcards: `${MY} · Habits`, wkcols: `Week ${weekNo(d)} · ${DF({ month: 'short', day: 'numeric' }).format(d)}`, day2: DF({ weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' }).format(d) }[key];
+}
+function libHTML(key, d0, theme) {
+  const core = CORE_KEYS.includes(key), d = core ? coreDate(key, d0) : d0;
+  const L = (t, c = '') => `<div class="pl-lbl${c ? ' ' + c : ''}" contenteditable="false">${t}</div>`;
+  const f1 = PM.f1, area = (h = 2) => `<div class="pl-f pl-area pl-h${h}"><p><br></p></div>`;
+  const B = (t, h = 2, c = '') => `<div class="pl-box${c ? ' ' + c : ''}">${L(t)}${area(h)}</div>`;
+  const S2 = (t, inner, c = '') => `<div class="pl-sec">${L(t, c)}${inner}</div>`;
+  const todo = (n, items = []) => `<ul class="checklist pl-todo pl-f">${[...Array(Math.max(n, items.length))].map((_, i) => `<li data-checked="false">${items[i] ? esc(items[i]) : '<br>'}</li>`).join('')}</ul>`;
+  const TD = (t, n, c = '', items) => S2(t, todo(n, items), c);
+  const lines = (n, num = true) => `<div class="pl-lines">${[...Array(n)].map((_, i) => `<div class="pl-ln">${num ? `<span class="pl-n" contenteditable="false">${i + 1}.</span>` : ''}${f1}</div>`).join('')}</div>`;
+  const LN = (t, n, num = false, c = '') => S2(t, lines(n, num), c);
+  const dots = (n, cls = 'pl-dot') => `<span class="pl-dots" contenteditable="false">${`<span class="${cls}" data-on="false"></span>`.repeat(n)}</span>`;
+  const stars = (n, cls = '') => `<span class="pl-stars${cls ? ' ' + cls : ''}" contenteditable="false">${`<span class="pl-star" data-on="false"></span>`.repeat(n)}</span>`;
+  const cell = k => k === 'f' ? f1 : k === 'c' ? PM.chk() : k === 's' ? `<span class="pl-cell" contenteditable="false">${stars(5)}</span>` : k === 'p' ? PM.chip('pl-prog') : k === 'w' ? `<span class="pl-cell" contenteditable="false">${dots(7)}</span>` : ['pri', 'st', 'lv'].includes(k) ? PM.chip('pl-' + k) : f1;
+  // T('Title', 'Date|Item:2|Amount|Paid:c', rows) — :2..9 widths, :c checkbox, :s stars, :p progress, :pri/:st/:lv tags, :w week dots
+  const T = (t, spec, n, opts = {}) => {
+    const cols = spec.split('|').map(x => { const [l, k = ''] = x.split(':'); return { l: l.toUpperCase(), k: /^\d$/.test(k) || !k ? 'f' : k, w: /^\d$/.test(k) ? k : k === 'c' ? 'c' : k === 's' ? 's' : k === 'p' ? 'p' : ['pri', 'st', 'lv'].includes(k) ? 'q' : k === 'w' ? 'w' : '1' }; });
+    const g = 'g' + cols.map(c => c.w).join(''), rows = opts.rows || [...Array(n)].map(() => null);
+    const tb = `<div class="pl-tbl pl-gx" data-cols="${g.slice(0, 12)}"><div class="pl-tr pl-th" contenteditable="false">${cols.map(c => `<span>${c.l}</span>`).join('')}</div>${rows.map(r => `<div class="pl-tr">${cols.map((c, i) => r && i === 0 ? `<span class="pl-tm" contenteditable="false">${esc(r)}</span>` : cell(c.k)).join('')}</div>`).join('')}${opts.rows ? '' : '<div class="pl-addrow" contenteditable="false">+ Add row</div>'}</div>`;
+    const wrapped = cols.length >= 5 ? `<div class="pl-scroll">${tb}</div>` : tb;
+    return t ? S2(esc(t.toUpperCase()), wrapped, opts.c || '') : wrapped;
+  };
+  const K = (items, cols = 4) => `<div class="pl-kv pl-kv${cols}">${items.map(it => { const [lbl, span = 1, k = 'f', c = ''] = Array.isArray(it) ? it : [it]; return `<div class="${span > 1 ? 'pl-span' + span : ''}"><span class="pl-kl${c ? ' ' + c : ''}" contenteditable="false">${esc(lbl.toUpperCase())}</span>${cell(k)}</div>`; }).join('')}</div>`;
+  const R = (...cs) => `<div class="pl-cols pl-cols-even">${cs.map(c => `<div>${c}</div>`).join('')}</div>`;
+  const R3 = (...cs) => `<div class="pl-p3">${cs.map(c => `<div>${c}</div>`).join('')}</div>`;
+  const Q = (...bs) => `<div class="pl-quad">${bs.join('')}</div>`;
+  const H = t => `<p class="pl-hint" contenteditable="false">${t}</p>`;
+  const coins = (n, cls = '') => `<div class="pl-coins${cls ? ' ' + cls : ''}" contenteditable="false">${[...Array(n)].map((_, i) => `<span class="pl-coin" data-on="false">${i + 1}</span>`).join('')}</div>`;
+  const HB = (t, rows, n, c = '') => S2(t, `<div class="pl-habits${n > 10 ? ' pl-hmonth' : ''}">${[...Array(rows)].map(() => `<div class="pl-hab">${f1}${dots(n)}</div>`).join('')}</div>`, c);
+  const RT = (t, labels, n = 5, c = '') => S2(t, `<div class="pl-rates">${labels.map(a => `<div class="pl-rate" contenteditable="false"><span>${esc(a.toUpperCase())}</span>${stars(n)}</div>`).join('')}</div>`, c);
+  const C5 = ['pl-c1', 'pl-c2', 'pl-c3', 'pl-c4', 'pl-c5'];
+  const isWork = TPL[key] && TPL[key].kind === 'work';
+  const page = (title, pills, inner, nav = '') => `<div class="pl pl-lib${core ? ' pl-core' : ''}${isWork ? ' pl-pm' : ''}" data-pl="${key.slice(0, 12)}" ${plAttrs(theme || (isWork ? 'pastel' : plTheme()))}><div class="pl-head" contenteditable="false"><span class="pl-title">${esc(title)}</span>${pills.length ? `<span class="pl-pills">${pills.map(x => `<span class="pl-pill">${esc(x)}</span>`).join('')}</span>` : ''}</div>${nav}${inner}</div>`;
+  const up = x => x.toUpperCase(), md = x => DF({ month: 'short', day: 'numeric' }).format(x), s0 = startOfWeek(d), m0 = startOfMonth(d), m1 = endOfMonth(d), MY = up(fmtMonthYear(d));
+  const wk = [...Array(7)].map((_, i) => addDays(s0, i));
+  const go = (k, date, label, cls = '') => `<span class="pl-link${cls ? ' ' + cls : ''}" data-go="${k}:${ymd(date)}">${label}</span>`;
+  const mini = (mDate, link = true, opts = {}) => { const f = startOfMonth(mDate), l = endOfMonth(f); let c = startOfWeek(f); const cells = []; while (c <= l || cells.length % 7) { const ck = ymd(c), inM = c.getMonth() === f.getMonth(); cells.push(inM ? (link ? `<span class="pl-md${winsOn(ck).length ? ' pl-won' : ''}${ck === todayKey() ? ' pl-now' : ''}" data-go="day2:${ck}">${c.getDate()}</span>` : `<span class="pl-md">${c.getDate()}</span>`) : '<span class="pl-md pl-mout"></span>'); c = addDays(c, 1); } return `<div class="pl-mini" contenteditable="false">${opts.title !== false ? `<b>${link ? go('mcal2', f, esc(up(DF({ month: 'long' }).format(f)))) : esc(up(DF({ month: 'long' }).format(f)))}</b>` : ''}<span class="pl-mh">${wk.map(x => `<i>${DF({ weekday: 'narrow' }).format(x)}</i>`).join('')}</span><span class="pl-mg2">${cells.join('')}</span></div>`; };
+  const monthNav = cur => `<div class="pl-nav" contenteditable="false">${go(key, addDays(m0, -1), '‹', 'pl-arrow')}${[['mglance', 'At a glance'], ['mcal2', 'Calendar'], ['moverview', 'Overview'], ['mbudget', 'Budget'], ['mreview', 'Review'], ['habitcards', 'Habits']].map(([k, l]) => go(k, m0, l, k === cur ? 'pl-on' : '')).join('')}${go(key, addDays(m1, 1), '›', 'pl-arrow')}<span class="pl-navsp"></span>${go('qplan', m0, `Q${Math.floor(m0.getMonth() / 3) + 1}`)}${go('pindex', m0, 'Index')}</div>`;
+  const winsList = (from, to, n = 6) => { const w = winsIn(from, to).slice(0, n); return w.length ? `<ul class="pl-f pl-wins">${w.map(x => `<li><strong>${esc(x.title)}</strong>${x.result ? ' — ' + esc(x.result) : ''}</li>`).join('')}<li><br></li></ul>` : `<ul class="pl-f pl-wins"><li><br></li><li><br></li><li><br></li></ul>`; };
+  const faces = () => `<span class="pl-faces" contenteditable="false">${['😣', '😕', '😐', '🙂', '😄'].map(f => `<span class="pl-face" data-on="false">${f}</span>`).join('')}</span>`;
+  switch (key) {
+    /* ===== core planner ===== */
+    case 'pindex': {
+      const y = d.getFullYear(), months = [...Array(12)].map((_, i) => new Date(y, i, 1));
+      const weeks = []; let w = startOfWeek(new Date(y, 0, 1)); while (w.getFullYear() <= y && weeks.length < 54) { weeks.push(w); w = addDays(w, 7); }
+      const cats = [['Personal', 'personal'], ['Self-care', 'well'], ['Education', 'edu'], ['Finance', 'money'], ['Budget', 'budget'], ['Vision', 'vision'], ['Planning', 'plan'], ['Household', 'house'], ['Work', 'pm'], ['Travel', 'travel'], ['Note paper', 'paper']];
+      const today = parseYmd(todayKey());
+      return page('INDEX', [String(y), 'TAP ANY LINK'], H('Every link opens that page in this notebook, or creates it the first time you tap it.')
+        + `<div class="pl-nav pl-navbig" contenteditable="false">${go('day2', today, '☀ Today')}${go('wkcols', today, 'This week')}${go('mcal2', today, 'This month')}${go('qplan', today, 'This quarter')}${go('pindex', new Date(y - 1, 0, 1), '‹ ' + (y - 1), 'pl-arrow')}${go('pindex', new Date(y + 1, 0, 1), (y + 1) + ' ›', 'pl-arrow')}</div>`
+        + R(S2('QUARTERS', `<div class="pl-nav" contenteditable="false">${[0, 1, 2, 3].map(q => go('qplan', new Date(y, q * 3, 1), `Q${q + 1}<span class="pl-mut">${esc(DF({ month: 'short' }).format(new Date(y, q * 3, 1)))}–${esc(DF({ month: 'short' }).format(new Date(y, q * 3 + 2, 1)))}</span>`, 'pl-q')).join('')}</div>`, 'pl-c1')
+          + S2('MONTHS', `<div class="pl-idxm" contenteditable="false">${months.map((m, i) => `<div class="pl-idxr ${C5[i % 5]}">${go('mglance', m, esc(DF({ month: 'long' }).format(m)), 'pl-mname')}${go('mcal2', m, 'Cal')}${go('moverview', m, 'Overview')}${go('mbudget', m, 'Budget')}${go('mreview', m, 'Review')}${go('habitcards', m, 'Habits')}</div>`).join('')}</div>`, 'pl-c2'),
+          S2('WEEKS', `<div class="pl-idxw" contenteditable="false">${weeks.map((x, i) => go('wkcols', x, String(i + 1))).join('')}</div>`, 'pl-c3')
+          + S2('TEMPLATE LIBRARY', `<div class="pl-idxlib" contenteditable="false">${cats.map(([lbl, g], i) => { const ts = TEMPLATES.filter(t => t.group === g && t.key !== 'pmapp'); return `<details class="pl-idxcat ${C5[i % 5]}"><summary>${esc(lbl)} <i>${ts.length}</i></summary><span>${ts.map(t => go(t.key, today, esc(t.label))).join('')}</span></details>`; }).join('')}</div>`, 'pl-c4')));
+    }
+    case 'qplan': {
+      const ms = [0, 1, 2].map(i => new Date(d.getFullYear(), d.getMonth() + i, 1)), q = Math.floor(d.getMonth() / 3) + 1;
+      return page(`Q${q}`, [String(d.getFullYear()), `${up(DF({ month: 'long' }).format(ms[0]))} – ${up(DF({ month: 'long' }).format(ms[2]))}`],
+        `<div class="pl-q3" contenteditable="false">${ms.map(m => mini(m)).join('')}</div>`
+        + R(S2('WHAT THIS QUARTER IS FOR', `<div class="pl-qfor">${[1, 2, 3].map(i => `<div class="pl-box"><span class="pl-n" contenteditable="false">${i}</span>${area(2)}</div>`).join('')}</div>`, 'pl-c1')
+          + T('Focus by month', 'Month|Focus:3', 0, { rows: ms.map(m => DF({ month: 'long' }).format(m)), c: 'pl-c2' }),
+          T('Dates already fixed', 'Date|What is happening:3', 10, { c: 'pl-c3' })
+          + R(S2('HOW IT WENT', `<div class="pl-rates"><div class="pl-rate" contenteditable="false"><span>PROGRESS</span>${stars(10, 'pl-circ')}</div><div class="pl-rate" contenteditable="false"><span>BALANCE</span>${stars(10, 'pl-circ')}</div></div>${area(1)}`, 'pl-c4'), B('HIGHLIGHTS', 2, 'pl-c5'))
+          + B('IF I ONLY FINISH ONE THING', 1, 'pl-c1') + B('WHAT I’D DO DIFFERENTLY', 2, 'pl-c2')),
+        `<div class="pl-nav" contenteditable="false">${go('qplan', new Date(d.getFullYear(), d.getMonth() - 3, 1), '‹ Previous', 'pl-arrow')}${ms.map(m => go('mglance', m, esc(DF({ month: 'long' }).format(m)))).join('')}${go('qplan', new Date(d.getFullYear(), d.getMonth() + 3, 1), 'Next ›', 'pl-arrow')}<span class="pl-navsp"></span>${go('pindex', d, 'Index')}</div>`);
+    }
+    case 'mglance': {
+      const days = []; for (let c = new Date(m0); c <= m1; c = addDays(c, 1)) days.push(new Date(c));
+      return page(up(DF({ month: 'long' }).format(d)), [String(d.getFullYear()), `${m1.getDate()} DAYS`],
+        R(S2('THE MONTH, DAY BY DAY', `<div class="pl-glance">${days.map(x => `<div class="pl-gl${x.getDay() % 6 === 0 ? ' pl-we' : ''}${ymd(x) === todayKey() ? ' pl-now' : ''}"><span class="pl-gd" contenteditable="false">${go('day2', x, `<b>${x.getDate()}</b>${esc(DF({ weekday: 'short' }).format(x))}`)}</span>${f1}</div>`).join('')}</div>`, 'pl-c1'),
+          T('Key dates this month', 'Date|What is happening:3', 8, { c: 'pl-c2' })
+          + S2('THIS MONTH’S PAGES', `<div class="pl-cards" contenteditable="false">${[['mcal2', 'Calendar', 'Dates, to-dos and notes'], ['moverview', 'Overview', 'Focus, priorities, goals, wins'], ['mbudget', 'Budget', 'Income, expenses, savings'], ['mreview', 'Review', 'What worked, what to change'], ['habitcards', 'Habits', 'A card per habit']].map(([k, l, s]) => go(k, m0, `<b>${l}</b><span class="pl-mut">${s}</span><em>Open ›</em>`, 'pl-card2')).join('')}</div>`, 'pl-c3')
+          + B('NOTES', 3, 'pl-c4')), monthNav('mglance'));
+    }
+    case 'mcal2': {
+      let c = startOfWeek(m0); const cells = [];
+      while (c <= m1 || cells.length % 7) { const inM = c.getMonth() === d.getMonth(), ck = ymd(c); cells.push(inM ? `<div class="pl-day${ck === todayKey() ? ' pl-today' : ''}"><span class="pl-dn${winsOn(ck).length ? ' pl-won' : ''}" contenteditable="false"><span class="pl-link" data-go="day2:${ck}">${c.getDate()}</span></span><div class="pl-f pl-dc"><br></div></div>` : '<div class="pl-day pl-out" contenteditable="false"></div>'); c = addDays(c, 1); }
+      const nm = addDays(m1, 1);
+      return page(up(DF({ month: 'long' }).format(d)), [String(d.getFullYear()), 'TAP A DATE'],
+        `<div class="pl-cal"><div class="pl-calh" contenteditable="false">${wk.map(x => `<span>${up(DF({ weekday: 'short' }).format(x))}</span>`).join('')}</div><div class="pl-calg">${cells.join('')}</div></div>`
+        + S2('IMPORTANT DATES', `<div class="pl-p3">${[0, 1, 2].map(() => lines(4, false)).join('')}</div>`, 'pl-c1')
+        + S2('TO DO', `<div class="pl-p3">${[0, 1, 2].map(() => todo(5)).join('')}</div>`, 'pl-c2')
+        + R(B('NOTES', 3, 'pl-c3'), `<div class="pl-nextm">${mini(nm)}</div>` + TD('GOALS', 3, 'pl-c4')), monthNav('mcal2'));
+    }
+    case 'moverview':
+      return page('OVERVIEW', [MY, 'FOCUS · PRIORITIES · GOALS · WINS'],
+        R(B('FOCUS OF THE MONTH', 2, 'pl-c1') + TD('TOP PRIORITIES', 5, 'pl-c2') + TD('GOALS', 4, 'pl-c3') + LN('BRAIN DUMP', 5, false, 'pl-c4'),
+          S2('AREAS OF FOCUS', `<div class="pl-p3">${[0, 1, 2].map(() => `<div class="pl-box pl-area3">${f1}${area(1)}</div>`).join('')}</div>`, 'pl-c5') + S2('WINS THIS MONTH', winsList(ymd(m0), ymd(m1)), 'pl-c1') + TD('PROJECTS', 3, 'pl-c2') + LN('PEOPLE TO SEE', 3, false, 'pl-c3') + B('NOTES', 2, 'pl-c4')), monthNav('moverview'));
+    case 'mbudget':
+      return page('BUDGET', [MY, 'INCOME · EXPENSES · SAVINGS · DEBT'],
+        R(T('Income', 'Source:2|Amount', 4, { c: 'pl-c4' }) + T('Variable spending', 'Item:2|Amount', 6, { c: 'pl-c1' }) + T('Debt payments', 'Debt:2|Amount', 3, { c: 'pl-c2' }),
+          T('Fixed expenses', 'Bill:2|Amount|Paid:c', 6, { c: 'pl-c3' }) + T('Savings goals', 'Goal:2|Amount', 3, { c: 'pl-c5' }) + K([['Total income', 2], ['Total expenses', 2], ['Saved', 2], ['Left over', 2]], 2)), monthNav('mbudget'));
+    case 'mreview':
+      return page('REVIEW', [MY, 'WHAT WORKED, WHAT TO CHANGE'],
+        R(B('WHAT WENT WELL', 3, 'pl-c4') + B('WHAT WAS HARD', 3, 'pl-c2') + B('LESSONS LEARNED', 3, 'pl-c1'),
+          TD('GOAL REVIEW', 5, 'pl-c3') + S2('HOW IT FELT', faces(), 'pl-c5') + S2('RATE THE MONTH', `<div class="pl-rates"><div class="pl-rate" contenteditable="false"><span>OVERALL</span>${stars(10, 'pl-circ')}</div><div class="pl-rate" contenteditable="false"><span>ENERGY</span>${stars(10, 'pl-circ')}</div></div>`, 'pl-c1') + LN('GRATEFUL FOR', 3, false, 'pl-c2') + B('FOCUS FOR NEXT MONTH', 2, 'pl-c4')), monthNav('mreview'));
+    case 'habitcards': {
+      const n = m1.getDate();
+      const card = i => `<div class="pl-hcard ${C5[i % 5]}"><div class="pl-hctop">${f1}<span class="pl-cl" contenteditable="false">GOAL</span><div class="pl-f pl-1 pl-hgoal"><br></div></div><div class="pl-hcdots" contenteditable="false">${[...Array(n)].map((_, j) => `<span class="pl-dot" data-on="false" title="${j + 1}"></span>`).join('')}</div></div>`;
+      return page('HABIT TRACKER', [MY, 'A CARD PER HABIT'], H('Name each habit, then tap a dot for every day you kept it.') + `<div class="pl-hcards">${[...Array(8)].map((_, i) => card(i)).join('')}</div>`
+        + R(T('Streaks', 'Habit:2|Best streak|Total days', 4, { c: 'pl-c3' }) + S2('HOW THE MONTH WENT', faces(), 'pl-c5'), B('WHAT MADE IT EASY', 2, 'pl-c4') + B('WHAT GOT IN THE WAY', 2, 'pl-c2') + TD('KEEP OR DROP NEXT MONTH', 3, 'pl-c1')), monthNav('habitcards'));
+    }
+    case 'wkcols':
+      return page(`WEEK ${weekNo(d)}`, [`${up(md(wk[0]))} – ${up(md(wk[6]))}`, String(d.getFullYear())],
+        B('THE ONE THING', 1, 'pl-c1') + `<div class="pl-scroll"><div class="pl-wk7">${wk.map((x, i) => `<div class="pl-wcol2 ${C5[i % 5]}"><div class="pl-wh2" contenteditable="false">${go('day2', x, `<b>${esc(up(DF({ weekday: 'short' }).format(x)))}</b><span>${esc(md(x))}</span>`)}</div><div class="pl-wen" contenteditable="false"><span>ENERGY</span>${stars(5, 'pl-circ')}</div><div class="pl-f pl-area pl-wtall"><p><br></p></div></div>`).join('')}</div></div>`
+        + R(TD('WEEKLY ANCHORS', 3, 'pl-c2') + S2('WINS', winsList(ymd(wk[0]), ymd(wk[6])), 'pl-c4'),
+          S2('HABITS', `<div class="pl-habits"><div class="pl-hab pl-habh" contenteditable="false"><span>WRITE YOUR HABIT</span><span class="pl-dots">${wk.map(x => `<i>${DF({ weekday: 'narrow' }).format(x)}</i>`).join('')}</span></div>${[...Array(5)].map(() => `<div class="pl-hab">${f1}${dots(7)}</div>`).join('')}</div>`, 'pl-c3')),
+        `<div class="pl-nav" contenteditable="false">${go('wkcols', addDays(d, -7), '‹ Week ' + weekNo(addDays(d, -7)), 'pl-arrow')}${go('mcal2', d, 'Month')}${go('mglance', d, 'At a glance')}${go('wkcols', addDays(d, 7), 'Week ' + weekNo(addDays(d, 7)) + ' ›', 'pl-arrow')}<span class="pl-navsp"></span>${go('pindex', d, 'Index')}</div>`);
+    case 'day2': {
+      const rows = []; for (let m = 6 * 60; m <= 21 * 60; m += 30) { const h = Math.floor(m / 60), mm = m % 60, lbl = `${h > 12 ? h - 12 : h} ${h >= 12 ? 'pm' : 'am'}`; rows.push(`<div class="pl-sr${mm ? ' pl-half' : ''}"><span class="pl-t" contenteditable="false">${mm ? '' : lbl}</span>${f1}<span class="pl-plus" contenteditable="false" data-cal="${String(h).padStart(2, '0')}:${mm ? '30' : '00'}" title="Add to your calendar or reminders">+</span></div>`); }
+      const dn = DF({ weekday: 'long' }).format(d), doy = Math.round((d - new Date(d.getFullYear(), 0, 1)) / 864e5) + 1;
+      return page(up(dn), [md(d), `DAY ${doy}`, `WEEK ${weekNo(d)}`],
+        `<div class="pl-d2"><div>${S2('SCHEDULE · 30-MINUTE ROWS', `<div class="pl-sched2">${rows.join('')}</div>`, 'pl-c1')}${H('Tap + beside a time to add it to Google Calendar, Apple Calendar or Reminders.')}</div>
+        <div>${mini(d)}${B('IF I ONLY DO ONE THING', 1, 'pl-c2')}${S2('TOP 3', `<ul class="checklist pl-todo pl-f pl-top3"><li data-checked="false"><br></li><li data-checked="false"><br></li><li data-checked="false"><br></li></ul>`, 'pl-c3')}${TD('TO DO', 6, 'pl-c4')}
+          ${S2('MEALS', `<div class="pl-meals">${['B', 'L', 'D', 'S'].map(x => `<div class="pl-meal"><span class="pl-k" contenteditable="false">${x}</span>${area(1)}</div>`).join('')}</div>`, 'pl-c5')}
+          ${S2('WATER', dots(8, 'pl-cup'), 'pl-c3')}${S2('SLEEP (HOURS)', stars(10, 'pl-circ'), 'pl-c2')}${S2('MOOD &amp; ENERGY', faces(), 'pl-c1')}</div></div>`
+        + Q(S2('BASIC NEEDS', todo(4, ['Rested', 'Moved', 'Fresh air', 'Screen break']), 'pl-c4'), LN('GRATEFUL FOR', 3, false, 'pl-c5'), B('TOMORROW STARTS WITH', 2, 'pl-c3'), B('BRAIN DUMP', 3, 'pl-c2')),
+        `<div class="pl-nav" contenteditable="false">${go('day2', addDays(d, -1), '‹ ' + esc(DF({ weekday: 'short' }).format(addDays(d, -1))), 'pl-arrow')}${go('wkcols', d, 'Week ' + weekNo(d))}${go('mcal2', d, 'Month')}${go('day2', addDays(d, 1), esc(DF({ weekday: 'short' }).format(addDays(d, 1))) + ' ›', 'pl-arrow')}<span class="pl-navsp"></span>${go('pindex', d, 'Index')}</div>`);
+    }
+    /* ===== personal ===== */
+    case 'goaltrack': return page('GOAL TRACKER', [], K([['Goal', 4]]) + K(['Start date', 'Target date', ['Progress', 2, 'p']]) + R(TD('STEPS', 8, 'pl-c1') + B('WHY IT MATTERS', 2, 'pl-c2'), S2('MILESTONES', coins(10), 'pl-c3') + B('REWARD WHEN I’M DONE', 1, 'pl-c4') + B('NOTES', 2)));
+    case 'selfdisc': return page('SELF-DISCOVERY JOURNAL', [up(md(d))], Q(...['What makes me lose track of time?', 'What am I most proud of?', 'When do I feel most like myself?', 'What do I want more of in my life?', 'What am I avoiding, and why?', 'What would I do if I knew I couldn’t fail?'].map((q, i) => B(q.toUpperCase(), 3, C5[i % 5]))));
+    case 'motivation': return page('MOTIVATION BOARD', [], `<div class="pl-vb">${[...Array(4)].map((_, i) => `<div class="pl-vtile ${C5[i]}"><span class="pl-vhint" contenteditable="false">Quote or picture word</span>${area(3)}</div>`).join('')}</div>` + R(B('MY WHY', 2, 'pl-c1') + LN('REMINDERS FOR HARD DAYS', 4, false, 'pl-c2'), B('WHAT I’M WORKING TOWARD', 2, 'pl-c3') + S2('TODAY I FEEL', faces(), 'pl-c4')));
+    case 'hobbies': return page('HOBBIES & INTERESTS', [], T('My hobbies', 'Hobby:2|How often|Last time|Love it:s', 6, { c: 'pl-c1' }) + R(TD('WANT TO TRY', 6, 'pl-c2'), T('Gear and costs', 'Item:2|Cost|Have:c', 5, { c: 'pl-c3' })) + B('NOTES', 2));
+    case 'milestones': return page('LIFE MILESTONES', [], T('', 'Date|Milestone:3|How I felt:2', 12) + R(TD('MILESTONES I’M AIMING FOR', 5, 'pl-c4'), B('WHAT I LEARNED ALONG THE WAY', 3, 'pl-c1')));
+    case 'values': { const V = ['Honesty', 'Growth', 'Family', 'Freedom', 'Health', 'Kindness', 'Creativity', 'Security', 'Adventure', 'Faith', 'Learning', 'Balance', 'Excellence', 'Fun', 'Loyalty', 'Courage'];
+      return page('PERSONAL VALUES', [], H('Tick the values that feel like you, then pick your top 5.') + `<div class="pl-care" contenteditable="false">${V.map((v, i) => `<span class="pl-carebox pl-val" data-on="false"><b>${i + 1}</b>${v}</span>`).join('')}</div>` + R(LN('MY TOP 5 VALUES', 5, true, 'pl-c1'), B('HOW I LIVE THEM EACH DAY', 3, 'pl-c2') + B('WHERE I’M NOT LIVING THEM YET', 2, 'pl-c3'))); }
+    case 'swot': return page('PERSONAL SWOT ANALYSIS', [up(md(d))], `<div class="pl-matrix">${[['STRENGTHS', 'pl-c4'], ['WEAKNESSES', 'pl-c2'], ['OPPORTUNITIES', 'pl-c3'], ['THREATS', 'pl-c1']].map(([t, c]) => `<div class="pl-box ${c}">${L(t)}${todo(6)}</div>`).join('')}</div>` + B('WHAT I’LL DO WITH THIS', 2, 'pl-c5'));
+    case 'social': return page('SOCIAL TRACKER', [MY], T('', 'Name:2|Last time we talked|How|Next catch-up', 10) + R(TD('PEOPLE TO CALL THIS WEEK', 4, 'pl-c1'), B('PLANS AND EVENTS', 3, 'pl-c2')));
+    case 'manifesto': return page('PERSONAL MANIFESTO', [], `<div class="pl-man"><div class="pl-f pl-area pl-h3 pl-manq"><p>I believe…</p><p><br></p></div></div>` + R(LN('I WILL', 5, false, 'pl-c1'), LN('I WILL NOT', 5, false, 'pl-c2')) + B('WHEN I FORGET, I’LL REMEMBER', 2, 'pl-c3'));
+    case 'petcare': return page('PET CARE PLANNER', [], K([['Pet name', 2], 'Species / breed', 'Birthday', 'Vet', 'Vet phone', 'Microchip no.', 'Insurance']) + R(T('Feeding', 'Time|Food:2|Amount', 4, { c: 'pl-c1' }) + T('Medication', 'Medicine:2|Dose|Schedule', 3, { c: 'pl-c2' }), T('Vet visits & vaccines', 'Date|Reason:2|Next due', 5, { c: 'pl-c3' }) + HB('DAILY CARE THIS WEEK', 4, 7, 'pl-c4')));
+    case 'moodlog': return page('MOOD LOG', [MY], T('', 'Date|Mood:s|What happened:3|What helped:2', 12) + R(B('PATTERNS I NOTICE', 2, 'pl-c1'), TD('THINGS THAT LIFT MY MOOD', 5, 'pl-c4')));
+    case 'bucket': return page('BUCKET LIST', [], `<div class="pl-cols pl-cols-even"><div>${T('', 'Done:c|Dream:3|By when', 12)}</div><div>${S2('TICKED OFF', coins(20, 'pl-c30'), 'pl-c1')}${B('NEXT ONE I’LL DO', 2, 'pl-c2')}</div></div>`);
+    case 'friends': return page('FRIENDSHIP TRACKER', [], T('', 'Friend:2|Birthday|Last talked|Check in:w|Notes:2', 8) + R(B('PLANS TOGETHER', 2, 'pl-c1'), LN('THINGS TO REMEMBER', 4, false, 'pl-c2')));
+    case 'birthdays': { const ms = [...Array(12)].map((_, i) => DF({ month: 'long' }).format(new Date(2026, i, 1)));
+      return page('BIRTHDAY LIST', [], `<div class="pl-bday">${ms.map((m, i) => `<div class="pl-box ${C5[i % 5]}">${L(up(m))}${lines(3, false)}</div>`).join('')}</div>` + T('Gift ideas', 'Name|Idea:2|Budget|Bought:c', 5, { c: 'pl-c1' })); }
+    /* ===== self-care ===== */
+    case 'selfcheck': { const it = ['Drink water', 'Move my body', 'Eat a real meal', 'Get outside', 'Take my vitamins', 'Read or listen to something good', 'Talk to someone I love', 'Screen-free time', 'Bed on time'];
+      return page('SELF-CARE CHECKLIST', [`WEEK OF ${up(md(s0))}`], S2('DAILY', `<div class="pl-tbl pl-gx" data-cols="g3w"><div class="pl-tr pl-th" contenteditable="false"><span>SELF-CARE</span><span class="pl-dots">${wk.map(x => `<i>${DF({ weekday: 'narrow' }).format(x)}</i>`).join('')}</span></div>${it.map(t => `<div class="pl-tr"><span class="pl-tm" contenteditable="false">${t}</span><span class="pl-cell" contenteditable="false">${dots(7)}</span></div>`).join('')}</div>`, 'pl-c1') + R(TD('WEEKLY', 4, 'pl-c2', ['Clean my space', 'Plan the week', 'Do something fun', 'Rest day']), B('HOW I’M REALLY DOING', 2, 'pl-c3'))); }
+    case 'reflect': return page('DAILY REFLECTION', [up(md(d))], R(S2('TODAY FELT', faces(), 'pl-c1') + B('THE BEST PART OF TODAY', 2, 'pl-c2') + B('WHAT I LEARNED', 2, 'pl-c3'), S2('ENERGY', stars(10, 'pl-circ'), 'pl-c4') + B('WHAT CHALLENGED ME', 2, 'pl-c5') + B('TOMORROW I’LL', 2, 'pl-c1')));
+    case 'fitness': return page('FITNESS TRACKER', [`WEEK OF ${up(md(s0))}`], K(['Goal', 'Weight', 'Workouts this week', 'Active minutes']) + T('Workouts', 'Day|Workout:2|Sets / reps|Minutes|Felt:s', 7, { rows: wk.map(x => DF({ weekday: 'short' }).format(x)) }) + R(HB('MOVE EVERY DAY', 1, 7, 'pl-c1'), B('PERSONAL BESTS', 2, 'pl-c2')));
+    /* ===== education ===== */
+    case 'study': return page('STUDY SCHEDULE', [`WEEK OF ${up(md(s0))}`], T('', 'Time|' + wk.map(x => DF({ weekday: 'short' }).format(x)).join('|'), 0, { rows: ['7–9 am', '9–11 am', '11–1 pm', '1–3 pm', '3–5 pm', '5–7 pm', '7–9 pm'] }) + R(T('Study hours', 'Subject:2|Goal|Done', 5, { c: 'pl-c1' }), TD('EXAMS AND DEADLINES', 5, 'pl-c2')));
+    case 'assign': return page('ASSIGNMENT PLANNER', [], T('', 'Done:c|Assignment:3|Subject|Due|Status:st|Mark', 12));
+    case 'classinfo': return page('CLASS INFORMATION', [], `<div class="pl-quad">${[0, 1, 2, 3].map(i => `<div class="pl-box pl-acct ${C5[i]}">${K([['Subject', 2], 'Teacher', 'Room'])}${K(['Days', 'Time', ['Email', 2]])}${area(1)}</div>`).join('')}</div>` + T('Classmates to contact', 'Name|Phone|Email:2', 4, { c: 'pl-c5' }));
+    case 'revision': return page('REVISION TRACKER', [], T('', 'Topic:3|Subject|Confidence:s|Round 1:c|Round 2:c|Round 3:c', 12) + R(TD('TOPICS TO FOCUS ON', 4, 'pl-c1'), B('EXAM TIPS', 2, 'pl-c2')));
+    case 'research': return page('RESEARCH PROJECT', [], K([['Research question', 4]]) + K(['Due date', 'Supervisor', ['Status', 2, 'st']]) + R(T('Sources', 'Source:3|Key point:3|Used:c', 6, { c: 'pl-c1' }), B('FINDINGS', 3, 'pl-c2') + TD('PLAN', 5, 'pl-c3')) + B('CONCLUSIONS', 2, 'pl-c4'));
+    case 'grades': return page('GRADE TRACKER', [], T('', 'Subject:2|Assessment:2|Weight|Score|Grade', 12) + R(K([['Average', 2], ['Target', 2]], 2), B('WHAT I’LL IMPROVE', 2, 'pl-c1')));
+    case 'readlist': return page('READING LIST', [], T('', 'Done:c|Title:3|Author|Type|Status:st|Rating:s', 14));
+    case 'lesson': return page('LESSON PLANNER', [up(md(d))], K([['Lesson', 2], 'Class', 'Date']) + R(TD('OBJECTIVES', 3, 'pl-c1') + LN('MATERIALS', 4, false, 'pl-c2'), T('Activities', 'Time|Activity:3', 5, { c: 'pl-c3' }) + B('HOMEWORK', 1, 'pl-c4')) + B('REFLECTION AFTER CLASS', 2, 'pl-c5'));
+    case 'timetable': return page('WEEKLY TIMETABLE', [], T('', 'Period|' + wk.slice(0, 6).map(x => DF({ weekday: 'short' }).format(x)).join('|'), 0, { rows: ['1', '2', '3', '4', 'Lunch', '5', '6', '7'] }) + B('NOTES', 2));
+    case 'vocab': return page('VOCABULARY LOG', [], T('', 'Word:2|Meaning:3|Example sentence:3|Learned:c', 14));
+    /* ===== finance ===== */
+    case 'debt': return page('DEBT TRACKER', [], T('Debts', 'Debt:2|Balance|Interest|Min. payment|Paid off:p', 5, { c: 'pl-c2' }) + R(T('Payments', 'Date|Debt|Amount', 8, { c: 'pl-c1' }), S2('PAID-OFF TRACKER', coins(30, 'pl-c30'), 'pl-c3') + K([['Debt-free date', 2]], 2)));
+    case 'bills': return page('BILL PAYMENT TRACKER', [MY], T('', 'Bill:2|Due date|Amount|Auto-pay:c|Paid:c', 12) + R(K([['Total bills', 2], ['Paid so far', 2]], 2), B('NOTES', 2)));
+    case 'savegoal': return page('SAVINGS GOAL TRACKER', [], K([['Saving for', 2], 'Goal amount', 'By date']) + H('Tap a jar for every 2% saved.') + coins(50, 'pl-jars') + T('Deposits', 'Date|Amount|Total', 8, { c: 'pl-c4' }));
+    case 'expense': return page('EXPENSE TRACKER', [MY], T('', 'Date|Item:2|Category|Amount|Paid with', 16) + R(K([['Total spent', 2], ['Biggest category', 2]], 2), B('WHERE CAN I CUT BACK?', 2, 'pl-c1')));
+    case 'invest': return page('INVESTMENT TRACKER', [], T('Holdings', 'Investment:2|Type|Amount in|Current value|Return %', 8, { c: 'pl-c3' }) + R(T('Contributions', 'Date|Investment|Amount', 6, { c: 'pl-c4' }), K([['Total invested', 2], ['Total value', 2]], 2) + B('STRATEGY NOTES', 2)));
+    case 'subs': return page('SUBSCRIPTION TRACKER', [], T('', 'Service:2|Cost|Billing|Renews on|Keep:c', 12) + K([['Monthly total', 2], ['Yearly total', 2]]));
+    case 'emergency': return page('EMERGENCY FUND PLANNER', [], K(['Monthly expenses', 'Months to cover', 'Target fund', 'Saved so far']) + H('Tap a circle for each step toward your target.') + coins(40) + R(T('Deposits', 'Date|Amount|Total', 6, { c: 'pl-c3' }), B('WHAT COUNTS AS AN EMERGENCY', 2, 'pl-c2')));
+    case 'nospend': return page('NO-SPEND CHALLENGE', [MY], H('Tap a day when you spend nothing extra. Bills and essentials don’t count.') + coins(m1.getDate(), 'pl-c30') + R(TD('ALLOWED', 5, 'pl-c4', ['Bills', 'Groceries', 'Transport']), K([['Money saved', 2], ['No-spend days', 2]], 2) + B('WHAT I WANTED TO BUY', 2, 'pl-c2')));
+    /* ===== budget ===== */
+    case 'grocery': return page('GROCERY BUDGET', [MY], K(['Monthly budget', 'Spent', 'Left', 'Shops']) + T('', 'Date|Store:2|Planned|Spent', 10) + B('MONEY-SAVING IDEAS', 2, 'pl-c4'));
+    case 'holiday': return page('HOLIDAY / TRAVEL BUDGET', [], K([['Trip', 2], 'Budget', 'Saved']) + T('Costs', 'Item:2|Budget|Actual|Paid:c', 10, { c: 'pl-c3' }) + R(H('Tap a step each time you save toward the trip.') + coins(20), K([['Total budget', 2], ['Total spent', 2]], 2)));
+    case 'eventbud': return page('EVENT BUDGET', [], K([['Event', 2], 'Date', 'Budget']) + T('', 'Item:2|Vendor|Budget|Actual|Paid:c', 12) + K([['Total', 2], ['Difference', 2]]));
+    case 'giftbud': return page('GIFT BUDGET', [], K(['Occasion', 'Total budget', 'Spent', 'Left']) + T('', 'Name:2|Gift idea:2|Budget|Actual|Bought:c', 12));
+    case 'petbud': return page('PET CARE BUDGET', [MY], K([['Pet', 2], 'Monthly budget', 'Spent']) + T('', 'Date|Item:2|Category|Amount', 10) + B('UPCOMING COSTS', 2, 'pl-c2'));
+    case 'clothes': return page('CLOTHING BUDGET', [], K(['Season', 'Budget', 'Spent', 'Left']) + R(T('Wishlist', 'Item:2|Price|Need:c', 6, { c: 'pl-c2' }), T('Bought', 'Date|Item:2|Price', 6, { c: 'pl-c1' })) + B('WHAT I ALREADY HAVE AND LOVE', 2));
+    case 'paycheck': return page('PAYCHECK PLAN', [up(md(d))], K(['Pay date', 'Net pay', 'Planned', 'Left to plan']) + R(T('Bills', 'Bill:2|Amount|Paid:c', 6, { c: 'pl-c3' }), T('Savings & goals', 'Goal:2|Amount', 4, { c: 'pl-c4' }) + T('Spending money', 'Category:2|Amount', 4, { c: 'pl-c1' })));
+    /* ===== vision ===== */
+    case 'vboard': return page('VISION BOARD', [String(d.getFullYear())], H('Add stickers from the toolbar and write the life you want in each tile.') + `<div class="pl-vb pl-vb6">${['Career', 'Health', 'Love', 'Money', 'Home', 'Fun'].map((t, i) => `<div class="pl-vtile ${C5[i % 5]}"><span class="pl-vhint" contenteditable="false">${up(t)}</span>${area(3)}</div>`).join('')}</div>` + B('THIS YEAR I WILL FEEL…', 2, 'pl-c1'));
+    case 'fiveyear': { const y = d.getFullYear(); return page('5-YEAR PLAN', [`${y}–${y + 4}`], T('', 'Area|' + [0, 1, 2, 3, 4].map(i => String(y + i)).join('|'), 0, { rows: ['Career', 'Money', 'Health', 'Relationships', 'Home', 'Learning', 'Fun'] }) + R(B('WHERE I’LL BE IN 5 YEARS', 3, 'pl-c1'), TD('FIRST STEPS THIS YEAR', 5, 'pl-c4'))); }
+    case 'visionref': return page('MONTHLY VISION REFLECTION', [MY], RT('HOW CLOSE AM I TO MY VISION?', ['Career', 'Health', 'Relationships', 'Money', 'Growth', 'Fun'], 10, 'pl-c3') + R(B('WHAT MOVED ME FORWARD', 3, 'pl-c4'), B('WHAT HELD ME BACK', 3, 'pl-c2')) + B('NEXT MONTH I’LL', 2, 'pl-c1'));
+    case 'career': return page('CAREER VISION', [], B('MY DREAM ROLE', 2, 'pl-c3') + R(T('Skills to build', 'Skill:2|Level now:s|Plan:2', 5, { c: 'pl-c1' }) + TD('CERTIFICATES AND COURSES', 4, 'pl-c4'), B('WHY THIS MATTERS', 2, 'pl-c2') + LN('PEOPLE WHO CAN HELP', 4, false, 'pl-c5') + TD('NEXT STEPS', 4, 'pl-c1')));
+    case 'relvision': return page('RELATIONSHIP VISION', [], Q(B('PARTNER / LOVE', 3, 'pl-c2'), B('FAMILY', 3, 'pl-c1'), B('FRIENDS', 3, 'pl-c3'), B('COMMUNITY', 3, 'pl-c4')) + R(RT('HOW I’M DOING', ['Partner', 'Family', 'Friends', 'Community'], 10, 'pl-c5'), TD('LITTLE THINGS I’LL DO', 5, 'pl-c2')));
+    case 'wordyear': return page('WORD OF THE YEAR', [String(d.getFullYear())], `<div class="pl-word"><div class="pl-f pl-1 pl-wordin"><br></div><span contenteditable="false">MY WORD</span></div>` + R(B('WHY I CHOSE IT', 3, 'pl-c5'), B('WHAT IT LOOKS LIKE IN MY LIFE', 3, 'pl-c3')) + LN('WAYS I’LL REMIND MYSELF', 4, false, 'pl-c1'));
+    /* ===== planning ===== */
+    case 'priority': return page('PRIORITY PLANNER', [up(md(d))], R3(TD('MUST DO', 6, 'pl-c2'), TD('SHOULD DO', 6, 'pl-c5'), TD('COULD DO', 6, 'pl-c3')) + R(B('IF I ONLY DO ONE THING', 1, 'pl-c1'), B('NOT TODAY', 2, 'pl-c4')));
+    case 'eventplan': return page('EVENT PLANNER', [], K([['Event', 2], 'Date', 'Time']) + K([['Venue', 2], 'Guests', 'Budget']) + R(TD('CHECKLIST', 8, 'pl-c1') + T('Guest list', 'Name:2|RSVP:c', 6, { c: 'pl-c2' }), T('Schedule', 'Time|What:3', 6, { c: 'pl-c3' }) + T('Shopping', 'Item:2|Cost|Got:c', 5, { c: 'pl-c4' })));
+    case 'weekov': return page('WEEKLY OVERVIEW', [`WEEK OF ${up(md(s0))}`], B('FOCUS THIS WEEK', 1, 'pl-c1') + T('', 'Day|Appointments:2|Tasks:2|Notes:2', 0, { rows: wk.map(x => DF({ weekday: 'short', day: 'numeric' }).format(x)) }) + R(TD('PRIORITIES', 4, 'pl-c2'), B('NOTES', 2, 'pl-c3')));
+    case 'timeline': { const hrs = []; for (let h = 5; h <= 23; h++) hrs.push(h); return page('DAILY TIMELINE', [up(md(d))], `<div class="pl-tline">${hrs.map(h => `<div class="pl-tlr"><span class="pl-tld" contenteditable="false">${h > 12 ? h - 12 : h} ${h >= 12 ? 'PM' : 'AM'}</span>${f1}</div>`).join('')}</div>` + R(TD('MUST HAPPEN TODAY', 3, 'pl-c1'), B('NOTES', 2, 'pl-c2'))); }
+    case 'goalaction': return page('GOAL ACTION PLAN', [], K([['Goal', 3], 'Deadline']) + T('', 'Action:3|Who|By when|Status:st|Done:c', 10) + R(B('RESOURCES I NEED', 2, 'pl-c1'), B('HOW I’LL KNOW I’M DONE', 2, 'pl-c2')));
+    case 'mgoals': return page('MONTHLY GOALS', [MY], `<div class="pl-p3">${[1, 2, 3].map(i => `<div class="pl-pcol ${C5[i + 1]}"><div class="pl-phead" contenteditable="false"><b>GOAL ${i}</b></div>${area(1)}${TD('STEPS', 4)}${S2('PROGRESS', stars(10, 'pl-circ'))}</div>`).join('')}</div>` + R(B('REWARD', 1, 'pl-c1'), B('REFLECTION AT MONTH END', 2, 'pl-c2')));
+    /* ===== household ===== */
+    case 'chores': return page('CHORE CHART', [`WEEK OF ${up(md(s0))}`], `<div class="pl-scroll"><div class="pl-tbl pl-gx" data-cols="g21w"><div class="pl-tr pl-th" contenteditable="false"><span>CHORE</span><span>WHO</span><span class="pl-dots">${wk.map(x => `<i>${DF({ weekday: 'narrow' }).format(x)}</i>`).join('')}</span></div>${[...Array(10)].map(() => `<div class="pl-tr">${f1}${f1}<span class="pl-cell" contenteditable="false">${dots(7)}</span></div>`).join('')}<div class="pl-addrow" contenteditable="false">+ Add row</div></div></div>` + R(B('REWARDS', 2, 'pl-c1'), B('NOTES', 2, 'pl-c2')));
+    case 'appts': return page('APPOINTMENTS', [], T('', 'Date|Time|With / where:2|Purpose:2|Done:c', 12) + B('QUESTIONS TO ASK', 2, 'pl-c1'));
+    case 'maint': return page('MAINTENANCE JOBS', [], T('', 'Job:2|Area|Every|Last done|Cost|Done:c', 12) + R(LN('CONTRACTORS', 4, false, 'pl-c1'), B('NOTES', 2, 'pl-c2')));
+    case 'familycal': return page('FAMILY CALENDAR', [`WEEK OF ${up(md(s0))}`], T('', 'Who|' + wk.map(x => DF({ weekday: 'short' }).format(x)).join('|'), 5) + R(TD('FAMILY TO-DO', 5, 'pl-c1'), B('MEALS AND NOTES', 2, 'pl-c2')));
+    case 'grolist': return page('GROCERY LIST', [up(md(d))], `<div class="pl-bday">${['Fruit & veg', 'Meat & fish', 'Dairy & eggs', 'Bakery', 'Pantry', 'Frozen', 'Drinks', 'Household', 'Other'].map((t, i) => `<div class="pl-box ${C5[i % 5]}">${L(up(t))}${todo(4)}</div>`).join('')}</div>`);
+    case 'plants': return page('PLANT CARE', [], T('', 'Plant:2|Water every|Sun|Feed|Water:w', 8) + R(T('Repotting', 'Plant|Date|Notes:2', 4, { c: 'pl-c4' }), B('WISHLIST', 2, 'pl-c3')));
+    /* ===== travel ===== */
+    case 'packing': return page('PACKING CHECKLIST', [], K([['Trip', 2], 'Leaving', 'Days']) + `<div class="pl-bday">${[['Clothes', ['Tops', 'Bottoms', 'Underwear', 'Sleepwear', 'Shoes']], ['Toiletries', ['Toothbrush', 'Skincare', 'Medicine', 'Sunscreen']], ['Documents', ['Passport / ID', 'Tickets', 'Bookings', 'Cash & cards']], ['Tech', ['Phone & charger', 'Power bank', 'Adapter', 'Earphones']], ['Extras', ['Snacks', 'Water bottle', 'Book']], ['Before I leave', ['Water the plants', 'Lock up', 'Take out trash']]].map(([t, items], i) => `<div class="pl-box ${C5[i % 5]}">${L(up(t))}${todo(items.length + 2, items)}</div>`).join('')}</div>`);
+    case 'travelbud': return page('BUDGET TRAVEL PLANNER', [], K([['Destination', 2], 'Total budget', 'Daily budget']) + T('Daily spending', 'Day|Food|Transport|Activities|Other|Total', 0, { rows: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'] }) + R(T('Bookings', 'Item:2|Cost|Paid:c', 5, { c: 'pl-c3' }), K([['Total spent', 2], ['Left', 2]], 2)));
+    case 'tripov': return page('TRIP OVERVIEW', [], K([['Destination', 2], 'From', 'To']) + R(T('Flights / transport', 'Date|From → to:2|Ref no.', 4, { c: 'pl-c3' }) + T('Stays', 'Dates|Place:2|Ref no.', 3, { c: 'pl-c4' }), LN('EMERGENCY CONTACTS', 4, false, 'pl-c2') + TD('DOCUMENTS', 5, 'pl-c1', ['Passport', 'Visa', 'Insurance']) + B('NOTES', 2)));
+    case 'weektravel': return page('WEEKLY TRAVEL PLANNER', [`WEEK OF ${up(md(s0))}`], T('', 'Day|Morning:2|Afternoon:2|Evening:2', 0, { rows: wk.map(x => DF({ weekday: 'short', day: 'numeric' }).format(x)) }) + R(TD('BOOK AHEAD', 5, 'pl-c1'), B('NOTES', 2, 'pl-c2')));
+    case 'accom': return page('ACCOMMODATION PLANNER', [], T('Options', 'Place:2|Area|Price / night|Rating:s|Booked:c', 6, { c: 'pl-c3' }) + R(K([['Booked at', 2], 'Check-in', 'Check-out', ['Address', 2], 'Booking no.', 'Phone']), B('NOTES', 2, 'pl-c2')));
+    case 'places': return page('PLACES TO VISIT', [], R(T('Sights', 'Been:c|Place:3|Area', 8, { c: 'pl-c3' }), T('Food to try', 'Tried:c|Food / restaurant:3', 8, { c: 'pl-c1' })) + B('HIDDEN GEMS TO ASK LOCALS ABOUT', 2, 'pl-c4'));
+    case 'roadtrip': return page('ROAD TRIP PLANNER', [], K([['Route', 2], 'Distance', 'Days']) + T('Stops', 'Stop:2|Distance|Drive time|Stay:c', 8, { c: 'pl-c3' }) + R(T('Fuel & tolls', 'Date|Where|Cost', 5, { c: 'pl-c2' }), TD('CAR CHECK & SNACKS', 6, 'pl-c1', ['Tyres', 'Oil', 'Snacks', 'Playlist'])));
+    case 'tjournal': return page('TRAVEL JOURNAL', [up(md(d))], K([['Where I am', 2], 'Weather', 'Mood', ]) + R(`<div class="pl-vtile pl-c3"><span class="pl-vhint" contenteditable="false">STICKER OR PHOTO WORD</span>${area(3)}</div>` + B('WHAT I ATE', 2, 'pl-c1'), B('TODAY’S STORY', 4, 'pl-c4') + LN('PEOPLE I MET', 3, false, 'pl-c2')) + B('DON’T WANT TO FORGET', 2, 'pl-c5'));
+    /* ===== work ===== */
+    case 'inbox': return page('INBOX TRACKER', [up(md(d))], T('', 'From:2|Subject:3|Received|Action|Priority:pri|Done:c', 12) + R(K([['Inbox count', 2], ['Replied today', 2]], 2), B('FOLLOW UP LATER', 2, 'pl-c1')));
+    case 'brainstorm': return page('BRAINSTORMING', [up(md(d))], K([['Topic', 4]]) + `<div class="pl-bstorm"><div class="pl-bcenter"><div class="pl-f pl-1"><br></div></div>${[...Array(6)].map((_, i) => `<div class="pl-bidea ${C5[i % 5]}">${area(2)}</div>`).join('')}</div>` + R(TD('BEST IDEAS', 4, 'pl-c4'), TD('NEXT STEPS', 4, 'pl-c1')));
+  }
+  return null;
+}
+
+TEMPLATES.push(...XTRA_TPL, ...LIB_TPL);
+TEMPLATES.unshift(...CORE_TPL);
 const TPL = Object.fromEntries(TEMPLATES.map(t => [t.key, t]));
-const TPL_SUB = { pm: 'Project management', money: 'Money', well: 'Health & wellness', mind: 'Mindset', logs: 'Lists & logs', plan: 'Planning', paper: 'Note paper' };
+const TPL_SUB = { pm: 'Project management', personal: 'Personal', well: 'Self-care & wellness', edu: 'Education', money: 'Finance', budget: 'Budget', vision: 'Vision', plan: 'Planning', house: 'Household', travel: 'Travel', logs: 'Lists & logs', mind: 'Mindset', paper: 'Note paper' };
 const TPL_CORE = { work: 'Everyday work', planner: 'Planner pages', journal: 'Journal pages', other: 'General' };
 const PROMPTS = [
   'What is one thing you did this week that past-you would be impressed by?', 'When did you feel most like yourself today?', 'What problem are you quietly proud of solving?',
@@ -4164,13 +4540,14 @@ function summaryHTML(label, list, opt) {
 /* Planner pages: structured, printable-planner layouts. Labels are locked (contenteditable=false);
    every .pl-f is a field you type into. Dots, stars and cups are tap-to-toggle. */
 // [key, name, paper, tint, accent]: paper/tint/accent are only used to draw the swatch
-const PL_THEMES = [['blush', 'Blush', '#FBF7F5', '#E7D3CD', '#B98B82'], ['rose', 'Rose', '#FDF6F7', '#F0CFD6', '#C46A82'], ['peach', 'Peach', '#FEF8F3', '#F5D7C3', '#D08A5C'], ['butter', 'Butter', '#FFFCF1', '#F2E4B5', '#BC9A35'], ['sage', 'Sage', '#F8FAF6', '#CFDFCC', '#7C9A79'], ['mint', 'Mint', '#F5FBF8', '#C7E6D8', '#4F9C7D'], ['teal', 'Teal', '#F7FBFA', '#BFDCD7', '#0F6E6A'], ['sky', 'Sky', '#F7FAFC', '#CDDEEC', '#6F94B4'], ['lavender', 'Lavender', '#F9F8FC', '#DAD1EC', '#8E7DB8'], ['sand', 'Sand', '#FBF9F5', '#DFD3C2', '#A48E6E'], ['ivory', 'Ivory', '#FFFFFF', '#E6E2DC', '#8F8880'], ['pastel', 'Pastel', '#FFFFFF', '#CDEBF5', '#F4A9C4'], ['night', 'Night', '#23272B', '#3C444A', '#D9A38F']];
+const PL_THEMES = [['blush', 'Blush', '#FBF7F5', '#E7D3CD', '#B98B82'], ['rose', 'Rose', '#FDF6F7', '#F0CFD6', '#C46A82'], ['peach', 'Peach', '#FEF8F3', '#F5D7C3', '#D08A5C'], ['butter', 'Butter', '#FFFCF1', '#F2E4B5', '#BC9A35'], ['sage', 'Sage', '#F8FAF6', '#CFDFCC', '#7C9A79'], ['mint', 'Mint', '#F5FBF8', '#C7E6D8', '#4F9C7D'], ['teal', 'Teal', '#F7FBFA', '#BFDCD7', '#0F6E6A'], ['sky', 'Sky', '#F7FAFC', '#CDDEEC', '#6F94B4'], ['lavender', 'Lavender', '#F9F8FC', '#DAD1EC', '#8E7DB8'], ['sand', 'Sand', '#FBF9F5', '#DFD3C2', '#A48E6E'], ['ivory', 'Ivory', '#FFFFFF', '#E6E2DC', '#8F8880'], ['pastel', 'Pastel', '#FFFFFF', '#CDEBF5', '#F4A9C4'], ['night', 'Night', '#23272B', '#3C444A', '#D9A38F'], ['rainbow', 'Pastel rainbow', '#FFFDF9', '#F9D3E0', '#E58FB1'], ['white', 'White', '#FFFFFF', '#E7E7E7', '#555555'], ['midnight', 'Midnight', '#121316', '#2A2D33', '#8FA6FF'], ['pink', 'Pink', '#FFF8FA', '#F8CFE0', '#D9538A'], ['matcha', 'Matcha', '#FAFBF5', '#D5E3C3', '#6E8F4E'], ['boho', 'Boho', '#FBF6EF', '#E9D5C1', '#B5714B']];
 const isPlTheme = v => typeof v === 'string' && (PL_THEMES.some(x => x[0] === v) || /^#[0-9a-f]{6}$/i.test(v));
 const plTheme = (nbId, fallback) => { const nb = nbId && S.notebooks.find(n => n.id === nbId); if (nb && isPlTheme(nb.plTheme)) return nb.plTheme; if (fallback) return fallback; try { const t = localStorage.getItem('bw-pl-theme'); return isPlTheme(t) ? t : 'blush'; } catch (e) { return 'blush'; } };
 const plAttrs = v => v && v[0] === '#' ? `data-pltheme="custom" data-plc="${v.toLowerCase()}"` : `data-pltheme="${isPlTheme(v) ? v : 'blush'}"`;
 const plOf = el => el ? (el.dataset.pltheme === 'custom' && /^#[0-9a-f]{6}$/i.test(el.dataset.plc || '') ? el.dataset.plc : el.dataset.pltheme || 'blush') : 'blush';
 function setPl(el, v) { if (v[0] === '#') { el.dataset.pltheme = 'custom'; el.dataset.plc = v.toLowerCase(); } else { el.dataset.pltheme = v; delete el.dataset.plc; } plPaint(el.parentElement || el); }
-function plPaint(root) { if (!root) return; $$('.pl-wol', root).forEach(w => { const rows = $$('.pl-wrow', w); $$('.pl-wg', w).forEach((g, i) => { const n = rows[i] ? $$('.pl-star[data-on="true"]', rows[i]).length : 0; g.style.setProperty('--s', String(Math.max(.03, n / 10))); }); }); $$('.pl', root).forEach(p => { if (p.dataset.pltheme === 'custom' && /^#[0-9a-f]{6}$/i.test(p.dataset.plc || '')) p.style.setProperty('--plc', p.dataset.plc); else p.style.removeProperty('--plc'); }); }
+const PL_W = { c: '44px', s: '110px', p: '130px', q: '122px', w: '160px' };
+function plPaint(root) { if (!root) return; $$('.pl-tbl[data-cols^="g"]', root).forEach(t => { const cs = t.dataset.cols.slice(1).split(''), tpl = cs.map(c => PL_W[c] || `minmax(0, ${c}fr)`).join(' '); [...t.children].forEach(r => { if (r.classList.contains('pl-tr')) r.style.gridTemplateColumns = tpl; }); t.style.minWidth = cs.length >= 6 ? '700px' : cs.length >= 5 ? '600px' : ''; }); $$('.pl-wol', root).forEach(w => { const rows = $$('.pl-wrow', w); $$('.pl-wg', w).forEach((g, i) => { const n = rows[i] ? $$('.pl-star[data-on="true"]', rows[i]).length : 0; g.style.setProperty('--s', String(Math.max(.03, n / 10))); }); }); $$('.pl', root).forEach(p => { if (p.dataset.pltheme === 'custom' && /^#[0-9a-f]{6}$/i.test(p.dataset.plc || '')) p.style.setProperty('--plc', p.dataset.plc); else p.style.removeProperty('--plc'); }); }
 const plName = v => v && v[0] === '#' ? 'Custom' : (PL_THEMES.find(x => x[0] === v) || PL_THEMES[0])[1];
 const plSwatch = v => { const t = PL_THEMES.find(x => x[0] === v); return t ? `--sp:${t[2]};--st:${t[3]};--sa:${t[4]}` : `--sp:color-mix(in srgb, ${v} 6%, #fff);--st:color-mix(in srgb, ${v} 30%, #fff);--sa:${v}`; };
 /* A color-scheme chooser used in the template picker, the notebook settings and the page toolbar */
@@ -4264,7 +4641,7 @@ function plannerHTML(key, d, theme) {
 }
 const PL_KEYS = ['plan', 'week', 'month', 'monthov', 'finance', 'monthref', 'habit', 'goal', 'matrix'];
 const PM_KEYS = ['pmoverview', 'gantt', 'kanban', 'tasks', 'recurring', 'meetingpm', 'daypro', 'weekpro', 'decision', 'risk', 'goalpro', 'plan306090', 'budgetpm', 'contacts'];
-const isLayoutKey = k => PL_KEYS.includes(k) || PM_KEYS.includes(k) || XTRA_KEYS.includes(k);
+const isLayoutKey = k => PL_KEYS.includes(k) || PM_KEYS.includes(k) || XTRA_KEYS.includes(k) || CORE_KEYS.includes(k) || LIB_KEYS.includes(k);
 const isWorkLayout = k => isLayoutKey(k) && TPL[k] && TPL[k].kind === 'work';
 /* Project-management pages share the planner kit, plus tap-to-cycle chips (priority, status, type, level),
    tap-to-set progress bars, tap-to-draw Gantt cells, movable Kanban cards and "add row" buttons. */
@@ -4559,6 +4936,7 @@ function pmHTML(key, d, theme) {
   return null;
 }
 function templateHTML(key, dateKey, theme) {
+  if (CORE_KEYS.includes(key) || LIB_KEYS.includes(key)) return libHTML(key, parseYmd(dateKey || todayKey()), theme);
   if (key === 'pmapp') return pmEncode(normProject('x', { start: dateKey || todayKey(), manager: (S.profile.nickname || S.profile.name || '').split(' ')[0], createdAt: Date.now(), tasks: [] }));
   if (XTRA_KEYS.includes(key)) return xtraHTML(key, parseYmd(dateKey || todayKey()), theme);
   if (PM_KEYS.includes(key)) return pmHTML(key, parseYmd(dateKey || todayKey()), theme);
@@ -4600,6 +4978,8 @@ function templateHTML(key, dateKey, theme) {
 const tplTitle = (key, dateKey) => {
   const d = parseYmd(dateKey || todayKey()), lbl = TPL[key] ? TPL[key].label : 'New page';
   if (key === 'pmapp') return 'New project';
+  if (CORE_KEYS.includes(key)) return coreTitle(key, coreDate(key, d));
+  if (LIB_KEYS.includes(key)) { const t = { moodlog: 'm', social: 'm', bills: 'm', expense: 'm', grocery: 'm', petbud: 'm', nospend: 'm', visionref: 'm', mgoals: 'm', study: 'w', selfcheck: 'w', fitness: 'w', weekov: 'w', familycal: 'w', chores: 'w', weektravel: 'w', reflect: 'd', selfdisc: 'd', priority: 'd', timeline: 'd', lesson: 'd', inbox: 'd', brainstorm: 'd', tjournal: 'd', paycheck: 'd', swot: 'd', grolist: 'd', vboard: 'y', wordyear: 'y', fiveyear: 'y' }[key]; return t === 'w' ? `${lbl} · Week of ${DF({ month: 'short', day: 'numeric' }).format(startOfWeek(d))}` : t === 'm' ? `${lbl} · ${fmtMonthYear(d)}` : t === 'y' ? `${lbl} · ${d.getFullYear()}` : t === 'd' ? `${lbl} · ${fmtShortK(ymd(d))}` : lbl; }
   if (XTRA_KEYS.includes(key)) { const t = XTRA_TITLE[key]; return t === 'w' ? `${lbl} · Week of ${DF({ month: 'short', day: 'numeric' }).format(startOfWeek(d))}` : t === 'm' ? `${lbl} · ${fmtMonthYear(d)}` : t === 'y' ? `${lbl} · ${d.getFullYear()}` : t === 'q' ? `Q${Math.floor(d.getMonth() / 3) + 1} ${d.getFullYear()} plan` : t === 'd' ? `${lbl} · ${fmtShortK(ymd(d))}` : lbl; }
   if (['month', 'monthov', 'finance', 'monthref', 'habit'].includes(key)) return `${lbl} · ${fmtMonthYear(d)}`;
   if (['week', 'weekref', 'review'].includes(key)) return `${lbl} · Week of ${DF({ month: 'short', day: 'numeric' }).format(startOfWeek(d))}`;
@@ -4641,7 +5021,7 @@ function templatePicker(src, onPick, first = false) {
       ${creating ? `<p class="tpl-hint">${icon('info', 'sm')}Your notebook is created when you pick a page. Cancel and nothing is saved.</p>` : ''}
       <div class="tpl-colors"><span class="tpl-colors-l">${icon('palette', 'sm')}Page colors<small>For planner and project pages</small></span>${plChooserHTML(theme, true)}</div>
       ${mine.length ? `<p class="tpl-group">${icon(KINDS[kind].icon, 'sm')}For your ${esc(KINDS[kind].label.toLowerCase())}</p>` : ''}
-      ${(() => { const subs = [...new Set(mine.map(t => t.group || ''))].sort((a, b) => kind === 'work' ? (a ? 0 : 1) - (b ? 0 : 1) : (a ? 1 : 0) - (b ? 1 : 0)); if (subs.length < 2) return `<div class="tpl-grid">${blank}${mine.map(card).join('')}</div>`; return subs.map((g, i) => `<p class="tpl-group tpl-sub">${esc(g ? TPL_SUB[g] : TPL_CORE[kind])} <span class="mono small muted">${mine.filter(t => (t.group || '') === g).length}</span></p><div class="tpl-grid">${i ? '' : blank}${mine.filter(t => (t.group || '') === g).map(card).join('')}</div>`).join(''); })()}
+      ${(() => { const ORD = ['', ...Object.keys(TPL_SUB)], subs = [...new Set(mine.map(t => t.group || ''))].sort((a, b) => kind === 'work' ? (a ? 0 : 1) - (b ? 0 : 1) : ORD.indexOf(a) - ORD.indexOf(b)); if (subs.length < 2) return `<div class="tpl-grid">${blank}${mine.map(card).join('')}</div>`; return subs.map((g, i) => `<p class="tpl-group tpl-sub">${esc(g ? TPL_SUB[g] : TPL_CORE[kind])} <span class="mono small muted">${mine.filter(t => (t.group || '') === g).length}</span></p><div class="tpl-grid">${i ? '' : blank}${mine.filter(t => (t.group || '') === g).map(card).join('')}</div>`).join(''); })()}
       ${others.map(([g, lbl]) => `<details class="tpl-more" ${kind === 'other' ? 'open' : ''}><summary>${icon(KINDS[g].icon, 'sm')}${esc(lbl)} templates <span class="mono small muted">${TEMPLATES.filter(t => t.kind === g).length}</span></summary>${[...new Set(TEMPLATES.filter(t => t.kind === g).map(t => t.group || ''))].map(sg => `${sg ? `<p class="tpl-group tpl-sub">${esc(TPL_SUB[sg])}</p>` : ''}<div class="tpl-grid">${TEMPLATES.filter(t => t.kind === g && (t.group || '') === sg).map(card).join('')}</div>`).join('')}</details>`).join('')}
     </div>`,
     onOpen: w => { plPaint(w); wirePlChooser($('.tpl-colors', w), v => { theme = v; $$('.tpl-thumb .pl', w).forEach(x => setPl(x, v)); }); ro = fitTplThumbs($('.tpl-pick', w)); $$('.tpl-more', w).forEach(d => d.addEventListener('toggle', () => $$('.tpl-thumb', d).forEach(t => { const x = t.clientWidth; if (x) t.style.setProperty('--z', ((x - 24) / (+t.dataset.w || 520)).toFixed(4)); }))); },
@@ -4659,6 +5039,7 @@ function newPageFlow(nbId, first = false) {
   }, first);
 }
 function createPage(notebookId, dateKey, tpl, opts = {}) {
+  if (tpl && CORE_KEYS.includes(tpl)) dateKey = ymd(coreDate(tpl, parseYmd(dateKey || todayKey())));
   const nb = S.notebooks.find(n => n.id === notebookId);
   const id = newId(), now = Date.now();
   S.notes.push({ id, notebookId, title: tpl && TPL[tpl] ? tplTitle(tpl, dateKey) : nb ? KINDS[nb.kind].page : 'New page', date: dateKey || todayKey(), html: tpl ? templateHTML(tpl, dateKey, opts.theme || plTheme(notebookId, isWorkLayout(tpl) ? 'pastel' : null)) : '<p><br></p>', createdAt: now, updatedAt: now });
@@ -4671,7 +5052,7 @@ function openNote(id) {
   UI.nb.notebookId = n.notebookId; UI.nb.noteId = id;
   if (S.view === 'notebooks') { flushEditor(); updateNotebookSidebar(); mountEditor(); } else go('notebooks');
 }
-const ALLOWED = new Set(['P', 'BR', 'H1', 'H2', 'H3', 'STRONG', 'B', 'EM', 'I', 'U', 'S', 'STRIKE', 'UL', 'OL', 'LI', 'BLOCKQUOTE', 'HR', 'DIV', 'SPAN', 'MARK', 'CODE', 'PRE', 'A']);
+const ALLOWED = new Set(['DETAILS', 'SUMMARY', 'P', 'BR', 'H1', 'H2', 'H3', 'STRONG', 'B', 'EM', 'I', 'U', 'S', 'STRIKE', 'UL', 'OL', 'LI', 'BLOCKQUOTE', 'HR', 'DIV', 'SPAN', 'MARK', 'CODE', 'PRE', 'A']);
 const DROP = new Set(['SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'EMBED', 'IMG', 'SVG', 'MATH', 'VIDEO', 'AUDIO', 'CANVAS', 'FORM', 'INPUT', 'BUTTON', 'TEXTAREA', 'SELECT', 'LINK', 'META', 'TEMPLATE', 'NOSCRIPT', 'TITLE', 'HEAD']);
 function sanitize(html) {
   const doc = new DOMParser().parseFromString(`<div>${html || ''}</div>`, 'text/html');
@@ -4692,6 +5073,8 @@ function sanitize(html) {
           || (isPl && tag === 'SPAN' && a.name === 'data-on' && (a.value === 'true' || a.value === 'false'))
           || (isPl && tag === 'SPAN' && (a.name === 'data-v' || a.name === 'data-dir') && /^-?\d{1,2}$/.test(a.value))
           || (isPl && tag === 'SPAN' && a.name === 'title' && a.value.length < 60)
+          || (isPl && tag === 'SPAN' && a.name === 'data-go' && /^[a-z0-9-]{1,16}:\d{4}-\d{2}-\d{2}$/.test(a.value))
+          || (isPl && tag === 'SPAN' && a.name === 'data-cal' && /^\d{2}:\d{2}$/.test(a.value))
           || (isPl && tag === 'DIV' && a.name === 'data-pltheme' && (a.value === 'custom' || PL_THEMES.some(x => x[0] === a.value)))
           || (isPl && tag === 'DIV' && a.name === 'data-plc' && /^#[0-9a-f]{6}$/i.test(a.value))
           || (isPl && tag === 'DIV' && (a.name === 'data-pl' || a.name === 'data-cols') && /^[a-z0-9]{1,12}$/.test(a.value))
@@ -4914,6 +5297,7 @@ function mountEditor() {
       ${tb('bold', 'bold', 'Bold (Ctrl+B)')}${tb('italic', 'italic', 'Italic (Ctrl+I)')}${tb('underline', 'underline', 'Underline (Ctrl+U)')}${tb('strikeThrough', 'strike', 'Strikethrough')}
       <span class="tb-sep"></span>
       ${tb('insertUnorderedList', 'list', 'Bulleted list')}${tb('insertOrderedList', 'listOl', 'Numbered list')}${tb('checklist', 'checkSq', 'Checklist')}${tb('formatBlock', 'quote', 'Quote', 'blockquote')}${tb('insertHorizontalRule', 'minus', 'Divider')}
+      <span class="tb-sep"></span><button type="button" class="tb tb-stk" id="ed-stk" title="Stickers" aria-label="Stickers">${icon('smile')}</button>
       <span class="pl-themes" id="ed-plth" hidden><span class="tb-sep"></span><button type="button" class="pl-colbtn" id="ed-plcol" title="Change this page's color scheme"><span class="plc-chip"><i></i></span><span>Colors</span>${icon('down', 'sm')}</button></span>
       <label class="sr-only" for="ed-template">Insert a template</label>
       <select id="ed-template"><option value="">Insert template…</option>${[nb?.kind || 'other', ...TPL_GROUPS.map(g => g[0]).filter(g => g !== (nb?.kind || 'other'))].map(g => `${[...new Set(TEMPLATES.filter(t => t.kind === g).map(t => t.group || ''))].map(sg => `<optgroup label="${esc(TPL_GROUPS.find(x => x[0] === g)[1])}${sg ? ' · ' + esc(TPL_SUB[sg]) : ''}">${TEMPLATES.filter(t => t.kind === g && (t.group || '') === sg && t.key !== 'pmapp').map(t => `<option value="${t.key}">${esc(t.label)}</option>`).join('')}</optgroup>`).join('')}`).join('')}</select>
@@ -4929,6 +5313,7 @@ function mountEditor() {
   const plSync = () => { const pl = $('.pl', body), box = $('#ed-plth', el); body.classList.toggle('has-pl', !!pl); if (!box) return; box.hidden = !pl; if (pl) { plPaint(body); const b = $('#ed-plcol', box); b.setAttribute('style', plSwatch(plOf(pl))); b.lastElementChild.previousElementSibling.textContent = plName(plOf(pl)); } };
   plSync(); body.addEventListener('input', plSync);
   $('#ed-plth', el).addEventListener('mousedown', e => e.preventDefault());
+  $('#ed-stk', el).addEventListener('click', e => { e.stopPropagation(); stickerPicker(s2 => { body.focus(); if (ED.range) { const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(ED.range); } else { const r = document.createRange(); r.selectNodeContents(body); r.collapse(false); const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r); } document.execCommand('insertHTML', false, `<span class="pl-stk">${s2}</span>&nbsp;`); markDirty(); }); });
   $('#ed-plcol', el).addEventListener('click', () => { flushEditor(); plColorsModal(note.id, v => { $$('.pl', body).forEach(x => setPl(x, v)); plSync(); markDirty(); }); });
   try { document.execCommand('defaultParagraphSeparator', false, 'p'); } catch (e) { /* older browsers */ }
   $('#ed-title', el).addEventListener('input', markDirty);
@@ -4938,7 +5323,12 @@ function mountEditor() {
   body.addEventListener('click', e => {
     const pm = e.target.closest('.pl .pl-pri, .pl .pl-st, .pl .pl-ty, .pl .pl-lv, .pl .pl-mood, .pl .pl-tb, .pl .pl-prog, .pl .pl-mv, .pl .pl-del, .pl .pl-add, .pl .pl-addrow');
     if (pm && body.contains(pm) && !pm.closest('.pl-moodkey, .pl-tbkey')) { pmClick(pm, e); markDirty(); updateWords(); return; }
+    const lk = e.target.closest('.pl [data-go]');
+    if (lk && body.contains(lk)) { e.preventDefault(); flushEditor(); plGo(note.notebookId, lk.dataset.go); return; }
+    const cal = e.target.closest('.pl [data-cal]');
+    if (cal && body.contains(cal)) { const row = cal.closest('.pl-sr'), txt = row ? ($('.pl-f', row)?.innerText || '').trim() : ''; plCalModal($('#ed-date').value || note.date, cal.dataset.cal, txt); return; }
     const tg = e.target.closest('.pl [data-on]');
+    if (tg && body.contains(tg) && tg.classList.contains('pl-face')) { const on = tg.dataset.on !== 'true'; [...tg.parentElement.children].forEach(x => x.dataset.on = 'false'); tg.dataset.on = String(on); markDirty(); return; }
     if (tg && body.contains(tg)) {
       if (tg.classList.contains('pl-star')) { const all = [...tg.parentElement.children], i = all.indexOf(tg), on = tg.dataset.on === 'true' && !(all[i + 1] && all[i + 1].dataset.on === 'true'); all.forEach((x, j) => x.dataset.on = String(on ? j < i : j <= i)); }
       else tg.dataset.on = tg.dataset.on === 'true' ? 'false' : 'true';
@@ -5026,6 +5416,43 @@ function pmClick(el, e) {
     $$('.pl-f', n).forEach(f => f.innerHTML = '<br>'); $$('[data-v]', n).forEach(x => x.dataset.v = '0'); $$('[data-on]', n).forEach(x => x.dataset.on = 'false');
     src.after(n); const f = $('.pl-f', n); if (f) { const r = document.createRange(); r.selectNodeContents(f); r.collapse(true); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
   }
+}
+function plGo(nbId, spec) {
+  const [k, dk] = spec.split(':'); if (!TPL[k] || !isYmd(dk) || !S.notebooks.some(b => b.id === nbId)) return;
+  const date = CORE_KEYS.includes(k) ? ymd(coreDate(k, parseYmd(dk))) : dk, title = tplTitle(k, date);
+  let n = S.notes.find(x => x.notebookId === nbId && x.title === title), made = false;
+  if (!n) { const id = createPage(nbId, date, k); n = S.notes.find(x => x.id === id); made = true; }
+  if (!n) return;
+  UI.nb.notebookId = nbId; UI.nb.noteId = n.id; UI.nb.search = ''; updateNotebookSidebar(); mountEditor();
+  const ed = $('#nb-editor'); if (ed && ed.getBoundingClientRect().top < 0) ed.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  if (made) toast(`Created “${title}”`);
+}
+function plCalModal(dateKey, time, text) {
+  if (!isYmd(dateKey)) dateKey = todayKey();
+  openModal({
+    title: 'Add to your calendar',
+    body: `<div class="stack"><div class="field"><label for="pc-t">What</label><input id="pc-t" type="text" maxlength="200" value="${esc(text)}" placeholder="e.g. Team stand-up"></div>
+      <div class="field-row"><div class="field"><label for="pc-d">Date</label><input id="pc-d" type="date" value="${dateKey}"></div><div class="field"><label for="pc-s">Start</label><input id="pc-s" type="time" value="${time}"></div><div class="field"><label for="pc-len">Length</label><select id="pc-len"><option value="30">30 minutes</option><option value="60">1 hour</option><option value="90">1½ hours</option><option value="120">2 hours</option></select></div></div>
+      <div class="field"><label for="pc-r">Reminder</label><select id="pc-r"><option value="0">At the start</option><option value="10" selected>10 minutes before</option><option value="30">30 minutes before</option><option value="60">1 hour before</option><option value="-1">No reminder</option></select></div>
+      <p class="small muted">${icon('info', 'sm')} Google Calendar opens in a new tab. The .ics file opens in Apple Calendar, Outlook or Reminders on your phone or computer.</p></div>`,
+    actions: [{ label: 'Cancel', kind: 'ghost' }, { label: '.ics for Apple / Outlook', kind: 'ghost', onClick: w => { const ev = rd(w); if (!ev) return false; const pad2 = n => String(n).padStart(2, '0'), st = f => `${f.getFullYear()}${pad2(f.getMonth() + 1)}${pad2(f.getDate())}T${pad2(f.getHours())}${pad2(f.getMinutes())}00`; const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Bragging Wall//Planner//EN', 'BEGIN:VEVENT', `UID:${newId()}@braggingwall`, `DTSTAMP:${st(new Date())}`, `DTSTART:${st(ev.a)}`, `DTEND:${st(ev.b)}`, `SUMMARY:${ev.t.replace(/[,;\\]/g, m => '\\' + m)}`, ...(ev.r >= 0 ? ['BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:${ev.t.replace(/[,;\\]/g, m => '\\' + m)}`, `TRIGGER:-PT${ev.r}M`, 'END:VALARM'] : []), 'END:VEVENT', 'END:VCALENDAR'].join('\r\n'); saveFile(`${fileSafe(ev.t)}.ics`, new Blob([ics], { type: 'text/calendar' })); } },
+      { label: 'Google Calendar', onClick: w => { const ev = rd(w); if (!ev) return false; const z = f => f.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(ev.t)}&dates=${z(ev.a)}/${z(ev.b)}&details=${encodeURIComponent('Planned in Bragging Wall')}`; const win = window.open(url, '_blank', 'noopener'); if (!win) { navigator.clipboard?.writeText(url).catch(() => {}); toast('Pop-ups are blocked here, so the Google Calendar link was copied. Paste it in your browser.', 'warn'); } } }],
+  });
+  function rd(w) { const t = $('#pc-t', w).value.trim() || 'Planner event', dk = $('#pc-d', w).value, tm = $('#pc-s', w).value || time; if (!isYmd(dk)) { toast('Pick a date.', 'warn'); return null; } const [h, m] = tm.split(':').map(Number), a = parseYmd(dk); a.setHours(h, m, 0, 0); const b = new Date(a.getTime() + (+$('#pc-len', w).value) * 60000); return { t, a, b, r: +$('#pc-r', w).value }; }
+}
+const PAGE_STICKERS = {
+  'Cute': '🌸 🌷 🌼 🌻 🍀 🌿 🪴 🌈 ☁️ ⭐ ✨ 🌙 ☀️ 🎀 💖 💕 🫶 🦋 🐝 🐞',
+  'Animals': '🐱 🐶 🐰 🐻 🐼 🐨 🦊 🐷 🐮 🐸 🐧 🐥 🦄 🐳 🐢 🦔',
+  'Food': '☕ 🍵 🧋 🍓 🍒 🍑 🥑 🍕 🍔 🍜 🍣 🧁 🍩 🍪 🍰 🥐',
+  'Wins': '🏆 🥇 🎉 🎊 🚀 💪 🔥 👏 🙌 💯 ✅ 🌟 👑 💎 🎯 📈',
+  'Work & school': '💻 📱 📅 📌 📎 ✏️ 🖊️ 📚 📒 🗂️ 💡 🧠 🐛 🧪 📊 ✉️',
+  'Home & life': '🏠 🛋️ 🧺 🧹 🛒 💰 💳 🧾 💊 🩺 🏃 🧘 🛌 🚗 🐾 🎂',
+  'Travel': '✈️ 🧳 🗺️ 🏖️ ⛰️ 🏕️ 🚆 🚲 🌊 🏝️ 🗼 📸 🎒 🛂 🌍 🧭',
+  'Seasons': '🎄 🎁 🎃 🍂 ❄️ ⛄ 🌺 🌞 🌧️ ⚡ 🎆 🧧 💝 🐣 🎓 🕯️',
+};
+function stickerPicker(onPick) {
+  const m = openModal({ title: 'Stickers', wide: true, body: `<div class="stk-pick">${Object.entries(PAGE_STICKERS).map(([cat, list]) => `<p class="cvd-lbl">${esc(cat)}</p><div class="stk-grid">${list.split(' ').map(x => `<button type="button" data-stk2="${x}" aria-label="Sticker ${x}">${x}</button>`).join('')}</div>`).join('')}<p class="small muted">${icon('info', 'sm')} Stickers go where your cursor was. Select one and press Delete to remove it.</p></div>`, actions: [{ label: 'Done', kind: 'ghost' }] });
+  m.wrap.addEventListener('click', e => { const b = e.target.closest('[data-stk2]'); if (!b) return; onPick(b.dataset.stk2); b.classList.add('on'); setTimeout(() => b.classList.remove('on'), 300); });
 }
 function plColorsModal(noteId, apply) {
   const note = S.notes.find(n => n.id === noteId), nb = note && S.notebooks.find(b => b.id === note.notebookId);
@@ -5259,7 +5686,10 @@ function inlineRuns(node, st = { b: false, i: false }, out = []) {
 function flattenPlanner(root) {
   const txt = n => (n ? n.innerText || n.textContent || '' : '').replace(/\s+/g, ' ').trim();
   const p = (label, value) => { const e = document.createElement('p'); if (label) { const b = document.createElement('strong'); b.textContent = label + ' '; e.append(b); } e.append(value); return e; };
-  $$('.pl-wheel, .pl-year', root).forEach(x => x.remove());
+  $$('.pl-wheel, .pl-year, .pl-nav, .pl-mini, .pl-q3, .pl-plus, .pl-cards', root).forEach(x => x.remove());
+  $$('.pl-faces', root).forEach(x => { const on = x.querySelector('[data-on="true"]'); x.replaceWith(on ? ' ' + on.textContent : ''); });
+  $$('.pl-hcdots', root).forEach(x => { x.replaceWith(` ${x.querySelectorAll('[data-on="true"]').length} days`); });
+  $$('.pl-gd', root).forEach(x => x.replaceWith((x.innerText || x.textContent).replace(/\s+/g, ' ').trim() + ' '));
   $$('.pl-coins, .pl-envs', root).forEach(x => { const a = x.children.length, on = x.querySelectorAll('[data-on="true"]').length; const e = document.createElement('p'); e.textContent = `Done: ${on} of ${a}`; x.replaceWith(e); });
   $$('.pl-care', root).forEach(x => { const e = document.createElement('p'); e.textContent = 'Done: ' + ([...x.querySelectorAll('[data-on="true"]')].map(c => c.lastChild.textContent).join(', ') || 'none yet'); x.replaceWith(e); });
   $$('.pl-moodcal', root).forEach(x => { const n = ['', 'Great', 'Good', 'Okay', 'Low', 'Bad'], c = {}; x.querySelectorAll('.pl-mood').forEach(m => { const v = +m.dataset.v; if (v) c[n[v]] = (c[n[v]] || 0) + 1; }); const e = document.createElement('p'); e.textContent = Object.entries(c).map(([k, v]) => `${k}: ${v} days`).join(', ') || 'No moods logged yet'; x.replaceWith(e); });
@@ -5352,7 +5782,7 @@ async function saveFile(filename, data) {
     if (window.claude) { toast("Downloads aren't available in this view. Open the page in claude.ai to save files.", 'warn'); return false; }
     try {
       const ext = filename.split('.').pop().toLowerCase();
-      const type = { pdf: 'application/pdf', json: 'application/json', csv: 'text/csv;charset=utf-8', txt: 'text/plain;charset=utf-8' }[ext] || 'application/octet-stream';
+      const type = { ics: 'text/calendar;charset=utf-8', pdf: 'application/pdf', json: 'application/json', csv: 'text/csv;charset=utf-8', txt: 'text/plain;charset=utf-8' }[ext] || 'application/octet-stream';
       const blob = data instanceof Blob ? data : new Blob([data], { type });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -5711,6 +6141,18 @@ function onLocalSaveFailed() {
 const COVER_FONTS = { display: { label: 'Classic', css: 'var(--font-display)' }, hand: { label: 'Handwritten', css: 'var(--font-hand)' }, sans: { label: 'Modern', css: 'var(--font-body)' }, mono: { label: 'Typewriter', css: 'var(--font-mono)' } };
 const COVER_SWATCHES = ['#0F6E6A', '#149B92', '#2F6FB0', '#5B8DEF', '#8A4FB5', '#C2477A', '#E0607E', '#C0632A', '#F07A3A', '#F4B336', '#3C8A37', '#1B2422', '#5E6E6A', '#F0EEE9', '#FFFFFF', '#FFE2E9', '#FFE27A', '#B9EAD2'];
 const COVER_GRADS = [['#0F6E6A', '#149B92'], ['#2F6FB0', '#8A4FB5'], ['#F4B336', '#F07A3A'], ['#E0607E', '#F4B336'], ['#1B2422', '#0F6E6A'], ['#FFE2E9', '#D9CBF6'], ['#B9EAD2', '#BFDDF7'], ['#FFE27A', '#FFC4D2'], ['#0B3D5C', '#E0607E'], ['#F0EEE9', '#E3DCCB']];
+const COVER_PRESETS = [
+  { name: 'Dreamy', c: { bg: { type: 'gradient', c1: '#FFB3D1', c2: '#B9A7F5' }, items: [{ type: 'shape', shape: 'circle', x: 30, y: 70, s: 40, color: '#FFFFFF', o: 25 }, { type: 'text', text: 'Digital Planner', font: 'display', x: 50, y: 38, s: 13, color: '#FFFFFF', shadow: true }, { type: 'emoji', text: '✨', x: 78, y: 18, s: 16 }] } },
+  { name: 'Botanical', c: { bg: { type: 'color', c1: '#F6EFE4' }, items: [{ type: 'emoji', text: '🌿', x: 82, y: 14, s: 30, r: 20 }, { type: 'emoji', text: '🍂', x: 18, y: 86, s: 26, r: -15 }, { type: 'text', text: 'my PLANNER', font: 'display', x: 50, y: 46, s: 12, color: '#6E5A4B' }] } },
+  { name: 'Space', c: { bg: { type: 'gradient', c1: '#0E1430', c2: '#3A2A6E' }, items: [{ type: 'emoji', text: '🚀', x: 24, y: 22, s: 22, r: 30 }, { type: 'emoji', text: '🪐', x: 76, y: 76, s: 28 }, { type: 'emoji', text: '⭐', x: 82, y: 20, s: 10 }, { type: 'emoji', text: '🌙', x: 18, y: 78, s: 14 }, { type: 'text', text: 'MY PLANNER', font: 'sans', bold: true, x: 50, y: 50, s: 11, color: '#FFE27A' }] } },
+  { name: 'Night hills', c: { bg: { type: 'gradient', c1: '#2E2A6B', c2: '#8B6CC9' }, items: [{ type: 'emoji', text: '🌕', x: 74, y: 20, s: 20 }, { type: 'emoji', text: '🐇', x: 50, y: 82, s: 18 }, { type: 'text', text: 'My Planner', font: 'hand', x: 46, y: 36, s: 16, color: '#FFFFFF' }] } },
+  { name: 'Vintage', c: { bg: { type: 'color', c1: '#C9A97E' }, items: [{ type: 'emoji', text: '🌸', x: 50, y: 70, s: 26 }, { type: 'emoji', text: '🌿', x: 30, y: 78, s: 16, r: -30 }, { type: 'emoji', text: '🌿', x: 70, y: 78, s: 16, r: 30 }, { type: 'text', text: 'My Planner', font: 'hand', x: 50, y: 32, s: 15, color: '#4A3423' }] } },
+  { name: 'Pink checks', c: { bg: { type: 'pattern', pattern: 'checks', c1: '#F9C6D6', c2: '#FFFFFF' }, items: [{ type: 'note', text: 'My Planner', x: 50, y: 40, s: 40, color: '#FFFFFF' }, { type: 'emoji', text: '🌷', x: 24, y: 86, s: 14 }, { type: 'emoji', text: '🌷', x: 50, y: 88, s: 14 }, { type: 'emoji', text: '💖', x: 76, y: 30, s: 12 }] } },
+  { name: 'Seaside', c: { bg: { type: 'gradient', c1: '#7EC8E3', c2: '#C7EFCF' }, items: [{ type: 'emoji', text: '🚲', x: 60, y: 78, s: 22 }, { type: 'emoji', text: '🌊', x: 26, y: 84, s: 16 }, { type: 'text', text: 'My Planner', font: 'hand', x: 40, y: 22, s: 14, color: '#FFFFFF', shadow: true }] } },
+  { name: 'Midnight gold', c: { bg: { type: 'color', c1: '#1B1B1B' }, items: [{ type: 'shape', shape: 'ring', x: 50, y: 48, s: 62, color: '#D9B76E', o: 70 }, { type: 'text', text: 'My Planner', font: 'display', x: 50, y: 48, s: 12, color: '#D9B76E' }, { type: 'emoji', text: '✨', x: 24, y: 18, s: 10 }, { type: 'emoji', text: '🌙', x: 78, y: 82, s: 12 }] } },
+  { name: 'Matcha', c: { bg: { type: 'pattern', pattern: 'dots', c1: '#A9C29A', c2: '#EEF4E6' }, items: [{ type: 'emoji', text: '🍵', x: 50, y: 66, s: 24 }, { type: 'text', text: 'planner', font: 'display', x: 50, y: 36, s: 14, color: '#2F4A2A' }] } },
+  { name: 'Boho', c: { bg: { type: 'gradient', c1: '#E9C9A8', c2: '#B5714B' }, items: [{ type: 'shape', shape: 'circle', x: 70, y: 30, s: 30, color: '#F6E3CF', o: 80 }, { type: 'emoji', text: '🌾', x: 26, y: 74, s: 24, r: -10 }, { type: 'text', text: 'My Planner', font: 'hand', x: 46, y: 50, s: 15, color: '#3E2A1F' }] } },
+];
 const COVER_PATTERNS = ['dots', 'grid', 'lines', 'stripes', 'bricks', 'waves', 'checks', 'hearts'];
 const COVER_EMOJI = ['⭐', '✨', '\u{1F31F}', '\u{1F496}', '\u{1F4AA}', '\u{1F525}', '\u{1F680}', '\u{1F3C6}', '\u{1F389}', '\u{1F338}', '\u{1F308}', '☀️', '\u{1F319}', '☕', '\u{1F4DA}', '✏️', '\u{1F4DD}', '\u{1F4A1}', '\u{1F3AF}', '\u{1F4C5}', '\u{1F4BC}', '\u{1F9E0}', '\u{1F331}', '\u{1F340}', '\u{1F98B}', '\u{1F431}', '\u{1F436}', '\u{1F3A7}', '\u{1F30A}', '\u{1F353}', '\u{1F9C1}', '\u{1F48C}', '\u{1F33B}', '\u{1F3B5}', '\u{1F4F1}', '\u{1F41E}'];
 const COVER_ICONS = ['star', 'heart', 'sparkles', 'trophy', 'rocket', 'flame', 'target', 'book', 'pen', 'calendar', 'briefcase', 'bulb', 'coffee', 'music', 'camera', 'globe', 'plane', 'leaf', 'gift', 'zap', 'smile', 'award', 'chat', 'code', 'bug', 'users', 'grad', 'sun', 'moon', 'checkCircle', 'clipboard', 'megaphone', 'puzzle', 'coin', 'phone', 'mail'];
@@ -5864,6 +6306,7 @@ function coverDesigner(nbId) {
     const bg = D.c.bg, el = $w('#cvd-tab');
     const inkRow = `<p class="cvd-lbl">Color for new items</p>${swatches(D.ink, 'ink')}`;
     if (D.tab === 'bg') el.innerHTML = `
+      <p class="cvd-lbl">Ready-made covers <span class="muted">tap to start from one</span></p><div class="cvd-presets">${COVER_PRESETS.map((p2, pi) => `<button type="button" data-preset="${pi}" aria-label="${esc(p2.name)} cover" title="${esc(p2.name)}">${coverHTML({ cover: normCover(p2.c), name: '', color: '#0F6E6A' })}<span>${esc(p2.name)}</span></button>`).join('')}</div>
       <p class="cvd-lbl">Solid color</p>${swatches(bg.type === 'color' ? bg.c1 : '', 'bgc')}
       <p class="cvd-lbl">Gradient</p><div class="cvd-grads">${COVER_GRADS.map(([a, b], i) => `<button type="button" data-grad="${i}" class="${bg.type === 'gradient' && bg.c1 === a && bg.c2 === b ? 'on' : ''}" style="background:linear-gradient(155deg, ${a}, ${b})" aria-label="Gradient ${i + 1}"></button>`).join('')}</div>
       <p class="cvd-lbl">Pattern <span class="muted">on your color</span></p><div class="cvd-pats">${COVER_PATTERNS.map(p => `<button type="button" data-pat="${p}" class="cover ${bg.type === 'pattern' && bg.pattern === p ? 'on' : ''}" style="background-color:${bg.c1};${cvPatternCSS(p, bg.type === 'pattern' ? bg.c2 : '#FFFFFF')}" aria-label="${p} pattern"><span>${p}</span></button>`).join('')}</div>
@@ -5924,6 +6367,7 @@ function coverDesigner(nbId) {
     const d = t.dataset, it = selItem();
     if (d.tab) { D.tab = d.tab; renderTab(); return; }
     if (d.bgc) { D.c.bg = { ...D.c.bg, type: 'color', c1: d.bgc }; renderCanvas(); renderTab(); }
+    else if (d.preset !== undefined) { D.c = normCover(JSON.parse(JSON.stringify(COVER_PRESETS[+d.preset].c))); D.sel = null; renderCanvas(); renderTab(); }
     else if (d.grad !== undefined) { const [a, b] = COVER_GRADS[+d.grad]; D.c.bg = { ...D.c.bg, type: 'gradient', c1: a, c2: b }; renderCanvas(); renderTab(); }
     else if (d.pat) { const wasPat = D.c.bg.type === 'pattern'; D.c.bg = { ...D.c.bg, type: 'pattern', pattern: d.pat, c2: wasPat ? D.c.bg.c2 : '#FFFFFF' }; renderCanvas(); renderTab(); }
     else if (d.patc) { D.c.bg.c2 = d.patc; renderCanvas(); renderTab(); }
