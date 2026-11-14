@@ -1613,6 +1613,152 @@ body.side-anim .app { transition: grid-template-columns .28s var(--ease); }
 .pl-phead { display: flex; flex-direction: column; align-items: center; background: var(--pt); border-radius: 10px; padding: 8px; margin-bottom: 10px; user-select: none; }
 .pl-phead b { font: 300 1.6rem/1 var(--font-body); color: var(--pi); letter-spacing: .04em; } .pl-phead > span:not(.pl-mut) { font-size: .78rem; font-weight: 600; color: var(--pi); text-transform: uppercase; letter-spacing: .12em; } .pl-phead .pl-mut { font-size: .66rem; color: var(--pm); }
 .pl-dm .pl-box { min-height: 0; } .pl-dm .pl-tbl { background: var(--pp); }
+/* note paper */
+.pl-paper { padding: 22px; }
+.pl-pp { min-height: 920px; padding: 0 8px; line-height: 30px; }
+.pl-pp p { margin: 0; }
+.pl-p-lined, .pl-p-margin { background-image: linear-gradient(transparent 29px, var(--pln) 0); background-size: 100% 30px; }
+.pl-p-narrow { line-height: 24px; background-image: linear-gradient(transparent 23px, var(--pln) 0); background-size: 100% 24px; }
+.pl-p-wide { line-height: 38px; background-image: linear-gradient(transparent 37px, var(--pln) 0); background-size: 100% 38px; }
+.pl-p-dash { background-image: linear-gradient(90deg, var(--pp) 50%, transparent 0), linear-gradient(transparent 29px, var(--pln) 0); background-size: 10px 100%, 100% 30px; }
+.pl-p-margin { padding-left: 62px; background-image: linear-gradient(90deg, transparent 48px, color-mix(in srgb, var(--pa) 55%, transparent) 48px 50px, transparent 50px), linear-gradient(transparent 29px, var(--pln) 0); background-size: 100% 100%, 100% 30px; }
+.pl-p-graph-s, .pl-p-graph-m, .pl-p-graph-l { background-image: linear-gradient(var(--pln) 1px, transparent 1px), linear-gradient(90deg, var(--pln) 1px, transparent 1px); }
+.pl-p-graph-s { background-size: 16px 16px; line-height: 32px; } .pl-p-graph-m { background-size: 24px 24px; line-height: 24px; } .pl-p-graph-l { background-size: 36px 36px; line-height: 36px; }
+.pl-p-dot-s, .pl-p-dot-m, .pl-p-dot-l { background-image: radial-gradient(color-mix(in srgb, var(--pm) 55%, transparent) 1.1px, transparent 1.6px); }
+.pl-p-dot-s { background-size: 16px 16px; line-height: 32px; } .pl-p-dot-m { background-size: 24px 24px; line-height: 24px; } .pl-p-dot-l { background-size: 34px 34px; line-height: 34px; }
+.pl-ptitle { font: 400 1.5rem var(--font-display); border-bottom: 2px solid var(--pi); padding: 6px 8px; margin-bottom: 10px; min-height: 1.6em; }
+.pl-cornell { display: grid; grid-template-columns: 30% 1fr; grid-template-areas: "cue notes" "sum sum"; gap: 12px; }
+.pl-cue { grid-area: cue; border-right: 2px solid var(--pln); padding-right: 10px; } .pl-cnotes { grid-area: notes; } .pl-csum { grid-area: sum; border-top: 2px solid var(--pln); padding-top: 8px; }
+.pl-cornell .pl-pp { min-height: 660px; } .pl-cornell .pl-pps { min-height: 190px; }
+.pl-boxes { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+.pl-b12 { grid-template-columns: repeat(3, 1fr); }
+.pl-pbox { border: 1px solid var(--pln); border-radius: 10px; padding: 10px; min-height: 210px; }
+.pl-b4 .pl-pbox { min-height: 450px; } .pl-b6 .pl-pbox { min-height: 300px; }
+.pl-checkpage > li { min-height: 2.3em !important; line-height: 2.3em !important; }
+/* tap trackers */
+.pl-coins { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 7px; margin-bottom: 14px; user-select: none; }
+.pl-coin { aspect-ratio: 1; border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--pa) 60%, var(--pm)); display: grid; place-items: center; font-size: .7rem; font-weight: 600; color: var(--pm); cursor: pointer; transition: transform .15s, background .2s, color .2s; background: var(--pp); }
+.pl-coin:hover, .pl-env:hover, .pl-carebox:hover { transform: translateY(-2px); }
+.pl-coin[data-on="true"] { background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--pa) 55%, #fff), var(--pa)); color: #fff; border-color: var(--pa); box-shadow: inset 0 0 0 3px color-mix(in srgb, #fff 35%, transparent); }
+.pl-c30 { grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 10px; } .pl-c30 .pl-coin { font-size: .95rem; }
+.pl-bag { border-radius: 8px; position: relative; margin-top: 6px; aspect-ratio: 1.15; }
+.pl-bag::before { content: ""; position: absolute; top: -7px; left: 32%; width: 36%; height: 7px; border: 1.5px solid currentColor; border-bottom: 0; border-radius: 4px 4px 0 0; opacity: .7; }
+.pl-envs { display: grid; grid-template-columns: repeat(auto-fill, minmax(56px, 1fr)); gap: 8px; user-select: none; }
+.pl-env { position: relative; aspect-ratio: 1.5; border: 1.3px solid var(--pm); border-radius: 5px; display: grid; place-items: end center; padding-bottom: 3px; font-size: .68rem; font-weight: 600; color: var(--pm); cursor: pointer; overflow: hidden; background: var(--pp); transition: transform .15s, background .2s; }
+.pl-env::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 62%; background: linear-gradient(to bottom right, transparent calc(50% - .7px), var(--pm) 50%, transparent calc(50% + .7px)) left / 50% 100% no-repeat, linear-gradient(to bottom left, transparent calc(50% - .7px), var(--pm) 50%, transparent calc(50% + .7px)) right / 50% 100% no-repeat; opacity: .6; }
+.pl-env[data-on="true"] { background: color-mix(in srgb, var(--pa) 28%, var(--pp)); color: var(--pi); border-color: var(--pa); }
+.pl-env[data-on="true"]::after { content: "✓"; position: absolute; top: 4px; right: 6px; font-size: .75rem; color: var(--pa); }
+.pl-care { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; user-select: none; }
+.pl-carebox { position: relative; border: 1px solid var(--pln); border-radius: 12px; padding: 8px 10px 10px; font-size: .76rem; line-height: 1.3; min-height: 74px; cursor: pointer; background: var(--pp); transition: transform .15s, background .2s; }
+.pl-carebox b { display: block; font: 300 1.2rem var(--font-body); color: var(--pa); }
+.pl-carebox[data-on="true"] { background: var(--pt); text-decoration: line-through; color: var(--pm); }
+.pl-carebox[data-on="true"]::after { content: "✓"; position: absolute; top: 6px; right: 9px; font-weight: 700; color: var(--pa); }
+/* wheel of life */
+.pl-wol { display: grid; grid-template-columns: 300px 1fr; gap: 26px; align-items: center; margin-bottom: 16px; }
+.pl-wheel { position: relative; width: 290px; aspect-ratio: 1; border-radius: 50%; background: repeating-conic-gradient(var(--pt) 0 45deg, var(--pp) 45deg 90deg); border: 1px solid var(--pln); user-select: none; clip-path: circle(50%); overflow: hidden; }
+.pl-wg { position: absolute; inset: 0; border-radius: 50%; transform: scale(var(--s, .03)); transition: transform .4s var(--ease); opacity: .9; }
+.pl-wring { position: absolute; inset: 0; border-radius: 50%; background: repeating-radial-gradient(circle, transparent 0 calc(10% - 1px), color-mix(in srgb, var(--pm) 22%, transparent) calc(10% - 1px) 10%); pointer-events: none; }
+.pl-wl { position: absolute; transform: translate(-50%, -50%); font-size: .58rem; font-weight: 600; text-align: center; max-width: 70px; line-height: 1.15; color: var(--pi); text-shadow: 0 0 3px var(--pp), 0 0 3px var(--pp); }
+.pl-wg0 { clip-path: polygon(50% 50%, 50.0% -50.0%, 120.7% -20.7%); background: #F6B8A8; } .pl-wl0 { left: 63.8%; top: 16.7%; }
+.pl-wg1 { clip-path: polygon(50% 50%, 120.7% -20.7%, 150.0% 50.0%); background: #F9CFA0; } .pl-wl1 { left: 83.3%; top: 36.2%; }
+.pl-wg2 { clip-path: polygon(50% 50%, 150.0% 50.0%, 120.7% 120.7%); background: #F8E3A0; } .pl-wl2 { left: 83.3%; top: 63.8%; }
+.pl-wg3 { clip-path: polygon(50% 50%, 120.7% 120.7%, 50.0% 150.0%); background: #C9E5B5; } .pl-wl3 { left: 63.8%; top: 83.3%; }
+.pl-wg4 { clip-path: polygon(50% 50%, 50.0% 150.0%, -20.7% 120.7%); background: #A9DCD3; } .pl-wl4 { left: 36.2%; top: 83.3%; }
+.pl-wg5 { clip-path: polygon(50% 50%, -20.7% 120.7%, -50.0% 50.0%); background: #B9D3F2; } .pl-wl5 { left: 16.7%; top: 63.8%; }
+.pl-wg6 { clip-path: polygon(50% 50%, -50.0% 50.0%, -20.7% -20.7%); background: #CDBDF0; } .pl-wl6 { left: 16.7%; top: 36.2%; }
+.pl-wg7 { clip-path: polygon(50% 50%, -20.7% -20.7%, 50.0% -50.0%); background: #F2BCD9; } .pl-wl7 { left: 36.2%; top: 16.7%; }
+.pl-wrates .pl-rate { padding: 5px 2px; } .pl-wrates .pl-star { font-size: .9rem; }
+/* mood */
+.pl-moodcal { border: 1px solid var(--pln); border-radius: 12px; padding: 8px; margin-bottom: 10px; user-select: none; }
+.pl-moodcal .pl-calh { border: 0; }
+.pl-moodg { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+.pl-moodd { position: relative; aspect-ratio: 1.3; border-radius: 10px; }
+.pl-moodd > i { position: absolute; top: 4px; left: 6px; font-style: normal; font-size: .64rem; color: var(--pm); z-index: 1; pointer-events: none; }
+.pl-moodd .pl-mood { position: absolute; inset: 0; border-radius: 10px; }
+.pl-mood { display: inline-block; cursor: pointer; background: var(--pt); border: 1px solid var(--pln); transition: background .2s; }
+.pl-mood[data-v="1"] { background: #FFD979; border-color: #F0C24F; } .pl-mood[data-v="2"] { background: #BFE5AE; border-color: #9CD186; } .pl-mood[data-v="3"] { background: #C3DCF3; border-color: #9DC3E8; } .pl-mood[data-v="4"] { background: #DACBF0; border-color: #BFA8E6; } .pl-mood[data-v="5"] { background: #F5B9C6; border-color: #EC94A8; }
+.pl-moodkey { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; font-size: .74rem; color: var(--pm); margin-bottom: 14px; user-select: none; }
+.pl-moodkey > span { display: inline-flex; align-items: center; gap: 6px; } .pl-moodkey .pl-mood { width: 18px; height: 18px; border-radius: 5px; cursor: default; }
+.pl-days2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 26px; margin-bottom: 14px; }
+.pl-days2 .pl-n { width: 1.8em; }
+.pl-days2 .pl-dots { margin-left: auto; }
+/* jar, affirmations, books */
+.pl-jarwrap { display: flex; justify-content: center; padding: 10px 0; }
+.pl-jar { width: min(420px, 100%); }
+.pl-jlid { width: 62%; height: 26px; margin: 0 auto -2px; border-radius: 8px 8px 3px 3px; background: var(--pt2); border: 2px solid var(--pm); }
+.pl-jbody { border: 2px solid var(--pm); border-radius: 46px 46px 70px 70px / 34px 34px 90px 90px; padding: 44px 36px 46px; min-height: 440px; background: linear-gradient(160deg, color-mix(in srgb, #fff 55%, transparent) 0 18%, transparent 18%), color-mix(in srgb, var(--pt) 45%, var(--pp)); }
+.pl-affs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.pl-aff { position: relative; background: var(--pt); border-radius: 16px; padding: 22px 14px 12px; font-style: italic; }
+.pl-aq { position: absolute; top: -6px; left: 10px; font: 400 2.6rem/1 var(--font-display); color: var(--pa); user-select: none; }
+.pl-book { display: grid; grid-template-columns: 110px 1fr; gap: 14px; border: 1px solid var(--pln); border-radius: 14px; padding: 10px; margin-bottom: 12px; }
+.pl-bcover { aspect-ratio: 2 / 3; border-radius: 6px 10px 10px 6px; background: linear-gradient(90deg, color-mix(in srgb, var(--pi) 14%, transparent) 0 8px, transparent 8px), var(--pt); display: grid; place-items: center; font-size: .6rem; letter-spacing: .14em; color: var(--pm); user-select: none; }
+.pl-book .pl-kv { margin-bottom: 8px; }
+/* yearly calendar */
+.pl-year { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; user-select: none; }
+.pl-ymon b { display: block; text-align: center; font-size: .64rem; letter-spacing: .12em; background: var(--pt); border-radius: 6px; padding: 3px; margin-bottom: 4px; color: var(--pi); }
+.pl-yh, .pl-yg { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; }
+.pl-yh i { font-style: normal; font-size: .52rem; color: var(--pm); }
+.pl-yg i { font-style: normal; font-size: .6rem; line-height: 1.75; color: var(--pi); border-radius: 50%; }
+.pl-yg .pl-ywin { background: var(--pa); color: #fff; } .pl-yg .pl-ytoday { box-shadow: inset 0 0 0 1.3px var(--pa); }
+/* time blocking */
+.pl-tbk { border-top: 1px solid var(--pi); margin-bottom: 10px; }
+.pl-tbr { display: grid; grid-template-columns: 62px 150px 1fr; align-items: center; border-bottom: 1px solid var(--pln); min-height: 2.1em; }
+.pl-tbr .pl-t { width: auto; height: 100%; font-size: .7rem; }
+.pl-tbq { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; padding: 3px 6px; user-select: none; }
+.pl-tb { height: 20px; border-radius: 5px; border: 1px dashed var(--pln); cursor: pointer; transition: background .15s; background: var(--pp); }
+.pl-tb[data-v="1"] { background: #BFD3F7; border: 0; } .pl-tb[data-v="2"] { background: #DCCBF5; border: 0; } .pl-tb[data-v="3"] { background: #F7E3A0; border: 0; } .pl-tb[data-v="4"] { background: #C7E8BC; border: 0; } .pl-tb[data-v="5"] { background: #F6C4D7; border: 0; } .pl-tb[data-v="6"] { background: #F9CDB0; border: 0; }
+.pl-tbkey { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; font-size: .74rem; color: var(--pm); margin-bottom: 14px; user-select: none; }
+.pl-tbkey > span { display: inline-flex; align-items: center; gap: 6px; } .pl-tbkey .pl-tb { width: 22px; height: 14px; cursor: default; }
+.pl-acct { margin-bottom: 0; } .pl-acct .pl-kv { margin-bottom: 8px; background-color: var(--pln); }
+.pl-quad > .pl-acct, .pl-quad > .pl-box { margin-bottom: 14px; }
+.pl-x3a { grid-template-columns: 1.6fr 1fr 1fr; }
+.pl-x4c { grid-template-columns: 1.6fr 1fr 1fr 50px; }
+.pl-x6m { grid-template-columns: 70px repeat(5, 1fr); }
+.pl-x2a { grid-template-columns: 2fr 1fr; }
+.pl-xrun { grid-template-columns: 1fr .9fr .9fr .8fr 1.6fr 1.1fr; }
+.pl-xsleep { grid-template-columns: 1fr .9fr .9fr .7fr 1.1fr 1.6fr; }
+.pl-xskin { grid-template-columns: 1.4fr 1.4fr 160px; }
+.pl-xnut { grid-template-columns: 90px 2.2fr .9fr .9fr .9fr .9fr; }
+.pl-xing { grid-template-columns: 70px 2fr 40px; }
+.pl-xmeal { grid-template-columns: 60px repeat(4, 1fr); }
+.pl-xclean { grid-template-columns: 2fr 160px; }
+.pl-xwatch { grid-template-columns: 40px 2.2fr 1fr 1.4fr 1.4fr; }
+.pl-xmovie { grid-template-columns: 2fr 1fr 1fr 1fr 1.1fr 1.6fr; }
+.pl-xpomo { grid-template-columns: 2fr .8fr 200px 54px; }
+.pl-xrefr { grid-template-columns: repeat(4, 1fr); }
+.pl-xmtd { grid-template-columns: 40px 2.4fr 1.1fr 1.1fr .9fr 1.2fr; }
+.pl-xteam4 { grid-template-columns: 30px 2fr .9fr 1.2fr; }
+.pl-xmg { grid-template-columns: 150px 90px repeat(31, 22px); }
+.pl-xokr { grid-template-columns: 2.2fr .9fr .9fr 1.1fr; }
+.pl-xperf { grid-template-columns: 1.4fr 1fr .8fr 1.1fr 1.1fr 1.6fr; }
+.pl-xres { grid-template-columns: 1.5fr 1fr 1.3fr .9fr .9fr 1.4fr; }
+.pl-xcomm { grid-template-columns: 1.2fr 2fr 1fr 1fr 1fr; }
+.pl-xsched { grid-template-columns: 2fr .9fr .9fr 1fr 1.2fr 1.2fr; }
+.pl-xgvr { grid-template-columns: 2fr 1fr 1fr 50px; }
+.pl-xkpi { grid-template-columns: 2fr 1fr 1fr 1fr; }
+.pl-xact2 { grid-template-columns: 40px 2.4fr 1fr .9fr 1.1fr 1.2fr 1.4fr; }
+.pl-xdist { grid-template-columns: .8fr 2fr 1.4fr .9fr 2fr; }
+.pl-x2t { grid-template-columns: 70px 1fr; }
+.pl-tbl:has(> .pl-x6m) { min-width: 560px; }
+.pl-tbl:has(> .pl-xrun) { min-width: 640px; }
+.pl-tbl:has(> .pl-xsleep) { min-width: 640px; }
+.pl-tbl:has(> .pl-xnut) { min-width: 600px; }
+.pl-tbl:has(> .pl-xmeal) { min-width: 600px; }
+.pl-tbl:has(> .pl-xwatch) { min-width: 560px; }
+.pl-tbl:has(> .pl-xmovie) { min-width: 680px; }
+.pl-tbl:has(> .pl-xpomo) { min-width: 520px; }
+.pl-tbl:has(> .pl-xrefr) { min-width: 640px; }
+.pl-tbl:has(> .pl-xmtd) { min-width: 640px; }
+.pl-tbl:has(> .pl-xmg) { min-width: 980px; }
+.pl-tbl:has(> .pl-xperf) { min-width: 680px; }
+.pl-tbl:has(> .pl-xres) { min-width: 680px; }
+.pl-tbl:has(> .pl-xcomm) { min-width: 620px; }
+.pl-tbl:has(> .pl-xsched) { min-width: 680px; }
+.pl-tbl:has(> .pl-xact2) { min-width: 760px; }
+.pl-tbl:has(> .pl-xdist) { min-width: 640px; }
+.pl-xmg > .pl-gw { font-size: .54rem; } .pl-mg .pl-tr > .pl-gc + .pl-gc { border-left-color: color-mix(in srgb, var(--pln) 60%, transparent); }
+.pl-xskin .pl-dots, .pl-xclean .pl-dots { justify-content: space-around; width: 100%; } .pl-th.pl-xskin .pl-dots i, .pl-th.pl-xclean .pl-dots i { width: 14px; font-style: normal; text-align: center; }
+.pl-gx .pl-cell .pl-stars .pl-star { font-size: .85rem; }
 /* editor integration */
 .ed-body.has-pl { max-width: none; padding: 18px 18px 40px; }
 .pl-themes { display: inline-flex; align-items: center; gap: 5px; }
@@ -1652,6 +1798,10 @@ body.side-anim .app { transition: grid-template-columns .28s var(--ease); }
   .ed-body .pl-matrix { grid-template-columns: 1fr; }
   .ed-body .pl-kv4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ed-body .pl-kv .pl-span3, .ed-body .pl-kv .pl-span4 { grid-column: span 2; }
   .ed-body .pl-p3, .ed-body .pl-quad { grid-template-columns: 1fr; }
+  .ed-body .pl-wol { grid-template-columns: 1fr; justify-items: center; } .ed-body .pl-days2 { grid-template-columns: 1fr; }
+  .ed-body .pl-year { grid-template-columns: repeat(2, 1fr); } .ed-body .pl-affs { grid-template-columns: 1fr 1fr; }
+  .ed-body .pl-cornell { grid-template-columns: 1fr; grid-template-areas: "cue" "notes" "sum"; } .ed-body .pl-b12 { grid-template-columns: 1fr 1fr; }
+  .ed-body .pl-tbr { grid-template-columns: 54px 110px 1fr; } .ed-body .pl-book { grid-template-columns: 70px 1fr; }
 }
 @media print { .pl { box-shadow: none; } }
 /* Template picker */
@@ -2116,8 +2266,67 @@ const TEMPLATES = [
   { key: 'ideas', kind: 'other', label: 'Idea dump', icon: 'bulb', desc: 'Capture ideas, then pick the best one' },
   { key: 'cornell', kind: 'other', label: 'Cornell notes', icon: 'book', desc: 'Questions, notes and a summary' },
 ];
+/* ---------- More pages: note paper, money, wellness, mindset, lists & logs, planning, more project management ---------- */
+const NP = [['np-lined', 'Lined', 'lined'], ['np-title', 'Lined with title', 'lined', 1], ['np-narrow', 'Narrow lined', 'narrow'], ['np-wide', 'Wide lined', 'wide'], ['np-dash', 'Dash lined', 'dash'], ['np-margin', 'Margin lined', 'margin'], ['np-graph-s', 'Small graph', 'graph-s'], ['np-graph-m', 'Medium graph', 'graph-m'], ['np-graph-l', 'Large graph', 'graph-l'], ['np-dot-s', 'Small dot grid', 'dot-s'], ['np-dot-m', 'Medium dot grid', 'dot-m'], ['np-dot-l', 'Large dot grid', 'dot-l'], ['np-blank', 'Blank', 'blank'], ['np-cornell', 'Cornell lined', 'cornell:lined'], ['np-cornell-g', 'Cornell graph', 'cornell:graph-s'], ['np-cornell-d', 'Cornell dot grid', 'cornell:dot-m'], ['np-cornell-b', 'Cornell blank', 'cornell:blank'], ['np-box4', '4 box grid', 'box:4'], ['np-box6', '6 box grid', 'box:6'], ['np-box8', '8 box grid', 'box:8'], ['np-box12', '12 box grid', 'box:12'], ['np-check', 'Checklist', 'check']];
+const XTRA_TPL = [
+  ...NP.map(([key, label, st]) => ({ key, kind: 'other', group: 'paper', label, icon: st.startsWith('box') ? 'panelL' : st.includes('dot') ? 'sparkles' : st.includes('graph') ? 'chart' : st === 'check' ? 'checkSq' : st.startsWith('cornell') ? 'book' : 'list', desc: st.startsWith('cornell') ? 'Cues, notes and a summary' : st.startsWith('box') ? `${st.split(':')[1]} boxes to fill in` : st === 'check' ? 'A page of checkboxes' : st === 'blank' ? 'A clean page' : 'Note paper' })),
+  { key: 'wbudget', kind: 'planner', group: 'money', label: 'Weekly budget', icon: 'coin', desc: 'Income, fixed and variable expenses for the week' },
+  { key: 'yearfin', kind: 'planner', group: 'money', label: 'Yearly financial overview', icon: 'chart', desc: 'Income, expenses and savings month by month' },
+  { key: 'savings', kind: 'planner', group: 'money', label: 'Savings accounts', icon: 'coin', desc: 'Goal, balance and deposits for each account' },
+  { key: 'sinking', kind: 'planner', group: 'money', label: 'Sinking funds', icon: 'target', desc: 'Save a little each month for big expenses' },
+  { key: 'savechal', kind: 'planner', group: 'money', label: 'Savings challenge', icon: 'coin', desc: 'Tap a coin every time you save' },
+  { key: 'envelope', kind: 'planner', group: 'money', label: 'Cash envelope challenge', icon: 'mail', desc: '100 envelopes to tick off' },
+  { key: 'vacation', kind: 'planner', group: 'money', label: 'Vacation savings', icon: 'plane', desc: 'Trip goal, saved so far and a tap tracker' },
+  { key: 'credit', kind: 'planner', group: 'money', label: 'Credit cards', icon: 'file', desc: 'Limits, balances, due dates and payments' },
+  { key: 'wheel', kind: 'planner', group: 'well', label: 'Wheel of life', icon: 'target', desc: 'Rate 8 areas of life; the wheel draws itself' },
+  { key: 'hydration', kind: 'planner', group: 'well', label: 'Hydration tracker', icon: 'coffee', desc: 'Eight glasses a day for the whole month' },
+  { key: 'steps', kind: 'planner', group: 'well', label: 'Steps tracker', icon: 'zap', desc: 'Daily steps and goal days for the month' },
+  { key: 'running', kind: 'planner', group: 'well', label: 'Running log', icon: 'flame', desc: 'Distance, time, pace and how it felt' },
+  { key: 'energy', kind: 'planner', group: 'well', label: 'Energy tracker', icon: 'zap', desc: 'Rate your energy every day' },
+  { key: 'moodtrack', kind: 'planner', group: 'well', label: 'Mood tracker', icon: 'smile', desc: 'One color per day, tap to change it' },
+  { key: 'sleep', kind: 'planner', group: 'well', label: 'Sleep log', icon: 'moon', desc: 'Bedtime, wake time, hours and quality' },
+  { key: 'skincare', kind: 'planner', group: 'well', label: 'Skin care routine', icon: 'sparkles', desc: 'Morning and evening steps, checked each day' },
+  { key: 'nutrition', kind: 'planner', group: 'well', label: 'Nutrition log', icon: 'leaf', desc: 'Meals, calories, macros and water' },
+  { key: 'chal30', kind: 'planner', group: 'well', label: '30-day challenge', icon: 'trophy', desc: 'One goal, 30 circles to fill' },
+  { key: 'selfcare30', kind: 'planner', group: 'well', label: '30-day self-care challenge', icon: 'heart', desc: 'A small act of care every day' },
+  { key: 'booklog', kind: 'planner', group: 'logs', label: 'Book log', icon: 'book', desc: 'Title, author, dates, rating and review' },
+  { key: 'movielog', kind: 'planner', group: 'logs', label: 'Movie log', icon: 'camera', desc: 'What you watched and how you rated it' },
+  { key: 'watchlist', kind: 'planner', group: 'logs', label: 'Watchlist', icon: 'eye', desc: 'Shows and movies to watch next' },
+  { key: 'recipe', kind: 'planner', group: 'logs', label: 'Recipe', icon: 'coffee', desc: 'Ingredients, times and steps' },
+  { key: 'mealplan', kind: 'planner', group: 'logs', label: 'Meal planner', icon: 'leaf', desc: 'A week of meals plus a grocery list' },
+  { key: 'cleaning', kind: 'planner', group: 'logs', label: 'Cleaning log', icon: 'home', desc: 'Daily, weekly and monthly chores' },
+  { key: 'trip', kind: 'planner', group: 'logs', label: 'Trip itinerary', icon: 'plane', desc: 'Bookings, day plans, packing and budget' },
+  { key: 'yearplan', kind: 'planner', group: 'plan', label: 'Yearly calendar', icon: 'calendar', desc: 'Twelve months at a glance with your win days' },
+  { key: 'quarter', kind: 'planner', group: 'plan', label: 'Quarterly plan', icon: 'target', desc: 'Goals and key dates for three months' },
+  { key: 'longterm', kind: 'planner', group: 'plan', label: 'Long-term goals', icon: 'rocket', desc: 'Where you want to be in 1, 3, 5 and 10 years' },
+  { key: 'routine', kind: 'planner', group: 'plan', label: 'Routine planner', icon: 'sun', desc: 'Morning, afternoon and evening routines' },
+  { key: 'pomodoro', kind: 'planner', group: 'plan', label: 'Pomodoro tracker', icon: 'clock', desc: 'Tap a tomato for every 25-minute focus block' },
+  { key: 'fivemin', kind: 'journal', group: 'mind', label: '5-minute journal', icon: 'sun', desc: 'Gratitude in the morning, wins at night' },
+  { key: 'gjar', kind: 'journal', group: 'mind', label: 'Gratitude jar', icon: 'heart', desc: 'Fill the jar with good things' },
+  { key: 'affirm', kind: 'journal', group: 'mind', label: 'Affirmation library', icon: 'sparkles', desc: 'Words you want to remember' },
+  { key: 'reframe', kind: 'journal', group: 'mind', label: 'Reframing limiting beliefs', icon: 'refresh', desc: 'Turn an old belief into a new one' },
+  { key: 'selfcomp', kind: 'journal', group: 'mind', label: 'Self-compassion', icon: 'heart', desc: 'Talk to yourself like a good friend' },
+  { key: 'dream', kind: 'journal', group: 'mind', label: 'Dream journal', icon: 'moon', desc: 'The dream, the feelings and what it might mean' },
+  { key: 'mastertodo', kind: 'work', group: 'pm', label: 'Master to-do list', icon: 'list', desc: 'Every task in one place with category and priority' },
+  { key: 'teamtasks', kind: 'work', group: 'pm', label: 'Team task manager', icon: 'users', desc: 'Tasks grouped by team member' },
+  { key: 'monthgantt', kind: 'work', group: 'pm', label: 'Monthly Gantt chart', icon: 'gantt', desc: 'Tasks across every day of the month' },
+  { key: 'timeblock', kind: 'work', group: 'pm', label: 'Time blocking planner', icon: 'clock', desc: 'Color 15-minute blocks by type of work' },
+  { key: 'distraction', kind: 'work', group: 'pm', label: 'Distraction log', icon: 'alert', desc: 'What pulled you away, and how to avoid it' },
+  { key: 'okr', kind: 'work', group: 'pm', label: 'OKRs', icon: 'target', desc: 'Objectives with measurable key results' },
+  { key: 'teamperf', kind: 'work', group: 'pm', label: 'Team performance metrics', icon: 'chart', desc: 'Tasks done, on-time rate and quality per person' },
+  { key: 'resource', kind: 'work', group: 'pm', label: 'Resource allocation', icon: 'users', desc: 'Who works on what, and how many hours' },
+  { key: 'commplan', kind: 'work', group: 'pm', label: 'Communication plan', icon: 'chat', desc: 'Who needs what update, how and how often' },
+  { key: 'schedule', kind: 'work', group: 'pm', label: 'Project schedule', icon: 'calendar', desc: 'Milestones, dates, owners and dependencies' },
+  { key: 'perfreview', kind: 'work', group: 'pm', label: 'Project performance review', icon: 'award', desc: 'Goals vs results, KPIs and lessons' },
+  { key: 'actions', kind: 'work', group: 'pm', label: 'Project action items', icon: 'checkSq', desc: 'Numbered actions with owner, due and status' },
+];
+const XTRA_KEYS = XTRA_TPL.map(t => t.key);
+const XTRA_TITLE = { wbudget: 'w', mealplan: 'w', hydration: 'm', steps: 'm', energy: 'm', moodtrack: 'm', sleep: 'm', monthgantt: 'm', yearfin: 'y', yearplan: 'y', quarter: 'q', fivemin: 'd', dream: 'd', timeblock: 'd', distraction: 'd' };
+const SELFCARE = ['Take a long bath', 'Drink 8 glasses of water', 'Go for a walk in nature', 'Call a friend', 'Read for 20 minutes', 'Stretch for 10 minutes', 'Cook a healthy meal', 'Sleep 8 hours', 'Write 3 things you love about yourself', 'Declutter one drawer', 'No screens for 1 hour before bed', 'Listen to your favorite album', 'Try a new recipe', 'Do a face mask', 'Journal for 10 minutes', 'Have a solo coffee date', 'Unfollow accounts that drain you', 'Dance to one song', 'Say no to something', 'Watch the sunset', 'Meditate for 5 minutes', 'Buy yourself flowers', 'Do something creative', 'Take a nap', 'Write a letter to future you', 'Spend time with a pet or plant', 'Wear your favorite outfit', 'Celebrate a small win', 'Plan something fun', 'Rest. Do nothing at all'];
+TEMPLATES.push(...XTRA_TPL);
 const TPL = Object.fromEntries(TEMPLATES.map(t => [t.key, t]));
-const TPL_SUB = { pm: 'Project management' };
+const TPL_SUB = { pm: 'Project management', money: 'Money', well: 'Health & wellness', mind: 'Mindset', logs: 'Lists & logs', plan: 'Planning', paper: 'Note paper' };
+const TPL_CORE = { work: 'Everyday work', planner: 'Planner pages', journal: 'Journal pages', other: 'General' };
 const PROMPTS = [
   'What is one thing you did this week that past-you would be impressed by?', 'When did you feel most like yourself today?', 'What problem are you quietly proud of solving?',
   'Who made your work easier recently, and how could you thank them?', 'What would you try if you knew you couldn’t fail?', 'What did you learn the hard way this month?',
@@ -3780,7 +3989,7 @@ const plTheme = (nbId, fallback) => { const nb = nbId && S.notebooks.find(n => n
 const plAttrs = v => v && v[0] === '#' ? `data-pltheme="custom" data-plc="${v.toLowerCase()}"` : `data-pltheme="${isPlTheme(v) ? v : 'blush'}"`;
 const plOf = el => el ? (el.dataset.pltheme === 'custom' && /^#[0-9a-f]{6}$/i.test(el.dataset.plc || '') ? el.dataset.plc : el.dataset.pltheme || 'blush') : 'blush';
 function setPl(el, v) { if (v[0] === '#') { el.dataset.pltheme = 'custom'; el.dataset.plc = v.toLowerCase(); } else { el.dataset.pltheme = v; delete el.dataset.plc; } plPaint(el.parentElement || el); }
-function plPaint(root) { if (!root) return; $$('.pl', root).forEach(p => { if (p.dataset.pltheme === 'custom' && /^#[0-9a-f]{6}$/i.test(p.dataset.plc || '')) p.style.setProperty('--plc', p.dataset.plc); else p.style.removeProperty('--plc'); }); }
+function plPaint(root) { if (!root) return; $$('.pl-wol', root).forEach(w => { const rows = $$('.pl-wrow', w); $$('.pl-wg', w).forEach((g, i) => { const n = rows[i] ? $$('.pl-star[data-on="true"]', rows[i]).length : 0; g.style.setProperty('--s', String(Math.max(.03, n / 10))); }); }); $$('.pl', root).forEach(p => { if (p.dataset.pltheme === 'custom' && /^#[0-9a-f]{6}$/i.test(p.dataset.plc || '')) p.style.setProperty('--plc', p.dataset.plc); else p.style.removeProperty('--plc'); }); }
 const plName = v => v && v[0] === '#' ? 'Custom' : (PL_THEMES.find(x => x[0] === v) || PL_THEMES[0])[1];
 const plSwatch = v => { const t = PL_THEMES.find(x => x[0] === v); return t ? `--sp:${t[2]};--st:${t[3]};--sa:${t[4]}` : `--sp:color-mix(in srgb, ${v} 6%, #fff);--st:color-mix(in srgb, ${v} 30%, #fff);--sa:${v}`; };
 /* A color-scheme chooser used in the template picker, the notebook settings and the page toolbar */
@@ -3874,7 +4083,8 @@ function plannerHTML(key, d, theme) {
 }
 const PL_KEYS = ['plan', 'week', 'month', 'monthov', 'finance', 'monthref', 'habit', 'goal', 'matrix'];
 const PM_KEYS = ['pmoverview', 'gantt', 'kanban', 'tasks', 'recurring', 'meetingpm', 'daypro', 'weekpro', 'decision', 'risk', 'goalpro', 'plan306090', 'budgetpm', 'contacts'];
-const isLayoutKey = k => PL_KEYS.includes(k) || PM_KEYS.includes(k);
+const isLayoutKey = k => PL_KEYS.includes(k) || PM_KEYS.includes(k) || XTRA_KEYS.includes(k);
+const isWorkLayout = k => isLayoutKey(k) && TPL[k] && TPL[k].kind === 'work';
 /* Project-management pages share the planner kit, plus tap-to-cycle chips (priority, status, type, level),
    tap-to-set progress bars, tap-to-draw Gantt cells, movable Kanban cards and "add row" buttons. */
 const PM = {
@@ -3883,6 +4093,194 @@ const PM = {
   chk: () => '<span class="pl-cell" contenteditable="false"><span class="pl-dot pl-sqr2" data-on="false"></span></span>',
   card: () => `<div class="pl-card"><div class="pl-ctop" contenteditable="false"><span class="pl-pri" data-v="0"></span><span class="pl-cact"><span class="pl-mv" data-dir="-1" title="Move left">‹</span><span class="pl-mv" data-dir="1" title="Move right">›</span><span class="pl-del" title="Remove card">×</span></span></div><div class="pl-f pl-1 pl-ct"><br></div><div class="pl-f pl-area pl-h1 pl-cd"><br></div><div class="pl-cfoot"><span class="pl-cl" contenteditable="false">WHO</span><div class="pl-f pl-1"><br></div><span class="pl-cl" contenteditable="false">DUE</span><div class="pl-f pl-1"><br></div></div><span class="pl-cell pl-cprog" contenteditable="false"><span class="pl-prog" data-v="0"></span></span></div>`,
 };
+function xtraHTML(key, d, theme) {
+  const L = (t, c = '') => `<div class="pl-lbl${c ? ' ' + c : ''}" contenteditable="false">${t}</div>`;
+  const f1 = PM.f1, area = (h = 2) => `<div class="pl-f pl-area pl-h${h}"><p><br></p></div>`;
+  const box = (t, h = 2, c = '') => `<div class="pl-box${c ? ' ' + c : ''}">${L(t)}${area(h)}</div>`;
+  const sec = (t, inner, c = '') => `<div class="pl-sec">${L(t, c)}${inner}</div>`;
+  const todo = n => `<ul class="checklist pl-todo pl-f">${'<li data-checked="false"><br></li>'.repeat(n)}</ul>`;
+  const lines = (n, num = true) => `<div class="pl-lines">${[...Array(n)].map((_, i) => `<div class="pl-ln">${num ? `<span class="pl-n" contenteditable="false">${i + 1}.</span>` : ''}${f1}</div>`).join('')}</div>`;
+  const dots = (n, cls = 'pl-dot') => `<span class="pl-dots" contenteditable="false">${`<span class="${cls}" data-on="false"></span>`.repeat(n)}</span>`;
+  const stars = n => `<span class="pl-stars" contenteditable="false">${'<span class="pl-star" data-on="false"></span>'.repeat(n)}</span>`;
+  const cell = k => k === 'f' ? f1 : k === 'chk' ? PM.chk() : k === 'star' ? `<span class="pl-cell" contenteditable="false">${stars(5)}</span>` : k.startsWith('dots') ? `<span class="pl-cell" contenteditable="false">${dots(+k.slice(4) || 7)}</span>` : k === 'tom' ? `<span class="pl-cell" contenteditable="false">${dots(8, 'pl-dot pl-tom')}</span>` : k === 'label' ? '' : PM.chip('pl-' + k);
+  const tbl = (g, cols, n, opts = {}) => `<div class="pl-tbl pl-gx" data-cols="${cols.length}"${''}><div class="pl-tr pl-th pl-x${g}" contenteditable="false">${cols.map(c => `<span>${c[0]}</span>`).join('')}</div>${(opts.rows || [...Array(n)].map(() => null)).map(r => `<div class="pl-tr pl-x${g}">${cols.map((c, i) => r && i === 0 ? `<span class="pl-tm" contenteditable="false">${r}</span>` : cell(c[1])).join('')}</div>`).join('')}${opts.add === false || opts.rows ? '' : '<div class="pl-addrow" contenteditable="false">+ Add row</div>'}</div>`;
+  const kv = (items, cols = 4) => `<div class="pl-kv pl-kv${cols}">${items.map(([lbl, k = 'f', span = 1, c = '']) => `<div class="${span > 1 ? 'pl-span' + span : ''}"><span class="pl-kl${c ? ' ' + c : ''}" contenteditable="false">${lbl}</span>${cell(k)}</div>`).join('')}</div>`;
+  const isPm = TPL[key] && TPL[key].kind === 'work';
+  const page = (type, head, inner, extra = '') => `<div class="pl${isPm ? ' pl-pm' : ''}${extra ? ' ' + extra : ''}" data-pl="${type.slice(0, 12).replace(/[^a-z0-9]/g, '')}" ${plAttrs(theme || (isPm ? 'pastel' : plTheme()))}>${head}${inner}</div>`;
+  const head = (title, pills = []) => `<div class="pl-head" contenteditable="false"><span class="pl-title">${esc(title)}</span>${pills.length ? `<span class="pl-pills">${pills.map(x => `<span class="pl-pill">${esc(x)}</span>`).join('')}</span>` : ''}</div>`;
+  const up = x => x.toUpperCase(), md = x => DF({ month: 'short', day: 'numeric' }).format(x), s0 = startOfWeek(d), m0 = startOfMonth(d), m1 = endOfMonth(d), nDays = m1.getDate();
+  const MY = up(fmtMonthYear(d)), C = ['pl-c1', 'pl-c2', 'pl-c3', 'pl-c4', 'pl-c5'];
+  const hint = t => `<p class="pl-hint" contenteditable="false">${t}</p>`;
+  const wkN = [...Array(7)].map((_, i) => up(DF({ weekday: 'short' }).format(addDays(s0, i))));
+  const winLis = list => list.map(w => `<li><strong>${esc(w.title)}</strong>${w.result ? ' — ' + esc(w.result) : ''}</li>`).join('');
+  // note paper
+  const np = NP.find(x => x[0] === key);
+  if (np) {
+    const st = np[2], pp = (pat, h = '') => `<div class="pl-f pl-pp pl-p-${pat}${h}"><p><br></p></div>`;
+    let inner;
+    if (st.startsWith('cornell:')) { const pat = st.split(':')[1]; inner = `<div class="pl-cornell"><div class="pl-cue">${L('CUES &amp; QUESTIONS')}${pp(pat)}</div><div class="pl-cnotes">${L('NOTES')}${pp(pat)}</div><div class="pl-csum">${L('SUMMARY')}${pp(pat, ' pl-pps')}</div></div>`; }
+    else if (st.startsWith('box:')) { const n = +st.split(':')[1]; inner = `<div class="pl-boxes pl-b${n}">${[...Array(n)].map(() => '<div class="pl-f pl-pbox"><p><br></p></div>').join('')}</div>`; }
+    else if (st === 'check') inner = `<ul class="checklist pl-todo pl-f pl-checkpage">${'<li data-checked="false"><br></li>'.repeat(24)}</ul>`;
+    else inner = (np[3] ? `<div class="pl-f pl-1 pl-ptitle"><br></div>` : '') + pp(st);
+    return `<div class="pl pl-paper" data-pl="paper" ${plAttrs(theme || plTheme())}>${inner}</div>`;
+  }
+  switch (key) {
+    // ---- money
+    case 'wbudget':
+      return page(key, head('WEEKLY BUDGET', [`WEEK OF ${up(md(s0))}`]), kv([['BUDGET FOR THE WEEK', 'f', 1, 'pl-c3'], ['TOTAL SPENT', 'f', 1, 'pl-c2'], ['LEFT TO SPEND', 'f', 1, 'pl-c4'], ['SAVED', 'f', 1, 'pl-c5']])
+        + `<div class="pl-cols pl-cols-even"><div>${sec('INCOME', tbl('3a', [['SOURCE', 'f'], ['EXPECTED', 'f'], ['ACTUAL', 'f']], 3), 'pl-c3')}${sec('FIXED EXPENSES', tbl('4c', [['BILL', 'f'], ['BUDGET', 'f'], ['ACTUAL', 'f'], ['PAID', 'chk']], 5), 'pl-c2')}</div><div>${sec('VARIABLE EXPENSES', tbl('3a', [['ITEM', 'f'], ['BUDGET', 'f'], ['ACTUAL', 'f']], 7), 'pl-c1')}${box('NOTES', 2)}</div></div>`);
+    case 'yearfin':
+      return page(key, head('YEARLY FINANCIAL OVERVIEW', [String(d.getFullYear())]), kv([['STARTING BALANCE', 'f', 1, 'pl-c3'], ['SAVINGS GOAL', 'f', 1, 'pl-c4'], ['END OF YEAR BALANCE', 'f', 1, 'pl-c3'], ['TOTAL INCOME', 'f', 1, 'pl-c4']])
+        + `<div class="pl-scroll">${tbl('6m', [['MONTH', 'label'], ['INCOME', 'f'], ['EXPENSES', 'f'], ['SAVINGS', 'f'], ['DEBT PAID', 'f'], ['NET', 'f']], 0, { rows: [...Array(12)].map((_, i) => up(DF({ month: 'short' }).format(new Date(d.getFullYear(), i, 1)))).concat(['TOTAL']) })}</div>`
+        + `<div class="pl-cols pl-cols-even"><div>${box('FINANCIAL GOALS FOR THIS YEAR', 3, 'pl-c4')}</div><div>${box('NOTES', 3)}</div></div>`);
+    case 'savings': {
+      const acct = i => `<div class="pl-box pl-acct ${C[i]}">${kv([['ACCOUNT', 'f', 2], ['GOAL'], ['CURRENT']])}${kv([['PROGRESS', 'prog', 2]], 2)}${tbl('3a', [['DATE', 'f'], ['DEPOSIT', 'f'], ['BALANCE', 'f']], 3)}</div>`;
+      return page(key, head('SAVINGS ACCOUNTS'), `<div class="pl-quad">${[0, 1, 2, 3].map(acct).join('')}</div>`);
+    }
+    case 'sinking': {
+      const fund = i => `<div class="pl-box pl-acct ${C[i]}">${kv([['SAVING FOR', 'f', 2], ['GOAL AMOUNT'], ['BY DATE']])}${kv([['PER MONTH'], ['PROGRESS', 'prog']], 2)}${tbl('3a', [['DATE', 'f'], ['AMOUNT', 'f'], ['TOTAL', 'f']], 3)}</div>`;
+      return page(key, head('SINKING FUNDS'), hint('Ideas: holidays, car repairs, birthdays, gadgets, insurance, school fees.') + `<div class="pl-quad">${[0, 1, 2, 3].map(fund).join('')}</div>`);
+    }
+    case 'savechal':
+      return page(key, head('SAVINGS CHALLENGE'), kv([['SAVING FOR', 'f', 2, 'pl-c4'], ['GOAL', 'f', 1, 'pl-c4'], ['START DATE', 'f', 1, 'pl-c4']]) + hint('Tap a coin each time you save. Write the amount for each coin in your notes, or save the coin’s number in pesos.')
+        + `<div class="pl-coins" contenteditable="false">${[...Array(100)].map((_, i) => `<span class="pl-coin" data-on="false">${i + 1}</span>`).join('')}</div>` + kv([['TOTAL SAVED', 'f', 2, 'pl-c4'], ['FINISHED ON', 'f', 2, 'pl-c4']]));
+    case 'envelope':
+      return page(key, head('CASH ENVELOPE CHALLENGE'), kv([['START DATE', 'f', 1, 'pl-c1'], ['END DATE', 'f', 1, 'pl-c1'], ['GOAL', 'f', 1, 'pl-c1'], ['SAVED', 'f', 1, 'pl-c1']]) + hint('Pick an envelope, put that amount aside, then tap it closed.')
+        + `<div class="pl-envs" contenteditable="false">${[...Array(100)].map((_, i) => `<span class="pl-env" data-on="false">${i + 1}</span>`).join('')}</div>`);
+    case 'vacation':
+      return page(key, head('VACATION SAVINGS'), kv([['DESTINATION', 'f', 2, 'pl-c3'], ['TRAVEL DATE', 'f', 1, 'pl-c3'], ['GOAL', 'f', 1, 'pl-c3']]) + hint('Tap one suitcase for every step of savings you reach.')
+        + `<div class="pl-coins pl-bags" contenteditable="false">${[...Array(50)].map((_, i) => `<span class="pl-coin pl-bag" data-on="false">${i + 1}</span>`).join('')}</div>`
+        + `<div class="pl-cols pl-cols-even"><div>${sec('TRIP BUDGET', tbl('2a', [['ITEM', 'f'], ['COST', 'f']], 6), 'pl-c3')}</div><div>${sec('DEPOSITS', tbl('3a', [['DATE', 'f'], ['AMOUNT', 'f'], ['TOTAL', 'f']], 6), 'pl-c4')}</div></div>`);
+    case 'credit': {
+      const card = i => `<div class="pl-box pl-acct ${C[(i + 2) % 5]}">${kv([['CARD NAME', 'f', 2], ['LAST 4 DIGITS'], ['CREDIT LIMIT']])}${kv([['BALANCE'], ['INTEREST RATE'], ['DUE DATE'], ['MIN. PAYMENT']])}${tbl('3a', [['DATE', 'f'], ['PAYMENT', 'f'], ['BALANCE', 'f']], 3)}</div>`;
+      return page(key, head('CREDIT CARDS'), hint('For safety, never write full card numbers here. The last 4 digits are enough.') + `<div class="pl-quad">${[0, 1, 2, 3].map(card).join('')}</div>`);
+    }
+    // ---- wellness
+    case 'wheel': {
+      const areas = ['Career', 'Finances', 'Health', 'Relationships', 'Fun &amp; leisure', 'Personal growth', 'Home', 'Spirituality'];
+      return page(key, head('WHEEL OF LIFE', [up(md(d)) + ', ' + d.getFullYear()]), hint('Rate each area from 1 to 10. The wheel fills in as you tap.')
+        + `<div class="pl-wol"><div class="pl-wheel" contenteditable="false">${areas.map((a, i) => `<i class="pl-wg pl-wg${i}"></i>`).join('')}<span class="pl-wring"></span>${areas.map((a, i) => `<b class="pl-wl pl-wl${i}">${a}</b>`).join('')}</div><div class="pl-wrates">${areas.map(a => `<div class="pl-rate pl-wrow" contenteditable="false"><span>${up(a)}</span>${stars(10)}</div>`).join('')}</div></div>`
+        + `<div class="pl-cols pl-cols-even"><div>${box('WHAT I WANT TO IMPROVE FIRST', 2)}</div><div>${box('ONE STEP THIS MONTH', 2)}</div></div>`);
+    }
+    case 'hydration':
+      return page(key, head('HYDRATION TRACKER', [MY]), kv([['DAILY GOAL', 'f', 2, 'pl-c3'], ['DAYS I HIT IT', 'f', 2, 'pl-c3']]) + `<div class="pl-days2">${[...Array(nDays)].map((_, i) => `<div class="pl-hab"><span class="pl-n" contenteditable="false">${i + 1}</span>${dots(8, 'pl-cup')}</div>`).join('')}</div>`);
+    case 'steps':
+      return page(key, head('STEPS TRACKER', [MY]), kv([['DAILY GOAL', 'f', 1, 'pl-c4'], ['MONTH TOTAL', 'f', 1, 'pl-c4'], ['BEST DAY', 'f', 1, 'pl-c4'], ['AVERAGE', 'f', 1, 'pl-c4']]) + `<div class="pl-days2">${[...Array(nDays)].map((_, i) => `<div class="pl-hab"><span class="pl-n" contenteditable="false">${i + 1}</span>${f1}<span class="pl-cl" contenteditable="false">GOAL</span>${dots(1)}</div>`).join('')}</div>`);
+    case 'running':
+      return page(key, head('RUNNING LOG'), kv([['RUNNING GOAL', 'f', 2, 'pl-c1'], ['TARGET RACE', 'f', 1, 'pl-c1'], ['RACE DATE', 'f', 1, 'pl-c1']]) + `<div class="pl-scroll">${tbl('run', [['DATE', 'f'], ['DISTANCE', 'f'], ['TIME', 'f'], ['PACE', 'f'], ['ROUTE', 'f'], ['HOW IT FELT', 'star']], 12)}</div>`);
+    case 'energy':
+      return page(key, head('ENERGY TRACKER', [MY]), hint('Tap the stars for how much energy you had each day.') + `<div class="pl-days2">${[...Array(nDays)].map((_, i) => `<div class="pl-hab"><span class="pl-n" contenteditable="false">${i + 1}</span>${f1}${stars(5)}</div>`).join('')}</div>` + box('WHAT GIVES ME ENERGY', 2));
+    case 'moodtrack': {
+      let c = startOfWeek(m0); const cells = []; while (c <= m1 || cells.length % 7) { const inM = c.getMonth() === d.getMonth(); cells.push(inM ? `<span class="pl-moodd"><i>${c.getDate()}</i><span class="pl-mood" data-v="0"></span></span>` : '<span class="pl-moodd pl-out"></span>'); c = addDays(c, 1); }
+      return page(key, head('MOOD TRACKER', [MY]), hint('Tap each day to set its mood color.') + `<div class="pl-moodcal" contenteditable="false"><div class="pl-calh">${wkN.map(n => `<span>${n}</span>`).join('')}</div><div class="pl-moodg">${cells.join('')}</div></div>`
+        + `<div class="pl-moodkey" contenteditable="false">${['Great', 'Good', 'Okay', 'Low', 'Bad'].map((m, i) => `<span><span class="pl-mood" data-v="${i + 1}"></span>${m}</span>`).join('')}</div>` + box('PATTERNS I NOTICED', 2));
+    }
+    case 'sleep':
+      return page(key, head('SLEEP LOG', [MY]), kv([['SLEEP GOAL', 'f', 2, 'pl-c3'], ['AVERAGE THIS MONTH', 'f', 2, 'pl-c3']]) + `<div class="pl-scroll">${tbl('sleep', [['DATE', 'f'], ['BEDTIME', 'f'], ['WOKE UP', 'f'], ['HOURS', 'f'], ['QUALITY', 'star'], ['NOTES', 'f']], 14)}</div>`);
+    case 'skincare': {
+      const r = (t, c) => sec(t, `<div class="pl-tbl pl-gx"><div class="pl-tr pl-th pl-xskin" contenteditable="false"><span>STEP</span><span>PRODUCT</span><span class="pl-dots">${wkN.map(n => `<i>${n[0]}</i>`).join('')}</span></div>${[...Array(5)].map(() => `<div class="pl-tr pl-xskin">${f1}${f1}<span class="pl-cell" contenteditable="false">${dots(7)}</span></div>`).join('')}<div class="pl-addrow" contenteditable="false">+ Add row</div></div>`, c);
+      return page(key, head('SKIN CARE ROUTINE', [`WEEK OF ${up(md(s0))}`]), r('☀ MORNING ROUTINE', 'pl-c5') + r('☾ EVENING ROUTINE', 'pl-c3') + `<div class="pl-cols pl-cols-even"><div>${box('WEEKLY TREATMENTS', 2)}</div><div>${box('HOW MY SKIN FEELS', 2)}</div></div>`);
+    }
+    case 'nutrition':
+      return page(key, head('NUTRITION LOG', [up(md(d))]), kv([['CALORIE GOAL', 'f', 1, 'pl-c4'], ['PROTEIN GOAL', 'f', 1, 'pl-c4'], ['TOTAL CALORIES', 'f', 1, 'pl-c4'], ['TOTAL PROTEIN', 'f', 1, 'pl-c4']])
+        + `<div class="pl-scroll">${tbl('nut', [['MEAL', 'label'], ['FOOD', 'f'], ['CALORIES', 'f'], ['PROTEIN', 'f'], ['CARBS', 'f'], ['FAT', 'f']], 0, { rows: ['Breakfast', 'Snack', 'Lunch', 'Snack', 'Dinner', 'TOTAL'] })}</div>` + sec('WATER', dots(10, 'pl-cup')) + box('HOW I FELT', 2));
+    case 'chal30':
+      return page(key, head('30-DAY CHALLENGE'), kv([['MY CHALLENGE', 'f', 2, 'pl-c2'], ['START DATE', 'f', 1, 'pl-c2'], ['END DATE', 'f', 1, 'pl-c2']]) + hint('Tap a circle for every day you complete it.')
+        + `<div class="pl-coins pl-c30" contenteditable="false">${[...Array(30)].map((_, i) => `<span class="pl-coin" data-on="false">${i + 1}</span>`).join('')}</div><div class="pl-cols pl-cols-even"><div>${box('WHY I’M DOING THIS', 2)}</div><div>${box('MY REWARD', 2)}</div></div>`);
+    case 'selfcare30':
+      return page(key, head('30-DAY SELF-CARE CHALLENGE'), hint('Tap a box when you’ve done it. Any order is fine.') + `<div class="pl-care" contenteditable="false">${SELFCARE.map((t, i) => `<span class="pl-carebox" data-on="false"><b>${i + 1}</b>${t}</span>`).join('')}</div>`);
+    // ---- lists & logs
+    case 'booklog': {
+      const book = i => `<div class="pl-book ${C[i % 5]}"><div class="pl-bcover" contenteditable="false">BOOK</div><div>${kv([['TITLE', 'f', 2], ['AUTHOR'], ['GENRE']])}${kv([['STARTED'], ['FINISHED'], ['RATING', 'star', 2]])}${area(1)}</div></div>`;
+      return page(key, head('BOOK LOG'), [0, 1, 2, 3].map(book).join(''));
+    }
+    case 'movielog':
+      return page(key, head('MOVIE LOG'), `<div class="pl-scroll">${tbl('movie', [['TITLE', 'f'], ['GENRE', 'f'], ['WATCHED ON', 'f'], ['WITH', 'f'], ['RATING', 'star'], ['NOTES', 'f']], 14)}</div>`);
+    case 'watchlist':
+      return page(key, head('WATCHLIST'), `<div class="pl-scroll">${tbl('watch', [['', 'chk'], ['TITLE', 'f'], ['TYPE', 'f'], ['WHERE TO WATCH', 'f'], ['RECOMMENDED BY', 'f']], 16)}</div>`);
+    case 'recipe':
+      return page(key, head('RECIPE'), kv([['RECIPE', 'f', 4, 'pl-c1']]) + kv([['PREP TIME', 'f', 1, 'pl-c1'], ['COOKING TIME', 'f', 1, 'pl-c1'], ['SERVINGS', 'f', 1, 'pl-c1'], ['DIFFICULTY', 'star', 1, 'pl-c1']])
+        + `<div class="pl-cols pl-cols-38"><div>${sec('INGREDIENTS', tbl('ing', [['QTY', 'f'], ['INGREDIENT', 'f'], ['', 'chk']], 10), 'pl-c1')}</div><div>${sec('INSTRUCTIONS', '<ol class="pl-f pl-ach"><li><br></li><li><br></li><li><br></li><li><br></li><li><br></li><li><br></li></ol>', 'pl-c1')}${box('NOTES', 2)}</div></div>`);
+    case 'mealplan':
+      return page(key, head('MEAL PLANNER', [`WEEK OF ${up(md(s0))}`]), `<div class="pl-scroll">${tbl('meal', [['DAY', 'label'], ['BREAKFAST', 'f'], ['LUNCH', 'f'], ['DINNER', 'f'], ['SNACKS', 'f']], 0, { rows: [...Array(7)].map((_, i) => wkN[i]) })}</div><div class="pl-cols pl-cols-even"><div>${sec('GROCERY LIST', todo(10), 'pl-c4')}</div><div>${sec('MEAL PREP', todo(5), 'pl-c1')}${box('NOTES', 2)}</div></div>`);
+    case 'cleaning': {
+      const daily = `<div class="pl-tbl pl-gx"><div class="pl-tr pl-th pl-xclean" contenteditable="false"><span>TASK</span><span class="pl-dots">${wkN.map(n => `<i>${n[0]}</i>`).join('')}</span></div>${[...Array(6)].map(() => `<div class="pl-tr pl-xclean">${f1}<span class="pl-cell" contenteditable="false">${dots(7)}</span></div>`).join('')}<div class="pl-addrow" contenteditable="false">+ Add row</div></div>`;
+      return page(key, head('CLEANING LOG', [`WEEK OF ${up(md(s0))}`]), sec('DAILY TASKS', daily, 'pl-c3') + `<div class="pl-cols pl-cols-even"><div>${sec('WEEKLY TASKS', todo(6), 'pl-c4')}</div><div>${sec('MONTHLY TASKS', todo(6), 'pl-c5')}</div></div>`);
+    }
+    case 'trip':
+      return page(key, head('TRIP ITINERARY'), kv([['DESTINATION', 'f', 2, 'pl-c3'], ['DEPARTURE', 'f', 1, 'pl-c3'], ['RETURN', 'f', 1, 'pl-c3']]) + kv([['ACCOMMODATION', 'f', 2, 'pl-c3'], ['TRANSPORT', 'f', 1, 'pl-c3'], ['BOOKING NO.', 'f', 1, 'pl-c3']])
+        + `<div class="pl-quad">${[1, 2, 3, 4].map(i => box(`DAY ${i}`, 3, C[(i + 1) % 5])).join('')}</div><div class="pl-cols pl-cols-even"><div>${sec('PACKING LIST', todo(10), 'pl-c4')}</div><div>${sec('TRIP BUDGET', tbl('2a', [['ITEM', 'f'], ['COST', 'f']], 6), 'pl-c5')}${box('MUST-TRY FOOD AND PLACES', 2)}</div></div>`);
+    // ---- planning
+    case 'yearplan': {
+      const y = d.getFullYear();
+      const mini = m => { const f = new Date(y, m, 1), l = endOfMonth(f); let c = startOfWeek(f); const cells = []; while (c <= l || cells.length % 7) { const ck = ymd(c), inM = c.getMonth() === m; cells.push(`<i class="${inM ? (winsOn(ck).length ? 'pl-ywin' : '') + (ck === todayKey() ? ' pl-ytoday' : '') : 'pl-yout'}">${inM ? c.getDate() : ''}</i>`); c = addDays(c, 1); } return `<div class="pl-ymon ${C[m % 5]}"><b>${up(DF({ month: 'long' }).format(f))}</b><span class="pl-yh">${wkN.map(n => `<i>${n[0]}</i>`).join('')}</span><span class="pl-yg">${cells.join('')}</span></div>`; };
+      return page(key, head('YEARLY CALENDAR', [String(y)]), hint('Highlighted days are days you logged a win.') + `<div class="pl-year" contenteditable="false">${[...Array(12)].map((_, m) => mini(m)).join('')}</div><div class="pl-cols pl-cols-even"><div>${sec('GOALS FOR THE YEAR', todo(5), 'pl-c4')}</div><div>${sec('KEY DATES', lines(6, false), 'pl-c2')}</div></div>`);
+    }
+    case 'quarter': {
+      const q = Math.floor(d.getMonth() / 3), ms = [0, 1, 2].map(i => new Date(d.getFullYear(), q * 3 + i, 1));
+      return page(key, head(`QUARTER ${q + 1}`, [String(d.getFullYear())]), box('THIS QUARTER’S FOCUS', 2, 'pl-c3') + `<div class="pl-p3">${ms.map((m, i) => `<div class="pl-pcol ${C[(i + 2) % 5]}"><div class="pl-phead" contenteditable="false"><b>${up(DF({ month: 'short' }).format(m))}</b><span>${esc(DF({ month: 'long' }).format(m))}</span></div>${sec('GOALS', todo(3))}${sec('KEY DATES', lines(3, false))}${sec('PROJECTS', lines(2, false))}</div>`).join('')}</div>` + sec('HABITS TO BUILD', todo(3), 'pl-c4'));
+    }
+    case 'longterm':
+      return page(key, head('LONG-TERM GOALS'), box('MY VISION FOR MY LIFE', 2, 'pl-c3') + `<div class="pl-quad">${[['IN 1 YEAR', 'pl-c4'], ['IN 3 YEARS', 'pl-c5'], ['IN 5 YEARS', 'pl-c1'], ['IN 10 YEARS', 'pl-c2']].map(([t, c]) => `<div class="pl-box ${c}">${L(t)}${todo(4)}</div>`).join('')}</div>` + box('WHAT I NEED TO START DOING NOW', 2));
+    case 'routine':
+      return page(key, head('ROUTINE PLANNER'), `<div class="pl-p3">${[['☀ MORNING', 'pl-c5'], ['◐ AFTERNOON', 'pl-c3'], ['☾ EVENING', 'pl-c2']].map(([t, c]) => `<div class="pl-pcol ${c}"><div class="pl-phead" contenteditable="false"><span>${t}</span></div>${tbl('2t', [['TIME', 'f'], ['ROUTINE', 'f']], 7)}</div>`).join('')}</div>` + `<div class="pl-cols pl-cols-even"><div>${box('NON-NEGOTIABLES', 2)}</div><div>${box('REFLECTION', 2)}</div></div>`);
+    case 'pomodoro':
+      return page(key, head('POMODORO TRACKER', [up(md(d))]), hint('One tomato = 25 minutes of focus, then a 5-minute break. After four, take a longer break.') + `<div class="pl-scroll">${tbl('pomo', [['TASK', 'f'], ['ESTIMATE', 'f'], ['FOCUS BLOCKS', 'tom'], ['DONE', 'chk']], 8)}</div>` + `<div class="pl-cols pl-cols-even"><div>${box('DISTRACTIONS I NOTICED', 2)}</div><div>${box('WHAT I FINISHED', 2)}</div></div>`);
+    // ---- mindset
+    case 'fivemin': {
+      const w = winsOn(ymd(d));
+      return page(key, head('5-MINUTE JOURNAL', [up(md(d))]), `<div class="pl-cols pl-cols-even"><div><div class="pl-phead pl-c5" contenteditable="false"><span>☀ MORNING</span></div>${sec('I AM GRATEFUL FOR…', lines(3))}${sec('WHAT WOULD MAKE TODAY GREAT?', lines(3))}${box('DAILY AFFIRMATION. I AM…', 1)}</div>
+        <div><div class="pl-phead pl-c3" contenteditable="false"><span>☾ EVENING</span></div>${sec('3 AMAZING THINGS THAT HAPPENED TODAY', w.length ? `<ol class="pl-f pl-ach">${winLis(w.slice(0, 3))}${'<li><br></li>'.repeat(Math.max(0, 3 - w.length))}</ol>` : lines(3))}${sec('HOW COULD I HAVE MADE TODAY EVEN BETTER?', lines(2, false))}</div></div>`);
+    }
+    case 'gjar':
+      return page(key, head('GRATITUDE JAR'), hint('Every time something good happens, add it to the jar. Read it on a hard day.') + `<div class="pl-jarwrap"><div class="pl-jar"><div class="pl-jlid" contenteditable="false"></div><div class="pl-jbody">${lines(12, false)}</div></div></div>`);
+    case 'affirm':
+      return page(key, head('AFFIRMATION LIBRARY'), hint('These are the words you want to remember. Read a few every morning.') + `<div class="pl-affs">${['I am capable of learning anything I set my mind to.', 'My work matters, and so do I.', 'I celebrate my progress, not just the finish line.', '', '', '', '', '', ''].map((t, i) => `<div class="pl-aff ${C[i % 5]}"><span class="pl-aq" contenteditable="false">“</span><div class="pl-f pl-area pl-h2">${t ? `<p>${t}</p>` : '<p><br></p>'}</div></div>`).join('')}</div>`);
+    case 'reframe':
+      return page(key, head('REFRAMING LIMITING BELIEFS'), `<div class="pl-scroll">${tbl('refr', [['LIMITING BELIEF', 'f'], ['WHERE IT COMES FROM', 'f'], ['EVIDENCE AGAINST IT', 'f'], ['NEW EMPOWERING BELIEF', 'f']], 6)}</div>` + box('HOW I’LL REMIND MYSELF', 2, 'pl-c3'));
+    case 'selfcomp':
+      return page(key, head('SELF-COMPASSION', [up(md(d))]), box('WHAT AM I STRUGGLING WITH RIGHT NOW?', 2, 'pl-c2') + `<div class="pl-cols pl-cols-even"><div>${box('WHAT WOULD I SAY TO A FRIEND IN THIS SITUATION?', 3, 'pl-c3')}${box('WHAT TRUTHS DO I NEED TO HEAR?', 2, 'pl-c4')}</div><div>${sec('WHAT DO I NEED RIGHT NOW?', todo(5), 'pl-c5')}${box('KIND WORDS TO MYSELF', 2, 'pl-c1')}</div></div>`);
+    case 'dream':
+      return page(key, head('DREAM JOURNAL', [up(md(d))]), kv([['DREAM TITLE', 'f', 2, 'pl-c3'], ['SLEEP QUALITY', 'star', 1, 'pl-c3'], ['LUCID?', 'dots1', 1, 'pl-c3']]) + box('THE DREAM', 3, 'pl-c3') + `<div class="pl-cols pl-cols-even"><div>${box('HOW I FELT', 2)}${box('PEOPLE, PLACES AND SYMBOLS', 2)}</div><div>${box('WHAT IT MIGHT MEAN', 3, 'pl-c2')}${box('PLACES AND SCENES I’D LIKE TO DREAM ABOUT', 1)}</div></div>`);
+    // ---- more project management
+    case 'mastertodo':
+      return page(key, head('MASTER TO-DO LIST'), `<div class="pl-scroll">${tbl('mtd', [['', 'chk'], ['TASK', 'f'], ['CATEGORY', 'f'], ['PRIORITY', 'pri'], ['DUE', 'f'], ['STATUS', 'st']], 16)}</div>`);
+    case 'teamtasks': {
+      const mem = i => `<div class="pl-box ${C[i % 5]}">${kv([['TEAM MEMBER', 'f', 1], ['ROLE', 'f', 1]], 2)}${tbl('team4', [['', 'chk'], ['TASK', 'f'], ['DUE', 'f'], ['STATUS', 'st']], 4)}</div>`;
+      return page(key, head('TEAM TASK MANAGER'), `<div class="pl-quad">${[0, 1, 2, 3].map(mem).join('')}</div>`);
+    }
+    case 'monthgantt': {
+      const row = () => `<div class="pl-tr pl-xmg">${f1}${f1}${`<span class="pl-gc" contenteditable="false" data-on="false"></span>`.repeat(nDays)}</div>`;
+      return page(key, head('MONTHLY GANTT CHART', [MY]), hint('Tap the days to draw each task’s bar.') + `<div class="pl-scroll"><div class="pl-tbl pl-gx pl-mg pl-c3"><div class="pl-tr pl-th pl-xmg" contenteditable="false"><span>TASK</span><span>OWNER</span>${[...Array(nDays)].map((_, i) => `<span class="pl-gw">${i + 1}<i>${'SMTWTFS'[new Date(d.getFullYear(), d.getMonth(), i + 1).getDay()]}</i></span>`).join('')}</div>${[...Array(12)].map(row).join('')}<div class="pl-addrow" contenteditable="false">+ Add task</div></div></div>`);
+    }
+    case 'timeblock': {
+      const hrs = []; for (let h = 6; h <= 21; h++) hrs.push(h);
+      return page(key, head('TIME BLOCKING', [up(md(d))]), hint('Tap each 15-minute block to color it by type. Write what you’ll do on the right.') + `<div class="pl-tbk">${hrs.map(h => `<div class="pl-tbr"><span class="pl-t" contenteditable="false">${h > 12 ? h - 12 : h} ${h >= 12 ? 'PM' : 'AM'}</span><span class="pl-tbq" contenteditable="false">${'<span class="pl-tb" data-v="0"></span>'.repeat(4)}</span>${f1}</div>`).join('')}</div>`
+        + `<div class="pl-tbkey" contenteditable="false">${['Deep work', 'Meetings', 'Admin', 'Break', 'Personal', 'Learning'].map((t, i) => `<span><span class="pl-tb" data-v="${i + 1}"></span>${t}</span>`).join('')}</div><div class="pl-cols pl-cols-even"><div>${sec('TOP 3 TODAY', todo(3), 'pl-c1')}</div><div>${box('END-OF-DAY NOTES', 2)}</div></div>`);
+    }
+    case 'distraction':
+      return page(key, head('DISTRACTION LOG', [up(md(d))]), `<div class="pl-scroll">${tbl('dist', [['TIME', 'f'], ['DISTRACTION', 'f'], ['TRIGGER', 'f'], ['MINUTES LOST', 'f'], ['HOW TO AVOID IT', 'f']], 10)}</div>` + `<div class="pl-cols pl-cols-even"><div>${box('MY BIGGEST DISTRACTION TODAY', 2, 'pl-c2')}</div><div>${box('TOMORROW I’LL TRY', 2, 'pl-c4')}</div></div>`);
+    case 'okr': {
+      const obj = i => `<div class="pl-box ${C[(i + 2) % 5]}">${kv([[`OBJECTIVE ${i + 1}`, 'f', 3], ['OWNER', 'f', 1]])}${tbl('okr', [['KEY RESULT', 'f'], ['TARGET', 'f'], ['CURRENT', 'f'], ['PROGRESS', 'prog']], 3)}</div>`;
+      return page(key, head('OKRs', [`Q${Math.floor(d.getMonth() / 3) + 1} ${d.getFullYear()}`]), [0, 1, 2].map(obj).join('') + box('NOTES AND CHECK-INS', 2));
+    }
+    case 'teamperf':
+      return page(key, head('TEAM PERFORMANCE METRICS', [MY]), `<div class="pl-scroll">${tbl('perf', [['TEAM MEMBER', 'f'], ['ROLE', 'f'], ['TASKS DONE', 'f'], ['ON TIME', 'prog'], ['QUALITY', 'star'], ['NOTES', 'f']], 8)}</div>` + `<div class="pl-cols pl-cols-even"><div>${box('TEAM WINS', 2, 'pl-c4')}</div><div>${box('WHERE WE CAN IMPROVE', 2, 'pl-c2')}</div></div>`);
+    case 'resource':
+      return page(key, head('RESOURCE ALLOCATION'), `<div class="pl-scroll">${tbl('res', [['RESOURCE / PERSON', 'f'], ['ROLE', 'f'], ['PROJECT', 'f'], ['HOURS / WEEK', 'f'], ['LOAD', 'lv'], ['NOTES', 'f']], 10)}</div>` + hint('Load: tap to mark Low, Medium or High.'));
+    case 'commplan':
+      return page(key, head('COMMUNICATION PLAN'), `<div class="pl-scroll">${tbl('comm', [['AUDIENCE', 'f'], ['WHAT THEY NEED', 'f'], ['METHOD', 'f'], ['FREQUENCY', 'f'], ['OWNER', 'f']], 8)}</div>` + box('ESCALATION PATH', 2, 'pl-c2'));
+    case 'schedule':
+      return page(key, head('PROJECT SCHEDULE'), kv([['PROJECT', 'f', 2, 'pl-c3'], ['START', 'f', 1, 'pl-c3'], ['END', 'f', 1, 'pl-c3']]) + `<div class="pl-scroll">${tbl('sched', [['MILESTONE / TASK', 'f'], ['START', 'f'], ['END', 'f'], ['OWNER', 'f'], ['DEPENDS ON', 'f'], ['STATUS', 'st']], 12)}</div>`);
+    case 'perfreview':
+      return page(key, head('PROJECT PERFORMANCE REVIEW'), kv([['PROJECT', 'f', 2, 'pl-c3'], ['PERIOD', 'f', 1, 'pl-c3'], ['REVIEWED BY', 'f', 1, 'pl-c3']])
+        + sec('GOALS VS RESULTS', `<div class="pl-scroll">${tbl('gvr', [['GOAL', 'f'], ['TARGET', 'f'], ['ACTUAL', 'f'], ['MET', 'chk']], 5)}</div>`, 'pl-c3') + sec('KPIs', `<div class="pl-scroll">${tbl('kpi', [['KPI', 'f'], ['TARGET', 'f'], ['ACTUAL', 'f'], ['TREND', 'f']], 4)}</div>`, 'pl-c5')
+        + `<div class="pl-p3">${box('WHAT WENT WELL', 3, 'pl-c4')}${box('CHALLENGES', 3, 'pl-c2')}${box('LESSONS LEARNED', 3, 'pl-c1')}</div>` + sec('NEXT STEPS', todo(4), 'pl-c3'));
+    case 'actions':
+      return page(key, head('PROJECT ACTION ITEMS'), kv([['PROJECT', 'f', 2, 'pl-c1'], ['UPDATED', 'f', 1, 'pl-c1'], ['OWNER', 'f', 1, 'pl-c1']]) + `<div class="pl-scroll">${tbl('act2', [['#', 'f'], ['ACTION', 'f'], ['OWNER', 'f'], ['DUE', 'f'], ['PRIORITY', 'pri'], ['STATUS', 'st'], ['NOTES', 'f']], 12)}</div>`);
+  }
+  return null;
+}
 function pmHTML(key, d, theme) {
   const L = (t, c = '') => `<div class="pl-lbl${c ? ' ' + c : ''}" contenteditable="false">${t}</div>`;
   const f1 = PM.f1, area = (h = 2) => `<div class="pl-f pl-area pl-h${h}"><p><br></p></div>`;
@@ -3980,6 +4378,7 @@ function pmHTML(key, d, theme) {
   return null;
 }
 function templateHTML(key, dateKey, theme) {
+  if (XTRA_KEYS.includes(key)) return xtraHTML(key, parseYmd(dateKey || todayKey()), theme);
   if (PM_KEYS.includes(key)) return pmHTML(key, parseYmd(dateKey || todayKey()), theme);
   if (PL_KEYS.includes(key)) return plannerHTML(key, parseYmd(dateKey || todayKey()), theme);
   const li = '<li><br></li>', chk = '<li data-checked="false"><br></li>', p = '<p><br></p>';
@@ -4018,6 +4417,7 @@ function templateHTML(key, dateKey, theme) {
 }
 const tplTitle = (key, dateKey) => {
   const d = parseYmd(dateKey || todayKey()), lbl = TPL[key] ? TPL[key].label : 'New page';
+  if (XTRA_KEYS.includes(key)) { const t = XTRA_TITLE[key]; return t === 'w' ? `${lbl} · Week of ${DF({ month: 'short', day: 'numeric' }).format(startOfWeek(d))}` : t === 'm' ? `${lbl} · ${fmtMonthYear(d)}` : t === 'y' ? `${lbl} · ${d.getFullYear()}` : t === 'q' ? `Q${Math.floor(d.getMonth() / 3) + 1} ${d.getFullYear()} plan` : t === 'd' ? `${lbl} · ${fmtShortK(ymd(d))}` : lbl; }
   if (['month', 'monthov', 'finance', 'monthref', 'habit'].includes(key)) return `${lbl} · ${fmtMonthYear(d)}`;
   if (['week', 'weekref', 'review'].includes(key)) return `${lbl} · Week of ${DF({ month: 'short', day: 'numeric' }).format(startOfWeek(d))}`;
   if (key === 'weekpro') return `${lbl} · Week of ${DF({ month: 'short', day: 'numeric' }).format(startOfWeek(d))}`;
@@ -4057,8 +4457,8 @@ function templatePicker(src, onPick, first = false) {
       ${creating ? `<p class="tpl-hint">${icon('info', 'sm')}Your notebook is created when you pick a page. Cancel and nothing is saved.</p>` : ''}
       <div class="tpl-colors"><span class="tpl-colors-l">${icon('palette', 'sm')}Page colors<small>For planner and project pages</small></span>${plChooserHTML(theme, true)}</div>
       ${mine.length ? `<p class="tpl-group">${icon(KINDS[kind].icon, 'sm')}For your ${esc(KINDS[kind].label.toLowerCase())}</p>` : ''}
-      ${(() => { const subs = [...new Set(mine.map(t => t.group || ''))].sort((a, b) => (a ? 0 : 1) - (b ? 0 : 1)); if (subs.length < 2) return `<div class="tpl-grid">${blank}${mine.map(card).join('')}</div>`; return subs.map((g, i) => `${i ? `<p class="tpl-group tpl-sub">${g ? esc(TPL_SUB[g]) : kind === 'work' ? 'Everyday work' : 'More templates'}</p>` : `<p class="tpl-group tpl-sub">${esc(TPL_SUB[g] || 'Templates')}</p>`}<div class="tpl-grid">${i ? '' : blank}${mine.filter(t => (t.group || '') === g).map(card).join('')}</div>`).join(''); })()}
-      ${others.map(([g, lbl]) => `<details class="tpl-more" ${kind === 'other' ? 'open' : ''}><summary>${icon(KINDS[g].icon, 'sm')}${esc(lbl)} templates <span class="mono small muted">${TEMPLATES.filter(t => t.kind === g).length}</span></summary><div class="tpl-grid">${TEMPLATES.filter(t => t.kind === g).map(card).join('')}</div></details>`).join('')}
+      ${(() => { const subs = [...new Set(mine.map(t => t.group || ''))].sort((a, b) => kind === 'work' ? (a ? 0 : 1) - (b ? 0 : 1) : (a ? 1 : 0) - (b ? 1 : 0)); if (subs.length < 2) return `<div class="tpl-grid">${blank}${mine.map(card).join('')}</div>`; return subs.map((g, i) => `<p class="tpl-group tpl-sub">${esc(g ? TPL_SUB[g] : TPL_CORE[kind])} <span class="mono small muted">${mine.filter(t => (t.group || '') === g).length}</span></p><div class="tpl-grid">${i ? '' : blank}${mine.filter(t => (t.group || '') === g).map(card).join('')}</div>`).join(''); })()}
+      ${others.map(([g, lbl]) => `<details class="tpl-more" ${kind === 'other' ? 'open' : ''}><summary>${icon(KINDS[g].icon, 'sm')}${esc(lbl)} templates <span class="mono small muted">${TEMPLATES.filter(t => t.kind === g).length}</span></summary>${[...new Set(TEMPLATES.filter(t => t.kind === g).map(t => t.group || ''))].map(sg => `${sg ? `<p class="tpl-group tpl-sub">${esc(TPL_SUB[sg])}</p>` : ''}<div class="tpl-grid">${TEMPLATES.filter(t => t.kind === g && (t.group || '') === sg).map(card).join('')}</div>`).join('')}</details>`).join('')}
     </div>`,
     onOpen: w => { plPaint(w); wirePlChooser($('.tpl-colors', w), v => { theme = v; $$('.tpl-thumb .pl', w).forEach(x => setPl(x, v)); }); ro = fitTplThumbs($('.tpl-pick', w)); $$('.tpl-more', w).forEach(d => d.addEventListener('toggle', () => $$('.tpl-thumb', d).forEach(t => { const x = t.clientWidth; if (x) t.style.setProperty('--z', ((x - 24) / (+t.dataset.w || 520)).toFixed(4)); }))); },
     onClose: () => { if (ro) ro.disconnect(); },
@@ -4077,7 +4477,7 @@ function newPageFlow(nbId, first = false) {
 function createPage(notebookId, dateKey, tpl, opts = {}) {
   const nb = S.notebooks.find(n => n.id === notebookId);
   const id = newId(), now = Date.now();
-  S.notes.push({ id, notebookId, title: tpl && TPL[tpl] ? tplTitle(tpl, dateKey) : nb ? KINDS[nb.kind].page : 'New page', date: dateKey || todayKey(), html: tpl ? templateHTML(tpl, dateKey, opts.theme || plTheme(notebookId, PM_KEYS.includes(tpl) ? 'pastel' : null)) : '<p><br></p>', createdAt: now, updatedAt: now });
+  S.notes.push({ id, notebookId, title: tpl && TPL[tpl] ? tplTitle(tpl, dateKey) : nb ? KINDS[nb.kind].page : 'New page', date: dateKey || todayKey(), html: tpl ? templateHTML(tpl, dateKey, opts.theme || plTheme(notebookId, isWorkLayout(tpl) ? 'pastel' : null)) : '<p><br></p>', createdAt: now, updatedAt: now });
   if (!opts.defer) persistNote(id);
   return id;
 }
@@ -4348,13 +4748,13 @@ function mountEditor() {
   body.addEventListener('input', () => { markDirty(); updateWords(); });
   body.addEventListener('paste', e => { e.preventDefault(); const t = (e.clipboardData || window.clipboardData).getData('text/plain'); document.execCommand('insertText', false, t); });
   body.addEventListener('click', e => {
-    const pm = e.target.closest('.pl .pl-pri, .pl .pl-st, .pl .pl-ty, .pl .pl-lv, .pl .pl-prog, .pl .pl-mv, .pl .pl-del, .pl .pl-add, .pl .pl-addrow');
-    if (pm && body.contains(pm)) { pmClick(pm, e); markDirty(); updateWords(); return; }
+    const pm = e.target.closest('.pl .pl-pri, .pl .pl-st, .pl .pl-ty, .pl .pl-lv, .pl .pl-mood, .pl .pl-tb, .pl .pl-prog, .pl .pl-mv, .pl .pl-del, .pl .pl-add, .pl .pl-addrow');
+    if (pm && body.contains(pm) && !pm.closest('.pl-moodkey, .pl-tbkey')) { pmClick(pm, e); markDirty(); updateWords(); return; }
     const tg = e.target.closest('.pl [data-on]');
     if (tg && body.contains(tg)) {
       if (tg.classList.contains('pl-star')) { const all = [...tg.parentElement.children], i = all.indexOf(tg), on = tg.dataset.on === 'true' && !(all[i + 1] && all[i + 1].dataset.on === 'true'); all.forEach((x, j) => x.dataset.on = String(on ? j < i : j <= i)); }
       else tg.dataset.on = tg.dataset.on === 'true' ? 'false' : 'true';
-      markDirty(); return;
+      plPaint(body); markDirty(); return;
     }
     const li = e.target.closest('ul.checklist > li');
     if (!li || !body.contains(li)) return;
@@ -4409,7 +4809,7 @@ function mountEditor() {
     body.focus();
     if (ED.range) { const s = window.getSelection(); s.removeAllRanges(); s.addRange(ED.range); }
     else { const r = document.createRange(); r.selectNodeContents(body); r.collapse(false); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
-    document.execCommand('insertHTML', false, templateHTML(key, $('#ed-date').value, plTheme(note.notebookId, PM_KEYS.includes(key) ? 'pastel' : null)));
+    document.execCommand('insertHTML', false, templateHTML(key, $('#ed-date').value, plTheme(note.notebookId, isWorkLayout(key) ? 'pastel' : null)));
     markDirty(); updateWords(); body.dispatchEvent(new Event('input'));
   });
   $('#ed-pdf', el).onclick = () => { flushEditor(); exportNotePdf(note.id); };
@@ -4423,7 +4823,7 @@ function mountEditor() {
     updateNotebookSidebar(); mountEditor(); toast('Page deleted');
   };
 }
-const PM_N = { 'pl-pri': 6, 'pl-st': 7, 'pl-ty': 7, 'pl-lv': 4 };
+const PM_N = { 'pl-pri': 6, 'pl-st': 7, 'pl-ty': 7, 'pl-lv': 4, 'pl-mood': 6, 'pl-tb': 7 };
 function pmClick(el, e) {
   const k = Object.keys(PM_N).find(c => el.classList.contains(c));
   if (k) { el.dataset.v = String(((+el.dataset.v || 0) + 1) % PM_N[k]); return; }
@@ -4665,9 +5065,14 @@ function inlineRuns(node, st = { b: false, i: false }, out = []) {
 function flattenPlanner(root) {
   const txt = n => (n ? n.innerText || n.textContent || '' : '').replace(/\s+/g, ' ').trim();
   const p = (label, value) => { const e = document.createElement('p'); if (label) { const b = document.createElement('strong'); b.textContent = label + ' '; e.append(b); } e.append(value); return e; };
-  const CH = { 'pl-pri': ['', 'Very high', 'High', 'Medium', 'Low', 'Very low'], 'pl-st': ['To do', 'Started', 'In progress', 'Review', 'Done', 'On hold', 'Canceled'], 'pl-ty': ['', 'Work', 'Meeting', 'Focus', 'Admin', 'Personal', 'Break'], 'pl-lv': ['', 'Low', 'Medium', 'High'] };
+  $$('.pl-wheel, .pl-year', root).forEach(x => x.remove());
+  $$('.pl-coins, .pl-envs', root).forEach(x => { const a = x.children.length, on = x.querySelectorAll('[data-on="true"]').length; const e = document.createElement('p'); e.textContent = `Done: ${on} of ${a}`; x.replaceWith(e); });
+  $$('.pl-care', root).forEach(x => { const e = document.createElement('p'); e.textContent = 'Done: ' + ([...x.querySelectorAll('[data-on="true"]')].map(c => c.lastChild.textContent).join(', ') || 'none yet'); x.replaceWith(e); });
+  $$('.pl-moodcal', root).forEach(x => { const n = ['', 'Great', 'Good', 'Okay', 'Low', 'Bad'], c = {}; x.querySelectorAll('.pl-mood').forEach(m => { const v = +m.dataset.v; if (v) c[n[v]] = (c[n[v]] || 0) + 1; }); const e = document.createElement('p'); e.textContent = Object.entries(c).map(([k, v]) => `${k}: ${v} days`).join(', ') || 'No moods logged yet'; x.replaceWith(e); });
+  $$('.pl-moodkey, .pl-tbkey, .pl-tbq', root).forEach(x => x.remove());
+  const CH = { 'pl-mood': ['', 'Great', 'Good', 'Okay', 'Low', 'Bad'], 'pl-pri': ['', 'Very high', 'High', 'Medium', 'Low', 'Very low'], 'pl-st': ['To do', 'Started', 'In progress', 'Review', 'Done', 'On hold', 'Canceled'], 'pl-ty': ['', 'Work', 'Meeting', 'Focus', 'Admin', 'Personal', 'Break'], 'pl-lv': ['', 'Low', 'Medium', 'High'] };
   $$('.pl-hint, .pl-mv, .pl-del, .pl-add, .pl-addrow, .pl-heat', root).forEach(x => x.remove());
-  $$('.pl-pri, .pl-st, .pl-ty, .pl-lv, .pl-prog', root).forEach(c => { const k = Object.keys(CH).find(x => c.classList.contains(x)), v = +c.dataset.v || 0; const t = document.createElement('span'); t.className = 'pl-f'; t.textContent = k ? CH[k][v] || '' : v ? v * 10 + '%' : ''; (c.closest('.pl-cell') || c).replaceWith(t); });
+  $$('.pl-pri, .pl-st, .pl-ty, .pl-lv, .pl-mood, .pl-prog', root).forEach(c => { const k = Object.keys(CH).find(x => c.classList.contains(x)), v = +c.dataset.v || 0; const t = document.createElement('span'); t.className = 'pl-f'; t.textContent = k ? CH[k][v] || '' : v ? v * 10 + '%' : ''; (c.closest('.pl-cell') || c).replaceWith(t); });
   $$('.pl-sqr2', root).forEach(c => { const t = document.createElement('span'); t.className = 'pl-f'; t.textContent = c.dataset.on === 'true' ? '[x]' : ''; (c.closest('.pl-cell') || c).replaceWith(t); });
   $$('.pl-tr', root).forEach(r => { const g = r.querySelectorAll('.pl-gc'); if (g.length) { const on = [...g].map((x, i) => x.dataset.on === 'true' ? i + 1 : 0).filter(Boolean); g.forEach(x => x.remove()); if (on.length) { const t = document.createElement('span'); t.className = 'pl-f'; t.textContent = `weeks ${on[0]}–${on[on.length - 1]}`; r.append(t); } } });
   $$('.pl-card', root).forEach(c => { const v = [...c.querySelectorAll('.pl-f')].map(x => (x.innerText || x.textContent).replace(/\s+/g, ' ').trim()).filter(Boolean); const e = document.createElement('p'); e.textContent = v.length ? '• ' + v.join('  |  ') : ''; c.replaceWith(e); });
