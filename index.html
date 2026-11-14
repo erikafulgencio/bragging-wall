@@ -1474,6 +1474,145 @@ body.side-anim .app { transition: grid-template-columns .28s var(--ease); }
 .pl-matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .pl-matrix .pl-box { margin: 0; min-height: 11em; }
 .pl-matrix .pl-todo > li { border-color: color-mix(in srgb, var(--pm) 30%, transparent) !important; }
+.pl[data-pltheme="pastel"] { --pp: #FFFFFF; --pt: #EEF2F7; --pt2: #DCE4EE; --pi: #1F2933; --pm: #6B7785; --pln: #DFE5EC; --pa: #6C8EF5; }
+.pl[data-pltheme="pastel"] .pl-c1 { --pt: #FCDCC8; } .pl[data-pltheme="pastel"] .pl-c2 { --pt: #FAD3E3; } .pl[data-pltheme="pastel"] .pl-c3 { --pt: #CFEAF5; } .pl[data-pltheme="pastel"] .pl-c4 { --pt: #D7EFD0; } .pl[data-pltheme="pastel"] .pl-c5 { --pt: #FBEEBF; }
+.pl[data-pltheme="pastel"] .pl-c1 { --pa: #E8925C; } .pl[data-pltheme="pastel"] .pl-c2 { --pa: #E27AA5; } .pl[data-pltheme="pastel"] .pl-c3 { --pa: #5AAED0; } .pl[data-pltheme="pastel"] .pl-c4 { --pa: #6DB35F; } .pl[data-pltheme="pastel"] .pl-c5 { --pa: #D6AE2E; }
+.pl-pm .pl-title { font-family: var(--font-body); font-weight: 300; letter-spacing: .04em; }
+.pl-hint { font-size: .74rem; color: var(--pm); font-style: italic; margin: -6px 0 10px !important; user-select: none; }
+.pl-kv { display: grid; gap: 1px; background: var(--pln); border: 1px solid var(--pln); border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+.pl-kv4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } .pl-kv2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.pl-kv > div { background: var(--pp); display: flex; flex-direction: column; min-width: 0; }
+.pl-kv .pl-span2 { grid-column: span 2; } .pl-kv .pl-span3 { grid-column: span 3; } .pl-kv .pl-span4 { grid-column: span 4; }
+.pl-kv2 .pl-span3, .pl-kv2 .pl-span4 { grid-column: span 2; }
+.pl-kl { background: var(--pt); font-size: .6rem; font-weight: 600; letter-spacing: .1em; color: var(--pi); padding: 4px 8px; user-select: none; }
+.pl-kv .pl-1 { padding: 5px 8px; min-height: 1.9em; }
+.pl-kv .pl-cell { justify-content: flex-start; padding: 5px 8px; }
+.pl-pm .pl-lbl { color: var(--pi); font-weight: 600; letter-spacing: .1em; }
+.pl-cell { display: flex; align-items: center; justify-content: center; padding: 2px 4px; min-width: 0; user-select: none; }
+.pl-tbl .pl-tr .pl-cell { min-height: 1.75em; }
+.pl-pri, .pl-st, .pl-ty, .pl-lv { display: inline-flex; align-items: center; justify-content: center; gap: 4px; min-width: 62px; max-width: 100%; height: 20px; padding: 0 8px; border-radius: 99px; font-size: .64rem; font-weight: 600; cursor: pointer; user-select: none; background: var(--pt2); color: var(--pm); white-space: nowrap; transition: transform .12s, background .2s; }
+.pl-pri:hover, .pl-st:hover, .pl-ty:hover, .pl-lv:hover { transform: scale(1.06); }
+.pl-pri::before, .pl-ty::before, .pl-lv::before { content: "Tap to set"; font-weight: 500; opacity: .75; }
+.pl-pri[data-v="1"] { background: #F9CFE0; color: #96284F; } .pl-pri[data-v="1"]::before { content: "Very high"; opacity: 1; }
+.pl-pri[data-v="2"] { background: #FCD9C2; color: #94471A; } .pl-pri[data-v="2"]::before { content: "High"; opacity: 1; }
+.pl-pri[data-v="3"] { background: #FBEDB8; color: #76600F; } .pl-pri[data-v="3"]::before { content: "Medium"; opacity: 1; }
+.pl-pri[data-v="4"] { background: #D2E8F8; color: #285C84; } .pl-pri[data-v="4"]::before { content: "Low"; opacity: 1; }
+.pl-pri[data-v="5"] { background: #D7EFD0; color: #376B30; } .pl-pri[data-v="5"]::before { content: "Very low"; opacity: 1; }
+.pl-st::before { content: "⚑ To do"; } .pl-st[data-v="0"] { background: #FDE2E2; color: #A23434; }
+.pl-st[data-v="1"] { background: #DDF2D6; color: #376B30; } .pl-st[data-v="1"]::before { content: "▸ Started"; }
+.pl-st[data-v="2"] { background: #DCE7FB; color: #2F55A3; } .pl-st[data-v="2"]::before { content: "◔ In progress"; }
+.pl-st[data-v="3"] { background: #ECE2FA; color: #6A3E9F; } .pl-st[data-v="3"]::before { content: "◎ Review"; }
+.pl-st[data-v="4"] { background: #CDEEC6; color: #276322; } .pl-st[data-v="4"]::before { content: "✓ Done"; }
+.pl-st[data-v="5"] { background: #FCEBC4; color: #7A5A0F; } .pl-st[data-v="5"]::before { content: "❚❚ On hold"; }
+.pl-st[data-v="6"] { background: #F3D4D4; color: #8D2B2B; } .pl-st[data-v="6"]::before { content: "✕ Canceled"; }
+.pl-ty[data-v="1"] { background: #DCE7FB; color: #2F55A3; } .pl-ty[data-v="1"]::before { content: "Work"; opacity: 1; }
+.pl-ty[data-v="2"] { background: #ECE2FA; color: #6A3E9F; } .pl-ty[data-v="2"]::before { content: "Meeting"; opacity: 1; }
+.pl-ty[data-v="3"] { background: #FCD9C2; color: #94471A; } .pl-ty[data-v="3"]::before { content: "Focus"; opacity: 1; }
+.pl-ty[data-v="4"] { background: #FBEDB8; color: #76600F; } .pl-ty[data-v="4"]::before { content: "Admin"; opacity: 1; }
+.pl-ty[data-v="5"] { background: #D7EFD0; color: #376B30; } .pl-ty[data-v="5"]::before { content: "Personal"; opacity: 1; }
+.pl-ty[data-v="6"] { background: #F9CFE0; color: #96284F; } .pl-ty[data-v="6"]::before { content: "Break"; opacity: 1; }
+.pl-lv[data-v="1"] { background: #D7EFD0; color: #376B30; } .pl-lv[data-v="1"]::before { content: "Low"; opacity: 1; }
+.pl-lv[data-v="2"] { background: #FBEDB8; color: #76600F; } .pl-lv[data-v="2"]::before { content: "Medium"; opacity: 1; }
+.pl-lv[data-v="3"] { background: #F9CFE0; color: #96284F; } .pl-lv[data-v="3"]::before { content: "High"; opacity: 1; }
+.pl-ty, .pl-lv { min-width: 54px; }
+.pl-prog { --p: 0%; position: relative; display: flex; align-items: center; width: 100%; min-width: 60px; height: 16px; border-radius: 99px; cursor: pointer; background: linear-gradient(var(--pa), var(--pa)) left / var(--p) 100% no-repeat, var(--pt2); overflow: hidden; }
+.pl-prog::after { position: relative; margin-left: auto; padding-right: 6px; font-size: .6rem; font-weight: 700; color: var(--pi); }
+.pl-prog[data-v="0"] { --p: 0%; } .pl-prog[data-v="0"]::after { content: "0%"; }
+.pl-prog[data-v="1"] { --p: 10%; } .pl-prog[data-v="1"]::after { content: "10%"; }
+.pl-prog[data-v="2"] { --p: 20%; } .pl-prog[data-v="2"]::after { content: "20%"; }
+.pl-prog[data-v="3"] { --p: 30%; } .pl-prog[data-v="3"]::after { content: "30%"; }
+.pl-prog[data-v="4"] { --p: 40%; } .pl-prog[data-v="4"]::after { content: "40%"; }
+.pl-prog[data-v="5"] { --p: 50%; } .pl-prog[data-v="5"]::after { content: "50%"; }
+.pl-prog[data-v="6"] { --p: 60%; } .pl-prog[data-v="6"]::after { content: "60%"; }
+.pl-prog[data-v="7"] { --p: 70%; } .pl-prog[data-v="7"]::after { content: "70%"; }
+.pl-prog[data-v="8"] { --p: 80%; } .pl-prog[data-v="8"]::after { content: "80%"; }
+.pl-prog[data-v="9"] { --p: 90%; } .pl-prog[data-v="9"]::after { content: "90%"; }
+.pl-prog[data-v="10"] { --p: 100%; } .pl-prog[data-v="10"]::after { content: "100%"; }
+.pl-sqr2 { width: 15px; height: 15px; border-radius: 4px; border: 1.3px solid var(--pm); }
+.pl-sqr2[data-on="true"] { background: var(--pa) url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Cpath d=%27M4 8.5l2.5 2.5L12 5.5%27 fill=%27none%27 stroke=%27white%27 stroke-width=%272%27/%3E%3C/svg%3E") center / 100% no-repeat; border-color: var(--pa); }
+.pl-addrow, .pl-add { font-size: .7rem; color: var(--pm); padding: 5px 8px; cursor: pointer; user-select: none; border-radius: 0 0 8px 8px; transition: background .15s, color .15s; }
+.pl-addrow:hover, .pl-add:hover { background: var(--pt); color: var(--pi); }
+.pl-th { background: var(--pt); color: var(--pi); font-weight: 600; }
+.pl-th span { display: flex; align-items: center; justify-content: center; text-align: center; }
+.pl-tm { display: flex; align-items: center; padding: 2px 8px; font-size: .74rem; color: var(--pm); white-space: nowrap; user-select: none; }
+.pl-trt { font-weight: 700; background: var(--pt); }
+.pl-gtask .pl-tr { grid-template-columns: 44px minmax(140px, 2.4fr) 1fr 1.1fr 1.2fr .9fr 1.1fr; }
+.pl-grec .pl-tr { grid-template-columns: 2fr 1fr 2.2fr 1.1fr 1fr .9fr; }
+.pl-gup .pl-tr { grid-template-columns: 2fr 1.2fr .9fr 1.25fr; }
+.pl-gteam .pl-tr { grid-template-columns: 1.3fr 1fr; }
+.pl-gag .pl-tr { grid-template-columns: 34px 3fr 1.2fr; }
+.pl-gact .pl-tr { grid-template-columns: 34px 2.6fr 1fr .9fr 1.25fr; }
+.pl-gts .pl-tr { grid-template-columns: 34px 2.6fr 1.15fr; }
+.pl-gsched .pl-tr { grid-template-columns: 74px 2.4fr 1fr; }
+.pl-gdm2 .pl-tr { grid-template-columns: 30px 2.4fr 1fr; } .pl-gdm1 .pl-tr { grid-template-columns: 30px 1fr; }
+.pl-grisk .pl-tr { grid-template-columns: 2fr .95fr .95fr .6fr 2fr .9fr 1.2fr; }
+.pl-gstep .pl-tr { grid-template-columns: 2.4fr 1fr 2.2fr 54px; }
+.pl-gbud .pl-tr { grid-template-columns: 1.1fr 1.6fr 1fr 1fr 1fr 54px; }
+.pl-gwk .pl-tr { grid-template-columns: 1.3fr 1fr 1fr 1fr; }
+.pl-gtx .pl-tr { grid-template-columns: .9fr .9fr 1.3fr 1fr 1.3fr; }
+.pl-gcon .pl-tr { grid-template-columns: 1.3fr 1.1fr 1.7fr 1fr 1.6fr; }
+.pl-gtask, .pl-grisk, .pl-gbud, .pl-gcon, .pl-grec { min-width: 700px; }
+.pl-gact { min-width: 520px; } .pl-gtx { min-width: 420px; }
+/* gantt */
+.pl-gwrap { min-width: 860px; display: flex; flex-direction: column; gap: 8px; }
+.pl-ggantt .pl-tr { grid-template-columns: minmax(130px, 1.8fr) .9fr .75fr .75fr .95fr repeat(12, 24px); }
+.pl-ggantt .pl-th { font-size: .56rem; letter-spacing: .06em; }
+.pl-gw { flex-direction: column; line-height: 1.05; padding: 3px 0; } .pl-gw i { font-style: normal; font-weight: 400; color: var(--pm); font-size: .5rem; }
+.pl-ph { display: flex !important; align-items: center; gap: 8px; background: var(--pt); padding: 0 8px; }
+.pl-phl { font-size: .62rem; font-weight: 700; letter-spacing: .1em; color: var(--pi); user-select: none; white-space: nowrap; }
+.pl-ph .pl-1 { font-weight: 600; }
+.pl-gc { cursor: pointer; min-height: 1.75em; transition: background .12s; }
+.pl-gc:hover { background: color-mix(in srgb, var(--pa) 18%, transparent); }
+.pl-gc[data-on="true"] { background: var(--pa); box-shadow: inset 0 3px 0 var(--pp), inset 0 -3px 0 var(--pp); }
+.pl-ggantt .pl-tr > .pl-gc + .pl-gc { border-left-color: color-mix(in srgb, var(--pln) 60%, transparent); }
+/* kanban */
+.pl-kan { display: grid; grid-template-columns: repeat(5, minmax(160px, 1fr)); gap: 10px; min-width: 860px; align-items: start; }
+.pl-kcol { background: color-mix(in srgb, var(--pt) 45%, var(--pp)); border-radius: 12px; padding: 8px; display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--pln); }
+.pl-khead { text-align: center; font-size: .66rem; font-weight: 700; letter-spacing: .12em; color: var(--pi); background: var(--pt); border-radius: 8px; padding: 6px; user-select: none; }
+.pl-kcards { display: flex; flex-direction: column; gap: 8px; min-height: 40px; }
+.pl-card { background: var(--pp); border-radius: 10px; border: 1px solid var(--pln); border-left: 4px solid var(--pa); padding: 7px 8px 8px; display: flex; flex-direction: column; gap: 3px; box-shadow: 0 6px 14px -12px rgba(0,0,0,.35); }
+.pl-moved { animation: pl-pop .35s var(--ease); }
+@keyframes pl-pop { from { transform: scale(.94); opacity: .4; } to { transform: none; opacity: 1; } }
+.pl-ctop { display: flex; align-items: center; justify-content: space-between; gap: 4px; user-select: none; }
+.pl-ctop .pl-pri { min-width: 0; height: 18px; font-size: .6rem; }
+.pl-cact { display: inline-flex; gap: 2px; }
+.pl-mv, .pl-del { width: 20px; height: 20px; display: grid; place-items: center; border-radius: 6px; cursor: pointer; color: var(--pm); font-size: .95rem; line-height: 1; }
+.pl-mv:hover, .pl-del:hover { background: var(--pt); color: var(--pi); }
+.pl-ct { font-weight: 650; font-size: .86rem; }
+.pl-cd { font-size: .78rem; color: var(--pm); min-height: 2.2em; }
+.pl-cfoot { display: grid; grid-template-columns: auto 1fr auto 1fr; align-items: center; gap: 2px 4px; border-top: 1px dashed var(--pln); padding-top: 3px; font-size: .74rem; }
+.pl-cl { font-size: .54rem; letter-spacing: .1em; color: var(--pm); user-select: none; }
+.pl-cfoot .pl-1 { padding: 1px 2px; min-height: 1.4em; }
+.pl-cprog { padding: 3px 0 0; }
+.pl-add { border: 1px dashed var(--pln); border-radius: 8px; text-align: center; }
+/* daily / weekly pro */
+.pl-dhead { display: flex; align-items: center; gap: 14px; background: var(--pt); border-radius: 12px; padding: 10px 16px; margin-bottom: 16px; user-select: none; }
+.pl-dhead b { font: 300 2.3rem/1 var(--font-body); color: var(--pi); padding-right: 14px; border-right: 1px solid color-mix(in srgb, var(--pi) 25%, transparent); }
+.pl-dhead > span { font-size: 1.1rem; color: var(--pi); display: flex; flex-direction: column; } .pl-dhead .pl-mut { font-size: .72rem; color: var(--pm); }
+.pl-cols-38 { grid-template-columns: minmax(0, .8fr) minmax(0, 1.6fr); }
+.pl-week7 { display: grid; grid-template-columns: repeat(7, minmax(130px, 1fr)); gap: 8px; min-width: 960px; margin-bottom: 14px; }
+.pl-wcol { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.pl-whead { display: flex; align-items: center; gap: 8px; background: var(--pt); border-radius: 10px; padding: 6px 8px; user-select: none; }
+.pl-whead b { font: 300 1.5rem/1 var(--font-body); color: var(--pi); } .pl-whead > span { font-size: .78rem; display: flex; flex-direction: column; line-height: 1.15; color: var(--pi); min-width: 0; } .pl-whead .pl-mut { font-size: .58rem; color: var(--pm); }
+.pl-wcol .pl-lbl { font-size: .56rem; padding: 3px 4px; margin: 4px 0 0; }
+.pl-wfocus { border: 1px solid var(--pln); border-radius: 8px; font-size: .8rem; min-height: 3em; }
+.pl-wsched .pl-hr { min-height: 1.7em; } .pl-wsched .pl-t { width: 2.4em; font-size: .62rem; } .pl-wsched .pl-1 { font-size: .76rem; padding: 2px 5px; }
+.pl-wcol .pl-todo > li { font-size: .78rem; }
+/* risk heat map */
+.pl-heat { display: grid; grid-template-columns: 18px 1fr; grid-template-rows: 1fr auto; gap: 4px; user-select: none; }
+.pl-hy { writing-mode: vertical-rl; transform: rotate(180deg); font-size: .56rem; letter-spacing: .12em; color: var(--pm); text-align: center; }
+.pl-hx { grid-column: 2; text-align: center; font-size: .56rem; letter-spacing: .12em; color: var(--pm); }
+.pl-hg { display: grid; grid-template-columns: 56px repeat(3, 1fr); gap: 3px; }
+.pl-hg i { font-style: normal; display: grid; place-items: center; min-height: 36px; border-radius: 6px; font-size: .66rem; font-weight: 600; }
+.pl-hg .pl-hl { min-height: 0; color: var(--pm); font-weight: 400; font-size: .62rem; }
+.pl-hg .pl-h1 { background: #D7EFD0; color: #376B30; } .pl-hg .pl-h2 { background: #FBEDB8; color: #76600F; } .pl-hg .pl-h3 { background: #F9CFE0; color: #96284F; }
+/* goal / 30-60-90 */
+.pl-quad { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+.pl-p3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-bottom: 4px; }
+.pl-pcol { border: 1px solid var(--pln); border-radius: 14px; padding: 10px; background: color-mix(in srgb, var(--pt) 22%, var(--pp)); }
+.pl-phead { display: flex; flex-direction: column; align-items: center; background: var(--pt); border-radius: 10px; padding: 8px; margin-bottom: 10px; user-select: none; }
+.pl-phead b { font: 300 1.6rem/1 var(--font-body); color: var(--pi); letter-spacing: .04em; } .pl-phead > span:not(.pl-mut) { font-size: .78rem; font-weight: 600; color: var(--pi); text-transform: uppercase; letter-spacing: .12em; } .pl-phead .pl-mut { font-size: .66rem; color: var(--pm); }
+.pl-dm .pl-box { min-height: 0; } .pl-dm .pl-tbl { background: var(--pp); }
 /* editor integration */
 .ed-body.has-pl { max-width: none; padding: 18px 18px 40px; }
 .pl-themes { display: inline-flex; align-items: center; gap: 5px; }
@@ -1511,10 +1650,13 @@ body.side-anim .app { transition: grid-template-columns .28s var(--ease); }
   .ed-body .pl-title { font-size: 1.5rem; }
   .ed-body .pl-day { min-height: 4em; padding: 3px; } .ed-body .pl-calh { font-size: .52rem; letter-spacing: .04em; }
   .ed-body .pl-matrix { grid-template-columns: 1fr; }
+  .ed-body .pl-kv4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ed-body .pl-kv .pl-span3, .ed-body .pl-kv .pl-span4 { grid-column: span 2; }
+  .ed-body .pl-p3, .ed-body .pl-quad { grid-template-columns: 1fr; }
 }
 @media print { .pl { box-shadow: none; } }
 /* Template picker */
 .tpl-pick { display: flex; flex-direction: column; gap: 12px; }
+.tpl-sub { margin-top: 10px; }
 .tpl-group { display: flex; align-items: center; gap: 6px; font: 600 .78rem var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-top: 4px; }
 .tpl-hint { display: flex; gap: 8px; align-items: center; font-size: .85rem; color: var(--muted); margin: -2px 0 0; }
 .tpl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; }
@@ -1945,6 +2087,20 @@ const TEMPLATES = [
   { key: 'goal', kind: 'planner', label: 'SMART goal', icon: 'target', desc: 'Specific, measurable, achievable, relevant, timed' },
   { key: 'matrix', kind: 'planner', label: 'Priority matrix', icon: 'zap', desc: 'Sort tasks: do, schedule, delegate, drop' },
   { key: 'project', kind: 'planner', label: 'Project plan', icon: 'rocket', desc: 'Scope, milestones, risks and next actions' },
+  { key: 'pmoverview', kind: 'work', group: 'pm', label: 'Project overview', icon: 'chart', desc: 'Project info, status, budget, upcoming and overdue tasks' },
+  { key: 'gantt', kind: 'work', group: 'pm', label: 'Gantt chart', icon: 'gantt', desc: 'Phases and tasks on a 12-week timeline you tap to draw' },
+  { key: 'kanban', kind: 'work', group: 'pm', label: 'Kanban board', icon: 'kanban', desc: 'Backlog to Done, with cards you move across' },
+  { key: 'tasks', kind: 'work', group: 'pm', label: 'Task tracker', icon: 'checkSq', desc: 'Owner, priority, status, due date and progress' },
+  { key: 'recurring', kind: 'work', group: 'pm', label: 'Recurring tasks', icon: 'refresh', desc: 'Tasks that repeat, how often and who owns them' },
+  { key: 'meetingpm', kind: 'work', group: 'pm', label: 'Meeting & follow-up', icon: 'users', desc: 'Objective, attendees, agenda, notes and action items' },
+  { key: 'daypro', kind: 'work', group: 'pm', label: 'Daily work plan', icon: 'clock', desc: 'Main task, priorities, calls, 30-minute schedule, habits' },
+  { key: 'weekpro', kind: 'work', group: 'pm', label: 'Weekly work plan', icon: 'calendar', desc: 'Seven days side by side: focus, schedule, top priorities' },
+  { key: 'decision', kind: 'work', group: 'pm', label: 'Decision matrix', icon: 'zap', desc: 'Do, decide, delegate or delete' },
+  { key: 'risk', kind: 'work', group: 'pm', label: 'Risk assessment', icon: 'alert', desc: 'Likelihood, impact, mitigation and owner, with a heat map' },
+  { key: 'goalpro', kind: 'work', group: 'pm', label: 'Goal planner', icon: 'target', desc: 'Why it matters, challenges, steps and strategy' },
+  { key: 'plan306090', kind: 'work', group: 'pm', label: '30-60-90 day plan', icon: 'rocket', desc: 'Learn, contribute and lead in your first 90 days' },
+  { key: 'budgetpm', kind: 'work', group: 'pm', label: 'Budget tracker', icon: 'coin', desc: 'Budget vs actual, weekly summary and a transaction log' },
+  { key: 'contacts', kind: 'work', group: 'pm', label: 'Team contact list', icon: 'phone', desc: 'Names, roles, emails and phone numbers' },
   { key: 'meeting', kind: 'work', label: 'Meeting notes', icon: 'users', desc: 'Agenda, notes, decisions and action items' },
   { key: 'standup', kind: 'work', label: 'Stand-up notes', icon: 'chat', desc: 'Yesterday, today and blockers' },
   { key: 'oneone', kind: 'work', label: '1:1 prep', icon: 'briefcase', desc: 'Adds your last two weeks of wins to share' },
@@ -1961,6 +2117,7 @@ const TEMPLATES = [
   { key: 'cornell', kind: 'other', label: 'Cornell notes', icon: 'book', desc: 'Questions, notes and a summary' },
 ];
 const TPL = Object.fromEntries(TEMPLATES.map(t => [t.key, t]));
+const TPL_SUB = { pm: 'Project management' };
 const PROMPTS = [
   'What is one thing you did this week that past-you would be impressed by?', 'When did you feel most like yourself today?', 'What problem are you quietly proud of solving?',
   'Who made your work easier recently, and how could you thank them?', 'What would you try if you knew you couldn’t fail?', 'What did you learn the hard way this month?',
@@ -3617,9 +3774,9 @@ function summaryHTML(label, list, opt) {
 /* Planner pages: structured, printable-planner layouts. Labels are locked (contenteditable=false);
    every .pl-f is a field you type into. Dots, stars and cups are tap-to-toggle. */
 // [key, name, paper, tint, accent]: paper/tint/accent are only used to draw the swatch
-const PL_THEMES = [['blush', 'Blush', '#FBF7F5', '#E7D3CD', '#B98B82'], ['rose', 'Rose', '#FDF6F7', '#F0CFD6', '#C46A82'], ['peach', 'Peach', '#FEF8F3', '#F5D7C3', '#D08A5C'], ['butter', 'Butter', '#FFFCF1', '#F2E4B5', '#BC9A35'], ['sage', 'Sage', '#F8FAF6', '#CFDFCC', '#7C9A79'], ['mint', 'Mint', '#F5FBF8', '#C7E6D8', '#4F9C7D'], ['teal', 'Teal', '#F7FBFA', '#BFDCD7', '#0F6E6A'], ['sky', 'Sky', '#F7FAFC', '#CDDEEC', '#6F94B4'], ['lavender', 'Lavender', '#F9F8FC', '#DAD1EC', '#8E7DB8'], ['sand', 'Sand', '#FBF9F5', '#DFD3C2', '#A48E6E'], ['ivory', 'Ivory', '#FFFFFF', '#E6E2DC', '#8F8880'], ['night', 'Night', '#23272B', '#3C444A', '#D9A38F']];
+const PL_THEMES = [['blush', 'Blush', '#FBF7F5', '#E7D3CD', '#B98B82'], ['rose', 'Rose', '#FDF6F7', '#F0CFD6', '#C46A82'], ['peach', 'Peach', '#FEF8F3', '#F5D7C3', '#D08A5C'], ['butter', 'Butter', '#FFFCF1', '#F2E4B5', '#BC9A35'], ['sage', 'Sage', '#F8FAF6', '#CFDFCC', '#7C9A79'], ['mint', 'Mint', '#F5FBF8', '#C7E6D8', '#4F9C7D'], ['teal', 'Teal', '#F7FBFA', '#BFDCD7', '#0F6E6A'], ['sky', 'Sky', '#F7FAFC', '#CDDEEC', '#6F94B4'], ['lavender', 'Lavender', '#F9F8FC', '#DAD1EC', '#8E7DB8'], ['sand', 'Sand', '#FBF9F5', '#DFD3C2', '#A48E6E'], ['ivory', 'Ivory', '#FFFFFF', '#E6E2DC', '#8F8880'], ['pastel', 'Pastel', '#FFFFFF', '#CDEBF5', '#F4A9C4'], ['night', 'Night', '#23272B', '#3C444A', '#D9A38F']];
 const isPlTheme = v => typeof v === 'string' && (PL_THEMES.some(x => x[0] === v) || /^#[0-9a-f]{6}$/i.test(v));
-const plTheme = nbId => { const nb = nbId && S.notebooks.find(n => n.id === nbId); if (nb && isPlTheme(nb.plTheme)) return nb.plTheme; try { const t = localStorage.getItem('bw-pl-theme'); return isPlTheme(t) ? t : 'blush'; } catch (e) { return 'blush'; } };
+const plTheme = (nbId, fallback) => { const nb = nbId && S.notebooks.find(n => n.id === nbId); if (nb && isPlTheme(nb.plTheme)) return nb.plTheme; if (fallback) return fallback; try { const t = localStorage.getItem('bw-pl-theme'); return isPlTheme(t) ? t : 'blush'; } catch (e) { return 'blush'; } };
 const plAttrs = v => v && v[0] === '#' ? `data-pltheme="custom" data-plc="${v.toLowerCase()}"` : `data-pltheme="${isPlTheme(v) ? v : 'blush'}"`;
 const plOf = el => el ? (el.dataset.pltheme === 'custom' && /^#[0-9a-f]{6}$/i.test(el.dataset.plc || '') ? el.dataset.plc : el.dataset.pltheme || 'blush') : 'blush';
 function setPl(el, v) { if (v[0] === '#') { el.dataset.pltheme = 'custom'; el.dataset.plc = v.toLowerCase(); } else { el.dataset.pltheme = v; delete el.dataset.plc; } plPaint(el.parentElement || el); }
@@ -3716,7 +3873,114 @@ function plannerHTML(key, d, theme) {
   return null;
 }
 const PL_KEYS = ['plan', 'week', 'month', 'monthov', 'finance', 'monthref', 'habit', 'goal', 'matrix'];
+const PM_KEYS = ['pmoverview', 'gantt', 'kanban', 'tasks', 'recurring', 'meetingpm', 'daypro', 'weekpro', 'decision', 'risk', 'goalpro', 'plan306090', 'budgetpm', 'contacts'];
+const isLayoutKey = k => PL_KEYS.includes(k) || PM_KEYS.includes(k);
+/* Project-management pages share the planner kit, plus tap-to-cycle chips (priority, status, type, level),
+   tap-to-set progress bars, tap-to-draw Gantt cells, movable Kanban cards and "add row" buttons. */
+const PM = {
+  f1: '<div class="pl-f pl-1"><br></div>',
+  chip: (cls, v = 0) => `<span class="pl-cell" contenteditable="false"><span class="${cls}" data-v="${v}"></span></span>`,
+  chk: () => '<span class="pl-cell" contenteditable="false"><span class="pl-dot pl-sqr2" data-on="false"></span></span>',
+  card: () => `<div class="pl-card"><div class="pl-ctop" contenteditable="false"><span class="pl-pri" data-v="0"></span><span class="pl-cact"><span class="pl-mv" data-dir="-1" title="Move left">‹</span><span class="pl-mv" data-dir="1" title="Move right">›</span><span class="pl-del" title="Remove card">×</span></span></div><div class="pl-f pl-1 pl-ct"><br></div><div class="pl-f pl-area pl-h1 pl-cd"><br></div><div class="pl-cfoot"><span class="pl-cl" contenteditable="false">WHO</span><div class="pl-f pl-1"><br></div><span class="pl-cl" contenteditable="false">DUE</span><div class="pl-f pl-1"><br></div></div><span class="pl-cell pl-cprog" contenteditable="false"><span class="pl-prog" data-v="0"></span></span></div>`,
+};
+function pmHTML(key, d, theme) {
+  const L = (t, c = '') => `<div class="pl-lbl${c ? ' ' + c : ''}" contenteditable="false">${t}</div>`;
+  const f1 = PM.f1, area = (h = 2) => `<div class="pl-f pl-area pl-h${h}"><p><br></p></div>`;
+  const box = (t, h = 2, c = '') => `<div class="pl-box${c ? ' ' + c : ''}">${L(t)}${area(h)}</div>`;
+  const sec = (t, inner, c = '') => `<div class="pl-sec">${L(t, c)}${inner}</div>`;
+  const todo = n => `<ul class="checklist pl-todo pl-f">${'<li data-checked="false"><br></li>'.repeat(n)}</ul>`;
+  const lines = (n, num = true) => `<div class="pl-lines">${[...Array(n)].map((_, i) => `<div class="pl-ln">${num ? `<span class="pl-n" contenteditable="false">${i + 1}.</span>` : ''}${f1}</div>`).join('')}</div>`;
+  const cell = k => k === 'f' ? f1 : k === 'chk' ? PM.chk() : PM.chip('pl-' + k);
+  const tbl = (g, cols, n, opts = {}) => `<div class="pl-tbl pl-g${g}${opts.c ? ' ' + opts.c : ''}"><div class="pl-tr pl-th" contenteditable="false">${cols.map(c => `<span>${c[0]}</span>`).join('')}</div>${[...Array(n)].map(() => `<div class="pl-tr">${cols.map(c => cell(c[1])).join('')}</div>`).join('')}${opts.add === false ? '' : '<div class="pl-addrow" contenteditable="false">+ Add row</div>'}</div>`;
+  const kv = (items, cols = 4) => `<div class="pl-kv pl-kv${cols}">${items.map(([lbl, k = 'f', span = 1, c = '']) => `<div class="${span > 1 ? 'pl-span' + span : ''}"><span class="pl-kl${c ? ' ' + c : ''}" contenteditable="false">${lbl}</span>${cell(k)}</div>`).join('')}</div>`;
+  const page = (type, head, inner) => `<div class="pl pl-pm" data-pl="${type}" ${plAttrs(theme || 'pastel')}>${head}${inner}</div>`;
+  const head = (title, pills = []) => `<div class="pl-head" contenteditable="false"><span class="pl-title">${esc(title)}</span>${pills.length ? `<span class="pl-pills">${pills.map(x => `<span class="pl-pill">${esc(x)}</span>`).join('')}</span>` : ''}</div>`;
+  const up = x => x.toUpperCase(), md = x => DF({ month: 'short', day: 'numeric' }).format(x), s0 = startOfWeek(d);
+  const C = ['pl-c1', 'pl-c2', 'pl-c3', 'pl-c4', 'pl-c5'];
+  const hint = t => `<p class="pl-hint" contenteditable="false">${t}</p>`;
+  switch (key) {
+    case 'pmoverview':
+      return page('pmoverview', head('PROJECT OVERVIEW', [up(md(d)) + ', ' + d.getFullYear()]),
+        kv([['PROJECT NAME', 'f', 2, 'pl-c3'], ['PROJECT MANAGER', 'f', 1, 'pl-c3'], ['CATEGORY', 'f', 1, 'pl-c3'], ['START DATE'], ['END DATE'], ['STATUS', 'st'], ['PRIORITY', 'pri'], ['PROGRESS', 'prog', 2], ['DAYS LEFT'], ['TEAM SIZE']])
+        + `<div class="pl-cols pl-cols-even"><div>${box('OBJECTIVE', 2, 'pl-c2')}${box('DESCRIPTION', 2)}
+          ${sec('BUDGET', kv([['BUDGET'], ['SPENT'], ['REVENUE'], ['PROFIT MARGIN']], 2), 'pl-c4')}
+          ${sec('TASK SUMMARY', kv([['TO DO'], ['IN PROGRESS'], ['REVIEW'], ['DONE']], 4), 'pl-c5')}${sec('MILESTONES', todo(4), 'pl-c1')}</div>
+        <div>${sec('UPCOMING TASKS', tbl('up', [['TASK NAME', 'f'], ['PERSON IN CHARGE', 'f'], ['DUE DATE', 'f'], ['STATUS', 'st']], 6), 'pl-c3')}
+          ${sec('OVERDUE TASKS', tbl('up', [['TASK NAME', 'f'], ['PERSON IN CHARGE', 'f'], ['DUE DATE', 'f'], ['STATUS', 'st']], 4), 'pl-c2')}
+          ${sec('TEAM', tbl('team', [['NAME', 'f'], ['ROLE', 'f']], 4), 'pl-c4')}</div></div>`);
+    case 'gantt': {
+      const wk = [...Array(12)].map((_, i) => addDays(s0, i * 7));
+      const headRow = `<div class="pl-tr pl-th" contenteditable="false"><span>TASK</span><span>OWNER</span><span>START</span><span>END</span><span>PROGRESS</span>${wk.map((w, i) => `<span class="pl-gw" title="Week of ${md(w)}">W${i + 1}<i>${w.getDate()}/${w.getMonth() + 1}</i></span>`).join('')}</div>`;
+      const row = () => `<div class="pl-tr">${f1}${f1}${f1}${f1}${PM.chip('pl-prog')}${'<span class="pl-gc" contenteditable="false" data-on="false"></span>'.repeat(12)}</div>`;
+      const phase = (i, n) => `<div class="pl-tbl pl-ggantt pl-phase ${C[i % 5]}"><div class="pl-tr pl-ph"><span class="pl-phl" contenteditable="false">PHASE ${i + 1}</span><div class="pl-f pl-1"><br></div></div>${[...Array(n)].map(row).join('')}<div class="pl-addrow" contenteditable="false">+ Add task</div></div>`;
+      return page('gantt', head('GANTT CHART', [`FROM ${up(md(s0))}`]),
+        kv([['PROJECT NAME', 'f', 1, 'pl-c3'], ['PROJECT MANAGER', 'f', 1, 'pl-c3'], ['START DATE', 'f', 1, 'pl-c3'], ['END DATE', 'f', 1, 'pl-c3']])
+        + hint('Tap the squares to draw each task’s bar. Tap a progress bar to set how far along it is.')
+        + `<div class="pl-scroll"><div class="pl-gwrap"><div class="pl-tbl pl-ggantt pl-ghead">${headRow}</div>${phase(0, 4)}${phase(1, 4)}${phase(2, 3)}</div></div>`);
+    }
+    case 'kanban': {
+      const cols = [['BACKLOG', 3], ['TO DO', 2], ['IN PROGRESS', 2], ['REVIEW', 1], ['DONE', 1]];
+      return page('kanban', head('KANBAN BOARD'), hint('Use ‹ and › on a card to move it between columns. Tap the priority tag and progress bar to change them.')
+        + `<div class="pl-scroll"><div class="pl-kan">${cols.map(([t, n], i) => `<div class="pl-kcol ${C[(i + 2) % 5]}"><div class="pl-khead" contenteditable="false">${t}</div><div class="pl-kcards">${[...Array(n)].map(PM.card).join('')}</div><div class="pl-add" contenteditable="false">+ Add a card</div></div>`).join('')}</div></div>`);
+    }
+    case 'tasks':
+      return page('tasks', head('TASK TRACKER'), kv([['PROJECT', 'f', 2, 'pl-c3'], ['OWNER', 'f', 1, 'pl-c3'], ['DEADLINE', 'f', 1, 'pl-c3']])
+        + hint('Tap priority and status to change them, and tap a progress bar to set it.')
+        + `<div class="pl-scroll">${tbl('task', [['DONE', 'chk'], ['TASK NAME', 'f'], ['OWNER', 'f'], ['PRIORITY', 'pri'], ['STATUS', 'st'], ['DUE DATE', 'f'], ['PROGRESS', 'prog']], 10, { c: 'pl-c3' })}</div>`);
+    case 'recurring':
+      return page('recurring', head('RECURRING TASKS'), `<div class="pl-scroll">${tbl('rec', [['TASK NAME', 'f'], ['FREQUENCY', 'f'], ['DESCRIPTION', 'f'], ['PRIORITY', 'pri'], ['OWNER', 'f'], ['NEXT DUE', 'f']], 10, { c: 'pl-c2' })}</div>`
+        + hint('Frequency ideas: daily, every Monday, every 2 weeks, monthly, quarterly.'));
+    case 'meetingpm':
+      return page('meetingpm', head('MEETING & FOLLOW-UP', [up(md(d))]),
+        kv([['MEETING NAME', 'f', 2, 'pl-c1'], ['DATE', 'f', 1, 'pl-c1'], ['TIME', 'f', 1, 'pl-c1']]) + kv([['OBJECTIVE', 'f', 3, 'pl-c1'], ['LOCATION', 'f', 1, 'pl-c1']])
+        + `<div class="pl-cols pl-cols-38"><div>${sec('ATTENDEES', lines(7, false), 'pl-c1')}</div><div>${sec('AGENDA', tbl('ag', [['', 'chk'], ['ITEM', 'f'], ['OWNER', 'f']], 7), 'pl-c1')}</div></div>`
+        + box('NOTES', 3, 'pl-c1') + sec('ACTION ITEMS', `<div class="pl-scroll">${tbl('act', [['', 'chk'], ['ACTION', 'f'], ['OWNER', 'f'], ['DUE', 'f'], ['STATUS', 'st']], 5)}</div>`, 'pl-c1') + sec('DECISIONS MADE', lines(3, false), 'pl-c1'));
+    case 'daypro': {
+      const times = []; for (let m = 7 * 60; m <= 19 * 60; m += 30) { const h = Math.floor(m / 60), mm = m % 60; times.push(`${h > 12 ? h - 12 : h}:${mm ? '30' : '00'} ${h >= 12 ? 'PM' : 'AM'}`); }
+      const sched = `<div class="pl-tbl pl-gsched pl-c1"><div class="pl-tr pl-th" contenteditable="false"><span>TIME</span><span>DESCRIPTION</span><span>TYPE</span></div>${times.map(t => `<div class="pl-tr"><span class="pl-tm" contenteditable="false">${t}</span>${f1}${PM.chip('pl-ty')}</div>`).join('')}</div>`;
+      return page('daypro', `<div class="pl-dhead pl-c1" contenteditable="false"><b>${d.getDate()}</b><span>${esc(DF({ weekday: 'long' }).format(d))}<span class="pl-mut">${esc(fmtMonthYear(d))}</span></span></div>`,
+        `<div class="pl-cols pl-cols-even"><div>${box('MAIN TASK OF THE DAY', 2, 'pl-c1')}${sec('PRIORITIES', todo(5), 'pl-c1')}${sec('TO CALL / TO EMAIL', todo(4), 'pl-c1')}${sec('TASKS', tbl('ts', [['', 'chk'], ['TASK NAME', 'f'], ['PRIORITY', 'pri']], 6), 'pl-c3')}${sec('DAILY HABITS', todo(4), 'pl-c3')}</div>
+        <div>${sec('SCHEDULE', sched, 'pl-c1')}${sec('MEAL PLAN', `<div class="pl-meals">${['B', 'L', 'D', 'S'].map(x => `<div class="pl-meal"><span class="pl-k" contenteditable="false">${x}</span>${area(1)}</div>`).join('')}</div>`, 'pl-c4')}${sec('I’M GRATEFUL TODAY FOR', lines(3, false), 'pl-c5')}${box('NOTES', 2)}</div></div>`);
+    }
+    case 'weekpro': {
+      const hrs = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+      const day = (i) => { const x = addDays(s0, i); return `<div class="pl-wcol ${C[i % 5]}"><div class="pl-whead" contenteditable="false"><b>${x.getDate()}</b><span>${esc(DF({ weekday: 'long' }).format(x))}<span class="pl-mut">${esc(DF({ month: 'long', year: 'numeric' }).format(x))}</span></span></div>
+        ${L('FOCUS OF THE DAY')}<div class="pl-f pl-area pl-h1 pl-wfocus"><br></div>${L('SCHEDULE')}<div class="pl-wsched">${hrs.map(h => `<div class="pl-hr"><span class="pl-t" contenteditable="false">${h > 12 ? h - 12 : h}${h >= 12 ? 'p' : 'a'}</span>${f1}</div>`).join('')}</div>${L('TOP PRIORITIES')}${todo(3)}</div>`; };
+      return page('weekpro', head('WEEKLY PLANNER', [`${up(md(s0))} – ${up(md(addDays(s0, 6)))}`]), `<div class="pl-scroll"><div class="pl-week7">${[...Array(7)].map((_, i) => day(i)).join('')}</div></div>${box('NOTES FOR THE WEEK', 2)}`);
+    }
+    case 'decision': {
+      const q = [['DO', 'Urgent and important', [['', 'chk'], ['TASK', 'f'], ['DUE', 'f']], 'pl-c1'], ['DECIDE', 'Important, not urgent: schedule it', [['', 'chk'], ['TASK', 'f'], ['WHEN', 'f']], 'pl-c3'], ['DELEGATE', 'Urgent, not important', [['', 'chk'], ['TASK', 'f'], ['TO WHOM', 'f']], 'pl-c5'], ['DELETE', 'Neither: drop it', [['', 'chk'], ['TASK', 'f']], 'pl-c2']];
+      return page('decision', head('DECISION MATRIX', [up(md(d))]), `<div class="pl-axis" contenteditable="false"><span>URGENT</span><span>NOT URGENT</span></div><div class="pl-matrix pl-dm">${q.map(([t, sub, cols, c]) => `<div class="pl-box ${c}">${L(`${t}<span class="pl-sub">${sub}</span>`)}${tbl(cols.length === 2 ? 'dm1' : 'dm2', cols, 5)}</div>`).join('')}</div>`);
+    }
+    case 'risk': {
+      const heat = `<div class="pl-heat" contenteditable="false"><span class="pl-hy">IMPACT</span><div class="pl-hg">${[['High', 2, 3, 3], ['Medium', 1, 2, 3], ['Low', 1, 1, 2]].map(([l, ...v]) => `<i class="pl-hl">${l}</i>${v.map(x => `<i class="pl-h${x}">${['', 'Low', 'Medium', 'High'][x]}</i>`).join('')}`).join('')}<i></i><i class="pl-hl">Low</i><i class="pl-hl">Medium</i><i class="pl-hl">High</i></div><span class="pl-hx">LIKELIHOOD</span></div>`;
+      return page('risk', head('RISK ASSESSMENT'), kv([['PROJECT', 'f', 2, 'pl-c2'], ['OWNER', 'f', 1, 'pl-c2'], ['REVIEWED ON', 'f', 1, 'pl-c2']])
+        + `<div class="pl-scroll">${tbl('risk', [['RISK', 'f'], ['LIKELIHOOD', 'lv'], ['IMPACT', 'lv'], ['SCORE', 'f'], ['MITIGATION', 'f'], ['OWNER', 'f'], ['STATUS', 'st']], 7, { c: 'pl-c2' })}</div>`
+        + `<div class="pl-cols pl-cols-even"><div>${sec('RISK HEAT MAP', heat, 'pl-c2')}</div><div>${box('CONTINGENCY PLAN', 3, 'pl-c2')}</div></div>`);
+    }
+    case 'goalpro':
+      return page('goalpro', head('GOAL PLANNER'), kv([['GOAL', 'f', 4, 'pl-c4']]) + kv([['STARTED', 'f', 2, 'pl-c4'], ['TARGET COMPLETION DATE', 'f', 2, 'pl-c4']])
+        + `<div class="pl-quad">${box('GOAL DESCRIPTION', 3, 'pl-c4')}${box('WHY THIS GOAL MATTERS', 3, 'pl-c4')}${box('POTENTIAL CHALLENGES', 3, 'pl-c4')}${box('HOW TO OVERCOME THEM', 3, 'pl-c4')}</div>`
+        + sec('STEPS TO ACHIEVE', tbl('step', [['STEP', 'f'], ['TARGET DATE', 'f'], ['STRATEGY', 'f'], ['DONE', 'chk']], 6), 'pl-c4'));
+    case 'plan306090': {
+      const col = (t, sub, from, to, c) => `<div class="pl-pcol ${c}"><div class="pl-phead" contenteditable="false"><b>${t}</b><span>${sub}</span><span class="pl-mut">${md(from)} – ${md(to)}</span></div>${sec('GOALS', todo(4))}${sec('KEY PEOPLE TO MEET', lines(3, false))}${sec('QUICK WINS', todo(2))}${box('SUCCESS LOOKS LIKE', 2)}</div>`;
+      return page('plan306090', head('30-60-90 DAY PLAN', [`STARTS ${up(md(d))}`]), kv([['ROLE', 'f', 2, 'pl-c3'], ['TEAM', 'f', 1, 'pl-c3'], ['MANAGER', 'f', 1, 'pl-c3']])
+        + `<div class="pl-p3">${col('30 DAYS', 'Learn', d, addDays(d, 29), 'pl-c3')}${col('60 DAYS', 'Contribute', addDays(d, 30), addDays(d, 59), 'pl-c4')}${col('90 DAYS', 'Lead', addDays(d, 60), addDays(d, 89), 'pl-c1')}</div>`
+        + `<div class="pl-cols pl-cols-even"><div>${sec('QUESTIONS TO ASK', lines(4, false), 'pl-c5')}</div><div>${box('CHECK-IN NOTES WITH MY MANAGER', 3, 'pl-c2')}</div></div>`);
+    }
+    case 'budgetpm':
+      return page('budgetpm', head('BUDGET TRACKER', [up(fmtMonthYear(d))]),
+        kv([['TOTAL INCOME', 'f', 1, 'pl-c3'], ['TOTAL EXPENSES', 'f', 1, 'pl-c2'], ['LEFT TO SPEND', 'f', 1, 'pl-c4'], ['LEFT TO BUDGET', 'f', 1, 'pl-c5']])
+        + sec('BUDGET BY CATEGORY', `<div class="pl-scroll">${tbl('bud', [['CATEGORY', 'f'], ['ITEM', 'f'], ['BUDGET', 'f'], ['ACTUAL', 'f'], ['DIFFERENCE', 'f'], ['PAID', 'chk']], 8)}</div>`, 'pl-c1')
+        + `<div class="pl-cols pl-cols-even"><div>${sec('WEEKLY SUMMARY', `<div class="pl-tbl pl-gwk"><div class="pl-tr pl-th" contenteditable="false"><span>CATEGORY</span><span>WEEKLY TOTAL</span><span>LEFT TO PAY</span><span>CUMULATIVE</span></div>${['Income', 'Bills', 'Subscriptions', 'Debts', 'Total'].map(x => `<div class="pl-tr${x === 'Total' ? ' pl-trt' : ''}"><span class="pl-tm" contenteditable="false">${x}</span>${f1}${f1}${f1}</div>`).join('')}</div>${kv([['BALANCE (INCOME − EXPENSES + STARTING BALANCE)', 'f', 2, 'pl-c3']], 2)}`, 'pl-c3')}</div>
+          <div>${sec('TRANSACTION LOG', `<div class="pl-scroll">${tbl('tx', [['DATE', 'f'], ['AMOUNT', 'f'], ['SUB-CATEGORY', 'f'], ['CATEGORY', 'f'], ['ACCOUNT', 'f']], 8)}</div>`, 'pl-c2')}</div></div>`);
+    case 'contacts':
+      return page('contacts', head('TEAM CONTACT LIST'), `<div class="pl-scroll">${tbl('con', [['NAME', 'f'], ['ROLE', 'f'], ['EMAIL', 'f'], ['PHONE', 'f'], ['NOTES', 'f']], 10, { c: 'pl-c3' })}</div>`);
+  }
+  return null;
+}
 function templateHTML(key, dateKey, theme) {
+  if (PM_KEYS.includes(key)) return pmHTML(key, parseYmd(dateKey || todayKey()), theme);
   if (PL_KEYS.includes(key)) return plannerHTML(key, parseYmd(dateKey || todayKey()), theme);
   const li = '<li><br></li>', chk = '<li data-checked="false"><br></li>', p = '<p><br></p>';
   const lis = n => li.repeat(n), chks = n => chk.repeat(n);
@@ -3756,7 +4020,8 @@ const tplTitle = (key, dateKey) => {
   const d = parseYmd(dateKey || todayKey()), lbl = TPL[key] ? TPL[key].label : 'New page';
   if (['month', 'monthov', 'finance', 'monthref', 'habit'].includes(key)) return `${lbl} · ${fmtMonthYear(d)}`;
   if (['week', 'weekref', 'review'].includes(key)) return `${lbl} · Week of ${DF({ month: 'short', day: 'numeric' }).format(startOfWeek(d))}`;
-  if (['goal', 'project', 'testplan', 'release', 'decision', 'ideas', 'future'].includes(key)) return lbl;
+  if (key === 'weekpro') return `${lbl} · Week of ${DF({ month: 'short', day: 'numeric' }).format(startOfWeek(d))}`;
+  if (['goal', 'project', 'testplan', 'release', 'ideas', 'future', 'pmoverview', 'gantt', 'kanban', 'tasks', 'recurring', 'risk', 'goalpro', 'plan306090', 'budgetpm', 'contacts'].includes(key)) return lbl;
   return `${lbl} · ${fmtShortK(ymd(d))}`;
 };
 const TPL_TINT = { journal: '#C2477A', planner: '#2F6FB0', work: '#0F6E6A', other: '#B87A0E' };
@@ -3769,7 +4034,7 @@ function tplPreview(key, kind, theme) {
     .replace(/<p><br><\/p>/g, `<p>${ln(92)}<br>${ln(70)}</p>`)
     .replace(/<blockquote><br><\/blockquote>/g, `<blockquote>${ln(80)}</blockquote>`);
   const title = key ? tplTitle(key, todayKey()) : 'Untitled page';
-  if (html.startsWith('<div class="pl"')) return `<span class="tpl-thumb" data-paper="pl" data-w="760" aria-hidden="true"><span class="tpl-sheet"><span class="tpl-page tpl-plpage"><span class="tpl-pbody prose">${html}</span></span></span></span>`;
+  if (/^<div class="pl[ "]/.test(html)) return `<span class="tpl-thumb" data-paper="pl" data-w="760" aria-hidden="true"><span class="tpl-sheet"><span class="tpl-page tpl-plpage"><span class="tpl-pbody prose">${html}</span></span></span></span>`;
   return `<span class="tpl-thumb" data-paper="${kind}" aria-hidden="true"><span class="tpl-sheet"><span class="tpl-page"><span class="tpl-ptitle">${esc(title)}</span>${key ? `<span class="tpl-pbody prose">${html}</span>` : `<span class="tpl-pbody prose"><p>${ln(88)}</p><p>${ln(64)}</p></span>`}</span></span></span>`;
 }
 function fitTplThumbs(root) {
@@ -3781,7 +4046,7 @@ function fitTplThumbs(root) {
 function templatePicker(src, onPick, first = false) {
   const nb = typeof src === 'string' ? S.notebooks.find(n => n.id === src) : src;
   const kind = nb ? nb.kind : 'other', creating = !!(nb && nb.creating);
-  let theme = nb && nb.creating ? (nb.plTheme || plTheme()) : plTheme(nb && nb.id);
+  let theme = nb && nb.creating ? (nb.plTheme || (kind === 'work' ? 'pastel' : plTheme())) : plTheme(nb && nb.id, kind === 'work' ? 'pastel' : null);
   const card = t => `<button type="button" class="tpl-card" data-tpl="${t.key}" style="--tc:${TPL_TINT[t.kind]}" aria-label="${esc(t.label)}: ${esc(t.desc)}">${tplPreview(t.key, t.kind, theme)}<span class="tpl-txt"><b><span class="tpl-ic">${icon(t.icon, 'sm')}</span>${esc(t.label)}</b><small>${esc(t.desc)}</small></span></button>`;
   const mine = TEMPLATES.filter(t => t.kind === kind), others = TPL_GROUPS.filter(([g]) => g !== kind);
   const blank = `<button type="button" class="tpl-card tpl-blank" data-tpl="" style="--tc:var(--muted)" aria-label="Blank page">${tplPreview('', kind)}<span class="tpl-txt"><b><span class="tpl-ic">${icon('plus', 'sm')}</span>Blank page</b><small>Start from nothing</small></span></button>`;
@@ -3790,29 +4055,29 @@ function templatePicker(src, onPick, first = false) {
     title: creating ? `Pick a first page for “${nb.name}”` : first ? `Pick a first page for “${nb ? nb.name : 'your notebook'}”` : 'New page', wide: true,
     body: `<div class="tpl-pick">
       ${creating ? `<p class="tpl-hint">${icon('info', 'sm')}Your notebook is created when you pick a page. Cancel and nothing is saved.</p>` : ''}
-      <div class="tpl-colors"><span class="tpl-colors-l">${icon('palette', 'sm')}Planner colors<small>Used by the planner pages</small></span>${plChooserHTML(theme, true)}</div>
+      <div class="tpl-colors"><span class="tpl-colors-l">${icon('palette', 'sm')}Page colors<small>For planner and project pages</small></span>${plChooserHTML(theme, true)}</div>
       ${mine.length ? `<p class="tpl-group">${icon(KINDS[kind].icon, 'sm')}For your ${esc(KINDS[kind].label.toLowerCase())}</p>` : ''}
-      <div class="tpl-grid">${blank}${mine.map(card).join('')}</div>
+      ${(() => { const subs = [...new Set(mine.map(t => t.group || ''))].sort((a, b) => (a ? 0 : 1) - (b ? 0 : 1)); if (subs.length < 2) return `<div class="tpl-grid">${blank}${mine.map(card).join('')}</div>`; return subs.map((g, i) => `${i ? `<p class="tpl-group tpl-sub">${g ? esc(TPL_SUB[g]) : kind === 'work' ? 'Everyday work' : 'More templates'}</p>` : `<p class="tpl-group tpl-sub">${esc(TPL_SUB[g] || 'Templates')}</p>`}<div class="tpl-grid">${i ? '' : blank}${mine.filter(t => (t.group || '') === g).map(card).join('')}</div>`).join(''); })()}
       ${others.map(([g, lbl]) => `<details class="tpl-more" ${kind === 'other' ? 'open' : ''}><summary>${icon(KINDS[g].icon, 'sm')}${esc(lbl)} templates <span class="mono small muted">${TEMPLATES.filter(t => t.kind === g).length}</span></summary><div class="tpl-grid">${TEMPLATES.filter(t => t.kind === g).map(card).join('')}</div></details>`).join('')}
     </div>`,
     onOpen: w => { plPaint(w); wirePlChooser($('.tpl-colors', w), v => { theme = v; $$('.tpl-thumb .pl', w).forEach(x => setPl(x, v)); }); ro = fitTplThumbs($('.tpl-pick', w)); $$('.tpl-more', w).forEach(d => d.addEventListener('toggle', () => $$('.tpl-thumb', d).forEach(t => { const x = t.clientWidth; if (x) t.style.setProperty('--z', ((x - 24) / (+t.dataset.w || 520)).toFixed(4)); }))); },
     onClose: () => { if (ro) ro.disconnect(); },
     actions: [{ label: 'Cancel', kind: 'ghost' }],
   });
-  m.wrap.addEventListener('click', e => { const c = e.target.closest('[data-tpl]'); if (!c || picked) return; picked = true; m.close(); if (PL_KEYS.includes(c.dataset.tpl)) rememberPl(theme); onPick(c.dataset.tpl || null, theme); });
+  m.wrap.addEventListener('click', e => { const c = e.target.closest('[data-tpl]'); if (!c || picked) return; picked = true; m.close(); if (PL_KEYS.includes(c.dataset.tpl)) rememberPl(theme); onPick(c.dataset.tpl || null, isLayoutKey(c.dataset.tpl) ? theme : null); });
 }
 function newPageFlow(nbId, first = false) {
   templatePicker(nbId, (tpl, theme) => {
     flushEditor(); UI.nb.notebookId = nbId;
     const nb = S.notebooks.find(n => n.id === nbId);
-    if (nb && PL_KEYS.includes(tpl) && theme && nb.plTheme !== theme) { nb.plTheme = theme; persistNotebook(nb.id); }
+    if (nb && isLayoutKey(tpl) && theme && nb.plTheme !== theme) { nb.plTheme = theme; persistNotebook(nb.id); }
     UI.nb.noteId = createPage(nbId, todayKey(), tpl, { theme }); updateNotebookSidebar(); mountEditor();
   }, first);
 }
 function createPage(notebookId, dateKey, tpl, opts = {}) {
   const nb = S.notebooks.find(n => n.id === notebookId);
   const id = newId(), now = Date.now();
-  S.notes.push({ id, notebookId, title: tpl && TPL[tpl] ? tplTitle(tpl, dateKey) : nb ? KINDS[nb.kind].page : 'New page', date: dateKey || todayKey(), html: tpl ? templateHTML(tpl, dateKey, opts.theme || plTheme(notebookId)) : '<p><br></p>', createdAt: now, updatedAt: now });
+  S.notes.push({ id, notebookId, title: tpl && TPL[tpl] ? tplTitle(tpl, dateKey) : nb ? KINDS[nb.kind].page : 'New page', date: dateKey || todayKey(), html: tpl ? templateHTML(tpl, dateKey, opts.theme || plTheme(notebookId, PM_KEYS.includes(tpl) ? 'pastel' : null)) : '<p><br></p>', createdAt: now, updatedAt: now });
   if (!opts.defer) persistNote(id);
   return id;
 }
@@ -3835,12 +4100,14 @@ function sanitize(html) {
       if (DROP.has(tag)) { child.remove(); continue; }
       clean(child);
       if (!ALLOWED.has(tag)) { child.replaceWith(...child.childNodes); continue; }
-      const isPl = /(^|\s)pl(-[a-z0-9]+)?(\s|$)/.test(child.getAttribute('class') || '');
+      const isPl = /(^|\s)pl(-[a-z0-9]+){0,3}(\s|$)/.test(child.getAttribute('class') || '');
       for (const a of [...child.attributes]) {
-        if (a.name === 'class') { const v = a.value.split(/\s+/).filter(c => c === 'checklist' ? tag === 'UL' : /^pl(-[a-z0-9]+)?$/.test(c)).join(' '); if (v) { child.setAttribute('class', v); continue; } }
+        if (a.name === 'class') { const v = a.value.split(/\s+/).filter(c => c === 'checklist' ? tag === 'UL' : /^pl(-[a-z0-9]+){0,3}$/.test(c)).join(' '); if (v) { child.setAttribute('class', v); continue; } }
         const keep = (tag === 'LI' && a.name === 'data-checked') || (tag === 'A' && a.name === 'href' && /^(https?:|mailto:)/i.test(a.value.trim()))
           || (isPl && a.name === 'contenteditable' && (a.value === 'false' || a.value === 'true') && (tag === 'DIV' || tag === 'SPAN'))
           || (isPl && tag === 'SPAN' && a.name === 'data-on' && (a.value === 'true' || a.value === 'false'))
+          || (isPl && tag === 'SPAN' && (a.name === 'data-v' || a.name === 'data-dir') && /^-?\d{1,2}$/.test(a.value))
+          || (isPl && tag === 'SPAN' && a.name === 'title' && a.value.length < 60)
           || (isPl && tag === 'DIV' && a.name === 'data-pltheme' && (a.value === 'custom' || PL_THEMES.some(x => x[0] === a.value)))
           || (isPl && tag === 'DIV' && a.name === 'data-plc' && /^#[0-9a-f]{6}$/i.test(a.value))
           || (isPl && tag === 'DIV' && (a.name === 'data-pl' || a.name === 'data-cols') && /^[a-z0-9]{1,12}$/.test(a.value));
@@ -3959,14 +4226,14 @@ function notebookModal(editId) {
       <div class="field"><label for="nbm-tags">Tags <span class="opt">comma separated</span></label><input id="nbm-tags" type="text" maxlength="300" value="${esc(nb ? nb.tags.join(', ') : '')}" placeholder="e.g. 2026, billease, goals"></div>
       ${nb ? `<div class="nbm-pin">${icon('lock')}<div><b>${nb.lock ? 'Locked with a PIN' : 'No PIN'}</b><span class="small muted">${nb.lock ? 'Pages are encrypted with your PIN.' : 'Add a PIN so only you can open this notebook.'}</span></div><button type="button" class="btn ghost sm" id="nbm-pin">${nb.lock ? 'Change or remove PIN' : 'Add PIN'}</button></div>` : `<label class="check-line"><input type="checkbox" id="nbm-lockit">${icon('lock', 'sm')} Lock this notebook with a PIN</label>`}
       <fieldset class="field"><legend>Type</legend><div class="seg">${Object.entries(KINDS).map(([k, v]) => `<label><input type="radio" name="nbm-kind" value="${k}" ${k === kind ? 'checked' : ''}><span>${icon(v.icon, 'sm')}${v.label}</span></label>`).join('')}</div></fieldset>
-      <fieldset class="field nbm-plc" ${kind === 'planner' ? '' : 'hidden'}><legend>Planner page colors</legend>${plChooserHTML(nb ? plTheme(nb.id) : plTheme())}<span class="small muted">New planner pages use this color scheme. You can change any page later from its toolbar.</span></fieldset>
+      <fieldset class="field nbm-plc" ${kind === 'planner' || kind === 'work' ? '' : 'hidden'}><legend>Page colors</legend>${plChooserHTML(nb ? plTheme(nb.id, kind === 'work' ? 'pastel' : null) : plTheme())}<span class="small muted">New planner and project pages use this color scheme. You can change any page later from its toolbar.</span></fieldset>
       ${nb ? `<button type="button" class="btn ghost sm" id="nbm-cover" style="align-self:flex-start">${icon('image', 'sm')}Customize cover: photos, stickers, text</button>` : ''}
       <fieldset class="field"><legend>${nb && nb.cover ? 'Color (used by the default cover)' : 'Cover color'}</legend><div class="swatches">${NB_COLORS.map(c => `<label class="swatch"><input type="radio" name="nbm-color" value="${c}" ${c === color ? 'checked' : ''} aria-label="Color ${c}"><span style="--sw:${c}"></span></label>`).join('')}</div></fieldset>
     </div>`,
     onOpen: w => {
       w._plc = nb ? plTheme(nb.id) : plTheme();
-      wirePlChooser($('.nbm-plc', w), v => { w._plc = v; });
-      $$('input[name="nbm-kind"]', w).forEach(r => r.addEventListener('change', () => { $('.nbm-plc', w).hidden = $('input[name="nbm-kind"]:checked', w).value !== 'planner'; }));
+      wirePlChooser($('.nbm-plc', w), v => { w._plc = v; w._plcTouched = true; });
+      $$('input[name="nbm-kind"]', w).forEach(r => r.addEventListener('change', () => { $('.nbm-plc', w).hidden = !['planner', 'work'].includes($('input[name="nbm-kind"]:checked', w).value); }));
       const b = $('#nbm-cover', w); if (b) b.onclick = () => { $('[data-close]', w)?.click(); setTimeout(() => coverDesigner(nb.id), 60); };
       const pb = $('#nbm-pin', w); if (pb) pb.onclick = () => { $('[data-close]', w)?.click(); setTimeout(() => nb.lock ? pinOptionsModal(nb.id) : setPinModal(nb.id), 60); };
       $('#nbm-shelf', w).addEventListener('change', async e => { if (e.target.value !== '__new') return; const id = await shelfModal(); const sel = e.target; if (id) { sel.insertAdjacentHTML('beforeend', ''); sel.innerHTML = `<option value="">No shelf</option>${S.profile.shelves.map(x => `<option value="${x.id}">${esc(x.name)}</option>`).join('')}<option value="__new">+ New shelf…</option>`; sel.value = id; } else sel.value = ''; });
@@ -3977,9 +4244,9 @@ function notebookModal(editId) {
       const col = $('input[name="nbm-color"]:checked', wrap).value;
       const shelfV = $('#nbm-shelf', wrap).value, shelf = shelfV === '__new' ? '' : shelfV;
       const category = $('#nbm-cat', wrap).value.trim().slice(0, 40), tags = $('#nbm-tags', wrap).value.split(',').map(t => t.trim().replace(/^#/, '')).filter(Boolean).slice(0, 10);
-      const plt = k === 'planner' && isPlTheme(wrap._plc) ? wrap._plc : (nb ? nb.plTheme : '');
-      if (nb) { Object.assign(nb, { name, kind: k, color: col, shelf, category, tags, plTheme: plt || '' }); persistNotebook(nb.id); if (plt) rememberPl(plt); }
-      else { const pin = !!$('#nbm-lockit', wrap)?.checked; if (plt) rememberPl(plt); setTimeout(() => startNotebookFlow({ name, kind: k, color: col, shelf, category, tags, pin, plTheme: plt }), 60); return; }
+      const plt = (k === 'planner' || k === 'work') && isPlTheme(wrap._plc) && (nb || wrap._plcTouched) ? wrap._plc : (nb ? nb.plTheme : (k === 'planner' && isPlTheme(wrap._plc) ? wrap._plc : ''));
+      if (nb) { Object.assign(nb, { name, kind: k, color: col, shelf, category, tags, plTheme: plt || '' }); persistNotebook(nb.id); if (plt && k === 'planner') rememberPl(plt); }
+      else { const pin = !!$('#nbm-lockit', wrap)?.checked; if (plt && k === 'planner') rememberPl(plt); setTimeout(() => startNotebookFlow({ name, kind: k, color: col, shelf, category, tags, pin, plTheme: plt }), 60); return; }
       updateNotebookSidebar(); mountEditor();
     } }],
   });
@@ -4011,7 +4278,7 @@ async function startNotebookFlow(d) {
   if (d.pin) { pin = await askPinModal(d.name); if (!pin) return; }
   templatePicker({ name: d.name, kind: d.kind, creating: true, plTheme: d.plTheme }, async (tpl, theme) => {
     flushEditor();
-    const id = createNotebook(d.name, d.kind, d.color, { ...d, defer: !!pin, plTheme: PL_KEYS.includes(tpl) ? theme : d.plTheme });
+    const id = createNotebook(d.name, d.kind, d.color, { ...d, defer: !!pin, plTheme: isLayoutKey(tpl) ? theme : d.plTheme });
     const nb = S.notebooks.find(n => n.id === id);
     UI.nb.notebookId = id;
     UI.nb.noteId = createPage(id, todayKey(), tpl, { defer: !!pin, theme });
@@ -4061,7 +4328,7 @@ function mountEditor() {
       ${tb('insertUnorderedList', 'list', 'Bulleted list')}${tb('insertOrderedList', 'listOl', 'Numbered list')}${tb('checklist', 'checkSq', 'Checklist')}${tb('formatBlock', 'quote', 'Quote', 'blockquote')}${tb('insertHorizontalRule', 'minus', 'Divider')}
       <span class="pl-themes" id="ed-plth" hidden><span class="tb-sep"></span><button type="button" class="pl-colbtn" id="ed-plcol" title="Change this page's color scheme"><span class="plc-chip"><i></i></span><span>Colors</span>${icon('down', 'sm')}</button></span>
       <label class="sr-only" for="ed-template">Insert a template</label>
-      <select id="ed-template"><option value="">Insert template…</option>${[nb?.kind || 'other', ...TPL_GROUPS.map(g => g[0]).filter(g => g !== (nb?.kind || 'other'))].map(g => `<optgroup label="${esc(TPL_GROUPS.find(x => x[0] === g)[1])}">${TEMPLATES.filter(t => t.kind === g).map(t => `<option value="${t.key}">${esc(t.label)}</option>`).join('')}</optgroup>`).join('')}</select>
+      <select id="ed-template"><option value="">Insert template…</option>${[nb?.kind || 'other', ...TPL_GROUPS.map(g => g[0]).filter(g => g !== (nb?.kind || 'other'))].map(g => `${[...new Set(TEMPLATES.filter(t => t.kind === g).map(t => t.group || ''))].map(sg => `<optgroup label="${esc(TPL_GROUPS.find(x => x[0] === g)[1])}${sg ? ' · ' + esc(TPL_SUB[sg]) : ''}">${TEMPLATES.filter(t => t.kind === g && (t.group || '') === sg).map(t => `<option value="${t.key}">${esc(t.label)}</option>`).join('')}</optgroup>`).join('')}`).join('')}</select>
     </div>
     <div id="ed-body" class="ed-body prose" contenteditable="true" spellcheck="true" aria-label="Page content"></div>
     <div class="ed-foot"><span class="small muted mono" id="ed-words"></span>
@@ -4081,6 +4348,8 @@ function mountEditor() {
   body.addEventListener('input', () => { markDirty(); updateWords(); });
   body.addEventListener('paste', e => { e.preventDefault(); const t = (e.clipboardData || window.clipboardData).getData('text/plain'); document.execCommand('insertText', false, t); });
   body.addEventListener('click', e => {
+    const pm = e.target.closest('.pl .pl-pri, .pl .pl-st, .pl .pl-ty, .pl .pl-lv, .pl .pl-prog, .pl .pl-mv, .pl .pl-del, .pl .pl-add, .pl .pl-addrow');
+    if (pm && body.contains(pm)) { pmClick(pm, e); markDirty(); updateWords(); return; }
     const tg = e.target.closest('.pl [data-on]');
     if (tg && body.contains(tg)) {
       if (tg.classList.contains('pl-star')) { const all = [...tg.parentElement.children], i = all.indexOf(tg), on = tg.dataset.on === 'true' && !(all[i + 1] && all[i + 1].dataset.on === 'true'); all.forEach((x, j) => x.dataset.on = String(on ? j < i : j <= i)); }
@@ -4140,7 +4409,7 @@ function mountEditor() {
     body.focus();
     if (ED.range) { const s = window.getSelection(); s.removeAllRanges(); s.addRange(ED.range); }
     else { const r = document.createRange(); r.selectNodeContents(body); r.collapse(false); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
-    document.execCommand('insertHTML', false, templateHTML(key, $('#ed-date').value));
+    document.execCommand('insertHTML', false, templateHTML(key, $('#ed-date').value, plTheme(note.notebookId, PM_KEYS.includes(key) ? 'pastel' : null)));
     markDirty(); updateWords(); body.dispatchEvent(new Event('input'));
   });
   $('#ed-pdf', el).onclick = () => { flushEditor(); exportNotePdf(note.id); };
@@ -4154,13 +4423,29 @@ function mountEditor() {
     updateNotebookSidebar(); mountEditor(); toast('Page deleted');
   };
 }
+const PM_N = { 'pl-pri': 6, 'pl-st': 7, 'pl-ty': 7, 'pl-lv': 4 };
+function pmClick(el, e) {
+  const k = Object.keys(PM_N).find(c => el.classList.contains(c));
+  if (k) { el.dataset.v = String(((+el.dataset.v || 0) + 1) % PM_N[k]); return; }
+  if (el.classList.contains('pl-prog')) { const r = el.getBoundingClientRect(); let v = Math.round((e.clientX - r.left) / r.width * 10); v = Math.max(0, Math.min(10, v)); el.dataset.v = String(v === +el.dataset.v && v === 1 ? 0 : v); return; }
+  if (el.classList.contains('pl-mv')) { const card = el.closest('.pl-card'), col = el.closest('.pl-kcol'), to = +el.dataset.dir < 0 ? col.previousElementSibling : col.nextElementSibling; if (to && to.classList.contains('pl-kcol')) { $('.pl-kcards', to).append(card); card.classList.remove('pl-moved'); void card.offsetWidth; card.classList.add('pl-moved'); setTimeout(() => { card.classList.remove('pl-moved'); markDirty(); }, 400); } return; }
+  if (el.classList.contains('pl-del')) { const card = el.closest('.pl-card'); if (card) card.remove(); return; }
+  if (el.classList.contains('pl-add')) { const col = el.closest('.pl-kcol'); $('.pl-kcards', col).insertAdjacentHTML('beforeend', PM.card()); const c = $('.pl-kcards', col).lastElementChild; const r = document.createRange(); r.selectNodeContents($('.pl-ct', c)); r.collapse(true); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); return; }
+  if (el.classList.contains('pl-addrow')) {
+    const t = el.closest('.pl-tbl'), rows = [...t.children].filter(x => x.classList.contains('pl-tr') && !x.classList.contains('pl-th') && !x.classList.contains('pl-ph') && !x.classList.contains('pl-trt'));
+    const src = rows[rows.length - 1]; if (!src) return;
+    const n = src.cloneNode(true);
+    $$('.pl-f', n).forEach(f => f.innerHTML = '<br>'); $$('[data-v]', n).forEach(x => x.dataset.v = '0'); $$('[data-on]', n).forEach(x => x.dataset.on = 'false');
+    src.after(n); const f = $('.pl-f', n); if (f) { const r = document.createRange(); r.selectNodeContents(f); r.collapse(true); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
+  }
+}
 function plColorsModal(noteId, apply) {
   const note = S.notes.find(n => n.id === noteId), nb = note && S.notebooks.find(b => b.id === note.notebookId);
   const body = $('#ed-body'), src = body && $('.pl', body); if (!src) return;
   const start = plOf(src); let cur = start;
-  const others = nb ? S.notes.filter(n => n.notebookId === nb.id && n.id !== noteId && n.html.includes('class="pl"')).length : 0;
+  const others = nb ? S.notes.filter(n => n.notebookId === nb.id && n.id !== noteId && /class="pl[ "]/.test(n.html)).length : 0;
   openModal({
-    title: 'Planner colors', wide: true,
+    title: 'Page colors', wide: true,
     body: `<div class="plm"><div class="plm-prev" aria-hidden="true"><span class="tpl-thumb" data-paper="pl" data-w="760"><span class="tpl-sheet"><span class="tpl-page tpl-plpage"><span class="tpl-pbody prose"></span></span></span></span></div>
       <div class="plm-side"><p class="muted small">Pick a color scheme for this page. Custom lets you choose any color; the paper, lines and labels are mixed from it.</p>${plChooserHTML(start)}
       ${nb ? `<label class="check-line"><input type="checkbox" id="plm-all" ${others ? '' : 'disabled'}>Also use it on ${others ? `the other ${plural(others, 'planner page')}` : 'other planner pages'} in “${esc(nb.name)}”</label>` : ''}
@@ -4175,7 +4460,7 @@ function plColorsModal(noteId, apply) {
       if (nb && nb.plTheme !== cur) { nb.plTheme = cur; persistNotebook(nb.id); }
       if ($('#plm-all', w)?.checked && nb) {
         let n = 0;
-        S.notes.filter(x => x.notebookId === nb.id && x.id !== noteId && x.html.includes('class="pl"')).forEach(x => {
+        S.notes.filter(x => x.notebookId === nb.id && x.id !== noteId && /class="pl[ "]/.test(x.html)).forEach(x => {
           const d = document.createElement('div'); d.innerHTML = sanitize(x.html);
           $$('.pl', d).forEach(p => setPl(p, cur)); $$('.pl', d).forEach(p => p.style.removeProperty('--plc')); x.html = sanitize(d.innerHTML); x.updatedAt = Date.now(); persistNote(x.id); n++;
         });
@@ -4380,12 +4665,19 @@ function inlineRuns(node, st = { b: false, i: false }, out = []) {
 function flattenPlanner(root) {
   const txt = n => (n ? n.innerText || n.textContent || '' : '').replace(/\s+/g, ' ').trim();
   const p = (label, value) => { const e = document.createElement('p'); if (label) { const b = document.createElement('strong'); b.textContent = label + ' '; e.append(b); } e.append(value); return e; };
+  const CH = { 'pl-pri': ['', 'Very high', 'High', 'Medium', 'Low', 'Very low'], 'pl-st': ['To do', 'Started', 'In progress', 'Review', 'Done', 'On hold', 'Canceled'], 'pl-ty': ['', 'Work', 'Meeting', 'Focus', 'Admin', 'Personal', 'Break'], 'pl-lv': ['', 'Low', 'Medium', 'High'] };
+  $$('.pl-hint, .pl-mv, .pl-del, .pl-add, .pl-addrow, .pl-heat', root).forEach(x => x.remove());
+  $$('.pl-pri, .pl-st, .pl-ty, .pl-lv, .pl-prog', root).forEach(c => { const k = Object.keys(CH).find(x => c.classList.contains(x)), v = +c.dataset.v || 0; const t = document.createElement('span'); t.className = 'pl-f'; t.textContent = k ? CH[k][v] || '' : v ? v * 10 + '%' : ''; (c.closest('.pl-cell') || c).replaceWith(t); });
+  $$('.pl-sqr2', root).forEach(c => { const t = document.createElement('span'); t.className = 'pl-f'; t.textContent = c.dataset.on === 'true' ? '[x]' : ''; (c.closest('.pl-cell') || c).replaceWith(t); });
+  $$('.pl-tr', root).forEach(r => { const g = r.querySelectorAll('.pl-gc'); if (g.length) { const on = [...g].map((x, i) => x.dataset.on === 'true' ? i + 1 : 0).filter(Boolean); g.forEach(x => x.remove()); if (on.length) { const t = document.createElement('span'); t.className = 'pl-f'; t.textContent = `weeks ${on[0]}–${on[on.length - 1]}`; r.append(t); } } });
+  $$('.pl-card', root).forEach(c => { const v = [...c.querySelectorAll('.pl-f')].map(x => (x.innerText || x.textContent).replace(/\s+/g, ' ').trim()).filter(Boolean); const e = document.createElement('p'); e.textContent = v.length ? '• ' + v.join('  |  ') : ''; c.replaceWith(e); });
+  $$('.pl-khead, .pl-whead, .pl-phead, .pl-dhead', root).forEach(h => { const e = document.createElement('h3'); e.textContent = (h.innerText || h.textContent).replace(/\s+/g, ' ').trim(); h.replaceWith(e); });
   $$('.pl-dots, .pl-stars', root).forEach(d => { const all = d.children.length, on = [...d.children].filter(x => x.dataset.on === 'true').length; d.replaceWith(d.classList.contains('pl-stars') ? ` ${on}/${all}` : d.querySelector('.pl-cup') ? `Water: ${on} of ${all} glasses` : all > 1 ? ` ${on}/${all} days` : on ? ' (done)' : ''); });
   $$('.pl-head', root).forEach(h => h.replaceWith(p('', txt(h))));
   $$('.pl-th, .pl-calh', root).forEach(h => h.remove());
   $$('.pl-day', root).forEach(c => { const v = txt(c.querySelector('.pl-f')); c.replaceWith(v ? p(txt(c.querySelector('.pl-dn')), v) : ''); });
-  $$('.pl-hr, .pl-ln, .pl-hab, .pl-tr, .pl-tot, .pl-meal, .pl-sum > div, .pl-wdl', root).forEach(r => {
-    const f = [...r.querySelectorAll('.pl-f, .pl-fill')].map(txt).filter(Boolean), lbl = txt(r.querySelector('[contenteditable="false"], .pl-t, .pl-n, .pl-k')) || '';
+  $$('.pl-hr, .pl-ln, .pl-hab, .pl-tr, .pl-tot, .pl-meal, .pl-sum > div, .pl-kv > div, .pl-wdl', root).forEach(r => {
+    const f = [...r.querySelectorAll('.pl-f, .pl-fill')].map(txt).filter(Boolean), lbl = txt(r.querySelector('.pl-kl, .pl-tm, .pl-phl, [contenteditable="false"], .pl-t, .pl-n, .pl-k')) || '';
     const extra = r.classList.contains('pl-hab') || r.classList.contains('pl-wdl') ? [...r.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent.trim()).join(' ') : '';
     r.replaceWith(f.length || (r.classList.contains('pl-wdl')) ? p(lbl, f.join('  |  ') + (extra ? ' ' + extra : '')) : '');
   });
