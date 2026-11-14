@@ -1964,6 +1964,20 @@ body.side-anim .app { transition: grid-template-columns .28s var(--ease); }
 .pj-q header { display: flex; align-items: baseline; gap: 8px; } .pj-q header b { font: 650 1rem var(--font-display); } .pj-q header span { font-size: .76rem; color: var(--muted); } .pj-q header em { margin-left: auto; font-style: normal; font-weight: 700; background: var(--surface-solid); border-radius: 99px; padding: 1px 9px; font-size: .78rem; }
 .pj-q .pj-li { background: var(--surface-solid); }
 .pj-toast { gap: 10px; } .pj-toast .btn { margin-left: 6px; }
+.pj-page { display: flex; flex-direction: column; gap: 14px; padding: 4px 22px 20px; }
+.pj-pagebar { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.pj-page .pj-empty > svg { width: 42px; height: 42px; color: var(--accent); }
+.pj-page .pj-kpis { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+.pj-page .pj-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.pj-page .pj-grid3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.pj-page .pj-grid-cal { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.tpl-pmthumb { display: flex !important; flex-direction: column; gap: 6px; padding: 10px; background: color-mix(in srgb, var(--accent) 6%, var(--surface-2)) !important; }
+.tpl-pmthumb .pmt-k { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; } .tpl-pmthumb .pmt-k i { background: var(--surface-solid); border-radius: 6px; padding: 5px; font-style: normal; box-shadow: 0 1px 2px rgba(0,0,0,.06); } .tpl-pmthumb .pmt-k b { font: 700 .72rem var(--font-display); }
+.tpl-pmthumb .pmt-r { display: grid; grid-template-columns: 56px 1fr; gap: 6px; background: var(--surface-solid); border-radius: 6px; padding: 6px; }
+.tpl-pmthumb .pmt-d { aspect-ratio: 1; border-radius: 50%; background: conic-gradient(#7CC878 0 17%, #7FA7EE 0 42%, #B79BEA 0 50%, #F29C9C 0 67%, #B8C1CC 0); -webkit-mask: radial-gradient(circle, transparent 42%, #000 43%); mask: radial-gradient(circle, transparent 42%, #000 43%); }
+.tpl-pmthumb .pmt-b { display: flex; flex-direction: column; justify-content: center; gap: 5px; } .tpl-pmthumb .pmt-b i { height: 6px; border-radius: 3px; display: block; }
+.tpl-pmthumb .pmt-kan { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; flex: 1; } .tpl-pmthumb .pmt-kan > span { background: color-mix(in srgb, var(--c) 25%, var(--surface-solid)); border-radius: 5px; padding: 3px; display: flex; flex-direction: column; gap: 3px; } .tpl-pmthumb .pmt-kan i { height: 11px; border-radius: 3px; background: var(--surface-solid); border-left: 2px solid var(--c); display: block; }
+.tpl-pmthumb .pmt-g { display: flex; flex-direction: column; gap: 4px; background: var(--surface-solid); border-radius: 6px; padding: 6px; } .tpl-pmthumb .pmt-g i { height: 6px; border-radius: 3px; display: block; opacity: .8; }
 .tpl-pmlink { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 12px 14px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line)); background: color-mix(in srgb, var(--accent) 8%, var(--surface-solid)); color: inherit; font: inherit; cursor: pointer; transition: transform .15s, box-shadow .15s; }
 .tpl-pmlink:hover { transform: translateY(-1px); box-shadow: var(--shadow); } .tpl-pmlink > svg:first-child { color: var(--accent); width: 26px; height: 26px; flex: none; }
 .tpl-pmlink span { flex: 1; display: flex; flex-direction: column; gap: 2px; } .tpl-pmlink small { color: var(--muted); font-size: .8rem; }
@@ -2403,6 +2417,7 @@ const TEMPLATES = [
   { key: 'goal', kind: 'planner', label: 'SMART goal', icon: 'target', desc: 'Specific, measurable, achievable, relevant, timed' },
   { key: 'matrix', kind: 'planner', label: 'Priority matrix', icon: 'zap', desc: 'Sort tasks: do, schedule, delegate, drop' },
   { key: 'project', kind: 'planner', label: 'Project plan', icon: 'rocket', desc: 'Scope, milestones, risks and next actions' },
+  { key: 'pmapp', kind: 'work', group: 'pm', label: 'Project manager (automated)', icon: 'kanban', desc: 'Add tasks once; the dashboard, Kanban, Gantt, calendar and matrix update themselves' },
   { key: 'pmoverview', kind: 'work', group: 'pm', label: 'Project overview', icon: 'chart', desc: 'Project info, status, budget, upcoming and overdue tasks' },
   { key: 'gantt', kind: 'work', group: 'pm', label: 'Gantt chart', icon: 'gantt', desc: 'Phases and tasks on a 12-week timeline you tap to draw' },
   { key: 'kanban', kind: 'work', group: 'pm', label: 'Kanban board', icon: 'kanban', desc: 'Backlog to Done, with cards you move across' },
@@ -2503,7 +2518,7 @@ const PROMPTS = [
 ];
 const NAV = [
   { view: 'today', label: 'My wall', icon: 'home' }, { view: 'walls', label: 'Freedom Wall', short: 'Freedom', icon: 'wall' }, { view: 'calendar', label: 'Calendar', icon: 'calendar' },
-  { view: 'notebooks', label: 'Notebooks', icon: 'book' }, { view: 'projects', label: 'Projects', icon: 'kanban' }, { view: 'report', label: 'Report', icon: 'chart' },
+  { view: 'notebooks', label: 'Notebooks', icon: 'book' }, { view: 'report', label: 'Report', icon: 'chart' },
   { view: 'account', label: 'Settings', icon: 'settings' },
 ];
 const VIEWS = [...NAV.map(n => n.view), 'win'];
@@ -2724,7 +2739,7 @@ const stagger = (html, i) => html.replace(/^<(\w+)/, `<$1 style="--i:${Math.min(
 const S = {
   mode: 'loading', db: null, refs: null, view: null, started: false, lock: null, unsubs: [],
   days: new Map(), notebooks: [], notes: [], walls: [], projects: [], profile: {},
-  loaded: { wins: false, notebooks: false, notes: false, profile: false, walls: false, projects: false },
+  loaded: { wins: false, notebooks: false, notes: false, profile: false, walls: false },
 };
 const UI = {
   selDate: todayKey(),
@@ -2929,7 +2944,7 @@ let lsTimer = null;
 function saveLocal() { clearTimeout(lsTimer); lsTimer = setTimeout(writeLocalNow, 250); if (S.started && typeof gdSchedule === 'function' && gdLinked()) { GD.pending = true; gdSchedule(); } return Promise.resolve(); }
 async function writeLocalNow() {
   lsTimer = null;
-  const data = { days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes.map(n => ({ id: n.id, ...noteBody(n) })), walls: S.walls, projects: S.projects, profile: S.profile };
+  const data = { days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes.map(n => ({ id: n.id, ...noteBody(n) })), walls: S.walls, profile: S.profile };
   const body = await encodeBody(CRYPTO.key, data);
   if (!(await kvSet(LS_KEY, JSON.stringify(body)))) onLocalSaveFailed();
 }
@@ -2943,7 +2958,6 @@ async function loadLocal() {
     S.notebooks = (v.notebooks || []).map(n => normNb(n.id, n));
     S.notes = (v.notes || []).map(n => normNote(n.id, n));
     S.walls = (v.walls || []).filter(w => w && w.id).map(w => normWall(w.id, w));
-    S.projects = (v.projects || []).filter(w => w && w.id).map(w => normProject(w.id, w));
     S.profile = normProfile(v.profile || {}); applyCategories();
     if (CRYPTO.key && !JSON.parse(raw).enc) saveLocal();
   } catch (e) { console.error(e); }
@@ -2994,7 +3008,7 @@ function persistProfile() {
 async function persistAll(onProgress) {
   for (const f of allFileRefs()) { try { const { bytes, meta } = await loadFileBytes(f.id); await storeFileBytes(f.id, bytes, meta); } catch (e) { console.error('file re-encrypt', e); } }
   if (S.mode !== 'cloud') { await writeLocalNow(); return; }
-  const jobs = [...[...S.days.keys()].map(k => () => persistDay(k)), ...S.notebooks.map(n => () => persistNotebook(n.id)), ...S.notes.map(n => () => persistNote(n.id)), ...S.walls.map(w => () => persistWall(w.id)), ...S.projects.map(w => () => persistProject(w.id)), () => persistProfile()];
+  const jobs = [...[...S.days.keys()].map(k => () => persistDay(k)), ...S.notebooks.map(n => () => persistNotebook(n.id)), ...S.notes.map(n => () => persistNote(n.id)), ...S.walls.map(w => () => persistWall(w.id)), () => persistProfile()];
   for (let i = 0; i < jobs.length; i++) { await jobs[i](); if (onProgress) onProgress(i + 1, jobs.length); await sleep(40); }
   await drainQueues();
 }
@@ -3114,11 +3128,11 @@ function migrate(kind, id) {
   const key = kind + '/' + id;
   if (migrating.has(key)) return;
   migrating.add(key);
-  const p = kind === 'w' ? persistDay(id) : kind === 'nb' ? persistNotebook(id) : kind === 'n' ? persistNote(id) : kind === 'wl' ? persistWall(id) : kind === 'pj' ? persistProject(id) : persistProfile();
+  const p = kind === 'w' ? persistDay(id) : kind === 'nb' ? persistNotebook(id) : kind === 'n' ? persistNote(id) : kind === 'wl' ? persistWall(id) : persistProfile();
   Promise.resolve(p).finally(() => migrating.delete(key));
 }
 function subscribeCloud() {
-  const pending = new Set(['wins', 'notebooks', 'notes', 'profile', 'walls', 'projects']);
+  const pending = new Set(['wins', 'notebooks', 'notes', 'profile', 'walls']);
   const timer = setTimeout(() => { if (pending.size) setBanner("Your saved entries are taking longer than usual to load. What you see may be incomplete; new changes will still be saved."); }, 10000);
   const done = (k, snap) => { S.loaded[k] = true; if (!snap.metadata.fromCache && pending.has(k)) { pending.delete(k); if (!pending.size) { clearTimeout(timer); setBanner(null); } } };
   const fail = k => () => { S.loaded[k] = true; clearTimeout(timer); pending.delete(k); setBanner("Couldn't load your saved entries right now. Reload the page to try again."); onData(k); };
@@ -3162,12 +3176,6 @@ function subscribeCloud() {
     rows.forEach(r => { if (r.plain) mig.push(['wl', r.id]); });
     return mig;
   }), fail('walls')));
-  S.unsubs.push(S.refs.projects.onSnapshot(handle('projects', rows => {
-    const prev = new Map(S.projects.map(n => [n.id, n])), mig = [];
-    S.projects = rows.filter(r => !TOMB.has(r.id)).map(r => r.v === undefined ? prev.get(r.id) : (PJT.has(r.id) && prev.get(r.id)) || normProject(r.id, r.v)).filter(Boolean);
-    rows.forEach(r => { if (r.plain) mig.push(['pj', r.id]); });
-    return mig;
-  }), fail('projects')));
   let pseq = 0;
   S.unsubs.push(S.refs.profile.onSnapshot(d => {
     const my = ++pseq;
@@ -3414,7 +3422,7 @@ function route() {
   const mount = () => {
     S.view = v;
     $$('.nav a').forEach(a => { if (a.dataset.view === v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
-    ({ today: mountToday, walls: mountWalls, calendar: mountCalendar, notebooks: mountNotebooks, projects: mountProjects, report: mountReport, account: mountAccount, win: mountWin })[v]();
+    ({ today: mountToday, walls: mountWalls, calendar: mountCalendar, notebooks: mountNotebooks, report: mountReport, account: mountAccount, win: mountWin })[v]();
     $('#main').scrollTop = 0;
   };
   if (first) { mount(); const el = $('#view'); el.classList.remove('view-enter'); void el.offsetWidth; el.classList.add('view-enter'); }
@@ -3431,8 +3439,7 @@ function onData(kind) {
     case 'report': updateReport(); break;
     case 'account': if (kind === 'profile' || kind === 'all') fillProfile(); updateStorageInfo(); renderAreasCard(); break;
     case 'win': if (kind === 'wins' || kind === 'all') updateWinView(); break;
-    case 'walls': if (kind !== 'notes' && kind !== 'notebooks' && kind !== 'projects') updateWallsView(); break;
-    case 'projects': if (kind === 'projects' || kind === 'all' || kind === 'profile') updateProjects(); break;
+    case 'walls': if (kind !== 'notes' && kind !== 'notebooks') updateWallsView(); break;
   }
 }
 function weekCount() { const s = startOfWeek(new Date()); return winsIn(ymd(s), ymd(addDays(s, 6))).length; }
@@ -4552,6 +4559,7 @@ function pmHTML(key, d, theme) {
   return null;
 }
 function templateHTML(key, dateKey, theme) {
+  if (key === 'pmapp') return pmEncode(normProject('x', { start: dateKey || todayKey(), manager: (S.profile.nickname || S.profile.name || '').split(' ')[0], createdAt: Date.now(), tasks: [] }));
   if (XTRA_KEYS.includes(key)) return xtraHTML(key, parseYmd(dateKey || todayKey()), theme);
   if (PM_KEYS.includes(key)) return pmHTML(key, parseYmd(dateKey || todayKey()), theme);
   if (PL_KEYS.includes(key)) return plannerHTML(key, parseYmd(dateKey || todayKey()), theme);
@@ -4591,6 +4599,7 @@ function templateHTML(key, dateKey, theme) {
 }
 const tplTitle = (key, dateKey) => {
   const d = parseYmd(dateKey || todayKey()), lbl = TPL[key] ? TPL[key].label : 'New page';
+  if (key === 'pmapp') return 'New project';
   if (XTRA_KEYS.includes(key)) { const t = XTRA_TITLE[key]; return t === 'w' ? `${lbl} · Week of ${DF({ month: 'short', day: 'numeric' }).format(startOfWeek(d))}` : t === 'm' ? `${lbl} · ${fmtMonthYear(d)}` : t === 'y' ? `${lbl} · ${d.getFullYear()}` : t === 'q' ? `Q${Math.floor(d.getMonth() / 3) + 1} ${d.getFullYear()} plan` : t === 'd' ? `${lbl} · ${fmtShortK(ymd(d))}` : lbl; }
   if (['month', 'monthov', 'finance', 'monthref', 'habit'].includes(key)) return `${lbl} · ${fmtMonthYear(d)}`;
   if (['week', 'weekref', 'review'].includes(key)) return `${lbl} · Week of ${DF({ month: 'short', day: 'numeric' }).format(startOfWeek(d))}`;
@@ -4601,6 +4610,7 @@ const tplTitle = (key, dateKey) => {
 const TPL_TINT = { journal: '#C2477A', planner: '#2F6FB0', work: '#0F6E6A', other: '#B87A0E' };
 /* A real, scaled-down render of the page each template makes. Empty lines become soft "ink" bars. */
 function tplPreview(key, kind, theme) {
+  if (key === 'pmapp') return `<span class="tpl-thumb tpl-pmthumb" aria-hidden="true"><span class="pmt-k">${['27%', '2/12', '1', '30'].map(v => `<i><b>${v}</b></i>`).join('')}</span><span class="pmt-r"><span class="pmt-d"></span><span class="pmt-b">${[70, 40, 90, 25].map((w, i) => `<i style="width:${w}%;background:${PJ_PRC[i + 1]}"></i>`).join('')}</span></span><span class="pmt-kan">${[3, 2, 3, 1, 2].map((n, c) => `<span style="--c:${PJ_STC[c]}">${'<i></i>'.repeat(n)}</span>`).join('')}</span><span class="pmt-g">${[[0, 40], [20, 35], [35, 50], [60, 30]].map(([l, w2], i) => `<i style="margin-left:${l}%;width:${w2}%;background:${PJ_PRC[i + 1]}"></i>`).join('')}</span></span>`;
   const ln = w => `<i class="ln" style="width:${w}%"></i>`;
   const html = (key ? templateHTML(key, todayKey(), theme) : '')
     .replace(/<li data-checked="false"><br><\/li>/g, `<li data-checked="false">${ln(62)}</li>`)
@@ -4631,7 +4641,6 @@ function templatePicker(src, onPick, first = false) {
       ${creating ? `<p class="tpl-hint">${icon('info', 'sm')}Your notebook is created when you pick a page. Cancel and nothing is saved.</p>` : ''}
       <div class="tpl-colors"><span class="tpl-colors-l">${icon('palette', 'sm')}Page colors<small>For planner and project pages</small></span>${plChooserHTML(theme, true)}</div>
       ${mine.length ? `<p class="tpl-group">${icon(KINDS[kind].icon, 'sm')}For your ${esc(KINDS[kind].label.toLowerCase())}</p>` : ''}
-      ${kind === 'work' ? `<button type="button" class="tpl-pmlink" data-goprojects>${icon('kanban')}<span><b>Want it all to update automatically?</b><small>Open the Project manager: add tasks once and get a live dashboard, Kanban, Gantt chart and calendar.</small></span>${icon('arrowRight', 'sm')}</button>` : ''}
       ${(() => { const subs = [...new Set(mine.map(t => t.group || ''))].sort((a, b) => kind === 'work' ? (a ? 0 : 1) - (b ? 0 : 1) : (a ? 1 : 0) - (b ? 1 : 0)); if (subs.length < 2) return `<div class="tpl-grid">${blank}${mine.map(card).join('')}</div>`; return subs.map((g, i) => `<p class="tpl-group tpl-sub">${esc(g ? TPL_SUB[g] : TPL_CORE[kind])} <span class="mono small muted">${mine.filter(t => (t.group || '') === g).length}</span></p><div class="tpl-grid">${i ? '' : blank}${mine.filter(t => (t.group || '') === g).map(card).join('')}</div>`).join(''); })()}
       ${others.map(([g, lbl]) => `<details class="tpl-more" ${kind === 'other' ? 'open' : ''}><summary>${icon(KINDS[g].icon, 'sm')}${esc(lbl)} templates <span class="mono small muted">${TEMPLATES.filter(t => t.kind === g).length}</span></summary>${[...new Set(TEMPLATES.filter(t => t.kind === g).map(t => t.group || ''))].map(sg => `${sg ? `<p class="tpl-group tpl-sub">${esc(TPL_SUB[sg])}</p>` : ''}<div class="tpl-grid">${TEMPLATES.filter(t => t.kind === g && (t.group || '') === sg).map(card).join('')}</div>`).join('')}</details>`).join('')}
     </div>`,
@@ -4639,7 +4648,7 @@ function templatePicker(src, onPick, first = false) {
     onClose: () => { if (ro) ro.disconnect(); },
     actions: [{ label: 'Cancel', kind: 'ghost' }],
   });
-  m.wrap.addEventListener('click', e => { if (e.target.closest('[data-goprojects]')) { m.close(); go('projects'); return; } const c = e.target.closest('[data-tpl]'); if (!c || picked) return; picked = true; m.close(); if (PL_KEYS.includes(c.dataset.tpl)) rememberPl(theme); onPick(c.dataset.tpl || null, isLayoutKey(c.dataset.tpl) ? theme : null); });
+  m.wrap.addEventListener('click', e => { const c = e.target.closest('[data-tpl]'); if (!c || picked) return; picked = true; m.close(); if (PL_KEYS.includes(c.dataset.tpl)) rememberPl(theme); onPick(c.dataset.tpl || null, isLayoutKey(c.dataset.tpl) ? theme : null); });
 }
 function newPageFlow(nbId, first = false) {
   templatePicker(nbId, (tpl, theme) => {
@@ -4685,7 +4694,9 @@ function sanitize(html) {
           || (isPl && tag === 'SPAN' && a.name === 'title' && a.value.length < 60)
           || (isPl && tag === 'DIV' && a.name === 'data-pltheme' && (a.value === 'custom' || PL_THEMES.some(x => x[0] === a.value)))
           || (isPl && tag === 'DIV' && a.name === 'data-plc' && /^#[0-9a-f]{6}$/i.test(a.value))
-          || (isPl && tag === 'DIV' && (a.name === 'data-pl' || a.name === 'data-cols') && /^[a-z0-9]{1,12}$/.test(a.value));
+          || (isPl && tag === 'DIV' && (a.name === 'data-pl' || a.name === 'data-cols') && /^[a-z0-9]{1,12}$/.test(a.value))
+          || (isPl && tag === 'DIV' && a.name === 'data-app' && a.value === 'pm')
+          || (isPl && tag === 'DIV' && a.name === 'data-pm' && a.value.length < 1400000 && /^[A-Za-z0-9+/=]*$/.test(a.value));
         if (!keep) child.removeAttribute(a.name);
       }
       if (tag === 'LI' && child.hasAttribute('data-checked')) child.setAttribute('data-checked', child.getAttribute('data-checked') === 'true' ? 'true' : 'false');
@@ -4888,6 +4899,8 @@ function mountEditor() {
     return;
   }
   const nb = S.notebooks.find(n => n.id === note.notebookId);
+  if (isPmNote(note)) { mountPmPage(el, note, nb); return; }
+  PM_NOTE = null;
   const tb = (cmd, ic, title, val) => `<button type="button" class="tb" data-cmd="${cmd}"${val ? ` data-val="${val}"` : ''} title="${title}" aria-label="${title}">${icon(ic)}</button>`;
   el.innerHTML = `
     <div class="ed-head view-enter">
@@ -4903,7 +4916,7 @@ function mountEditor() {
       ${tb('insertUnorderedList', 'list', 'Bulleted list')}${tb('insertOrderedList', 'listOl', 'Numbered list')}${tb('checklist', 'checkSq', 'Checklist')}${tb('formatBlock', 'quote', 'Quote', 'blockquote')}${tb('insertHorizontalRule', 'minus', 'Divider')}
       <span class="pl-themes" id="ed-plth" hidden><span class="tb-sep"></span><button type="button" class="pl-colbtn" id="ed-plcol" title="Change this page's color scheme"><span class="plc-chip"><i></i></span><span>Colors</span>${icon('down', 'sm')}</button></span>
       <label class="sr-only" for="ed-template">Insert a template</label>
-      <select id="ed-template"><option value="">Insert template…</option>${[nb?.kind || 'other', ...TPL_GROUPS.map(g => g[0]).filter(g => g !== (nb?.kind || 'other'))].map(g => `${[...new Set(TEMPLATES.filter(t => t.kind === g).map(t => t.group || ''))].map(sg => `<optgroup label="${esc(TPL_GROUPS.find(x => x[0] === g)[1])}${sg ? ' · ' + esc(TPL_SUB[sg]) : ''}">${TEMPLATES.filter(t => t.kind === g && (t.group || '') === sg).map(t => `<option value="${t.key}">${esc(t.label)}</option>`).join('')}</optgroup>`).join('')}`).join('')}</select>
+      <select id="ed-template"><option value="">Insert template…</option>${[nb?.kind || 'other', ...TPL_GROUPS.map(g => g[0]).filter(g => g !== (nb?.kind || 'other'))].map(g => `${[...new Set(TEMPLATES.filter(t => t.kind === g).map(t => t.group || ''))].map(sg => `<optgroup label="${esc(TPL_GROUPS.find(x => x[0] === g)[1])}${sg ? ' · ' + esc(TPL_SUB[sg]) : ''}">${TEMPLATES.filter(t => t.kind === g && (t.group || '') === sg && t.key !== 'pmapp').map(t => `<option value="${t.key}">${esc(t.label)}</option>`).join('')}</optgroup>`).join('')}`).join('')}</select>
     </div>
     <div id="ed-body" class="ed-body prose" contenteditable="true" spellcheck="true" aria-label="Page content"></div>
     <div class="ed-foot"><span class="small muted mono" id="ed-words"></span>
@@ -5048,6 +5061,7 @@ function updateWords() { const b = $('#ed-body'), w = $('#ed-words'); if (b && w
 function setEdStatus(text, saving) { const st = $('#ed-status'); if (!st) return; st.classList.toggle('saving', !!saving); st.lastChild.textContent = text; }
 function markDirty() { ED.dirty = true; setEdStatus('Saving…', true); clearTimeout(ED.timer); ED.timer = setTimeout(flushEditor, 800); }
 function flushEditor() {
+  if (PJT.size) { const ids = [...PJT.keys()]; PJT.forEach(t => clearTimeout(t)); PJT.clear(); ids.forEach(persistProject); }
   clearTimeout(ED.timer);
   if (!ED.dirty) return;
   const body = $('#ed-body'), note = S.notes.find(n => n.id === UI.nb.noteId);
@@ -5065,6 +5079,11 @@ function flushEditor() {
 function syncEditor() {
   if (!$('#nb-editor')) return;
   const body = $('#ed-body'), note = S.notes.find(n => n.id === UI.nb.noteId);
+  if (note && PM_NOTE === note.id && $('#pj-body')) {
+    // our own saves come back as snapshots: only re-render when the page changed somewhere else
+    if (note.html !== PM_HTML && !PJT.size && !(document.activeElement && document.activeElement.closest && document.activeElement.closest('.pj'))) mountEditor();
+    return;
+  }
   if (!body) {
     if (!UI.nb.notebookId && S.notebooks.length) UI.nb.notebookId = sortedNotebooks()[0].id;
     if (UI.nb.notebookId && !UI.nb.noteId) UI.nb.noteId = pagesOf(UI.nb.notebookId)[0]?.id || null;
@@ -5310,7 +5329,21 @@ function writeNote(w, note) {
   w.heading(note.title || 'Untitled page', 1);
   w.text(fmtLong(parseYmd(note.date)), { size: 9.5, color: PC.muted });
   w.space(10);
-  htmlToPdf(w, note.html);
+  if (isPmNote(note)) pmPdf(w, note); else htmlToPdf(w, note.html);
+}
+function pmPdf(w, note) {
+  const pj = pmDecode(note), today = todayKey();
+  w.text(pdfSafe([pj.manager && 'Manager: ' + pj.manager, pj.category, pj.start && 'Start ' + fmtShortK(pj.start), pj.end && 'End ' + fmtShortK(pj.end)].filter(Boolean).join('  ·  ')), { size: 9.5, color: PC.muted });
+  w.space(4);
+  w.text(pdfSafe(`Progress ${pjProgress(pj.tasks)}%  ·  ${pj.tasks.filter(t => t.status === 4).length} of ${pj.tasks.length} tasks done  ·  ${pj.tasks.filter(t => pjOverdue(t, today)).length} overdue`), { size: 10, bold: true });
+  if (pj.desc) { w.space(4); w.runs([{ text: pj.desc }]); }
+  w.space(8);
+  [2, 3, 1, 0, 5, 4, 6].forEach(s => {
+    const ts = pj.tasks.filter(t => t.status === s).sort((a, b) => (a.due || '9') < (b.due || '9') ? -1 : 1); if (!ts.length) return;
+    w.heading(`${PJ_ST[s]} (${ts.length})`, 3);
+    ts.forEach(t => w.check([{ text: pdfSafe([t.name || 'Untitled task', t.owner, t.priority ? PJ_PRI[t.priority] : '', t.rec ? PJ_REC.find(r => r[0] === t.rec)[1] : t.due ? 'due ' + fmtShortK(t.due) + (pjOverdue(t, today) ? ' (overdue)' : '') : '', t.status !== 4 && t.progress ? t.progress + '%' : ''].filter(Boolean).join('  ·  ')) }], s === 4, { level: 0 }));
+    w.space(4);
+  });
 }
 const fileSafe = s => (pdfSafe(s).replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '-') || 'export').slice(0, 60);
 async function saveFile(filename, data) {
@@ -6508,17 +6541,35 @@ function normTask(t) {
 function normProject(id, v) {
   return { id, name: pjStr(v?.name || 'Untitled project', 80), manager: pjStr(v?.manager, 60), category: pjStr(v?.category, 60), desc: pjStr(v?.desc, 1000), start: isYmd(v?.start) ? v.start : '', end: isYmd(v?.end) ? v.end : '', budget: Math.max(0, Number(v?.budget) || 0), revenue: Math.max(0, Number(v?.revenue) || 0), color: /^#[0-9a-f]{6}$/i.test(v?.color || '') ? v.color : PJ_COLORS[0], members: (Array.isArray(v?.members) ? v.members : []).map(m => pjStr(m, 60).trim()).filter(Boolean).slice(0, 40), createdAt: Number(v?.createdAt) || 0, tasks: (Array.isArray(v?.tasks) ? v.tasks : []).map(normTask).filter(Boolean).slice(0, 3000) };
 }
+/* A project is stored inside its notebook page: <div class="pl-app" data-app="pm" data-pm="base64 JSON">readable summary</div>.
+   That way it is encrypted, PIN-locked, backed up and exported exactly like any other page. */
+let PM_NOTE = null, PM_HTML = '';
+const isPmNote = n => !!n && /^<div class="pl-app"[^>]*data-app="pm"/.test(n.html || '');
+const pmB64 = o => { const b = new TextEncoder().encode(JSON.stringify(o)); let s = ''; for (let i = 0; i < b.length; i += 0x8000) s += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return btoa(s); };
+const pmUnB64 = s => { try { const bin = atob(s), u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return JSON.parse(new TextDecoder().decode(u)); } catch (e) { return null; } };
+function pmEncode(pj) {
+  const { id: _, ...body } = pj, open = pj.tasks.filter(pjOpen);
+  return `<div class="pl-app" data-app="pm" data-pm="${pmB64(body)}"><p>Project manager: ${pj.tasks.length} tasks, ${pj.tasks.filter(t => t.status === 4).length} done.</p>${open.length ? `<ul>${open.slice(0, 60).map(t => `<li>${esc(t.name)}</li>`).join('')}</ul>` : ''}</div>`;
+}
+function pmDecode(note) {
+  const m = /data-pm="([A-Za-z0-9+/=]*)"/.exec(note.html || ''), v = m ? pmUnB64(m[1]) : null;
+  const pj = normProject(note.id, v || {});
+  pj.name = note.title || 'Untitled project';
+  return pj;
+}
 function persistProject(id) {
-  if (S.mode !== 'cloud') return saveLocal();
-  const pj = S.projects.find(n => n.id === id);
-  const body = pj ? (({ id: _, ...b }) => b)(pj) : null;
-  const key = CRYPTO.key, ref = S.refs.projects.doc(id);
-  return enqueue('pj/' + id, async () => { if (body) await ref.set(await encodeBody(key, body)); else await ref.delete(); });
+  const pj = S.projects.find(p => p.id === id), note = S.notes.find(n => n.id === PM_NOTE);
+  if (!pj || !note || note.id !== id) return;
+  const html = pmEncode(pj);
+  if (html.length > 1400000) { toast('This project is too big to save. Split it into two pages.', 'warn'); return; }
+  note.html = html; note.updatedAt = Date.now(); PM_HTML = html;
+  setEdStatus('Saved', false);
+  return persistNote(note.id);
 }
 const PJT = new Map();
-const pjSave = id => { clearTimeout(PJT.get(id)); PJT.set(id, setTimeout(() => { PJT.delete(id); persistProject(id); }, 500)); };
+const pjSave = id => { setEdStatus('Saving…', true); clearTimeout(PJT.get(id)); PJT.set(id, setTimeout(() => { PJT.delete(id); persistProject(id); }, 500)); };
 const UI_PJ = { id: null, tab: 'dash', q: '', st: 'open', pri: '', owner: '', phase: '', sort: 'due', dir: 1, month: '', zoom: 'day', collapsed: new Set() };
-const pjCur = () => UI_PJ.id === 'all' ? null : (S.projects.find(p => p.id === UI_PJ.id) || null);
+const pjCur = () => S.projects.find(p => p.id === UI_PJ.id) || null;
 const pjOpen = t => t.status !== 4 && t.status !== 6;
 const pjOverdue = (t, today = todayKey()) => pjOpen(t) && !t.rec && t.due && t.due < today;
 const pjDaysBetween = (a, b) => Math.round((parseYmd(b) - parseYmd(a)) / 864e5);
@@ -6555,43 +6606,63 @@ const pjRing = (pct, color = 'var(--accent)') => { const R = 30, C = 2 * Math.PI
 const pjStChip = s => `<span class="pj-st" style="--c:${PJ_STC[s]}">${esc(PJ_ST[s])}</span>`;
 const pjPriChip = p => p ? `<span class="pj-pri" style="--c:${PJ_PRC[p]}">${esc(PJ_PRI[p])}</span>` : '';
 /* ---- sample project so the dashboards make sense right away ---- */
-function pjSample() {
-  const t0 = new Date(), k = n => ymd(addDays(t0, n)), me = (S.profile.nickname || S.profile.name || 'Me').split(' ')[0];
+function pjSampleTasks(pj) {
+  const t0 = new Date(), k = n => ymd(addDays(t0, n)), me = pj.manager || (S.profile.nickname || S.profile.name || 'Me').split(' ')[0];
   const T = (name, phase, owner, status, priority, s, d, progress, extra = {}) => normTask({ id: newId(), name, phase, owner, status, priority, start: k(s), due: k(d), progress, createdAt: Date.now(), ...extra });
-  return normProject(newId(), { name: 'Android app release 2.4', manager: me, category: 'QA', desc: 'Test and ship the 2.4 release of the Android app.', start: k(-10), end: k(30), budget: 50000, revenue: 0, color: PJ_COLORS[0], members: [me, 'Dev team', 'Product'], createdAt: Date.now(), tasks: [
-    T('Review release scope and stories', 'Planning', me, 4, 2, -10, -8, 100), T('Write test plan', 'Planning', me, 4, 1, -8, -4, 100, { cost: 0 }), T('Set up test devices', 'Planning', 'Dev team', 3, 3, -5, -1, 80, { cost: 12000 }),
+  if (!pj.manager) pj.manager = me;
+  if (!pj.start) pj.start = k(-10);
+  if (!pj.end) pj.end = k(30);
+  if (!pj.budget) pj.budget = 50000;
+  if (!pj.members.length) pj.members = [me, 'Dev team', 'Product'];
+  pj.tasks.push(
+    T('Review release scope and stories', 'Planning', me, 4, 2, -10, -8, 100), T('Write test plan', 'Planning', me, 4, 1, -8, -4, 100), T('Set up test devices', 'Planning', 'Dev team', 3, 3, -5, -1, 80, { cost: 12000 }),
     T('Test payments flow', 'Testing', me, 2, 1, -2, 4, 40), T('Regression suite', 'Testing', me, 1, 2, 3, 12, 0), T('Exploratory testing on Android 14', 'Testing', me, 1, 3, 5, 9, 0), T('Fix verification', 'Testing', 'Dev team', 0, 3, 10, 18, 0),
     T('Release notes', 'Release', 'Product', 0, 4, 18, 22, 0), T('Smoke test production build', 'Release', me, 0, 1, 23, 24, 0), T('Crash dashboard check', 'Release', me, 0, 3, 24, 30, 0),
-    T('Daily stand-up', 'Routine', me, 2, 4, -10, 30, 0, { rec: 'weekdays', due: '' }), T('Update stakeholders', 'Routine', me, 2, 3, -7, 30, 0, { rec: 'weekly', due: '' }),
-  ] });
+    T('Daily stand-up', 'Routine', me, 2, 4, -10, 30, 0, { rec: 'weekdays', due: '' }), T('Update stakeholders', 'Routine', me, 2, 3, -7, 30, 0, { rec: 'weekly', due: '' }));
 }
 /* ---- view ---- */
-function mountProjects() {
-  $('#view').innerHTML = `<div class="stack pj" style="gap:16px">
-    <header class="view-head"><div><p class="eyebrow">${icon('kanban', 'sm')}Projects</p><h1>Project manager</h1><p class="muted small">Add each task once. The dashboard, board, timeline, calendar and matrix update themselves.</p></div>
-      <div class="row pj-headact"><label class="sr-only" for="pj-sel">Project</label><select id="pj-sel"></select><button type="button" class="btn ghost" id="pj-edit">${icon('edit', 'sm')}Project details</button><button type="button" class="btn" id="pj-new">${icon('plus')}New project</button></div></header>
-    <div class="pj-tabs" role="tablist" id="pj-tabs"></div>
-    <div id="pj-body"></div></div>`;
-  $('#pj-new').onclick = () => projectModal();
-  $('#pj-edit').onclick = () => { const p = pjCur(); if (p) projectModal(p.id); };
-  $('#pj-sel').onchange = e => { UI_PJ.id = e.target.value; lsSet('bw-pj-cur', UI_PJ.id); updateProjects(); };
-  $('#pj-tabs').onclick = e => { const b = e.target.closest('[data-pjtab]'); if (!b) return; UI_PJ.tab = b.dataset.pjtab; updateProjects(); };
+function mountPmPage(el, note, nb) {
+  PM_NOTE = note.id; PM_HTML = note.html;
+  const pj = pmDecode(note); S.projects = [pj]; UI_PJ.id = pj.id;
+  el.innerHTML = `
+    <div class="ed-head view-enter">
+      <label class="sr-only" for="ed-title">Project name</label>
+      <input id="ed-title" class="ed-title" type="text" maxlength="200" value="${esc(note.title)}" placeholder="Project name">
+      <div class="ed-meta"><span class="badge" style="background:color-mix(in srgb, ${nb ? nb.color : 'var(--accent)'} 15%, transparent)">${icon('kanban', 'sm')}${esc(nb ? nb.name : '')}</span><label>${icon('calendar', 'sm')}<input type="date" id="ed-date" value="${note.date}" aria-label="Page date"></label><span class="ed-status" id="ed-status"><i></i><span>Saved</span></span>${nb && nb.lock ? `<button type="button" class="btn ghost sm" id="ed-lock" title="Lock this notebook now">${icon('lock', 'sm')}Lock</button>` : ''}</div>
+    </div>
+    <div class="pj pj-page">
+      <div class="pj-pagebar"><div class="pj-tabs" role="tablist" id="pj-tabs"></div><div class="row"><button type="button" class="btn ghost sm" id="pj-edit">${icon('edit', 'sm')}Project details</button></div></div>
+      <div id="pj-body"></div>
+    </div>
+    <div class="ed-foot"><span class="small muted mono" id="ed-words"></span>
+      <div class="row"><button type="button" class="btn ghost sm" id="ed-newpg">${icon('plus')}New page</button><button type="button" class="btn ghost sm" id="ed-pdf">${icon('download')}Export page as PDF</button><button type="button" class="btn ghost sm" id="ed-del">${icon('trash')}Delete page</button></div></div>`;
+  const metaSave = pjDebounce(() => { const n = S.notes.find(x => x.id === note.id); if (!n) return; n.title = $('#ed-title').value.trim(); const dv = $('#ed-date').value; if (isYmd(dv)) n.date = dv; pj.name = n.title || 'Untitled project'; n.updatedAt = Date.now(); persistNote(n.id); setEdStatus('Saved', false); const pg = $(`.pg[data-note="${n.id}"] .pg-title`); if (pg) pg.textContent = n.title || 'Untitled page'; }, 600);
+  $('#ed-title', el).addEventListener('input', () => { setEdStatus('Saving…', true); metaSave(); });
+  $('#ed-date', el).addEventListener('change', () => { metaSave(); setTimeout(updateNotebookSidebar, 700); });
+  $('#pj-edit', el).onclick = () => projectModal(pj.id);
+  $('#pj-tabs', el).onclick = e => { const b = e.target.closest('[data-pjtab]'); if (!b) return; UI_PJ.tab = b.dataset.pjtab; updateProjects(); };
+  $('#ed-pdf', el).onclick = () => { flushEditor(); exportNotePdf(note.id); };
+  $('#ed-newpg', el).onclick = () => { flushEditor(); newPageFlow(note.notebookId); };
+  const lkb = $('#ed-lock', el); if (lkb) lkb.onclick = () => { flushEditor(); lockNotebook(note.notebookId).then(() => toast('Notebook locked')); };
+  $('#ed-del', el).onclick = async () => {
+    if (!(await confirmModal(`Delete the project page “${note.title || 'Untitled project'}” and its ${plural(pj.tasks.length, 'task')}?`))) return;
+    PJT.forEach(t => clearTimeout(t)); PJT.clear(); PM_NOTE = null;
+    TOMB.add(note.id); S.notes = S.notes.filter(n => n.id !== note.id); persistNote(note.id);
+    UI.nb.noteId = pagesOf(note.notebookId)[0]?.id || null;
+    updateNotebookSidebar(); mountEditor(); toast('Page deleted');
+  };
   updateProjects();
 }
 function updateProjects() {
-  const body = $('#pj-body'); if (!body) return;
-  if (!S.loaded.projects) { body.innerHTML = '<div class="skel" style="height:320px"></div>'; return; }
-  if (!UI_PJ.id) UI_PJ.id = lsGet('bw-pj-cur') || '';
-  if (UI_PJ.id !== 'all' && !S.projects.some(p => p.id === UI_PJ.id)) UI_PJ.id = S.projects[0] ? S.projects[0].id : null;
-  const sel = $('#pj-sel'), cur = pjCur();
-  sel.innerHTML = S.projects.length ? `${S.projects.length > 1 ? `<option value="all" ${UI_PJ.id === 'all' ? 'selected' : ''}>All projects (${S.projects.length})</option>` : ''}${S.projects.map(p => `<option value="${p.id}" ${p.id === UI_PJ.id ? 'selected' : ''}>${esc(p.name)}</option>`).join('')}` : '<option>No projects yet</option>';
-  sel.disabled = !S.projects.length; $('#pj-edit').hidden = !cur;
+  const body = $('#pj-body'), pj = pjCur(); if (!body || !pj) return;
   const tabs = [['dash', 'Dashboard', 'chart'], ['tasks', 'Tasks', 'list'], ['kanban', 'Kanban', 'kanban'], ['gantt', 'Gantt', 'gantt'], ['cal', 'Calendar', 'calendar'], ['matrix', 'Matrix', 'zap']];
-  $('#pj-tabs').innerHTML = S.projects.length ? tabs.map(([k, l, ic]) => `<button type="button" role="tab" data-pjtab="${k}" aria-selected="${UI_PJ.tab === k}">${icon(ic, 'sm')}${l}</button>`).join('') : '';
-  if (!S.projects.length) {
-    body.innerHTML = `<div class="card pj-empty">${ART.notebook ? ART.notebook() : ''}<h2>Plan a project in one place</h2><p class="muted">Add your tasks once with an owner, dates, status and priority. Bragging Wall draws the dashboard, Kanban board, Gantt chart, calendar and priority matrix for you.</p><div class="row" style="justify-content:center"><button type="button" class="btn" id="pj-first">${icon('plus')}Create a project</button><button type="button" class="btn ghost" id="pj-sample">${icon('sparkles', 'sm')}Try a sample project</button></div></div>`;
-    $('#pj-first').onclick = () => projectModal();
-    $('#pj-sample').onclick = () => { const p = pjSample(); S.projects.push(p); persistProject(p.id); UI_PJ.id = p.id; lsSet('bw-pj-cur', p.id); updateProjects(); toast('Sample project added. Change or delete anything.'); };
+  $('#pj-tabs').innerHTML = tabs.map(([k, l, ic]) => `<button type="button" role="tab" data-pjtab="${k}" aria-selected="${UI_PJ.tab === k}">${icon(ic, 'sm')}${l}</button>`).join('');
+  const w = $('#ed-words'); if (w) w.textContent = `${plural(pj.tasks.length, 'task')} · ${pj.tasks.filter(t => t.status === 4).length} done`;
+  if (!pj.tasks.length && UI_PJ.tab !== 'tasks') {
+    body.innerHTML = `<div class="card pj-empty">${icon('kanban')}<h2>Add your tasks once</h2><p class="muted">Give each task an owner, dates, status and priority. This page then draws the dashboard, Kanban board, Gantt chart, calendar and priority matrix for you, and keeps them in sync.</p><div class="row" style="justify-content:center"><button type="button" class="btn" id="pj-first">${icon('plus')}Add the first task</button><button type="button" class="btn ghost" id="pj-sample">${icon('sparkles', 'sm')}Fill with sample tasks</button><button type="button" class="btn ghost" id="pj-det">${icon('edit', 'sm')}Project details</button></div></div>`;
+    $('#pj-first').onclick = () => { UI_PJ.tab = 'tasks'; updateProjects(); setTimeout(() => $('#pj-add')?.click(), 30); };
+    $('#pj-sample').onclick = () => { pjSampleTasks(pj); pjSave(pj.id); updateProjects(); toast('Sample tasks added. Change or delete anything.'); };
+    $('#pj-det').onclick = () => projectModal(pj.id);
     return;
   }
   ({ dash: pjDash, tasks: pjTasks, kanban: pjKanban, gantt: pjGantt, cal: pjCal, matrix: pjMatrix })[UI_PJ.tab](body);
@@ -6841,26 +6912,21 @@ function taskModal(pid, tid, isNew = false) {
   });
 }
 function projectModal(pid) {
-  const pj = pid ? S.projects.find(p => p.id === pid) : null;
-  let color = pj ? pj.color : PJ_COLORS[S.projects.length % PJ_COLORS.length];
+  const pj = S.projects.find(p => p.id === pid); if (!pj) return;
   openModal({
-    title: pj ? 'Project details' : 'New project', wide: true,
-    body: `<div class="stack"><div class="field"><label for="pm-name">Project name</label><input id="pm-name" type="text" maxlength="80" value="${esc(pj ? pj.name : '')}" placeholder="e.g. Android app release 2.4"></div>
-      <div class="field-row"><div class="field"><label for="pm-mgr">Project manager</label><input id="pm-mgr" maxlength="60" value="${esc(pj ? pj.manager : (S.profile.nickname || S.profile.name || ''))}"></div><div class="field"><label for="pm-cat">Category</label><input id="pm-cat" maxlength="60" value="${esc(pj ? pj.category : '')}" placeholder="e.g. QA, Product, Personal"></div></div>
-      <div class="field-row"><div class="field"><label for="pm-start">Start date</label><input id="pm-start" type="date" value="${pj ? pj.start : todayKey()}"></div><div class="field"><label for="pm-end">End date</label><input id="pm-end" type="date" value="${pj ? pj.end : ''}"></div><div class="field"><label for="pm-bud">Budget</label><input id="pm-bud" type="number" min="0" step="any" value="${pj && pj.budget ? pj.budget : ''}" placeholder="0"></div><div class="field"><label for="pm-rev">Revenue</label><input id="pm-rev" type="number" min="0" step="any" value="${pj && pj.revenue ? pj.revenue : ''}" placeholder="0"></div></div>
-      <div class="field"><label for="pm-team">Team members <span class="opt">comma separated</span></label><input id="pm-team" maxlength="600" value="${esc(pj ? pj.members.join(', ') : '')}" placeholder="e.g. Ana, Dev team, Product"></div>
-      <div class="field"><label for="pm-desc">Description <span class="opt">optional</span></label><textarea id="pm-desc" rows="2" maxlength="1000">${esc(pj ? pj.desc : '')}</textarea></div>
-      <fieldset class="field"><legend>Color</legend><div class="swatches">${PJ_COLORS.map(c => `<label class="swatch"><input type="radio" name="pm-color" value="${c}" ${c === color ? 'checked' : ''} aria-label="Color ${c}"><span style="--sw:${c}"></span></label>`).join('')}</div></fieldset></div>`,
-    actions: [
-      ...(pj ? [{ label: 'Delete project', kind: 'ghost danger', onClick: async () => { if (!(await confirmModal(`Delete “${pj.name}” and its ${plural(pj.tasks.length, 'task')}? This can’t be undone.`))) return false; TOMB.add(pj.id); S.projects = S.projects.filter(p => p.id !== pj.id); persistProject(pj.id); UI_PJ.id = S.projects[0] ? S.projects[0].id : null; updateProjects(); toast('Project deleted'); } }] : []),
-      { label: 'Cancel', kind: 'ghost' },
-      { label: pj ? 'Save' : 'Create project', onClick: w => {
-        const v = { name: $('#pm-name', w).value.trim() || 'Untitled project', manager: $('#pm-mgr', w).value.trim(), category: $('#pm-cat', w).value.trim(), start: $('#pm-start', w).value, end: $('#pm-end', w).value, budget: $('#pm-bud', w).value, revenue: $('#pm-rev', w).value, members: $('#pm-team', w).value.split(','), desc: $('#pm-desc', w).value, color: $('input[name="pm-color"]:checked', w).value };
-        if (v.start && v.end && v.end < v.start) { toast('The end date is before the start date.', 'warn'); return false; }
-        if (pj) { Object.assign(pj, normProject(pj.id, { ...pj, ...v })); persistProject(pj.id); }
-        else { const n = normProject(newId(), { ...v, createdAt: Date.now(), tasks: [] }); S.projects.push(n); persistProject(n.id); UI_PJ.id = n.id; lsSet('bw-pj-cur', n.id); UI_PJ.tab = 'tasks'; toast('Project created. Add your first tasks.'); }
-        if (S.view === 'projects') updateProjects(); else go('projects');
-      } }],
+    title: 'Project details', wide: true,
+    body: `<div class="stack"><p class="small muted">The project name is the page title.</p>
+      <div class="field-row"><div class="field"><label for="pm-mgr">Project manager</label><input id="pm-mgr" maxlength="60" value="${esc(pj.manager || S.profile.nickname || S.profile.name || '')}"></div><div class="field"><label for="pm-cat">Category</label><input id="pm-cat" maxlength="60" value="${esc(pj.category)}" placeholder="e.g. QA, Product, Personal"></div></div>
+      <div class="field-row"><div class="field"><label for="pm-start">Start date</label><input id="pm-start" type="date" value="${pj.start}"></div><div class="field"><label for="pm-end">End date</label><input id="pm-end" type="date" value="${pj.end}"></div><div class="field"><label for="pm-bud">Budget</label><input id="pm-bud" type="number" min="0" step="any" value="${pj.budget || ''}" placeholder="0"></div><div class="field"><label for="pm-rev">Revenue</label><input id="pm-rev" type="number" min="0" step="any" value="${pj.revenue || ''}" placeholder="0"></div></div>
+      <div class="field"><label for="pm-team">Team members <span class="opt">comma separated</span></label><input id="pm-team" maxlength="600" value="${esc(pj.members.join(', '))}" placeholder="e.g. Ana, Dev team, Product"></div>
+      <div class="field"><label for="pm-desc">Description <span class="opt">optional</span></label><textarea id="pm-desc" rows="2" maxlength="1000">${esc(pj.desc)}</textarea></div>
+      <fieldset class="field"><legend>Color</legend><div class="swatches">${PJ_COLORS.map(c => `<label class="swatch"><input type="radio" name="pm-color" value="${c}" ${c === pj.color ? 'checked' : ''} aria-label="Color ${c}"><span style="--sw:${c}"></span></label>`).join('')}</div></fieldset></div>`,
+    actions: [{ label: 'Cancel', kind: 'ghost' }, { label: 'Save', onClick: w => {
+      const v = { manager: $('#pm-mgr', w).value.trim(), category: $('#pm-cat', w).value.trim(), start: $('#pm-start', w).value, end: $('#pm-end', w).value, budget: $('#pm-bud', w).value, revenue: $('#pm-rev', w).value, members: $('#pm-team', w).value.split(','), desc: $('#pm-desc', w).value, color: $('input[name="pm-color"]:checked', w).value };
+      if (v.start && v.end && v.end < v.start) { toast('The end date is before the start date.', 'warn'); return false; }
+      const name = pj.name; Object.assign(pj, normProject(pj.id, { ...pj, ...v })); pj.name = name;
+      pjSave(pj.id); updateProjects();
+    } }],
   });
 }
 
@@ -8133,7 +8199,7 @@ async function restoreFromText(text) {
     else if (!(await confirmModal('This is an older backup that was saved without encryption. Restore it anyway? Consider deleting the old file afterwards.', 'Continue', ''))) return;
     const idOk = s => typeof s === 'string' && /^[A-Za-z0-9_\-.~:@+]{1,100}$/.test(s) && s !== '.' && s !== '..';
     const days = Object.entries(data.days || {}).filter(([k, v]) => isYmd(k) && Array.isArray(v));
-    const nbs = (data.notebooks || []).filter(n => idOk(n && n.id)), notes = (data.notes || []).filter(n => idOk(n && n.id)), walls = (data.walls || []).filter(n => idOk(n && n.id)), projects = (data.projects || []).filter(n => idOk(n && n.id));
+    const nbs = (data.notebooks || []).filter(n => idOk(n && n.id)), notes = (data.notes || []).filter(n => idOk(n && n.id)), walls = (data.walls || []).filter(n => idOk(n && n.id));
     const nWins = days.reduce((a, [, v]) => a + v.length, 0);
     if (!(await confirmModal(`Import ${plural(nWins, 'win')}, ${plural(nbs.length, 'notebook')}, ${plural(notes.length, 'page')} and ${plural(Object.keys(data.files || {}).length, 'attachment and cover file', 'attachment and cover files')} from this backup? Entries with the same ID are replaced; everything else is kept.`, 'Import', ''))) return;
     toast('Importing…');
@@ -8142,7 +8208,6 @@ async function restoreFromText(text) {
     for (const n of nbs) { const v = normNb(n.id, n); TOMB.delete(v.id); S.notebooks = S.notebooks.filter(x => x.id !== v.id).concat(v); touched.push(['nb', v.id]); }
     for (const n of notes) { const v = normNote(n.id, n); TOMB.delete(v.id); v.html = sanitize(v.html); S.notes = S.notes.filter(x => x.id !== v.id).concat(v); touched.push(['n', v.id]); }
     for (const n of walls) { const v = normWall(n.id, n); TOMB.delete(v.id); S.walls = S.walls.filter(x => x.id !== v.id).concat(v); touched.push(['wl', v.id]); }
-    for (const n of projects) { const v = normProject(n.id, n); TOMB.delete(v.id); S.projects = S.projects.filter(x => x.id !== v.id).concat(v); touched.push(['pj', v.id]); }
     if (data.profile) {
       const inc = normProfile(data.profile);
       const have = new Set(S.profile.customCats.map(c => c.key));
@@ -8152,14 +8217,14 @@ async function restoreFromText(text) {
       applyCategories(); touched.push(['p']);
     }
     invalidate(); onData('all');
-    for (const [t, id] of touched) { if (t === 'd') await persistDay(id); else if (t === 'nb') await persistNotebook(id); else if (t === 'n') await persistNote(id); else if (t === 'wl') await persistWall(id); else if (t === 'pj') await persistProject(id); else await persistProfile(); if (S.mode === 'cloud') await sleep(60); }
+    for (const [t, id] of touched) { if (t === 'd') await persistDay(id); else if (t === 'nb') await persistNotebook(id); else if (t === 'n') await persistNote(id); else if (t === 'wl') await persistWall(id); else await persistProfile(); if (S.mode === 'cloud') await sleep(60); }
     for (const [fid, f] of Object.entries(data.files || {})) { if (!/^[A-Za-z0-9_-]{1,60}$/.test(fid) || !f || !f.b64) continue; try { await storeFileBytes(fid, b64ToBuf(f.b64), { name: String(f.name || 'file'), type: String(f.type || '') }); } catch (e) { console.error(e); } }
     toast(`Backup imported: ${plural(nWins, 'win')}, ${plural(nbs.length, 'notebook')}, ${plural(notes.length, 'page')} and ${plural(Object.keys(data.files || {}).length, 'file')}.`);
   }
 }
 async function buildBackupFile(key, keys, protectedBy, quiet, hint) {
   await Promise.all([...SEALING.values()]).catch(() => {});
-  const payload = { profile: S.profile, days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes.map(n => ({ id: n.id, ...noteBody(n) })), walls: S.walls, projects: S.projects, files: {} };
+  const payload = { profile: S.profile, days: Object.fromEntries(S.days), notebooks: S.notebooks, notes: S.notes.map(n => ({ id: n.id, ...noteBody(n) })), walls: S.walls, files: {} };
   const refs = allFileRefs(); let missing = 0;
   if (refs.length && !quiet) toast(`Packing ${plural(refs.length, 'attachment')}…`);
   for (const f of refs) { try { const { bytes, meta } = await loadFileBytes(f.id); payload.files[f.id] = { name: meta.name, type: meta.type, b64: bufToB64(bytes) }; } catch (e) { console.error(e); missing++; } }
@@ -8727,7 +8792,7 @@ async function lockNow(auto) {
   NBK.clear(); PLAIN.clear();
   S.unsubs.forEach(u => { try { u(); } catch (e) { /* ignore */ } });
   S.unsubs = [];
-  S.days = new Map(); S.notebooks = []; S.notes = []; S.walls = []; S.projects = []; S.profile = normProfile({}); applyCategories(); invalidate();
+  S.days = new Map(); S.notebooks = []; S.notes = []; S.walls = []; S.profile = normProfile({}); applyCategories(); invalidate();
   CRYPTO.key = CRYPTO.readKey = null; decCache = new WeakMap(); shownCounts.clear(); fileURLs.forEach(u => URL.revokeObjectURL(u)); fileURLs.clear();
   UI.report.ai = null; UI.report.edits = null;
   S.view = null; $('#view').innerHTML = ''; setBanner(null);
@@ -8741,7 +8806,7 @@ async function boot() {
   if (db && uid) {
     S.mode = 'cloud'; S.db = db;
     const profile = db.doc(`data/users/${uid}/profile`);
-    S.refs = { profile, wins: profile.collection('wins'), notebooks: profile.collection('notebooks'), notes: profile.collection('notes'), walls: profile.collection('walls'), projects: profile.collection('projects'), files: profile.collection('files'), lock: profile.collection('meta').doc('lock') };
+    S.refs = { profile, wins: profile.collection('wins'), notebooks: profile.collection('notebooks'), notes: profile.collection('notes'), walls: profile.collection('walls'), files: profile.collection('files'), lock: profile.collection('meta').doc('lock') };
   } else S.mode = 'local';
   if (!window.crypto || !crypto.subtle) { S.lock = null; startApp(); return; }
   try { S.lock = await readLock(); } catch (e) { console.error(e); showGate('error'); return; }
@@ -8775,8 +8840,6 @@ function openPalette() {
     { g: 'Actions', label: 'Brag your win', icon: 'megaphone', run: () => { UI.selDate = todayKey(); go('today'); setTimeout(() => $('#t-title')?.focus(), 350); } },
     { g: 'Actions', label: 'New journal entry for today', icon: 'pen', run: () => { const nb = S.notebooks.find(n => n.kind === 'journal') || S.notebooks[0]; if (!nb) { go('notebooks'); return; } openNote(createPage(nb.id, todayKey(), nb.kind === 'journal' ? 'journal' : KINDS[nb.kind].tpl)); } },
     { g: 'Actions', label: 'Open my Freedom Wall', icon: 'wall', run: () => go('walls') },
-    { g: 'Actions', label: 'Open the Project manager', icon: 'kanban', run: () => go('projects') },
-    { g: 'Actions', label: 'New project', icon: 'plus', run: () => projectModal() },
     { g: 'Actions', label: 'Collapse or expand the side menu', icon: 'panelL', run: () => toggleSide() },
     { g: 'Actions', label: 'Email my brags as PDF', icon: 'mail', run: () => openEmailDialog({ scope: 'week', anchor: todayKey() }) },
     { g: 'Actions', label: 'Cheer me up', icon: 'sparkles', run: cheer },
